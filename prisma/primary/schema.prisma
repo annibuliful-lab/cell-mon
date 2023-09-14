@@ -1,0 +1,299 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("PRIMARY_DATABASE_URL")
+}
+
+enum PermissionAction {
+  CREATE
+  UPDATE
+  DELETE
+  READ
+}
+
+enum CellularTechnology {
+  NR
+  LTE
+  GSM
+  WCDMA
+}
+
+enum MissionStatus {
+  DRAFT
+  PLANNING
+  INVESTIGATING
+  COMPLETED
+  FAILED
+}
+
+model Permission {
+  id      String           @id @default(uuid()) @db.Uuid
+  subject String
+  action  PermissionAction
+
+  @@map("permission")
+}
+
+model Account {
+  id               String                @id @default(uuid()) @db.Uuid
+  username         String
+  password         String
+  sessionTokens    SessionToken[]
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime?
+  configuration    AccountConfiguration?
+  workspaceAccount WorkspaceAccount[]
+
+  @@map("account")
+}
+
+model AccountConfiguration {
+  accountId String    @id @db.Uuid
+  account   Account   @relation(fields: [accountId], onDelete: Cascade, references: [id])
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+
+  @@map("account_configuration")
+}
+
+model SessionToken {
+  token     String    @id
+  revoke    Boolean   @default(false)
+  accountId String    @db.Uuid
+  account   Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+
+  @@map("session_token")
+}
+
+model Workspace {
+  id                       String                    @id @db.Uuid
+  title                    String
+  description              String?
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime?
+  createdBy                String
+  updatedBy                String?
+  workspaceRolePermissions WorkspaceRolePermission[]
+  workspaceAccounts        WorkspaceAccount[]
+  targets                  Target[]
+  missions                 Mission[]
+  workspaceRoles           WorkspaceRole[]
+
+  @@map("workspace")
+}
+
+model WorkspaceConfiguration {
+  id        String    @id @db.Uuid
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  createdBy String
+  updatedBy String?
+
+  @@map("workspace_configuration")
+}
+
+model WorkspaceRole {
+  id                       String                    @id @db.Uuid
+  workspaceId              String                    @db.Uuid
+  workspace                Workspace                 @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  title                    String
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime?
+  createdBy                String
+  updatedBy                String?
+  workspaceAccounts        WorkspaceAccount[]
+  workspaceRolePermissions WorkspaceRolePermission[]
+
+  @@map("workspace_role")
+}
+
+model WorkspaceRolePermission {
+  workspaceId  String        @db.Uuid
+  workspace    Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  roleId       String        @db.Uuid
+  role         WorkspaceRole @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permissionId String        @db.Uuid
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime?
+  createdBy    String
+  updatedBy    String?
+
+  @@id([permissionId, roleId])
+  @@map("workspace_role_permission")
+}
+
+model WorkspaceAccount {
+  workspaceId String        @id @db.Uuid
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  accountId   String        @db.Uuid
+  account     Account       @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  roleId      String        @db.Uuid
+  role        WorkspaceRole @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime?
+  createdBy   String
+  updatedBy   String?
+
+  @@map("workspace_account")
+}
+
+model PhoneMetadata {
+  id          String        @id @db.Uuid
+  msisdn      String
+  imsi        String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime?
+  createdBy   String
+  updatedBy   String?
+  PhoneTarget PhoneTarget[]
+
+  @@map("phone_metadata")
+}
+
+model Mission {
+  id             String          @id @default(uuid()) @db.Uuid
+  workspaceId    String          @db.Uuid
+  workspace      Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  name           String
+  description    String?
+  status         MissionStatus   @default(DRAFT)
+  createdBy      String
+  updatedBy      String
+  deletedAt      DateTime
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime?
+  missionTargets MissionTarget[]
+
+  @@map("mission")
+}
+
+model Target {
+  id              String           @id @default(uuid()) @db.Uuid
+  workspaceId     String           @db.Uuid
+  workspace       Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  name            String
+  description     String?
+  photoUrl        String?
+  address         String?
+  metadata        Json?            @db.JsonB
+  createdBy       String
+  updatedBy       String
+  deletedAt       DateTime
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime?
+  phoneTargets    PhoneTarget[]
+  targetEvidences TargetEvidence[]
+  missionTargets  MissionTarget[]
+
+  @@map("target")
+}
+
+model MissionTarget {
+  missionId String    @db.Uuid
+  mission   Mission   @relation(fields: [missionId], references: [id], onDelete: Cascade)
+  targetId  String    @db.Uuid
+  target    Target    @relation(fields: [targetId], references: [id], onDelete: Cascade)
+  createdBy String
+  updatedBy String
+  deletedAt DateTime
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+
+  @@id([missionId, targetId])
+  @@map("mission_target")
+}
+
+model TargetEvidence {
+  id               String    @id @default(uuid()) @db.Uuid
+  targetId         String    @db.Uuid
+  target           Target    @relation(fields: [targetId], references: [id], onDelete: Cascade)
+  evidence         Json?     @db.JsonB
+  note             String
+  investigatedDate DateTime
+  createdBy        String
+  updatedBy        String
+  deletedAt        DateTime
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime?
+
+  @@map("target_evidence")
+}
+
+model PhoneTarget {
+  id                   String                @id @default(uuid()) @db.Uuid
+  phoneId              String                @db.Uuid
+  phone                PhoneMetadata         @relation(fields: [phoneId], references: [id], onDelete: Cascade)
+  targetId             String                @db.Uuid
+  target               Target                @relation(fields: [targetId], references: [id], onDelete: Cascade)
+  createdBy            String
+  updatedBy            String
+  deletedAt            DateTime
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime?
+  phoneTargetLocations PhoneTargetLocation[]
+
+  @@map("phone_target")
+}
+
+model PhoneTargetLocation {
+  id             String             @id @default(uuid()) @db.Uuid
+  phoneTargetId  String             @db.Uuid
+  metadata       Json?              @db.JsonB
+  createdBy      String
+  sourceDateTime DateTime
+  createdAt      DateTime           @default(now())
+  cellInfo       PhoneCellInfo?
+  network        PhoneNetwork?
+  geoLocations   PhoneGeoLocation[]
+  phoneTargets   PhoneTarget        @relation(fields: [phoneTargetId], references: [id])
+
+  @@map("phone_location")
+}
+
+model PhoneNetwork {
+  phoneLocationId    String              @id @db.Uuid
+  phoneLocation      PhoneTargetLocation @relation(fields: [phoneLocationId], references: [id], onDelete: Cascade)
+  subscriptionStatus String
+  roaming            Boolean
+  code               String
+  name               String
+  operator           String
+  mnc                String
+  mcc                String
+
+  @@map("phone_network")
+}
+
+model PhoneCellInfo {
+  phoneLocationId String              @id @db.Uuid
+  phoneLocation   PhoneTargetLocation @relation(fields: [phoneLocationId], references: [id], onDelete: Cascade)
+  type            CellularTechnology
+  cid             String? // 2G 3G 4G
+  lcid            String? // 4G
+  lac             String? // 2G 3G
+  ci              String? // 2G
+  eci             String? // 4G
+  tac             String? // 5G 4G
+  enb             String? // 4G
+  nci             String? // 5G
+
+  @@map("phone_cell_info")
+}
+
+model PhoneGeoLocation {
+  id              String              @id @default(uuid()) @db.Uuid
+  phoneLocationId String              @db.Uuid
+  phoneLocation   PhoneTargetLocation @relation(fields: [phoneLocationId], references: [id], onDelete: Cascade)
+  latitude        Decimal             @db.Decimal(8, 6)
+  longtitude      Decimal             @db.Decimal(9, 6)
+  source          String
+
+  @@map("phone_geo_location")
+}
