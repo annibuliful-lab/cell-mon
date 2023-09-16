@@ -7,10 +7,7 @@ export const accountTypeDefs = gql`
   }
 
   input CreateAccountInput {
-    picture: String
-    fullname: String
     username: String!
-    email: String!
     password: String!
   }
 
@@ -18,9 +15,6 @@ export const accountTypeDefs = gql`
     password: String
     newPassword: String
     username: String
-    email: String
-    picture: String
-    fullname: String
   }
 
   type Mutation {

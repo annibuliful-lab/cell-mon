@@ -43,10 +43,7 @@ export class AuthenticationService extends PrimaryRepository<
 
     await this.db
       .insertInto('session_token')
-      .values([
-        { hash: hashToken },
-        { parentHashId: hashToken, hash: hashRefreshToken },
-      ])
+      .values({ token: hashToken, accountId })
       .execute();
 
     return {

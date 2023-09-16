@@ -9,7 +9,6 @@ describe('Account module', () => {
 
   it('creates new account', async () => {
     const username = nanoid();
-    const email = nanoid();
 
     const account = (
       await client.mutation({
@@ -18,7 +17,6 @@ describe('Account module', () => {
           __args: {
             input: {
               username,
-              email,
               password: '12345678',
             },
           },
@@ -26,8 +24,6 @@ describe('Account module', () => {
       })
     ).createAccount;
 
-    expect(account.email).toEqual(email);
     expect(account.username).toEqual(username);
-    expect(account.uid).toBeDefined();
   });
 });

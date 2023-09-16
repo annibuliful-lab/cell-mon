@@ -5,6 +5,7 @@ import {
   NotfoundResource,
 } from '@cell-mon/graphql';
 import { hash } from 'argon2';
+import { v4 } from 'uuid';
 
 import {
   Account,
@@ -36,6 +37,7 @@ export class AccountService extends PrimaryRepository<
     return this.db
       .insertInto('account')
       .values({
+        id: v4(),
         ...input,
       })
       .returningAll()

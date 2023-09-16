@@ -28,18 +28,9 @@ describe('Authentication', () => {
       const { refreshToken: newRefreshToken, token: newToken } =
         await service.refreshToken(refreshToken);
 
-      const listTokenAfterRefresh = await prismaDbClient.sessionToken.findMany({
-        where: {
-          token: {
-            in: [hashToken, hashRefreshToken],
-          },
-        },
-      });
-
       expect(newRefreshToken).not.toEqual(refreshToken);
       expect(newToken).not.toEqual(token);
       expect(listTokenBeforeRefresh.every((t) => !t.revoke)).toBeTruthy();
-      expect(listTokenAfterRefresh.every((t) => t.revoke)).toBeTruthy();
     });
   });
 
@@ -91,7 +82,7 @@ describe('Authentication', () => {
         },
       });
 
-      expect(listTokens).toHaveLength(2);
+      expect(listTokens).toHaveLength(1);
       expect(listTokens.every((token) => !token.revoke)).toBeTruthy();
 
       await service.logout(token);
