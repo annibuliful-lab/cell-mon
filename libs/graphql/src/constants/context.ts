@@ -1,10 +1,10 @@
-import { PermissionAbility } from 'kysely-codegen';
+import { Permission } from '@prisma/client';
 
 export interface IGraphqlContext {
-  workspaceId?: number;
+  workspaceId?: string;
   accountId: string;
   projectId: string;
-  permissions: Pick<PermissionAbility, 'action' | 'subject'>[];
+  permissions: Pick<Permission, 'action' | 'subject'>[];
   role: string;
   projectFeatureFlags: string[];
   accessToken: string;
@@ -13,7 +13,7 @@ export interface IGraphqlContext {
 }
 
 export const MOCK_GRAPHQL_CONTEXT: IGraphqlContext = {
-  workspaceId: -1,
+  workspaceId: '',
   accountId: 'MOCK_USER_ID',
   projectId: 'MOCK_PROJECT_ID',
   permissions: [],

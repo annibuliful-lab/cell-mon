@@ -21,15 +21,8 @@ import schema from './graphql';
 import { hidePoweredBy } from './hooks/hide-powered-by';
 import { AccountService } from './modules/account/account.service';
 import { AuthenticationService } from './modules/authentication/authentication.service';
-import {
-  FeatureFlagService,
-  WorkspaceFeatureflagService,
-} from './modules/feature-flag/feature-flag.service';
 import { Fileservice } from './modules/file/file.service';
-import { MessageGroupService } from './modules/message/message-group.service';
-import { MessageGroupMemberService } from './modules/message/message-group-member.service';
 import { PermissionAbilityService } from './modules/permission-ability/permission-ability.service';
-import { ProjectService } from './modules/project/project.service';
 import { WorkspaceService } from './modules/workspace/workspace.service';
 import { uploadFileController } from './upload-file';
 
@@ -49,9 +42,7 @@ export async function main() {
   server.register(hidePoweredBy, { setTo: 'PHP/7.0.33' });
   server.register(cookie, { secret: process.env.COOKIE_SECRET });
   server.register(csrfProtection, { cookieOpts: { signed: true } });
-  server.register(mercuriusGQLUpload, {
-    validate: false,
-  });
+  server.register(mercuriusGQLUpload);
 
   uploadFileController(server);
   await server.register(fastifyOpentelemetry, { wrapRoutes: true });
@@ -108,10 +99,10 @@ export async function main() {
         };
       }
 
-      const { accountId, role, permissions, featureFlags, workspaceId } =
+      const { accountId, role, permissions, workspaceId } =
         await verifyLocalAuthentication({
           token: authorization,
-          projectId: projectId ? Number(projectId) : undefined,
+          projectId,
         });
 
       const context: IGraphqlContext = {
@@ -122,7 +113,7 @@ export async function main() {
         permissions,
         role: role as string,
         projectId,
-        projectFeatureFlags: featureFlags as string[],
+        projectFeatureFlags: [],
         workspaceId,
       };
       span.end();
@@ -130,15 +121,10 @@ export async function main() {
       return {
         ...context,
         workspaceService: new WorkspaceService(context),
-        workspaceFeatureflagService: new WorkspaceFeatureflagService(context),
         authenticationService: new AuthenticationService(context),
         accountService: new AccountService(context),
         permissionAbilityService: new PermissionAbilityService(context),
-        featureFlagService: new FeatureFlagService(context),
         fileservice: new Fileservice(context),
-        projectService: new ProjectService(context),
-        messageGroupService: new MessageGroupService(context),
-        messageGroupMemberService: new MessageGroupMemberService(context),
       };
     },
   });

@@ -1,7 +1,6 @@
 import {
   accessDirective,
   authorizeDirective,
-  authorizeMessageGroupDirective,
   deleteOperationResultTypeDef,
   serialIdTypeDef,
 } from '@cell-mon/graphql';
@@ -16,8 +15,6 @@ import { workspaceTypeDefs } from '../modules/workspace/workspace.schema';
 
 const { accessdDirectiveTypeDefs } = accessDirective();
 const { authorizedDirectiveTypeDefs } = authorizeDirective();
-const { authorizeMessageGroupDirectiveTypeDefs } =
-  authorizeMessageGroupDirective();
 
 export const typeDefs = print(
   mergeTypeDefs([
@@ -29,7 +26,6 @@ export const typeDefs = print(
     authenticationTypeDefs,
     accessdDirectiveTypeDefs,
     authorizedDirectiveTypeDefs,
-    authorizeMessageGroupDirectiveTypeDefs,
     serialIdTypeDef,
   ])
 );

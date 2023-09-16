@@ -5,7 +5,6 @@ import {
   NotfoundResource,
 } from '@cell-mon/graphql';
 import { hash } from 'argon2';
-import { v4 } from 'uuid';
 
 import {
   Account,
@@ -19,26 +18,13 @@ export class AccountService extends PrimaryRepository<
 > {
   constructor(ctx: IGraphqlContext) {
     super(ctx);
-    this.dbColumns = [
-      'account.active',
-      'account.email',
-      'account.fullname',
-      'account.id',
-      'account.uid',
-      'account.picture',
-    ];
+    this.dbColumns = ['account.id'];
   }
   async create(input: CreateAccountInput) {
     const user = await this.db
       .selectFrom('account')
       .select(['id'])
-      .where(({ or, cmpr }) =>
-        or([
-          cmpr('username', '=', input.username),
-          cmpr('email', '=', input.username),
-        ])
-      )
-
+      .where('username', '=', input.username)
       .executeTakeFirst();
 
     if (user) {
@@ -51,15 +37,12 @@ export class AccountService extends PrimaryRepository<
       .insertInto('account')
       .values({
         ...input,
-        uid: v4(),
-        createdBy: this.context.accountId ?? 'SYSTEM',
-        updatedBy: this.context.accountId ?? 'SYSTEM',
       })
       .returningAll()
       .executeTakeFirst();
   }
 
-  async update(id: number, input: UpdateAccountInput) {
+  async update(id: string, input: UpdateAccountInput) {
     const user = await this.db
       .updateTable('account')
       .set(input)
@@ -74,7 +57,7 @@ export class AccountService extends PrimaryRepository<
     return user;
   }
 
-  async findById(id: number) {
+  async findById(id: string) {
     return this.db
       .selectFrom('account')
       .select(this.dbColumns)

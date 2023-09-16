@@ -1,36 +1,34 @@
 import { prismaDbClient, redisClient } from '@cell-mon/db';
 import { IJwtAuthInfo, jwtVerify } from '@cell-mon/utils';
-import { PermissionAbility } from 'kysely-codegen';
+import { Permission } from '@prisma/client';
 
 import { AuthenticationError } from '../errors/authentication';
-import { ForbiddenError } from '../errors/forbidden';
 
 const CACHE_EXPIRE = 3600;
 
 type AccountInfo = {
   accountUid: string;
-  accountId: number;
-  projectId?: number;
+  accountId: string;
+  projectId?: string;
   role?: string;
-  workspaceIds: number[];
-  permissions: Pick<PermissionAbility, 'action' | 'subject'>[];
-  featureFlags?: string[];
-  workspaceId?: number;
+  workspaceIds: string[];
+  permissions: Pick<Permission, 'action' | 'subject'>[];
+  workspaceId?: string;
 };
 
 type ValidateLocalAuthenticationParams = {
   token: string;
-  projectId?: number;
+  projectId?: string;
 };
 
-async function getAccountInfo(userInfo: IJwtAuthInfo, projectId: number) {
+async function getAccountInfo(userInfo: IJwtAuthInfo, projectId?: string) {
   const accountId = (
     await prismaDbClient.account.findUnique({
       select: {
         id: true,
       },
       where: {
-        uid: userInfo.accountId,
+        id: userInfo.accountId,
       },
     })
   )?.id;
@@ -45,7 +43,6 @@ async function getAccountInfo(userInfo: IJwtAuthInfo, projectId: number) {
       workspaceIds: userInfo.workspaceIds,
       accountId,
       permissions: [],
-      featureFlags: [],
     };
 
     await redisClient.set(
@@ -58,68 +55,63 @@ async function getAccountInfo(userInfo: IJwtAuthInfo, projectId: number) {
     return accountInfo;
   }
 
-  const accountProjectRole = await prismaDbClient.projectAccount.findFirst({
-    select: {
-      project: {
-        select: {
-          workspace: {
-            select: {
-              id: true,
-              workspaceFeatureFlags: {
-                select: {
-                  featureFlag: {
-                    select: {
-                      flag: true,
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-      role: {
-        select: {
-          title: true,
-          rolePermissions: {
-            select: {
-              permissionAbility: {
-                select: {
-                  action: true,
-                  subject: true,
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-    where: {
-      accountId,
-      projectId,
-    },
-  });
+  // const accountProjectRole = await prismaDbClient.projectAccount.findFirst({
+  //   select: {
+  //     project: {
+  //       select: {
+  //         workspace: {
+  //           select: {
+  //             id: true,
+  //             workspaceFeatureFlags: {
+  //               select: {
+  //                 featureFlag: {
+  //                   select: {
+  //                     flag: true,
+  //                   },
+  //                 },
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     },
+  //     role: {
+  //       select: {
+  //         title: true,
+  //         rolePermissions: {
+  //           select: {
+  //             permissionAbility: {
+  //               select: {
+  //                 action: true,
+  //                 subject: true,
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  //   where: {
+  //     accountId,
+  //     projectId,
+  //   },
+  // });
 
-  if (!accountProjectRole) {
-    throw new ForbiddenError('You are not in this project');
-  }
+  // if (!accountProjectRole) {
+  //   throw new ForbiddenError('You are not in this project');
+  // }
 
-  const permissions = accountProjectRole.role.rolePermissions.map((p) => ({
-    action: p.permissionAbility.action,
-    subject: p.permissionAbility.subject,
-  }));
+  // const permissions = accountProjectRole.role.rolePermissions.map((p) => ({
+  //   action: p.permissionAbility.action,
+  //   subject: p.permissionAbility.subject,
+  // }));
 
   const accountInfo: AccountInfo = {
     accountUid: userInfo.accountId,
     workspaceIds: userInfo.workspaceIds,
     accountId,
-    projectId,
-    role: accountProjectRole.role.title,
-    permissions,
-    featureFlags:
-      accountProjectRole.project.workspace.workspaceFeatureFlags.map(
-        (f) => f.featureFlag.flag
-      ),
+    role: '',
+    permissions: [],
   };
 
   if (!accountInfo) {
@@ -138,11 +130,12 @@ async function getAccountInfo(userInfo: IJwtAuthInfo, projectId: number) {
     workspaceIds: userInfo.workspaceIds,
     projectId,
     accountId,
-    role: accountProjectRole.role.title,
-    workspaceId: accountProjectRole.project.workspace.id,
-    permissions,
+    role: '',
+    workspaceId: '',
+    permissions: [],
   };
 }
+
 export async function verifyLocalAuthentication({
   token,
   projectId,
@@ -162,9 +155,9 @@ export async function verifyLocalAuthentication({
       (!accountInfo.projectId && projectId) ||
       accountInfo.projectId !== projectId
     ) {
-      return getAccountInfo(userInfo, projectId as number);
+      return getAccountInfo(userInfo, projectId);
     }
   }
 
-  return getAccountInfo(userInfo, projectId as number);
+  return getAccountInfo(userInfo, projectId);
 }

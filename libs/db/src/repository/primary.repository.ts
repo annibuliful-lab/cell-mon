@@ -1,10 +1,10 @@
 import { Redis } from 'ioredis';
 import { CompiledQuery, Kysely, QueryResult, SelectExpression } from 'kysely';
 import { From } from 'kysely/dist/cjs/parser/table-parser';
-import { DB } from 'kysely-codegen';
 
 import { primaryDbClient } from '../clients/primary.client';
 import { redisClient } from '../clients/redis.client';
+import { DB } from '../generated/primary/types';
 export interface ICommand {
   readonly sql: string;
   readonly parameters: ReadonlyArray<unknown>;

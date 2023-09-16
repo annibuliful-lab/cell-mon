@@ -1,6 +1,5 @@
 import { PrimaryRepository } from '@cell-mon/db';
 import { IGraphqlContext, NotfoundResource } from '@cell-mon/graphql';
-import { PermissionAbility } from 'kysely-codegen';
 import { v4 } from 'uuid';
 
 import {
@@ -10,30 +9,20 @@ import {
 } from '../../codegen-generated';
 
 export class PermissionAbilityService extends PrimaryRepository<
-  'permission_ability',
+  'permission',
   IGraphqlContext
 > {
   constructor(context: IGraphqlContext) {
     super(context);
-    this.dbColumns = [
-      'action',
-      'id',
-      'createdAt',
-      'createdBy',
-      'updatedAt',
-      'updatedBy',
-      'subject',
-    ] as const;
+    this.dbColumns = ['action', 'id', 'subject'];
   }
 
   create(input: CreatePermissionAbilityInput) {
     return this.db
-      .insertInto('permission_ability')
+      .insertInto('permission')
       .values({
         id: v4(),
         ...input,
-        createdBy: this.context.accountId,
-        updatedBy: this.context.accountId,
       })
       .returningAll()
       .executeTakeFirst();
@@ -41,12 +30,8 @@ export class PermissionAbilityService extends PrimaryRepository<
 
   async update(id: string, input: UpdatePermissionAbilityInput) {
     const updatedResult = await this.db
-      .updateTable('permission_ability')
-      .set({
-        ...input,
-        updatedBy: this.context.accountId,
-        updatedAt: new Date(),
-      })
+      .updateTable('permission')
+      .set(input)
       .where('id', '=', id)
       .returningAll()
       .executeTakeFirst();
@@ -60,7 +45,7 @@ export class PermissionAbilityService extends PrimaryRepository<
 
   async delete(id: string) {
     const deleteResult = await this.db
-      .deleteFrom('permission_ability')
+      .deleteFrom('permission')
       .where('id', '=', id)
       .returning('id')
       .executeTakeFirst();
@@ -74,7 +59,7 @@ export class PermissionAbilityService extends PrimaryRepository<
 
   async findById(id: string) {
     const permissionAbility = await this.db
-      .selectFrom('permission_ability')
+      .selectFrom('permission')
       .select(this.dbColumns)
       .where('id', '=', id)
       .executeTakeFirst();
@@ -83,16 +68,16 @@ export class PermissionAbilityService extends PrimaryRepository<
       throw new NotfoundResource(['id']);
     }
 
-    return permissionAbility as PermissionAbility;
+    return permissionAbility;
   }
 
   async findMany(filter: PermissionAbilityFilterInput) {
     return this.db
-      .selectFrom('permission_ability')
+      .selectFrom('permission')
       .select(this.dbColumns)
       .$if(!!filter.subject, (qb) => qb.where('subject', '=', filter.subject))
       .offset(filter.offset ?? 0)
       .limit(filter.limit ?? 20)
-      .execute() as Promise<PermissionAbility[]>;
+      .execute();
   }
 }

@@ -12,6 +12,6 @@ export const mutationResolver: Resolvers<AppContext>['Mutation'] = {
 
 export const queryResolver: Resolvers<AppContext>['Query'] = {
   me: (_, _input, ctx) => {
-    return ctx.accountService.findById(Number(ctx.accountId));
+    return ctx.accountService.findById(ctx.accountId);
   },
 };

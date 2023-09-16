@@ -6,7 +6,6 @@ export {
 } from './dataloader/transform-custom-field';
 export { accessDirective } from './directives/access';
 export { authorizeDirective } from './directives/authorize';
-export { authorizeMessageGroupDirective } from './directives/authorize-message-group';
 export { AuthenticationError } from './errors/authentication';
 export { BadRequest } from './errors/bad-request';
 export { DuplicatedResource } from './errors/duplicated-resource';

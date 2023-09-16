@@ -42,7 +42,7 @@ export class AuthenticationService extends PrimaryRepository<
     const hashRefreshToken = this.hashSha256(refreshToken);
 
     await this.db
-      .insertInto('authentication_token')
+      .insertInto('session_token')
       .values([
         { hash: hashToken },
         { parentHashId: hashToken, hash: hashRefreshToken },
@@ -64,28 +64,13 @@ export class AuthenticationService extends PrimaryRepository<
       throw new AuthenticationError('Unauthorization');
     }
 
-    await this.db.transaction().execute(async (tx) => {
-      const refreshToken = await tx
-        .updateTable('authentication_token')
-        .set({
-          isRevoke: true,
-          revokeDateTime: new Date(),
-        })
-        .where('hash', '=', this.hashSha256(token))
-        .returning('parentHashId')
-        .executeTakeFirst();
-
-      if (refreshToken.parentHashId) {
-        await tx
-          .updateTable('authentication_token')
-          .set({
-            isRevoke: true,
-            revokeDateTime: new Date(),
-          })
-          .where('hash', '=', refreshToken.parentHashId)
-          .executeTakeFirst();
-      }
-    });
+    await this.db
+      .updateTable('session_token')
+      .set({
+        revoke: true,
+      })
+      .where('token', '=', this.hashSha256(token))
+      .executeTakeFirst();
 
     return this.generateToken(userInfo);
   }
@@ -101,12 +86,11 @@ export class AuthenticationService extends PrimaryRepository<
     await this.redis.del(userInfo.accountId);
 
     return this.db
-      .updateTable('authentication_token')
+      .updateTable('session_token')
       .set({
-        isRevoke: true,
-        revokeDateTime: new Date(),
+        revoke: true,
       })
-      .where('hash', '=', hash)
+      .where('token', '=', hash)
       .executeTakeFirst();
   }
 
@@ -115,14 +99,8 @@ export class AuthenticationService extends PrimaryRepository<
   ): Promise<Authentication & { hashToken: string; hashRefreshToken: string }> {
     const user = await this.db
       .selectFrom('account')
-      .select(['id', 'password', 'uid'])
-      .where(({ or, cmpr }) =>
-        or([
-          cmpr('username', '=', input.username),
-          cmpr('email', '=', input.username),
-        ])
-      )
-      .where('deletedAt', '=', null)
+      .select(['id', 'password'])
+      .where('username', '=', input.username)
       .executeTakeFirst();
 
     if (!user) {
@@ -134,13 +112,9 @@ export class AuthenticationService extends PrimaryRepository<
     }
 
     const workspaceIds = (
-      await this.db
-        .selectFrom('workspace')
-        .select(['id'])
-        .where('ownerId', '=', user.id)
-        .execute()
+      await this.db.selectFrom('workspace').select(['id']).execute()
     ).map((w) => w.id);
 
-    return this.generateToken({ workspaceIds, accountId: user.uid });
+    return this.generateToken({ workspaceIds, accountId: user.id });
   }
 }

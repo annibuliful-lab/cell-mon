@@ -11,7 +11,7 @@ export interface IJwtAuthInfo extends jwt.JwtPayload {
    *  alias as account uid (UUID)
    */
   accountId: string;
-  workspaceIds: number[];
+  workspaceIds: string[];
 }
 
 export const sign = ({

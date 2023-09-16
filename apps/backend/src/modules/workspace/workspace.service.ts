@@ -1,6 +1,5 @@
 import { PrimaryRepository } from '@cell-mon/db';
 import { IGraphqlContext, NotfoundResource } from '@cell-mon/graphql';
-import { Workspace } from 'kysely-codegen';
 
 import {
   CreateWorkspaceInput,
@@ -16,13 +15,10 @@ export class WorkspaceService extends PrimaryRepository<
     super(context);
     this.dbColumns = [
       'id',
-      'ownerId',
-      'slug',
       'title',
       'description',
       'createdAt',
       'updatedAt',
-      'deletedAt',
       'createdBy',
       'updatedBy',
     ];
@@ -33,7 +29,6 @@ export class WorkspaceService extends PrimaryRepository<
       .insertInto('workspace')
       .values({
         ...input,
-        ownerId: Number(this.context.accountId),
         createdBy: this.context.accountId,
         updatedBy: this.context.accountId,
       })
@@ -41,7 +36,7 @@ export class WorkspaceService extends PrimaryRepository<
       .executeTakeFirst();
   }
 
-  async update(id: number, input: UpdateWorkspaceInput) {
+  async update(id: string, input: UpdateWorkspaceInput) {
     const workspace = await this.db
       .updateTable('workspace')
       .set({
@@ -60,7 +55,7 @@ export class WorkspaceService extends PrimaryRepository<
     return workspace;
   }
 
-  async findById(id: number) {
+  async findById(id: string) {
     const workspace = await this.db
       .selectFrom('workspace')
       .select(this.dbColumns)
@@ -71,16 +66,16 @@ export class WorkspaceService extends PrimaryRepository<
       throw new NotfoundResource(['workspace']);
     }
 
-    return workspace as Workspace;
+    return workspace;
   }
 
   findManyByAccountId(filter: WorkspaceFilterInput) {
     return this.db
       .selectFrom('workspace')
       .select(this.dbColumns)
-      .where('ownerId', '=', filter.accountId)
+
       .limit(filter.limit ?? 20)
       .offset(filter.offset ?? 0)
-      .execute() as Promise<Workspace[]>;
+      .execute();
   }
 }
