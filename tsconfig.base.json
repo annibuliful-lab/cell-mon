@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@tadchud-erp/db": ["libs/db/src/index.ts"],
+      "@tadchud-erp/graphql": ["libs/graphql/src/index.ts"],
+      "@tadchud-erp/rule-engine": ["libs/rule-engine/src/index.ts"],
+      "@tadchud-erp/test": ["libs/test/src/index.ts"],
+      "@tadchud-erp/tracer": ["libs/tracer/src/index.ts"],
+      "@tadchud-erp/utils": ["libs/utils/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
