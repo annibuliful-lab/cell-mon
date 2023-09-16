@@ -1,6 +1,6 @@
-import { prismaDbClient } from '@tadchud-erp/db';
-import { MOCK_GRAPHQL_CONTEXT } from '@tadchud-erp/graphql';
-import { expectNotFoundError } from '@tadchud-erp/test';
+import { prismaDbClient } from '@cell-mon/db';
+import { MOCK_GRAPHQL_CONTEXT } from '@cell-mon/graphql';
+import { expectNotFoundError } from '@cell-mon/test';
 
 import { AuthenticationService } from './authentication.service';
 

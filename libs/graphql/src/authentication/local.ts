@@ -1,5 +1,5 @@
-import { prismaDbClient, redisClient } from '@tadchud-erp/db';
-import { IJwtAuthInfo, jwtVerify } from '@tadchud-erp/utils';
+import { prismaDbClient, redisClient } from '@cell-mon/db';
+import { IJwtAuthInfo, jwtVerify } from '@cell-mon/utils';
 import { PermissionAbility } from 'kysely-codegen';
 
 import { AuthenticationError } from '../errors/authentication';

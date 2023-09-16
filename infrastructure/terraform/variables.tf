@@ -17,8 +17,8 @@ variable "k8s" {
   })
 
   default = {
-    label           = "tadchud-erp-k8s"
-    node_pool_label = "tadchud-erp-k8s-node-pool"
+    label           = "cell-mons"
+    node_pool_label = "cell-mon-k8s-node-pool"
     node_pool_plan  = "vc2-2c-4gb"
     node_quantity   = 1
     version         = "v1.26.2+2" // https://api.vultr.com/v2/kubernetes/versions

@@ -15,12 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@tadchud-erp/db": ["libs/db/src/index.ts"],
-      "@tadchud-erp/graphql": ["libs/graphql/src/index.ts"],
-      "@tadchud-erp/rule-engine": ["libs/rule-engine/src/index.ts"],
-      "@tadchud-erp/test": ["libs/test/src/index.ts"],
-      "@tadchud-erp/tracer": ["libs/tracer/src/index.ts"],
-      "@tadchud-erp/utils": ["libs/utils/src/index.ts"]
+      "@cell-mon/db": ["libs/db/src/index.ts"],
+      "@cell-mon/graphql": ["libs/graphql/src/index.ts"],
+      "@cell-mon/rule-engine": ["libs/rule-engine/src/index.ts"],
+      "@cell-mon/test": ["libs/test/src/index.ts"],
+      "@cell-mon/tracer": ["libs/tracer/src/index.ts"],
+      "@cell-mon/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

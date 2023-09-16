@@ -1,7 +1,7 @@
 import { GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { PrimaryRepository, s3Client } from '@tadchud-erp/db';
-import { IGraphqlContext } from '@tadchud-erp/graphql';
+import { PrimaryRepository, s3Client } from '@cell-mon/db';
+import { IGraphqlContext } from '@cell-mon/graphql';
 import { PassThrough } from 'stream';
 
 import { File, GraphQLFileUpload } from '../../codegen-generated';
@@ -32,11 +32,11 @@ export class Fileservice extends PrimaryRepository<never, IGraphqlContext> {
 
       return rs.pipe(this.readFileFromStream(filename)).end(() => {
         getSignedUrl(
-          s3Client ,
+          s3Client,
           new GetObjectCommand({
             Bucket: process.env.S3_BUCKET,
             Key: filename,
-          }) ,
+          }),
           { expiresIn: 15 * 60 }
         ).then((signedUrl) => {
           resolve({ key: filename, signedUrl });

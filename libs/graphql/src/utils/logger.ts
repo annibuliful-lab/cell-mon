@@ -1,4 +1,4 @@
-import { logger } from '@tadchud-erp/utils';
+import { logger } from '@cell-mon/utils';
 import { DocumentNode, GraphQLSchema } from 'graphql';
 import { MercuriusContext } from 'mercurius';
 

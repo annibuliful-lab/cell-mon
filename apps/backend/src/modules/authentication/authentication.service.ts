@@ -1,10 +1,10 @@
-import { PrimaryRepository } from '@tadchud-erp/db';
+import { PrimaryRepository } from '@cell-mon/db';
 import {
   AuthenticationError,
   IGraphqlContext,
   NotfoundResource,
-} from '@tadchud-erp/graphql';
-import { IJwtAuthInfo, jwtSign, jwtVerify } from '@tadchud-erp/utils';
+} from '@cell-mon/graphql';
+import { IJwtAuthInfo, jwtSign, jwtVerify } from '@cell-mon/utils';
 import { verify } from 'argon2';
 import { BinaryLike, createHash } from 'crypto';
 import { v4 } from 'uuid';

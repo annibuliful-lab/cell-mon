@@ -1,5 +1,5 @@
-import { MOCK_GRAPHQL_CONTEXT } from '@tadchud-erp/graphql';
-import { expectNotFoundError } from '@tadchud-erp/test';
+import { MOCK_GRAPHQL_CONTEXT } from '@cell-mon/graphql';
+import { expectNotFoundError } from '@cell-mon/test';
 import { nanoid } from 'nanoid';
 import { v4 } from 'uuid';
 

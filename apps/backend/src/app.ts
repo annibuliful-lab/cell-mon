@@ -1,16 +1,16 @@
 import fastifyOpentelemetry from '@autotelic/fastify-opentelemetry';
-import cookie from '@fastify/cookie';
-import csrfProtection from '@fastify/csrf-protection';
-import helmet from '@fastify/helmet';
-import multipart from '@fastify/multipart';
-import { primaryDbClient, prismaDbClient, redisClient } from '@tadchud-erp/db';
+import { primaryDbClient, prismaDbClient, redisClient } from '@cell-mon/db';
 import {
   graphqlLogger,
   IGraphqlContext,
   verifyLocalAuthentication,
-} from '@tadchud-erp/graphql';
-import { tracerProvider } from '@tadchud-erp/tracer';
-import { logger } from '@tadchud-erp/utils';
+} from '@cell-mon/graphql';
+import { tracerProvider } from '@cell-mon/tracer';
+import { logger } from '@cell-mon/utils';
+import cookie from '@fastify/cookie';
+import csrfProtection from '@fastify/csrf-protection';
+import helmet from '@fastify/helmet';
+import multipart from '@fastify/multipart';
 import { config } from 'dotenv';
 import fastify from 'fastify';
 import mercurius from 'mercurius';

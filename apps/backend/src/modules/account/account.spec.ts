@@ -1,4 +1,4 @@
-import { Client, testClient } from '@tadchud-erp/test';
+import { Client, testClient } from '@cell-mon/test';
 import { nanoid } from 'nanoid';
 
 describe('Account module', () => {

@@ -156,17 +156,17 @@ dependencies:
     specifier: 9.0.0
     version: 9.0.0
   kysely:
-    specifier: 0.25.0
-    version: 0.25.0
+    specifier: ^0.26.3
+    version: 0.26.3
   lodash:
     specifier: 4.17.21
     version: 4.17.21
   mercurius:
-    specifier: 12.1.0
-    version: 12.1.0(graphql@16.6.0)
+    specifier: ^13.1.0
+    version: 13.1.0(graphql@16.6.0)
   mercurius-upload:
-    specifier: 6.0.1
-    version: 6.0.1(graphql@16.6.0)
+    specifier: ^7.0.0
+    version: 7.0.0(graphql@16.6.0)
   nanoid:
     specifier: 3.3.4
     version: 3.3.4
@@ -185,9 +185,6 @@ dependencies:
   pino-pretty:
     specifier: 9.3.0
     version: 9.3.0
-  postgres:
-    specifier: 3.3.4
-    version: 3.3.4
   prisma:
     specifier: 5.3.0
     version: 5.3.0
@@ -333,7 +330,7 @@ devDependencies:
     version: 28.1.1
   kysely-codegen:
     specifier: 0.10.0
-    version: 0.10.0(kysely@0.25.0)(pg@8.10.0)
+    version: 0.10.0(kysely@0.26.3)(pg@8.10.0)
   nx:
     specifier: 15.7.2
     version: 15.7.2
@@ -3280,8 +3277,8 @@ packages:
       readable-stream: 4.3.0
     dev: false
 
-  /@fastify/websocket@7.1.2:
-    resolution: {integrity: sha512-OBaPR3KVkDmhJpCy+RtM8CwwV67ieRRbvWtpHqRNoMt+AnHLBiNmrTwHs3/DKjmnI1cqdGTaQ+NhKtDtkk1l/Q==}
+  /@fastify/websocket@8.2.0:
+    resolution: {integrity: sha512-B4tlHFBKCX7tenEG9aUcQEpksW2e0+dgRTaH/05+cro1Xsq1+kSj+9IB9Gep7a0KbHZGrat+zBsOas6lRs5dFQ==}
     dependencies:
       fastify-plugin: 4.5.0
       ws: 8.12.1
@@ -10232,11 +10229,6 @@ packages:
       readable-stream: 2.3.7
     dev: false
 
-  /fs-capacitor@6.2.0:
-    resolution: {integrity: sha512-nKcE1UduoSKX27NSZlg879LdQc94OtbOsEmKMN2MBNudXREvijRKx2GEBsTMTfws+BrbkJoEuynbGSVRSpauvw==}
-    engines: {node: '>=10'}
-    dev: false
-
   /fs-capacitor@8.0.0:
     resolution: {integrity: sha512-+Lk6iSKajdGw+7XYxUkwIzreJ2G1JFlYOdnKJv5PzwFLVsoJYBpCuS7WPIUSNT1IbQaEWT1nhYU63Ud03DyzLA==}
     engines: {node: ^14.17.0 || >=16.0.0}
@@ -10606,27 +10598,14 @@ packages:
       graphql: 16.6.0
       tslib: 2.3.0
 
-  /graphql-upload@15.0.2(graphql@16.6.0):
-    resolution: {integrity: sha512-ufJAkZJBKWRDD/4wJR3VZMy9QWTwqIYIciPtCEF5fCNgWF+V1p7uIgz+bP2YYLiS4OJBhCKR8rnqE/Wg3XPUiw==}
-    engines: {node: ^14.17.0 || ^16.0.0 || >= 18.0.0}
+  /graphql-upload-minimal@1.5.5(graphql@16.6.0):
+    resolution: {integrity: sha512-eNIBl850Sj2Lp14ak+9pK4KINQw2Hkk/t15yY3pPQ0jntkCODL5csTECxsqIYRJisoxNFnIrX4zAGlKGvXc17A==}
+    engines: {node: '>=12'}
     peerDependencies:
-      '@types/express': ^4.0.29
-      '@types/koa': ^2.11.4
-      graphql: ^16.3.0
-    peerDependenciesMeta:
-      '@types/express':
-        optional: true
-      '@types/koa':
-        optional: true
+      graphql: 0.13.1 - 16
     dependencies:
-      '@types/busboy': 1.5.0
-      '@types/node': 18.11.9
-      '@types/object-path': 0.11.1
       busboy: 1.6.0
-      fs-capacitor: 6.2.0
       graphql: 16.6.0
-      http-errors: 2.0.0
-      object-path: 0.11.8
     dev: false
 
   /graphql-upload@16.0.2(graphql@16.6.0):
@@ -12313,7 +12292,7 @@ packages:
     resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
     engines: {node: '>= 8'}
 
-  /kysely-codegen@0.10.0(kysely@0.25.0)(pg@8.10.0):
+  /kysely-codegen@0.10.0(kysely@0.26.3)(pg@8.10.0):
     resolution: {integrity: sha512-EV2v9yr9N9WrUPrURvFl5FPTtz39npsi1p1tLpJwEcFeOAKAPJruBpAASvnZWdqu5Pw/aaTssStE3qcI2sfxMQ==}
     hasBin: true
     peerDependencies:
@@ -12331,14 +12310,14 @@ packages:
     dependencies:
       chalk: 4.1.2
       dotenv: 16.0.3
-      kysely: 0.25.0
+      kysely: 0.26.3
       micromatch: 4.0.5
       minimist: 1.2.8
       pg: 8.10.0(pg-native@3.0.1)
     dev: true
 
-  /kysely@0.25.0:
-    resolution: {integrity: sha512-srn0efIMu5IoEBk0tBmtGnoUss4uwvxtbFQWG/U2MosfqIace1l43IFP1PmEpHRDp+Z79xIcKEqmHH3dAvQdQA==}
+  /kysely@0.26.3:
+    resolution: {integrity: sha512-yWSgGi9bY13b/W06DD2OCDDHQmq1kwTGYlQ4wpZkMOJqMGCstVCFIvxCCVG4KfY1/3G0MhDAcZsip/Lw8/vJWw==}
     engines: {node: '>=14.0.0'}
 
   /language-subtag-registry@0.3.22:
@@ -12752,28 +12731,25 @@ packages:
       yargs-parser: 20.2.9
     dev: true
 
-  /mercurius-upload@6.0.1(graphql@16.6.0):
-    resolution: {integrity: sha512-vYoBDRgu7eT4tPozFJPd+g/caiIU2BOVQOiQ/wGzwVOCOSq3ITOWfa0DSj2w0k1lOLkWMldtmvpCGTGAwkjnMg==}
+  /mercurius-upload@7.0.0(graphql@16.6.0):
+    resolution: {integrity: sha512-DoSHkWmLaP1pfeJoI6NyuI6ur4SbkrLhhcG/Y5lhhzmVAJljGNubjl7H7krgcEd2VanhZ5rlh/PYg1o3AcgHNw==}
     peerDependencies:
       graphql: ^16.3.0
     dependencies:
       fastify-plugin: 4.5.0
       graphql: 16.6.0
-      graphql-upload: 15.0.2(graphql@16.6.0)
-    transitivePeerDependencies:
-      - '@types/express'
-      - '@types/koa'
+      graphql-upload-minimal: 1.5.5(graphql@16.6.0)
     dev: false
 
-  /mercurius@12.1.0(graphql@16.6.0):
-    resolution: {integrity: sha512-HA04WMw/HVF2cYiIYK63uD2L6kkByuMPTy+rltyiYIzqmedIL0poS/kemhsJSodK0QL7NOKAcxisFRE481vRhA==}
+  /mercurius@13.1.0(graphql@16.6.0):
+    resolution: {integrity: sha512-MDCmgNLk77f6Epe4af78Z36XChQ/TeHIO3l8Aoyj3whEqzlXxODNaNHt4vEfLDHCSbuLoLJTaK6bpWN0MtomUA==}
     engines: {node: '>=14.19.3'}
     peerDependencies:
       graphql: ^16.0.0
     dependencies:
       '@fastify/error': 3.2.0
       '@fastify/static': 6.9.0
-      '@fastify/websocket': 7.1.2
+      '@fastify/websocket': 8.2.0
       fastify-plugin: 4.5.0
       graphql: 16.6.0
       graphql-jit: 0.8.0(graphql@16.6.0)
@@ -12783,7 +12759,7 @@ packages:
       safe-stable-stringify: 2.4.2
       secure-json-parse: 2.7.0
       single-user-cache: 0.6.0
-      tiny-lru: 10.0.1
+      tiny-lru: 11.0.1
       undici: 5.22.0
       ws: 8.12.1
     transitivePeerDependencies:
@@ -14091,10 +14067,6 @@ packages:
     dependencies:
       xtend: 4.0.2
 
-  /postgres@3.3.4:
-    resolution: {integrity: sha512-XVu0+d/Y56pl2lSaf0c7V19AhAEfpVrhID1IENWN8nf0xch6hFq6dAov5dtUX6ZD46wfr1TxvLhxLtV8WnNsOg==}
-    dev: false
-
   /prelude-ls@1.1.2:
     resolution: {integrity: sha512-ESF23V4SKG6lVSGZgYNpbsiaAkdab6ZgOxe52p7+Kid3W3u3bxR4Vfd/o21dmN7jSt0IwgZ4v5MUd26FEtXE9w==}
     engines: {node: '>= 0.8.0'}
@@ -15247,6 +15219,7 @@ packages:
 
   /string-similarity@4.0.4:
     resolution: {integrity: sha512-/q/8Q4Bl4ZKAPjj8WerIBJWALKkaPRfrvhfF8k/B23i4nzrlRj2/go1m90In7nG/3XDSbOo0+pu6RvCTM9RGMQ==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
     dev: false
 
   /string-template@0.2.1:
@@ -15673,6 +15646,11 @@ packages:
   /tiny-lru@10.0.1:
     resolution: {integrity: sha512-Vst+6kEsWvb17Zpz14sRJV/f8bUWKhqm6Dc+v08iShmIJ/WxqWytHzCTd6m88pS33rE2zpX34TRmOpAJPloNCA==}
     engines: {node: '>=6'}
+    dev: false
+
+  /tiny-lru@11.0.1:
+    resolution: {integrity: sha512-iNgFugVuQgBKrqeO/mpiTTgmBsTP0WL6yeuLfLs/Ctf0pI/ixGqIRm8sDCwMcXGe9WWvt2sGXI5mNqZbValmJg==}
+    engines: {node: '>=12'}
     dev: false
 
   /title-case@3.0.3:

@@ -1,4 +1,4 @@
-import { IGraphqlContext } from '@tadchud-erp/graphql';
+import { IGraphqlContext } from '@cell-mon/graphql';
 
 export const MOCK_GRAPHQL_CONTEXT: IGraphqlContext = {
   authProvider: 'JWT',

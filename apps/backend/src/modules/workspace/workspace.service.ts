@@ -1,5 +1,5 @@
-import { PrimaryRepository } from '@tadchud-erp/db';
-import { IGraphqlContext, NotfoundResource } from '@tadchud-erp/graphql';
+import { PrimaryRepository } from '@cell-mon/db';
+import { IGraphqlContext, NotfoundResource } from '@cell-mon/graphql';
 import { Workspace } from 'kysely-codegen';
 
 import {

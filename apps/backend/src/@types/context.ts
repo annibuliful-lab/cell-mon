@@ -1,4 +1,4 @@
-import { IGraphqlContext } from '@tadchud-erp/graphql';
+import { IGraphqlContext } from '@cell-mon/graphql';
 
 import { AccountService } from '../modules/account/account.service';
 import { AuthenticationService } from '../modules/authentication/authentication.service';

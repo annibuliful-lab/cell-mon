@@ -1,9 +1,9 @@
-import { makeExecutableSchema } from '@graphql-tools/schema';
 import {
   accessDirective,
   authorizeDirective,
   authorizeMessageGroupDirective,
-} from '@tadchud-erp/graphql';
+} from '@cell-mon/graphql';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import compose from 'lodash/fp/compose';
 
 import { resolvers } from './resolver';

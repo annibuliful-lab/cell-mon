@@ -1,5 +1,5 @@
+import { primaryDbClient } from '@cell-mon/db';
 import { getDirective, MapperKind, mapSchema } from '@graphql-tools/utils';
-import { primaryDbClient } from '@tadchud-erp/db';
 import { defaultFieldResolver, GraphQLSchema } from 'graphql';
 
 import { IGraphqlContext } from '../constants/context';

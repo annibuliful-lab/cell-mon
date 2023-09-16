@@ -1,9 +1,9 @@
-import { PrimaryRepository } from '@tadchud-erp/db';
+import { PrimaryRepository } from '@cell-mon/db';
 import {
   DuplicatedResource,
   IGraphqlContext,
   NotfoundResource,
-} from '@tadchud-erp/graphql';
+} from '@cell-mon/graphql';
 import { hash } from 'argon2';
 import { v4 } from 'uuid';
 
