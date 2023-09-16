@@ -8,7 +8,7 @@ export const MOCK_GRAPHQL_CONTEXT: IGraphqlContext = {
   permissions: [],
   role: 'MOCK_ROLE',
   projectId: 'MOCK_PROJECT_ID',
-  workspaceId: 1,
+  workspaceId: '',
   projectFeatureFlags: [],
 };
 

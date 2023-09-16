@@ -86,22 +86,24 @@ model Workspace {
   updatedAt                DateTime?
   createdBy                String
   updatedBy                String?
-  workspaceRolePermissions WorkspaceRolePermission[]
-  workspaceAccounts        WorkspaceAccount[]
   targets                  Target[]
   missions                 Mission[]
+  workspaceConfiguration   WorkspaceConfiguration?
+  workspaceAccounts        WorkspaceAccount[]
   workspaceRoles           WorkspaceRole[]
+  workspaceRolePermissions WorkspaceRolePermission[]
 
   @@map("workspace")
 }
 
 model WorkspaceConfiguration {
-  id        String    @id @db.Uuid
-  isActive  Boolean   @default(true)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime?
-  createdBy String
-  updatedBy String?
+  workspaceId String    @id @db.Uuid
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
+  createdBy   String
+  updatedBy   String?
 
   @@map("workspace_configuration")
 }
@@ -122,6 +124,7 @@ model WorkspaceRole {
 }
 
 model WorkspaceRolePermission {
+  id           String        @id
   workspaceId  String        @db.Uuid
   workspace    Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   roleId       String        @db.Uuid
@@ -133,12 +136,12 @@ model WorkspaceRolePermission {
   createdBy    String
   updatedBy    String?
 
-  @@id([permissionId, roleId])
   @@map("workspace_role_permission")
 }
 
 model WorkspaceAccount {
-  workspaceId String        @id @db.Uuid
+  id          String        @id @db.Uuid
+  workspaceId String        @db.Uuid
   workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   accountId   String        @db.Uuid
   account     Account       @relation(fields: [accountId], references: [id], onDelete: Cascade)
