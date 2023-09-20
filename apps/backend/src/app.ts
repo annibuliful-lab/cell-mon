@@ -29,7 +29,7 @@ import { uploadFileController } from './upload-file';
 config();
 
 export async function main() {
-  const provider = tracerProvider('Tadchud');
+  const provider = tracerProvider('Cell-mon');
 
   const host = process.env.HOST ?? '0.0.0.0';
   const port = process.env.PORT ? Number(process.env.PORT) : 3000;

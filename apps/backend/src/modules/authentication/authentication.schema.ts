@@ -18,7 +18,7 @@ export const authenticationTypeDefs = gql`
 
   type Mutation {
     login(input: LoginInput!): Authentication!
-    refreshToken: Authentication! @authorize
-    logout: LogoutOperationResult! @authorize
+    refreshToken: Authentication! @access
+    logout: LogoutOperationResult! @access
   }
 `;

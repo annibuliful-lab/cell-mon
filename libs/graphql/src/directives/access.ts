@@ -29,7 +29,7 @@ export function accessDirective() {
           featureFlag: String
         }
 
-        directive @${directiveName}(conditions: AccessDirectiveInput!) on FIELD_DEFINITION
+        directive @${directiveName}(conditions: AccessDirectiveInput) on FIELD_DEFINITION
         `,
 
     accessDirectiveValidator: (schema: GraphQLSchema) =>
@@ -72,12 +72,12 @@ export function accessDirective() {
             context: IGraphqlContext,
             info
           ) {
-            if (requiredWorkspaceId && !context.workspaceId) {
-              throw new ForbiddenError('You must provide workspace id');
+            if (!context.accountId || !context.authorization) {
+              throw new AuthenticationError();
             }
 
-            if (!context.accountId) {
-              throw new AuthenticationError('Unauthorization');
+            if (requiredWorkspaceId && !context.workspaceId) {
+              throw new ForbiddenError('You must provide workspace id');
             }
 
             if (

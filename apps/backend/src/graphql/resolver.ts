@@ -1,5 +1,4 @@
-import { serialIdScalar } from '@cell-mon/graphql';
-import GraphQLUpload from 'graphql-upload/GraphQLUpload.mjs';
+import { GraphQLUpload, serialIdScalar } from '@cell-mon/graphql';
 
 import { Resolvers } from '../codegen-generated';
 import {
