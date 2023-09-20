@@ -17,7 +17,6 @@
     "paths": {
       "@cell-mon/db": ["libs/db/src/index.ts"],
       "@cell-mon/graphql": ["libs/graphql/src/index.ts"],
-      "@cell-mon/rule-engine": ["libs/rule-engine/src/index.ts"],
       "@cell-mon/test": ["libs/test/src/index.ts"],
       "@cell-mon/tracer": ["libs/tracer/src/index.ts"],
       "@cell-mon/utils": ["libs/utils/src/index.ts"]
