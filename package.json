@@ -32,7 +32,7 @@
     "@emotion/styled": "11.10.5",
     "@fastify/compress": "6.2.1",
     "@fastify/cookie": "8.3.0",
-    "@fastify/csrf-protection": "6.2.0",
+    "@fastify/csrf-protection": "6.3.0",
     "@fastify/helmet": "10.1.0",
     "@fastify/multipart": "7.6.0",
     "@genql/cli": "6.2.1",
