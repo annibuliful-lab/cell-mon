@@ -11,7 +11,10 @@ import {
   mutationResolver as permissionAbilityMutationResolver,
   queryResolver as permissionAbilityQueryResolver,
 } from '../modules/permission-ability/permission-ability.resolver';
-import { mutationResolver as phoneMetadataMutationResolver } from '../modules/phone-metadata/phone-metadata.resolver';
+import {
+  mutationResolver as phoneMetadataMutationResolver,
+  queryResolver as phoneMetadataQueryResolver,
+} from '../modules/phone-metadata/phone-metadata.resolver';
 import {
   mutationResolver as workspaceMutationResolver,
   queryResolver as workspaceQueryResolver,
@@ -22,6 +25,7 @@ export const resolvers: Resolvers = {
     ...permissionAbilityQueryResolver,
     ...workspaceQueryResolver,
     ...accountQueryResolver,
+    ...phoneMetadataQueryResolver,
   },
   Mutation: {
     ...accountMutationResolver,
