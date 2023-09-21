@@ -329,8 +329,8 @@ devDependencies:
     specifier: 28.1.1
     version: 28.1.1
   kysely-codegen:
-    specifier: 0.10.0
-    version: 0.10.0(kysely@0.26.3)(pg@8.11.3)
+    specifier: 0.10.1
+    version: 0.10.1(kysely@0.26.3)(pg@8.11.3)
   nx:
     specifier: 15.7.2
     version: 15.7.2
@@ -12786,13 +12786,13 @@ packages:
     resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
     engines: {node: '>= 8'}
 
-  /kysely-codegen@0.10.0(kysely@0.26.3)(pg@8.11.3):
-    resolution: {integrity: sha512-EV2v9yr9N9WrUPrURvFl5FPTtz39npsi1p1tLpJwEcFeOAKAPJruBpAASvnZWdqu5Pw/aaTssStE3qcI2sfxMQ==}
+  /kysely-codegen@0.10.1(kysely@0.26.3)(pg@8.11.3):
+    resolution: {integrity: sha512-8Bslh952gN5gtucRv4jTZDFD18RBioS6M50zHfe5kwb5iSyEAunU4ZYMdHzkHraa4zxjg5/183XlOryBCXLRIw==}
     hasBin: true
     peerDependencies:
       better-sqlite3: '>=7.6.2'
       kysely: '>=0.19.12'
-      mysql2: ^2.3.3
+      mysql2: ^2.3.3 || ^3.0.0
       pg: ^8.8.0
     peerDependenciesMeta:
       better-sqlite3:
