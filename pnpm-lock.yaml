@@ -4774,15 +4774,9 @@ packages:
       '@types/jsonwebtoken': 9.0.3
       chalk: 4.1.2
       debug: 4.3.4(supports-color@8.1.1)
-<<<<<<< HEAD
       dotenv: 16.3.1
       graphql: 16.6.0
       graphql-request: 5.1.0(graphql@16.6.0)
-=======
-      dotenv: 16.0.3
-      graphql: 16.8.1
-      graphql-request: 5.1.0(graphql@16.8.1)
->>>>>>> b68f170d62fb00861b95bb5bdcbdddb6a8ac623f
       http-proxy-agent: 5.0.0
       https-proxy-agent: 5.0.1
       isomorphic-fetch: 3.0.0
@@ -12247,21 +12241,19 @@ packages:
     engines: { node: '>=10' }
 
   /dotenv@16.0.3:
-<<<<<<< HEAD
-    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
-    engines: {node: '>=12'}
-    dev: false
-
-  /dotenv@16.3.1:
-    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
-    engines: {node: '>=12'}
-=======
     resolution:
       {
         integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==,
       }
     engines: { node: '>=12' }
->>>>>>> b68f170d62fb00861b95bb5bdcbdddb6a8ac623f
+    dev: false
+
+  /dotenv@16.3.1:
+    resolution:
+      {
+        integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==,
+      }
+    engines: { node: '>=12' }
 
   /dset@3.1.2:
     resolution:
