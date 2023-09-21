@@ -2,7 +2,7 @@ import { getDirective, MapperKind, mapSchema } from '@graphql-tools/utils';
 import { PermissionAction } from '@prisma/client';
 import { defaultFieldResolver, GraphQLSchema } from 'graphql';
 
-import { IGraphqlContext } from '../constants/context';
+import { GraphqlContext } from '../constants/context';
 import { AuthenticationError } from '../errors/authentication';
 import { ForbiddenError } from '../errors/forbidden';
 export interface IAccessDirective {
@@ -25,7 +25,6 @@ export function accessDirective() {
           action: PermissionAction
           requiredProjectId: Boolean = false
           requiredWorkspaceId: Boolean = false
-          role: String
           featureFlag: String
         }
 
@@ -55,8 +54,6 @@ export function accessDirective() {
             'action'
           ] as PermissionAction;
 
-          const role = accessDirectiveCondition?.['role'];
-
           const requiredProjectId =
             accessDirectiveCondition?.['requiredProjectId'];
 
@@ -69,10 +66,10 @@ export function accessDirective() {
           fieldConfig.resolve = function (
             source,
             args,
-            context: IGraphqlContext,
+            context: GraphqlContext,
             info
           ) {
-            if (!context.accountId || !context.authorization) {
+            if (!context.accountId) {
               throw new AuthenticationError();
             }
 
@@ -91,10 +88,6 @@ export function accessDirective() {
 
             if (requiredProjectId && !context.projectId) {
               throw new ForbiddenError('Project id is required');
-            }
-
-            if (role && context.role !== role) {
-              throw new ForbiddenError(`You must have role: ${role}`);
             }
 
             if (

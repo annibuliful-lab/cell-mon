@@ -1,6 +1,6 @@
-import { IGraphqlContext } from '@cell-mon/graphql';
+import { GraphqlContext } from '@cell-mon/graphql';
 
-export const MOCK_GRAPHQL_CONTEXT: IGraphqlContext = {
+export const MOCK_GRAPHQL_CONTEXT: GraphqlContext = {
   authProvider: 'JWT',
   accessToken: 'MOCK_ACCESS_TOKEN',
   authorization: 'MOCK_AUTHORIZATION',

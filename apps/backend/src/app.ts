@@ -1,11 +1,10 @@
 import fastifyOpentelemetry from '@autotelic/fastify-opentelemetry';
 import { primaryDbClient, prismaDbClient, redisClient } from '@cell-mon/db';
 import {
+  GraphqlContext,
   graphqlLogger,
-  IGraphqlContext,
   verifyLocalAuthentication,
 } from '@cell-mon/graphql';
-import { tracerProvider } from '@cell-mon/tracer';
 import { logger } from '@cell-mon/utils';
 import cookie from '@fastify/cookie';
 import csrfProtection from '@fastify/csrf-protection';
@@ -23,14 +22,13 @@ import { AccountService } from './modules/account/account.service';
 import { AuthenticationService } from './modules/authentication/authentication.service';
 import { Fileservice } from './modules/file/file.service';
 import { PermissionAbilityService } from './modules/permission-ability/permission-ability.service';
+import { PhoneMetadataService } from './modules/phone-metadata/phone-metadata.service';
 import { WorkspaceService } from './modules/workspace/workspace.service';
 import { uploadFileController } from './upload-file';
 
 config();
 
 export async function main() {
-  const provider = tracerProvider('Cell-mon');
-
   const host = process.env.HOST ?? '0.0.0.0';
   const port = process.env.PORT ? Number(process.env.PORT) : 3000;
   const isProduction = process.env.NODE_ENV === 'production';
@@ -47,7 +45,7 @@ export async function main() {
   uploadFileController(server);
   await server.register(fastifyOpentelemetry, { wrapRoutes: true });
   await server.register(mercurius, {
-    graphiql: false,
+    graphiql: true,
     ide: false,
     path: '/graphql',
     schema,
@@ -58,21 +56,13 @@ export async function main() {
         response: execution,
       };
     },
-    context: async (
-      { headers, body },
-      { request: { openTelemetry } }
-    ): Promise<AppContext | object> => {
-      const { activeSpan, tracer } = openTelemetry();
-
+    context: async ({ headers, body }): Promise<AppContext> => {
       const allowIntrospection =
         (body as { operationName: string })?.['operationName'] ===
           'IntrospectionQuery' && !isProduction;
-      const span = tracer.startSpan('compute-add');
-      activeSpan?.setAttribute('body', JSON.stringify(body));
 
       if (allowIntrospection) {
-        span.end();
-        return {};
+        return {} as AppContext;
       }
 
       const authProvider = headers['x-auth-provider'] as string;
@@ -85,18 +75,19 @@ export async function main() {
           authProvider,
           accessToken,
           authorization,
-          accountId: '',
+          accountId: null,
           permissions: [],
           role: 'Guest',
           projectId,
           projectFeatureFlags: [],
         };
-        span.end();
 
         return {
+          ...context,
           authenticationService: new AuthenticationService(context),
           accountService: new AccountService(context),
-        };
+          workspaceService: new WorkspaceService(context),
+        } as AppContext;
       }
 
       const { accountId, role, permissions, workspaceId } =
@@ -105,7 +96,7 @@ export async function main() {
           projectId,
         });
 
-      const context: IGraphqlContext = {
+      const context: GraphqlContext = {
         authProvider,
         accessToken,
         authorization,
@@ -116,7 +107,6 @@ export async function main() {
         projectFeatureFlags: [],
         workspaceId,
       };
-      span.end();
 
       return {
         ...context,
@@ -125,6 +115,7 @@ export async function main() {
         accountService: new AccountService(context),
         permissionAbilityService: new PermissionAbilityService(context),
         fileservice: new Fileservice(context),
+        phoneMetadataService: new PhoneMetadataService(context),
       };
     },
   });
@@ -136,7 +127,6 @@ export async function main() {
     redisClient.disconnect();
     await prismaDbClient.$disconnect();
     await primaryDbClient.destroy();
-    await provider.shutdown();
     process.exit(1);
   }
 

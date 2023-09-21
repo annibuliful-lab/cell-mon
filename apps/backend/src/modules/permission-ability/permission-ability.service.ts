@@ -1,5 +1,5 @@
 import { PrimaryRepository } from '@cell-mon/db';
-import { IGraphqlContext, NotfoundResource } from '@cell-mon/graphql';
+import { GraphqlContext, NotfoundResource } from '@cell-mon/graphql';
 import { v4 } from 'uuid';
 
 import {
@@ -10,9 +10,9 @@ import {
 
 export class PermissionAbilityService extends PrimaryRepository<
   'permission',
-  IGraphqlContext
+  GraphqlContext
 > {
-  constructor(context: IGraphqlContext) {
+  constructor(context: GraphqlContext) {
     super(context);
     this.dbColumns = ['action', 'id', 'subject'];
   }

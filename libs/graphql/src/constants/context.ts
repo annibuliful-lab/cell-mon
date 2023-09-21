@@ -1,6 +1,6 @@
 import { Permission } from '@prisma/client';
 
-export interface IGraphqlContext {
+export interface GraphqlContext {
   workspaceId?: string;
   accountId: string;
   projectId: string;
@@ -12,7 +12,7 @@ export interface IGraphqlContext {
   authorization: string;
 }
 
-export const MOCK_GRAPHQL_CONTEXT: IGraphqlContext = {
+export const MOCK_GRAPHQL_CONTEXT: GraphqlContext = {
   workspaceId: '',
   accountId: 'MOCK_USER_ID',
   projectId: 'MOCK_PROJECT_ID',

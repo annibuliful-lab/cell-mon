@@ -1,7 +1,7 @@
 import { PrimaryRepository } from '@cell-mon/db';
 import {
   AuthenticationError,
-  IGraphqlContext,
+  GraphqlContext,
   NotfoundResource,
 } from '@cell-mon/graphql';
 import { IJwtAuthInfo, jwtSign, jwtVerify } from '@cell-mon/utils';
@@ -12,7 +12,7 @@ import { v4 } from 'uuid';
 import { Authentication, LoginInput } from '../../codegen-generated';
 export class AuthenticationService extends PrimaryRepository<
   never,
-  IGraphqlContext
+  GraphqlContext
 > {
   private hashSha256(content: BinaryLike) {
     return createHash('sha256').update(content).digest('hex');

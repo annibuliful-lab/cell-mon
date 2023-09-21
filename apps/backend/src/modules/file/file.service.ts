@@ -1,12 +1,12 @@
 import { GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { PrimaryRepository, s3Client } from '@cell-mon/db';
-import { IGraphqlContext } from '@cell-mon/graphql';
+import { GraphqlContext } from '@cell-mon/graphql';
 import { PassThrough } from 'stream';
 
 import { File, GraphQLFileUpload } from '../../codegen-generated';
 
-export class Fileservice extends PrimaryRepository<never, IGraphqlContext> {
+export class Fileservice extends PrimaryRepository<never, GraphqlContext> {
   private readFileFromStream(filename: string) {
     const pass = new PassThrough();
 

@@ -1,7 +1,7 @@
 import { PrimaryRepository } from '@cell-mon/db';
 import {
   DuplicatedResource,
-  IGraphqlContext,
+  GraphqlContext,
   NotfoundResource,
 } from '@cell-mon/graphql';
 import { hash } from 'argon2';
@@ -15,9 +15,9 @@ import {
 
 export class AccountService extends PrimaryRepository<
   'account',
-  IGraphqlContext
+  GraphqlContext
 > {
-  constructor(ctx: IGraphqlContext) {
+  constructor(ctx: GraphqlContext) {
     super(ctx);
     this.dbColumns = ['account.id'];
   }

@@ -1,5 +1,5 @@
 import { PrimaryRepository } from '@cell-mon/db';
-import { IGraphqlContext, NotfoundResource } from '@cell-mon/graphql';
+import { GraphqlContext, NotfoundResource } from '@cell-mon/graphql';
 
 import {
   CreateWorkspaceInput,
@@ -9,9 +9,9 @@ import {
 
 export class WorkspaceService extends PrimaryRepository<
   'workspace',
-  IGraphqlContext
+  GraphqlContext
 > {
-  constructor(context: IGraphqlContext) {
+  constructor(context: GraphqlContext) {
     super(context);
     this.dbColumns = [
       'id',

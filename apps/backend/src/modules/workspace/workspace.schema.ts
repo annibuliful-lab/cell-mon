@@ -25,12 +25,12 @@ export const workspaceTypeDefs = gql`
   }
 
   type Mutation {
-    createWorkspace(input: CreateWorkspaceInput!): Workspace!
-    updateWorkspace(id: ID!, input: CreateWorkspaceInput!): Workspace!
+    createWorkspace(input: CreateWorkspaceInput!): Workspace! @access
+    updateWorkspace(id: ID!, input: CreateWorkspaceInput!): Workspace! @access
   }
 
   type Query {
-    getWorkspaceById(id: ID!): Workspace!
-    getWorkspaces(limit: Int, offset: Int): [Workspace!]!
+    getWorkspaceById(id: ID!): Workspace! @access
+    getWorkspaces(limit: Int, offset: Int): [Workspace!]! @access
   }
 `;
