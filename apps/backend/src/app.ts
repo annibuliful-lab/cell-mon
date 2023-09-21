@@ -1,4 +1,3 @@
-import fastifyOpentelemetry from '@autotelic/fastify-opentelemetry';
 import { primaryDbClient, prismaDbClient, redisClient } from '@cell-mon/db';
 import {
   GraphqlContext,
@@ -43,7 +42,7 @@ export async function main() {
   server.register(mercuriusGQLUpload);
 
   uploadFileController(server);
-  await server.register(fastifyOpentelemetry, { wrapRoutes: true });
+
   await server.register(mercurius, {
     graphiql: true,
     ide: false,

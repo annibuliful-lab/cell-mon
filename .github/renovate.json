@@ -1,0 +1,10 @@
+{
+  "extends": ["config:base"],
+  "minor": {
+    "automerge": false
+  },
+  "major": {
+    "automerge": false
+  },
+  "assignees": ["annibuliful"]
+}
