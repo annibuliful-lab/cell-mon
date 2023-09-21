@@ -126,8 +126,8 @@ dependencies:
     specifier: 2.2.2
     version: 2.2.2
   dotenv:
-    specifier: 16.0.3
-    version: 16.0.3
+    specifier: 16.3.1
+    version: 16.3.1
   eslint-plugin-simple-import-sort:
     specifier: 10.0.0
     version: 10.0.0(eslint@8.15.0)
@@ -4774,9 +4774,15 @@ packages:
       '@types/jsonwebtoken': 9.0.3
       chalk: 4.1.2
       debug: 4.3.4(supports-color@8.1.1)
+<<<<<<< HEAD
+      dotenv: 16.3.1
+      graphql: 16.6.0
+      graphql-request: 5.1.0(graphql@16.6.0)
+=======
       dotenv: 16.0.3
       graphql: 16.8.1
       graphql-request: 5.1.0(graphql@16.8.1)
+>>>>>>> b68f170d62fb00861b95bb5bdcbdddb6a8ac623f
       http-proxy-agent: 5.0.0
       https-proxy-agent: 5.0.1
       isomorphic-fetch: 3.0.0
@@ -12241,11 +12247,21 @@ packages:
     engines: { node: '>=10' }
 
   /dotenv@16.0.3:
+<<<<<<< HEAD
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
+    dev: false
+
+  /dotenv@16.3.1:
+    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+    engines: {node: '>=12'}
+=======
     resolution:
       {
         integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==,
       }
     engines: { node: '>=12' }
+>>>>>>> b68f170d62fb00861b95bb5bdcbdddb6a8ac623f
 
   /dset@3.1.2:
     resolution:
@@ -16732,7 +16748,7 @@ packages:
         optional: true
     dependencies:
       chalk: 4.1.2
-      dotenv: 16.0.3
+      dotenv: 16.3.1
       kysely: 0.26.3
       micromatch: 4.0.5
       minimist: 1.2.8
@@ -19409,7 +19425,7 @@ packages:
       '@mermaid-js/mermaid-cli': 10.0.0(typescript@5.0.3)
       '@prisma/client': 5.3.1(prisma@5.3.1)
       '@prisma/generator-helper': 4.13.0
-      dotenv: 16.0.3
+      dotenv: 16.3.1
     dev: false
 
   /prisma-kysely@1.7.0:
