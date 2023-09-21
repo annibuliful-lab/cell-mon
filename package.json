@@ -34,7 +34,7 @@
     "@fastify/cookie": "8.3.0",
     "@fastify/csrf-protection": "6.2.0",
     "@fastify/helmet": "10.1.0",
-    "@fastify/multipart": "7.6.0",
+    "@fastify/multipart": "7.7.3",
     "@genql/cli": "6.2.1",
     "@graphql-codegen/add": "4.0.0",
     "@graphql-codegen/core": "3.0.0",
