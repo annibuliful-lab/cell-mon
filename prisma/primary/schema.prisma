@@ -10,7 +10,7 @@ generator kysely {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("PRIMARY_DATABASE_URL")
 }
 
 enum PermissionAction {
@@ -165,6 +165,7 @@ model PhoneMetadata {
   updatedBy   String?
   PhoneTarget PhoneTarget[]
 
+  @@unique([imsi, msisdn])
   @@map("phone_metadata")
 }
 

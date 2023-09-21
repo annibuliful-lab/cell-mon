@@ -111,4 +111,33 @@ describe('PhoneMetadata', () => {
       })
     );
   });
+
+  it('gets by msisdn', async () => {
+    const imsi = nanoid();
+    const msisdn = nanoid();
+    const created = await client.mutation({
+      createPhoneMetadata: {
+        __scalar: true,
+        __args: {
+          imsi,
+          msisdn,
+        },
+      },
+    });
+
+    const phones = await client.query({
+      getPhones: {
+        __scalar: true,
+        __args: {
+          imsi,
+        },
+      },
+    });
+
+    expect(created.createPhoneMetadata.id).toEqual(phones.getPhones[0].id);
+    expect(created.createPhoneMetadata.imsi).toEqual(phones.getPhones[0].imsi);
+    expect(created.createPhoneMetadata.msisdn).toEqual(
+      phones.getPhones[0].msisdn
+    );
+  });
 });
