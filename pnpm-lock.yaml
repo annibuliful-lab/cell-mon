@@ -111,8 +111,8 @@ dependencies:
     specifier: 8.10.2
     version: 8.10.2
   '@types/uuid':
-    specifier: 9.0.1
-    version: 9.0.1
+    specifier: 9.0.4
+    version: 9.0.4
   argon2:
     specifier: 0.30.3
     version: 0.30.3
@@ -210,8 +210,8 @@ dependencies:
     specifier: 5.22.0
     version: 5.22.0
   uuid:
-    specifier: 9.0.0
-    version: 9.0.0
+    specifier: 9.0.1
+    version: 9.0.1
 
 devDependencies:
   '@babel/preset-react':
@@ -7083,8 +7083,8 @@ packages:
     resolution: {integrity: sha512-THo502dA5PzG/sfQH+42Lw3fvmYkceefOspdCwpHRul8ik2Jv1K8I5OZz1AT3/rs46kwgMCe9bSBmDLYkkOMGg==}
     dev: true
 
-  /@types/uuid@9.0.1:
-    resolution: {integrity: sha512-rFT3ak0/2trgvp4yYZo5iKFEPsET7vKydKF+VRCxlQ9bpheehyAJH89dAkaLEq/j/RZXJIqcgsmPJKUP1Z28HA==}
+  /@types/uuid@9.0.4:
+    resolution: {integrity: sha512-zAuJWQflfx6dYJM62vna+Sn5aeSWhh3OB+wfUEACNcqUSc0AGc5JKl+ycL1vrH7frGTXhJchYjE1Hak8L819dA==}
     dev: false
 
   /@types/ws@8.5.5:
@@ -16834,8 +16834,8 @@ packages:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
 
-  /uuid@9.0.0:
-    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+  /uuid@9.0.1:
+    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
     dev: false
 
