@@ -15,7 +15,7 @@ function getClient(): Kysely<DB> {
   _primaryDBClient = new Kysely<DB>({
     dialect: new PostgresDialect({
       pool: new Pool({
-        connectionString: process.env.DATABASE_URL,
+        connectionString: process.env.PRIMARY_DATABASE_URL,
         min: 5,
         max: 10,
       }),

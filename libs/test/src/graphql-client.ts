@@ -72,7 +72,7 @@ export async function getAdminClient() {
     fetch,
     headers: {
       authorization: response.login.token,
-      'x-project-id': '1',
+      'x-workspace-id': 'd1cd8256-696e-41fa-bb7b-306d2f2a216e',
     },
   });
 }

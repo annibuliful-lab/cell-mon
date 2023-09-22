@@ -20,6 +20,7 @@ import { hidePoweredBy } from './hooks/hide-powered-by';
 import { AccountService } from './modules/account/account.service';
 import { AuthenticationService } from './modules/authentication/authentication.service';
 import { Fileservice } from './modules/file/file.service';
+import { MissionService } from './modules/mission/mission.service';
 import { PermissionAbilityService } from './modules/permission-ability/permission-ability.service';
 import { PhoneMetadataService } from './modules/phone-metadata/phone-metadata.service';
 import { WorkspaceService } from './modules/workspace/workspace.service';
@@ -67,7 +68,7 @@ export async function main() {
       const authProvider = headers['x-auth-provider'] as string;
       const accessToken = headers['access-token'] as string;
       const authorization = headers['authorization'] as string;
-      const projectId = headers['x-project-id'] as string;
+      const workspaceId = headers['x-workspace-id'] as string;
 
       if (!authorization) {
         const context = {
@@ -77,7 +78,7 @@ export async function main() {
           accountId: null,
           permissions: [],
           role: 'Guest',
-          projectId,
+          workspaceId,
           projectFeatureFlags: [],
         };
 
@@ -89,11 +90,10 @@ export async function main() {
         } as AppContext;
       }
 
-      const { accountId, role, permissions, workspaceId } =
-        await verifyLocalAuthentication({
-          token: authorization,
-          projectId,
-        });
+      const { accountId, role, permissions } = await verifyLocalAuthentication({
+        token: authorization,
+        workspaceId,
+      });
 
       const context: GraphqlContext = {
         authProvider,
@@ -102,7 +102,6 @@ export async function main() {
         accountId: accountId.toString(),
         permissions,
         role: role as string,
-        projectId,
         projectFeatureFlags: [],
         workspaceId,
       };
@@ -115,6 +114,7 @@ export async function main() {
         permissionAbilityService: new PermissionAbilityService(context),
         fileservice: new Fileservice(context),
         phoneMetadataService: new PhoneMetadataService(context),
+        missionService: new MissionService(context),
       };
     },
   });

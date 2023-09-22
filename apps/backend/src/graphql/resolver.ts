@@ -7,6 +7,7 @@ import {
 } from '../modules/account/account.resolver';
 import { mutationResolver as authenticationResolver } from '../modules/authentication/authentication.resolver';
 import { mutationResolver as fileMutationResolver } from '../modules/file/file.resolver';
+import { mutation as missionMutationResolver } from '../modules/mission/mission.resolver';
 import {
   mutationResolver as permissionAbilityMutationResolver,
   queryResolver as permissionAbilityQueryResolver,
@@ -34,6 +35,7 @@ export const resolvers: Resolvers = {
     ...workspaceMutationResolver,
     ...fileMutationResolver,
     ...phoneMetadataMutationResolver,
+    ...missionMutationResolver,
   },
   Upload: GraphQLUpload,
   SerialId: serialIdScalar,

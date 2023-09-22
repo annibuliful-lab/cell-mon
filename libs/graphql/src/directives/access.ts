@@ -9,7 +9,6 @@ export interface IAccessDirective {
   subject: string;
   action: PermissionAction;
   requiredWorkspaceId: boolean;
-  requiredProjectId: boolean;
   role?: string;
   validateOrganization: boolean;
   featureFlag?: string;
@@ -23,7 +22,6 @@ export function accessDirective() {
         input AccessDirectiveInput {
           subject: String
           action: PermissionAction
-          requiredProjectId: Boolean = false
           requiredWorkspaceId: Boolean = false
           featureFlag: String
         }
@@ -54,9 +52,6 @@ export function accessDirective() {
             'action'
           ] as PermissionAction;
 
-          const requiredProjectId =
-            accessDirectiveCondition?.['requiredProjectId'];
-
           const requiredWorkspaceId =
             accessDirectiveCondition?.['requiredWorkspaceId'];
 
@@ -84,10 +79,6 @@ export function accessDirective() {
               throw new ForbiddenError(
                 `You must have feature flag: ${featureFlag}`
               );
-            }
-
-            if (requiredProjectId && !context.projectId) {
-              throw new ForbiddenError('Project id is required');
             }
 
             if (

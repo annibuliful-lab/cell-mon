@@ -50,6 +50,6 @@ export class PrimaryRepository<
   }
 
   execute(query: CompiledQuery) {
-    return this.db.executeQuery(query);
+    return this.db.executeQuery<Table>(query);
   }
 }

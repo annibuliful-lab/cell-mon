@@ -178,7 +178,7 @@ model Mission {
   status         MissionStatus   @default(DRAFT)
   createdBy      String
   updatedBy      String?
-  deletedAt      DateTime
+  deletedAt      DateTime?
   createdAt      DateTime        @default(now())
   updatedAt      DateTime?
   missionTargets MissionTarget[]
@@ -214,7 +214,7 @@ model MissionTarget {
   target    Target    @relation(fields: [targetId], references: [id], onDelete: Cascade)
   createdBy String
   updatedBy String?
-  deletedAt DateTime
+  deletedAt DateTime?
   createdAt DateTime  @default(now())
   updatedAt DateTime?
 
@@ -231,7 +231,7 @@ model TargetEvidence {
   investigatedDate DateTime
   createdBy        String
   updatedBy        String?
-  deletedAt        DateTime
+  deletedAt        DateTime?
   createdAt        DateTime  @default(now())
   updatedAt        DateTime?
 
@@ -246,7 +246,7 @@ model PhoneTarget {
   target               Target                @relation(fields: [targetId], references: [id], onDelete: Cascade)
   createdBy            String
   updatedBy            String?
-  deletedAt            DateTime
+  deletedAt            DateTime?
   createdAt            DateTime              @default(now())
   updatedAt            DateTime?
   phoneTargetLocations PhoneTargetLocation[]
