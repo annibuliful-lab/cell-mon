@@ -215,8 +215,8 @@ dependencies:
 
 devDependencies:
   '@babel/preset-react':
-    specifier: 7.14.5
-    version: 7.14.5(@babel/core@7.22.20)
+    specifier: 7.22.15
+    version: 7.22.15(@babel/core@7.22.20)
   '@commitlint/cli':
     specifier: 17.7.1
     version: 17.7.1
@@ -2547,21 +2547,6 @@ packages:
       '@babel/types': 7.22.19
       esutils: 2.0.3
 
-  /@babel/preset-react@7.14.5(@babel/core@7.22.20):
-    resolution: {integrity: sha512-XFxBkjyObLvBaAvkx1Ie95Iaq4S/GUEIrejyrntQ/VCMKUYvKLoyKxOBzJ2kjA3b6rC9/KL6KXfDC2GqvLiNqQ==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.22.20
-      '@babel/helper-plugin-utils': 7.22.5
-      '@babel/helper-validator-option': 7.22.15
-      '@babel/plugin-transform-react-display-name': 7.22.5(@babel/core@7.22.20)
-      '@babel/plugin-transform-react-jsx': 7.22.15(@babel/core@7.22.20)
-      '@babel/plugin-transform-react-jsx-development': 7.22.5(@babel/core@7.22.20)
-      '@babel/plugin-transform-react-pure-annotations': 7.22.5(@babel/core@7.22.20)
-    dev: true
-
   /@babel/preset-react@7.22.15(@babel/core@7.22.20):
     resolution: {integrity: sha512-Csy1IJ2uEh/PecCBXXoZGAZBeCATTuePzCSB7dLYWS0vOEj6CNpjxIhW4duWwZodBNueH7QO14WbGn8YyeuN9w==}
     engines: {node: '>=6.9.0'}
@@ -2575,7 +2560,6 @@ packages:
       '@babel/plugin-transform-react-jsx': 7.22.15(@babel/core@7.22.20)
       '@babel/plugin-transform-react-jsx-development': 7.22.5(@babel/core@7.22.20)
       '@babel/plugin-transform-react-pure-annotations': 7.22.5(@babel/core@7.22.20)
-    dev: false
 
   /@babel/preset-typescript@7.22.15(@babel/core@7.22.20):
     resolution: {integrity: sha512-HblhNmh6yM+cU4VwbBRpxFhxsTdfS1zsvH9W+gEjD0ARV9+8B4sNfpI6GuhePti84nuvhiwKS539jKPFHskA9A==}
