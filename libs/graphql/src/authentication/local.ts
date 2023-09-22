@@ -56,7 +56,7 @@ async function getAccountInfo(userInfo: IJwtAuthInfo, workspaceId?: string) {
     return accountInfo;
   }
 
-  const accountProjectRole = await prismaDbClient.workspaceAccount.findFirst({
+  const accountWorkspaceRole = await prismaDbClient.workspaceAccount.findFirst({
     select: {
       workspace: {
         select: {
@@ -85,11 +85,11 @@ async function getAccountInfo(userInfo: IJwtAuthInfo, workspaceId?: string) {
     },
   });
 
-  if (!accountProjectRole) {
+  if (!accountWorkspaceRole) {
     throw new ForbiddenError('You are not in this project');
   }
 
-  const permissions = accountProjectRole.role.workspaceRolePermissions.map(
+  const permissions = accountWorkspaceRole.role.workspaceRolePermissions.map(
     (p) => ({
       action: p.permission.action,
       subject: p.permission.subject,
@@ -100,7 +100,7 @@ async function getAccountInfo(userInfo: IJwtAuthInfo, workspaceId?: string) {
     accountUid: userInfo.accountId,
     workspaceIds: userInfo.workspaceIds,
     accountId,
-    role: accountProjectRole.role.title,
+    role: accountWorkspaceRole.role.title,
     permissions: permissions,
   };
 
