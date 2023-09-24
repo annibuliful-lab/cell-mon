@@ -60,8 +60,8 @@ dependencies:
     specifier: 29.4.3
     version: 29.4.3
   '@mermaid-js/mermaid-cli':
-    specifier: 10.0.0
-    version: 10.0.0(typescript@5.0.3)
+    specifier: 10.4.0
+    version: 10.4.0(typescript@5.0.3)
   '@nrwl/next':
     specifier: 15.7.2
     version: 15.7.2(@babel/core@7.22.20)(@types/node@18.17.19)(cypress@12.17.4)(esbuild@0.19.3)(eslint@8.50.0)(next@13.5.2)(nx@15.7.2)(prettier@2.8.8)(typescript@5.0.3)(webpack@5.88.2)
@@ -187,7 +187,7 @@ dependencies:
     version: 5.3.1
   prisma-erd-generator:
     specifier: 1.2.5
-    version: 1.2.5(@mermaid-js/mermaid-cli@10.0.0)(@prisma/client@5.3.1)(@prisma/generator-helper@4.16.2)
+    version: 1.2.5(@mermaid-js/mermaid-cli@10.4.0)(@prisma/client@5.3.1)(@prisma/generator-helper@4.16.2)
   prisma-kysely:
     specifier: ^1.7.0
     version: 1.7.0
@@ -4083,8 +4083,8 @@ packages:
       - supports-color
     dev: false
 
-  /@mermaid-js/mermaid-cli@10.0.0(typescript@5.0.3):
-    resolution: {integrity: sha512-ikqNbA7x8JEpbxOjdxb2VczVUwHpPzlpo1EqkHtU7NVYqeIjz9WUyKtP6TFYF8R1MfFQl45pQKW45cdfM7PBbQ==}
+  /@mermaid-js/mermaid-cli@10.4.0(typescript@5.0.3):
+    resolution: {integrity: sha512-sXohfGD6xgR8VEKvLdvSCndFaFNVTlyXjgZlJ3x8U3/J0V2VTfLIZO94Gt8KUPUccFWci8dRYDGG0fQerB+aIA==}
     engines: {node: ^14.13 || >=16.0}
     hasBin: true
     dependencies:
@@ -14628,7 +14628,7 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /prisma-erd-generator@1.2.5(@mermaid-js/mermaid-cli@10.0.0)(@prisma/client@5.3.1)(@prisma/generator-helper@4.16.2):
+  /prisma-erd-generator@1.2.5(@mermaid-js/mermaid-cli@10.4.0)(@prisma/client@5.3.1)(@prisma/generator-helper@4.16.2):
     resolution: {integrity: sha512-4Bjrsw4Db915qG1+oMZ4tUdXRcPAyExdraj/5qiWU6QD7m/6QLWJPVADDvqkAQVS3Y4vjWMZovD2eakKZWmZcw==}
     engines: {node: '>=14'}
     hasBin: true
@@ -14637,7 +14637,7 @@ packages:
       '@prisma/client': ^4.0.0
       '@prisma/generator-helper': ^4.0.0
     dependencies:
-      '@mermaid-js/mermaid-cli': 10.0.0(typescript@5.0.3)
+      '@mermaid-js/mermaid-cli': 10.4.0(typescript@5.0.3)
       '@prisma/client': 5.3.1(prisma@5.3.1)
       '@prisma/generator-helper': 4.16.2
       dotenv: 16.3.1
