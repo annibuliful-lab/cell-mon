@@ -117,8 +117,8 @@ dependencies:
     specifier: 0.30.3
     version: 0.30.3
   axios:
-    specifier: 1.0.0
-    version: 1.0.0
+    specifier: 1.5.0
+    version: 1.5.0
   cross-undici-fetch:
     specifier: 0.4.14
     version: 0.4.14
@@ -8153,8 +8153,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /axios@1.0.0:
-    resolution: {integrity: sha512-SsHsGFN1qNPFT5QhSoSD37SHDfGyLSW5AESmyLk2JeCMHv5g0I9g0Hz/zQHx2KNe0jGXh2q2hAm7OdkXm360CA==}
+  /axios@1.5.0:
+    resolution: {integrity: sha512-D4DdjDo5CY50Qms0qGQTTw6Q44jl7zRwY7bthds06pUGfChBCTcQs+N743eFWGEd6pRTMd6A+I87aWyFV5wiZQ==}
     dependencies:
       follow-redirects: 1.15.3
       form-data: 4.0.0
@@ -13935,7 +13935,7 @@ packages:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.0-rc.51
       '@zkochan/js-yaml': 0.0.6
-      axios: 1.0.0
+      axios: 1.5.0
       chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
