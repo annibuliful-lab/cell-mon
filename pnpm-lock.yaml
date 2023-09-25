@@ -266,8 +266,8 @@ devDependencies:
     specifier: 15.7.2
     version: 15.7.2(eslint@8.50.0)(prettier@2.8.8)(typescript@5.0.3)
   '@testing-library/react':
-    specifier: 13.4.0
-    version: 13.4.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: 14.0.0
+    version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
   '@types/jest':
     specifier: 28.1.1
     version: 28.1.1
@@ -6850,9 +6850,9 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@testing-library/dom@8.20.1:
-    resolution: {integrity: sha512-/DiOQ5xBxgdYRC8LNk7U+RWat0S3qRLeIw3ZIkMQ9kkVlRmwD/Eg8k8CqIpD6GW7u20JIUOfMKbxtiLutpjQ4g==}
-    engines: {node: '>=12'}
+  /@testing-library/dom@9.3.3:
+    resolution: {integrity: sha512-fB0R+fa3AUqbLHWyxXa2kGVtf1Fe1ZZFr0Zp6AIbIAzXb2mKbEXl+PCQNUOaq5lbTab5tfctfXRNsWXxa2f7Aw==}
+    engines: {node: '>=14'}
     dependencies:
       '@babel/code-frame': 7.22.13
       '@babel/runtime': 7.22.15
@@ -6864,15 +6864,15 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
-  /@testing-library/react@13.4.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-sXOGON+WNTh3MLE9rve97ftaZukN3oNf2KjDy7YTx6hcTO2uuLHuCGynMDhFwGw/jYf4OJ2Qk0i4i79qMNNkyw==}
-    engines: {node: '>=12'}
+  /@testing-library/react@14.0.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-S04gSNJbYE30TlIMLTzv6QCTzt9AqIF5y6s6SzVFILNcNvbV/jU96GeiTPillGQo+Ny64M/5PV7klNYYgv5Dfg==}
+    engines: {node: '>=14'}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
     dependencies:
       '@babel/runtime': 7.22.15
-      '@testing-library/dom': 8.20.1
+      '@testing-library/dom': 9.3.3
       '@types/react-dom': 18.2.7
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
