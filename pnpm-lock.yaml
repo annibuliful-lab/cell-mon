@@ -186,8 +186,8 @@ dependencies:
     specifier: 5.3.1
     version: 5.3.1
   prisma-erd-generator:
-    specifier: 1.2.5
-    version: 1.2.5(@mermaid-js/mermaid-cli@10.4.0)(@prisma/client@5.3.1)(@prisma/generator-helper@4.16.2)
+    specifier: 1.11.1
+    version: 1.11.1(@prisma/client@5.3.1)(typescript@5.0.3)
   prisma-kysely:
     specifier: ^1.7.0
     version: 1.7.0
@@ -14943,19 +14943,23 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /prisma-erd-generator@1.2.5(@mermaid-js/mermaid-cli@10.4.0)(@prisma/client@5.3.1)(@prisma/generator-helper@4.16.2):
-    resolution: {integrity: sha512-4Bjrsw4Db915qG1+oMZ4tUdXRcPAyExdraj/5qiWU6QD7m/6QLWJPVADDvqkAQVS3Y4vjWMZovD2eakKZWmZcw==}
+  /prisma-erd-generator@1.11.1(@prisma/client@5.3.1)(typescript@5.0.3):
+    resolution: {integrity: sha512-/NbHGnsn3emYaGJPRA/0MTzYa1RawRLKu0WOfp5pUugcyFNBwOLd38gQyhdlmkzbVSDSOp78ySNqYzt1Tq1QMQ==}
     engines: {node: '>=14'}
     hasBin: true
     peerDependencies:
-      '@mermaid-js/mermaid-cli': ^8.14.0
-      '@prisma/client': ^4.0.0
-      '@prisma/generator-helper': ^4.0.0
+      '@prisma/client': ^4.0.0 || ^5.0.0
     dependencies:
       '@mermaid-js/mermaid-cli': 10.4.0(typescript@5.0.3)
       '@prisma/client': 5.3.1(prisma@5.3.1)
       '@prisma/generator-helper': 4.16.2
       dotenv: 16.3.1
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - typescript
+      - utf-8-validate
     dev: false
 
   /prisma-kysely@1.7.0:
