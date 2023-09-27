@@ -64,7 +64,7 @@ dependencies:
     version: 10.4.0(typescript@5.0.3)
   '@nrwl/next':
     specifier: 15.7.2
-    version: 15.7.2(@babel/core@7.22.20)(@types/node@18.17.19)(cypress@12.17.4)(esbuild@0.19.3)(eslint@8.50.0)(next@13.5.2)(nx@15.7.2)(prettier@2.8.8)(typescript@5.0.3)(webpack@5.88.2)
+    version: 15.7.2(@babel/core@7.22.20)(@types/node@18.17.19)(cypress@13.2.0)(esbuild@0.19.3)(eslint@8.50.0)(next@13.5.2)(nx@15.7.2)(prettier@2.8.8)(typescript@5.0.3)(webpack@5.88.2)
   '@opentelemetry/api':
     specifier: 1.6.0
     version: 1.6.0
@@ -240,7 +240,7 @@ devDependencies:
     version: 4.0.1(graphql@16.8.1)
   '@nrwl/cypress':
     specifier: 15.7.2
-    version: 15.7.2(cypress@12.17.4)(eslint@8.50.0)(nx@15.7.2)(prettier@2.8.8)(typescript@5.0.3)
+    version: 15.7.2(cypress@13.2.0)(eslint@8.50.0)(nx@15.7.2)(prettier@2.8.8)(typescript@5.0.3)
   '@nrwl/esbuild':
     specifier: 15.7.2
     version: 15.7.2(esbuild@0.19.3)(eslint@8.50.0)(nx@15.7.2)(prettier@2.8.8)(typescript@5.0.3)
@@ -290,8 +290,8 @@ devDependencies:
     specifier: 28.1.3
     version: 28.1.3(@babel/core@7.22.20)
   cypress:
-    specifier: 12.17.4
-    version: 12.17.4
+    specifier: 13.2.0
+    version: 13.2.0
   esbuild:
     specifier: 0.19.3
     version: 0.19.3
@@ -2438,8 +2438,8 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  /@cypress/request@2.88.12:
-    resolution: {integrity: sha512-tOn+0mDZxASFM+cuAP9szGUGPI1HwWVSvdzm7V4cCsPdFTx6qMj29CwaQmRAMIEhORIUBFBsYROYJcveK4uOjA==}
+  /@cypress/request@3.0.1:
+    resolution: {integrity: sha512-TWivJlJi8ZDx2wGOw1dbLuHJKUYX7bWySw377nlnGOW3hP9/MUKIsEdXT/YngWxVdgNCHRBmFlBipE+5/2ZZlQ==}
     engines: {node: '>= 6'}
     dependencies:
       aws-sign2: 0.7.0
@@ -4249,7 +4249,7 @@ packages:
       - '@swc/core'
       - debug
 
-  /@nrwl/cypress@15.7.2(cypress@12.17.4)(eslint@8.50.0)(nx@15.7.2)(prettier@2.8.8)(typescript@5.0.3):
+  /@nrwl/cypress@15.7.2(cypress@13.2.0)(eslint@8.50.0)(nx@15.7.2)(prettier@2.8.8)(typescript@5.0.3):
     resolution: {integrity: sha512-zQne9YLp+qXSzaBIHqFpW8WqJ0pRLoU6dpfuHWdDFuGf+er4lh0hfntG81QXDOiUba9Vq+UsFChCYGxVF54HHA==}
     peerDependencies:
       cypress: '>= 3 < 13'
@@ -4261,7 +4261,7 @@ packages:
       '@nrwl/linter': 15.7.2(eslint@8.50.0)(nx@15.7.2)(typescript@5.0.3)
       '@nrwl/workspace': 15.7.2(eslint@8.50.0)(prettier@2.8.8)(typescript@5.0.3)
       '@phenomnomnominal/tsquery': 4.1.1(typescript@5.0.3)
-      cypress: 12.17.4
+      cypress: 13.2.0
       dotenv: 10.0.0
       semver: 7.3.4
     transitivePeerDependencies:
@@ -4415,13 +4415,13 @@ packages:
       - nx
       - typescript
 
-  /@nrwl/next@15.7.2(@babel/core@7.22.20)(@types/node@18.17.19)(cypress@12.17.4)(esbuild@0.19.3)(eslint@8.50.0)(next@13.5.2)(nx@15.7.2)(prettier@2.8.8)(typescript@5.0.3)(webpack@5.88.2):
+  /@nrwl/next@15.7.2(@babel/core@7.22.20)(@types/node@18.17.19)(cypress@13.2.0)(esbuild@0.19.3)(eslint@8.50.0)(next@13.5.2)(nx@15.7.2)(prettier@2.8.8)(typescript@5.0.3)(webpack@5.88.2):
     resolution: {integrity: sha512-HLsFuLV3n2TCjEG/LQRnOQ21HJMBeDzahj4RbKnOLaS9HR3x5yG3v+6epSruRq7CAUVfWZAxQX5tZ9vxdrzQ6g==}
     peerDependencies:
       next: ^13.0.0
     dependencies:
       '@babel/plugin-proposal-decorators': 7.22.15(@babel/core@7.22.20)
-      '@nrwl/cypress': 15.7.2(cypress@12.17.4)(eslint@8.50.0)(nx@15.7.2)(prettier@2.8.8)(typescript@5.0.3)
+      '@nrwl/cypress': 15.7.2(cypress@13.2.0)(eslint@8.50.0)(nx@15.7.2)(prettier@2.8.8)(typescript@5.0.3)
       '@nrwl/devkit': 15.7.2(nx@15.7.2)(typescript@5.0.3)
       '@nrwl/jest': 15.7.2(@types/node@18.17.19)(nx@15.7.2)(ts-node@10.9.1)(typescript@5.0.3)
       '@nrwl/js': 15.7.2(eslint@8.50.0)(nx@15.7.2)(prettier@2.8.8)(typescript@5.0.3)
@@ -7273,9 +7273,6 @@ packages:
       '@types/node': 18.17.19
     dev: false
 
-  /@types/node@16.18.53:
-    resolution: {integrity: sha512-vVmHeo4tpF8zsknALU90Hh24VueYdu45ZlXzYWFbom61YR4avJqTFDC3QlWzjuTdAv6/3xHaxiO9NrtVZXrkmw==}
-
   /@types/node@18.17.19:
     resolution: {integrity: sha512-+pMhShR3Or5GR0/sp4Da7FnhVmTalWm81M6MkEldbwjETSaPalw138Z4KdpQaistvqQxLB7Cy4xwYdxpbSOs9Q==}
 
@@ -9420,15 +9417,15 @@ packages:
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
 
-  /cypress@12.17.4:
-    resolution: {integrity: sha512-gAN8Pmns9MA5eCDFSDJXWKUpaL3IDd89N9TtIupjYnzLSmlpVr+ZR+vb4U/qaMp+lB6tBvAmt7504c3Z4RU5KQ==}
-    engines: {node: ^14.0.0 || ^16.0.0 || >=18.0.0}
+  /cypress@13.2.0:
+    resolution: {integrity: sha512-AvDQxBydE771GTq0TR4ZUBvv9m9ffXuB/ueEtpDF/6gOcvFR96amgwSJP16Yhqw6VhmwqspT5nAGzoxxB+D89g==}
+    engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@cypress/request': 2.88.12
+      '@cypress/request': 3.0.1
       '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
-      '@types/node': 16.18.53
+      '@types/node': 18.17.19
       '@types/sinonjs__fake-timers': 8.1.1
       '@types/sizzle': 2.3.3
       arch: 2.2.0
