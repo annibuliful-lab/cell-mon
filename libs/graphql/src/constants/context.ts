@@ -1,7 +1,7 @@
 import { Permission } from '@prisma/client';
 
 export interface GraphqlContext {
-  workspaceId?: string;
+  workspaceId: string;
   accountId: string;
 
   permissions: Pick<Permission, 'action' | 'subject'>[];

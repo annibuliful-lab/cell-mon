@@ -2,23 +2,26 @@ import { GraphQLUpload, serialIdScalar } from '@cell-mon/graphql';
 
 import { Resolvers } from '../codegen-generated';
 import {
-  mutationResolver as accountMutationResolver,
-  queryResolver as accountQueryResolver,
+  mutation as accountMutationResolver,
+  query as accountQueryResolver,
 } from '../modules/account/account.resolver';
-import { mutationResolver as authenticationResolver } from '../modules/authentication/authentication.resolver';
-import { mutationResolver as fileMutationResolver } from '../modules/file/file.resolver';
-import { mutation as missionMutationResolver } from '../modules/mission/mission.resolver';
+import { mutation as authenticationResolver } from '../modules/authentication/authentication.resolver';
+import { mutation as fileMutationResolver } from '../modules/file/file.resolver';
 import {
-  mutationResolver as permissionAbilityMutationResolver,
-  queryResolver as permissionAbilityQueryResolver,
+  mutation as missionMutationResolver,
+  query as missionQueryResolver,
+} from '../modules/mission/mission.resolver';
+import {
+  mutation as permissionAbilityMutationResolver,
+  query as permissionAbilityQueryResolver,
 } from '../modules/permission-ability/permission-ability.resolver';
 import {
-  mutationResolver as phoneMetadataMutationResolver,
-  queryResolver as phoneMetadataQueryResolver,
+  mutation as phoneMetadataMutationResolver,
+  query as phoneMetadataQueryResolver,
 } from '../modules/phone-metadata/phone-metadata.resolver';
 import {
-  mutationResolver as workspaceMutationResolver,
-  queryResolver as workspaceQueryResolver,
+  mutation as workspaceMutationResolver,
+  query as workspaceQueryResolver,
 } from '../modules/workspace/workspace.resolver';
 
 export const resolvers: Resolvers = {
@@ -27,6 +30,7 @@ export const resolvers: Resolvers = {
     ...workspaceQueryResolver,
     ...accountQueryResolver,
     ...phoneMetadataQueryResolver,
+    ...missionQueryResolver,
   },
   Mutation: {
     ...accountMutationResolver,

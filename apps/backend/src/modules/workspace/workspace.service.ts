@@ -1,5 +1,6 @@
 import { PrimaryRepository } from '@cell-mon/db';
 import { GraphqlContext, NotfoundResource } from '@cell-mon/graphql';
+import { v4 } from 'uuid';
 
 import {
   CreateWorkspaceInput,
@@ -26,14 +27,56 @@ export class WorkspaceService extends PrimaryRepository<
 
   create(input: CreateWorkspaceInput) {
     return this.db
-      .insertInto('workspace')
-      .values({
-        ...input,
-        createdBy: this.context.accountId,
-        updatedBy: this.context.accountId,
-      })
-      .returning(this.dbColumns)
-      .executeTakeFirst();
+      .transaction()
+      .setIsolationLevel('read uncommitted')
+      .execute(async (tx) => {
+        const workspace = await tx
+          .insertInto('workspace')
+          .values({
+            id: v4(),
+            ...input,
+            createdBy: this.context.accountId,
+            updatedBy: this.context.accountId,
+          })
+          .returning([
+            'id',
+            'title',
+            'description',
+            'createdAt',
+            'updatedAt',
+            'createdBy',
+            'updatedBy',
+          ])
+          .executeTakeFirst();
+
+        if (!workspace?.id) return;
+
+        const role = await tx
+          .insertInto('workspace_role')
+          .values({
+            id: v4(),
+            workspaceId: workspace.id,
+            title: 'OWNER',
+            createdBy: this.context.accountId,
+          })
+          .returning('id')
+          .executeTakeFirst();
+
+        if (!role) return;
+
+        await tx
+          .insertInto('workspace_account')
+          .values({
+            id: v4(),
+            roleId: role.id,
+            workspaceId: workspace.id,
+            accountId: this.context.accountId,
+            createdBy: this.context.accountId,
+          })
+          .execute();
+
+        return workspace;
+      });
   }
 
   async update(id: string, input: UpdateWorkspaceInput) {
@@ -69,11 +112,10 @@ export class WorkspaceService extends PrimaryRepository<
     return workspace;
   }
 
-  findManyByAccountId(filter: WorkspaceFilterInput) {
+  findMany(filter: WorkspaceFilterInput) {
     return this.db
       .selectFrom('workspace')
       .select(this.dbColumns)
-
       .limit(filter.limit ?? 20)
       .offset(filter.offset ?? 0)
       .execute();

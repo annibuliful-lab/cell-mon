@@ -1,7 +1,7 @@
 import { AppContext } from '../../@types/context';
 import { PermissionAbility, Resolvers } from '../../codegen-generated';
 
-export const mutationResolver: Resolvers<AppContext>['Mutation'] = {
+export const mutation: Resolvers<AppContext>['Mutation'] = {
   createPermissionAbility: async (_, { input }, ctx) => {
     return ctx.permissionAbilityService.create(
       input
@@ -22,7 +22,7 @@ export const mutationResolver: Resolvers<AppContext>['Mutation'] = {
   },
 };
 
-export const queryResolver: Resolvers<AppContext>['Query'] = {
+export const query: Resolvers<AppContext>['Query'] = {
   getPermissionAbilities: async (_, { filter }, ctx) => {
     return ctx.permissionAbilityService.findMany(filter) as Promise<
       PermissionAbility[]

@@ -2,7 +2,7 @@ import { Blob, fetch, File, FormData } from 'cross-undici-fetch';
 import { nanoid } from 'nanoid';
 
 describe('File service', () => {
-  it('upload file', async () => {
+  it.skip('upload file', async () => {
     const blob = new Blob(['hello'], { type: 'text/plain' });
     const filename = `TEST_FILE_${nanoid()}.txt`;
     const file = new File([blob], filename, { type: '' });

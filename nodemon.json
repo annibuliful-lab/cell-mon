@@ -1,0 +1,7 @@
+{
+  "ignore": [
+    "libs/graphql/src/generated/primary",
+    "libs/test/src/graphql/generated",
+    "*.spec.ts"
+  ]
+}

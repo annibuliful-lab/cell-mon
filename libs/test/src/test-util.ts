@@ -27,7 +27,7 @@ export function expectUnauthorizedError(request: Promise<unknown>) {
 }
 
 export function expectDuplicatedError(request: Promise<unknown>) {
-  return expectError(/DUPLICATE_RESOURCE/)(request);
+  return expectError(/Duplicated resources/)(request);
 }
 
 export function expectBadUserInputError(request: Promise<unknown>) {
