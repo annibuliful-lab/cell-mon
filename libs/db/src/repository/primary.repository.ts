@@ -19,7 +19,8 @@ export class PrimaryRepository<
   Table extends keyof DB = never,
   Context = never
 > {
-  protected dbColumns: SelectExpression<From<DB, Table>, Table>[] = [];
+  protected dbColumns: ReadonlyArray<SelectExpression<From<DB, Table>, Table>> =
+    [];
   protected context: Context;
   protected db: Kysely<DB>;
   protected redis: Redis;

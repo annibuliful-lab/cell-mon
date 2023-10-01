@@ -1,5 +1,6 @@
 import { PrimaryRepository } from '@cell-mon/db';
 import { GraphqlContext, NotfoundResource } from '@cell-mon/graphql';
+import { Expression, SqlBool } from 'kysely';
 import { v4 } from 'uuid';
 
 import {
@@ -75,9 +76,17 @@ export class PermissionAbilityService extends PrimaryRepository<
     return this.db
       .selectFrom('permission')
       .select(this.dbColumns)
-      .$if(!!filter.subject, (qb) => qb.where('subject', '=', filter.subject))
-      .offset(filter.offset ?? 0)
+      .where((qb) => {
+        const exprs: Expression<SqlBool>[] = [];
+
+        if (filter.subject) {
+          exprs.push(qb('subject', '=', filter.subject));
+        }
+
+        return qb.and(exprs);
+      })
       .limit(filter.limit ?? 20)
+      .offset(filter.offset ?? 0)
       .execute();
   }
 }

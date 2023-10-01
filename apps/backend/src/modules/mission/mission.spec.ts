@@ -248,4 +248,70 @@ describe('Mission', () => {
       })
     );
   });
+
+  it('gets by title', async () => {
+    const title = nanoid();
+    const description = nanoid();
+    const createdMission = await client.mutation({
+      createMission: {
+        __scalar: true,
+        __args: {
+          title,
+          description,
+        },
+      },
+    });
+
+    const missions = await client.query({
+      getMissions: {
+        __scalar: true,
+        __args: {
+          title: title.toLowerCase(),
+        },
+      },
+    });
+
+    const mission = missions.getMissions[0];
+    expect(missions.getMissions.length).toEqual(1);
+    expect(mission.title.toLowerCase()).toEqual(title.toLowerCase());
+    expect(mission.id).toEqual(createdMission.createMission.id);
+  });
+
+  it('gets by status', async () => {
+    const title = nanoid();
+    const description = nanoid();
+    const createdMission = await client.mutation({
+      createMission: {
+        __scalar: true,
+        __args: {
+          title,
+          description,
+        },
+      },
+    });
+
+    await client.mutation({
+      updateMission: {
+        __scalar: true,
+        __args: {
+          id: createdMission.createMission.id,
+          status: MissionStatus.Investigating,
+        },
+      },
+    });
+
+    const missions = await client.query({
+      getMissions: {
+        __scalar: true,
+        __args: {
+          status: MissionStatus.Investigating,
+        },
+      },
+    });
+
+    const mission = missions.getMissions[0];
+
+    expect(mission.id).toEqual(createdMission.createMission.id);
+    expect(mission.status).toEqual(MissionStatus.Investigating);
+  });
 });

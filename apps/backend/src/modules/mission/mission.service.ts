@@ -1,15 +1,17 @@
-import { Mission, PrimaryRepository } from '@cell-mon/db';
+import { PrimaryRepository } from '@cell-mon/db';
 import {
   DuplicatedResource,
   GraphqlContext,
   NotfoundResource,
 } from '@cell-mon/graphql';
+import { Expression, SqlBool } from 'kysely';
 import { isNil } from 'lodash';
 import { v4 } from 'uuid';
 
 import {
   MutationCreateMissionArgs,
   MutationUpdateMissionArgs,
+  QueryGetMissionsArgs,
 } from '../../codegen-generated';
 
 export class MissionService extends PrimaryRepository<
@@ -29,6 +31,7 @@ export class MissionService extends PrimaryRepository<
       .select('id')
       .where('title', '=', title)
       .where('deletedAt', 'is', null)
+      .where('workspaceId', '=', this.context.workspaceId)
       .executeTakeFirst();
 
     if (!isNil(duplicateTitle?.id)) {
@@ -75,12 +78,13 @@ export class MissionService extends PrimaryRepository<
   }
 
   async findById(id: string) {
-    const mission = (await this.db
+    const mission = await this.db
       .selectFrom('mission')
       .select(this.dbColumns)
       .where('id', '=', id)
       .where('deletedAt', 'is', null)
-      .executeTakeFirst()) as unknown as Mission;
+      .where('workspaceId', '=', this.context.workspaceId)
+      .executeTakeFirst();
 
     if (!mission?.id) {
       throw new NotfoundResource(['id']);
@@ -102,5 +106,28 @@ export class MissionService extends PrimaryRepository<
     if (!deleted?.id) {
       throw new NotfoundResource(['id']);
     }
+  }
+
+  async findMany(filter: QueryGetMissionsArgs) {
+    return this.db
+      .selectFrom('mission')
+      .select(this.dbColumns)
+      .where((qb) => {
+        const exprs: Expression<SqlBool>[] = [
+          qb('deletedAt', 'is', null),
+          qb('workspaceId', '=', this.context.workspaceId),
+        ];
+
+        if (filter.status) {
+          exprs.push(qb('status', '=', filter.status));
+        }
+
+        if (filter.title) {
+          exprs.push(qb('title', 'ilike', `%${filter.title}%`));
+        }
+
+        return qb.and(exprs);
+      })
+      .execute();
   }
 }

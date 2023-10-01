@@ -19,4 +19,7 @@ export const query: Resolvers<AppContext>['Query'] = {
   getMissionById: (_, input, ctx) => {
     return ctx.missionService.findById(input.id) as never;
   },
+  getMissions: (_, input, ctx) => {
+    return ctx.missionService.findMany(input) as never;
+  },
 };
