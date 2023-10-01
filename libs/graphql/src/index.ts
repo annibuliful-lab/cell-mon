@@ -17,6 +17,7 @@ export { ForbiddenError } from './errors/forbidden';
 export { GraphqlError } from './errors/graphql-error';
 export { NotfoundResource } from './errors/not-found-resource';
 export { deleteOperationResultTypeDef } from './schemas/delete.schema';
+export { paginationTypeDef } from './schemas/pagination.schema';
 export { serialIdScalar, serialIdTypeDef } from './schemas/serial-id.schema';
 export { GraphQLUpload } from './schemas/upload.schema';
 export { graphqlLogger } from './utils/logger';

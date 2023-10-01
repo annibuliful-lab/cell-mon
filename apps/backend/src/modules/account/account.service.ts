@@ -8,7 +8,6 @@ import { hash } from 'argon2';
 import { v4 } from 'uuid';
 
 import {
-  Account,
   CreateAccountInput,
   UpdateAccountInput,
 } from '../../codegen-generated';
@@ -21,16 +20,23 @@ export class AccountService extends PrimaryRepository<
     super(ctx);
     this.dbColumns = ['account.id'];
   }
-  async create(input: CreateAccountInput) {
+
+  private async validateDuplicatedUsername(username?: string) {
+    if (!username) return;
+
     const user = await this.db
       .selectFrom('account')
       .select(['id'])
-      .where('username', '=', input.username)
+      .where('username', '=', username)
       .executeTakeFirst();
 
-    if (user) {
+    if (user?.id) {
       throw new DuplicatedResource(['username']);
     }
+  }
+
+  async create(input: CreateAccountInput) {
+    await this.validateDuplicatedUsername(input.username);
 
     input.password = await hash(input.password);
 
@@ -45,6 +51,8 @@ export class AccountService extends PrimaryRepository<
   }
 
   async update(id: string, input: UpdateAccountInput) {
+    await this.validateDuplicatedUsername(input.username);
+
     const user = await this.db
       .updateTable('account')
       .set(input)
@@ -64,6 +72,6 @@ export class AccountService extends PrimaryRepository<
       .selectFrom('account')
       .select(this.dbColumns)
       .where('id', '=', id)
-      .executeTakeFirst() as unknown as Promise<Account>;
+      .executeTakeFirst();
   }
 }

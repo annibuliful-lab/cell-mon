@@ -19,10 +19,13 @@ export class PrimaryRepository<
   Table extends keyof DB = never,
   Context = never
 > {
-  protected dbColumns: SelectExpression<From<DB, Table>, Table>[] = [];
+  protected dbColumns: ReadonlyArray<SelectExpression<From<DB, Table>, Table>> =
+    [];
   protected context: Context;
   protected db: Kysely<DB>;
   protected redis: Redis;
+  protected defaultLimit = 20;
+  protected defaultOffset = 0;
 
   constructor(...params: Context extends never ? [] : [Context]) {
     this.context = params[0] as Context;
@@ -50,6 +53,6 @@ export class PrimaryRepository<
   }
 
   execute(query: CompiledQuery) {
-    return this.db.executeQuery(query);
+    return this.db.executeQuery<Table>(query);
   }
 }

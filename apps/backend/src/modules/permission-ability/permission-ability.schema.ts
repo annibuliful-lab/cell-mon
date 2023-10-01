@@ -33,29 +33,20 @@ export const permissionAbilityTypeDefs = gql`
   type Mutation {
     createPermissionAbility(
       input: CreatePermissionAbilityInput!
-    ): PermissionAbility!
-      @access(
-        conditions: { subject: "PERMISSION", action: CREATE, role: "KeyAdmin" }
-      )
+    ): PermissionAbility! @access(subject: "PERMISSION", action: CREATE)
+
     updatePermissionAbility(
       id: ID!
       input: UpdatePermissionAbilityInput!
-    ): PermissionAbility!
-      @access(
-        conditions: { subject: "PERMISSION", action: CREATE, role: "KeyAdmin" }
-      )
+    ): PermissionAbility! @access(subject: "PERMISSION", action: UPDATE)
+
     deletePermissionAbility(id: ID!): DeleteOperationResult!
-      @access(
-        conditions: { subject: "PERMISSION", action: CREATE, role: "KeyAdmin" }
-      )
+      @access(subject: "PERMISSION", action: DELETE)
   }
 
   type Query {
     getPermissionAbilities(
       filter: PermissionAbilityFilterInput!
-    ): [PermissionAbility!]!
-      @access(
-        conditions: { subject: "PERMISSION", action: READ, role: "KeyAdmin" }
-      )
+    ): [PermissionAbility!]! @access(subject: "PERMISSION", action: READ)
   }
 `;

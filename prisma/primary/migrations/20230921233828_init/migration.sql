@@ -63,14 +63,14 @@ CREATE TABLE "workspace" (
 
 -- CreateTable
 CREATE TABLE "workspace_configuration" (
-    "id" UUID NOT NULL,
+    "workspaceId" UUID NOT NULL,
     "isActive" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
     "createdBy" TEXT NOT NULL,
     "updatedBy" TEXT,
 
-    CONSTRAINT "workspace_configuration_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "workspace_configuration_pkey" PRIMARY KEY ("workspaceId")
 );
 
 -- CreateTable
@@ -88,6 +88,7 @@ CREATE TABLE "workspace_role" (
 
 -- CreateTable
 CREATE TABLE "workspace_role_permission" (
+    "id" TEXT NOT NULL,
     "workspaceId" UUID NOT NULL,
     "roleId" UUID NOT NULL,
     "permissionId" UUID NOT NULL,
@@ -96,11 +97,12 @@ CREATE TABLE "workspace_role_permission" (
     "createdBy" TEXT NOT NULL,
     "updatedBy" TEXT,
 
-    CONSTRAINT "workspace_role_permission_pkey" PRIMARY KEY ("permissionId","roleId")
+    CONSTRAINT "workspace_role_permission_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "workspace_account" (
+    "id" UUID NOT NULL,
     "workspaceId" UUID NOT NULL,
     "accountId" UUID NOT NULL,
     "roleId" UUID NOT NULL,
@@ -109,7 +111,7 @@ CREATE TABLE "workspace_account" (
     "createdBy" TEXT NOT NULL,
     "updatedBy" TEXT,
 
-    CONSTRAINT "workspace_account_pkey" PRIMARY KEY ("workspaceId")
+    CONSTRAINT "workspace_account_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -255,11 +257,17 @@ CREATE TABLE "phone_geo_location" (
     CONSTRAINT "phone_geo_location_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateIndex
+CREATE UNIQUE INDEX "phone_metadata_imsi_msisdn_key" ON "phone_metadata"("imsi", "msisdn");
+
 -- AddForeignKey
 ALTER TABLE "account_configuration" ADD CONSTRAINT "account_configuration_accountId_fkey" FOREIGN KEY ("accountId") REFERENCES "account"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "session_token" ADD CONSTRAINT "session_token_accountId_fkey" FOREIGN KEY ("accountId") REFERENCES "account"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "workspace_configuration" ADD CONSTRAINT "workspace_configuration_workspaceId_fkey" FOREIGN KEY ("workspaceId") REFERENCES "workspace"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "workspace_role" ADD CONSTRAINT "workspace_role_workspaceId_fkey" FOREIGN KEY ("workspaceId") REFERENCES "workspace"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -10,7 +10,7 @@ generator kysely {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("PRIMARY_DATABASE_URL")
 }
 
 enum PermissionAction {
@@ -165,6 +165,7 @@ model PhoneMetadata {
   updatedBy   String?
   PhoneTarget PhoneTarget[]
 
+  @@unique([imsi, msisdn])
   @@map("phone_metadata")
 }
 
@@ -172,12 +173,12 @@ model Mission {
   id             String          @id @default(uuid()) @db.Uuid
   workspaceId    String          @db.Uuid
   workspace      Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  name           String
+  title          String
   description    String?
   status         MissionStatus   @default(DRAFT)
   createdBy      String
   updatedBy      String?
-  deletedAt      DateTime
+  deletedAt      DateTime?
   createdAt      DateTime        @default(now())
   updatedAt      DateTime?
   missionTargets MissionTarget[]
@@ -189,7 +190,7 @@ model Target {
   id              String           @id @default(uuid()) @db.Uuid
   workspaceId     String           @db.Uuid
   workspace       Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  name            String
+  title           String
   description     String?
   photoUrl        String?
   address         String?
@@ -213,7 +214,7 @@ model MissionTarget {
   target    Target    @relation(fields: [targetId], references: [id], onDelete: Cascade)
   createdBy String
   updatedBy String?
-  deletedAt DateTime
+  deletedAt DateTime?
   createdAt DateTime  @default(now())
   updatedAt DateTime?
 
@@ -230,7 +231,7 @@ model TargetEvidence {
   investigatedDate DateTime
   createdBy        String
   updatedBy        String?
-  deletedAt        DateTime
+  deletedAt        DateTime?
   createdAt        DateTime  @default(now())
   updatedAt        DateTime?
 
@@ -245,7 +246,7 @@ model PhoneTarget {
   target               Target                @relation(fields: [targetId], references: [id], onDelete: Cascade)
   createdBy            String
   updatedBy            String?
-  deletedAt            DateTime
+  deletedAt            DateTime?
   createdAt            DateTime              @default(now())
   updatedAt            DateTime?
   phoneTargetLocations PhoneTargetLocation[]

@@ -1,7 +1,7 @@
 import { AppContext } from '../../@types/context';
 import { Resolvers } from '../../codegen-generated';
 
-export const mutationResolver: Resolvers<AppContext>['Mutation'] = {
+export const mutation: Resolvers<AppContext>['Mutation'] = {
   login: (_, { input }, ctx) => {
     return ctx.authenticationService.login(input);
   },

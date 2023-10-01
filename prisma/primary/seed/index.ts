@@ -1,9 +1,11 @@
+import { config } from 'dotenv';
 import { client } from './client';
 
 import { seedPermissionAbilities } from './permission-ability';
 
 import { seedUsers } from './user';
 import { seedWorkspace } from './workspace';
+config();
 
 async function cleanup() {
   const tablenamesList =

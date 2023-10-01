@@ -9,7 +9,6 @@ export interface IAccessDirective {
   subject: string;
   action: PermissionAction;
   requiredWorkspaceId: boolean;
-  requiredProjectId: boolean;
   role?: string;
   validateOrganization: boolean;
   featureFlag?: string;
@@ -20,15 +19,13 @@ export function accessDirective() {
 
   return {
     accessdDirectiveTypeDefs: `
-        input AccessDirectiveInput {
+
+        directive @${directiveName}(
           subject: String
           action: PermissionAction
-          requiredProjectId: Boolean = false
           requiredWorkspaceId: Boolean = false
           featureFlag: String
-        }
-
-        directive @${directiveName}(conditions: AccessDirectiveInput) on FIELD_DEFINITION
+        ) on FIELD_DEFINITION
         `,
 
     accessDirectiveValidator: (schema: GraphQLSchema) =>
@@ -44,23 +41,13 @@ export function accessDirective() {
             return;
           }
 
-          const accessDirectiveCondition = accessDirective[
-            'conditions'
-          ] as IAccessDirective;
+          const subject = accessDirective?.['subject'];
 
-          const subject = accessDirectiveCondition?.['subject'];
+          const action = accessDirective?.['action'] as PermissionAction;
 
-          const action = accessDirectiveCondition?.[
-            'action'
-          ] as PermissionAction;
+          const requiredWorkspaceId = accessDirective?.['requiredWorkspaceId'];
 
-          const requiredProjectId =
-            accessDirectiveCondition?.['requiredProjectId'];
-
-          const requiredWorkspaceId =
-            accessDirectiveCondition?.['requiredWorkspaceId'];
-
-          const featureFlag = accessDirectiveCondition?.['featureFlag'];
+          const featureFlag = accessDirective?.['featureFlag'];
 
           const { resolve = defaultFieldResolver } = fieldConfig;
           fieldConfig.resolve = function (
@@ -84,10 +71,6 @@ export function accessDirective() {
               throw new ForbiddenError(
                 `You must have feature flag: ${featureFlag}`
               );
-            }
-
-            if (requiredProjectId && !context.projectId) {
-              throw new ForbiddenError('Project id is required');
             }
 
             if (

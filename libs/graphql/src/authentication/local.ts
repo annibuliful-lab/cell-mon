@@ -3,6 +3,7 @@ import { IJwtAuthInfo, jwtVerify } from '@cell-mon/utils';
 import { Permission } from '@prisma/client';
 
 import { AuthenticationError } from '../errors/authentication';
+import { ForbiddenError } from '../errors/forbidden';
 
 const CACHE_EXPIRE = 3600;
 
@@ -18,10 +19,10 @@ type AccountInfo = {
 
 type ValidateLocalAuthenticationParams = {
   token: string;
-  projectId?: string;
+  workspaceId?: string;
 };
 
-async function getAccountInfo(userInfo: IJwtAuthInfo, projectId?: string) {
+async function getAccountInfo(userInfo: IJwtAuthInfo, workspaceId?: string) {
   const accountId = (
     await prismaDbClient.account.findUnique({
       select: {
@@ -37,7 +38,7 @@ async function getAccountInfo(userInfo: IJwtAuthInfo, projectId?: string) {
     throw new AuthenticationError();
   }
 
-  if (!projectId) {
+  if (!workspaceId) {
     const accountInfo: AccountInfo = {
       accountUid: userInfo.accountId,
       workspaceIds: userInfo.workspaceIds,
@@ -55,63 +56,52 @@ async function getAccountInfo(userInfo: IJwtAuthInfo, projectId?: string) {
     return accountInfo;
   }
 
-  // const accountProjectRole = await prismaDbClient.projectAccount.findFirst({
-  //   select: {
-  //     project: {
-  //       select: {
-  //         workspace: {
-  //           select: {
-  //             id: true,
-  //             workspaceFeatureFlags: {
-  //               select: {
-  //                 featureFlag: {
-  //                   select: {
-  //                     flag: true,
-  //                   },
-  //                 },
-  //               },
-  //             },
-  //           },
-  //         },
-  //       },
-  //     },
-  //     role: {
-  //       select: {
-  //         title: true,
-  //         rolePermissions: {
-  //           select: {
-  //             permissionAbility: {
-  //               select: {
-  //                 action: true,
-  //                 subject: true,
-  //               },
-  //             },
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  //   where: {
-  //     accountId,
-  //     projectId,
-  //   },
-  // });
+  const accountWorkspaceRole = await prismaDbClient.workspaceAccount.findFirst({
+    select: {
+      workspace: {
+        select: {
+          id: true,
+        },
+      },
+      role: {
+        select: {
+          title: true,
+          workspaceRolePermissions: {
+            select: {
+              permission: {
+                select: {
+                  action: true,
+                  subject: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    where: {
+      accountId,
+      workspaceId,
+    },
+  });
 
-  // if (!accountProjectRole) {
-  //   throw new ForbiddenError('You are not in this project');
-  // }
+  if (!accountWorkspaceRole) {
+    throw new ForbiddenError('You are not in this project');
+  }
 
-  // const permissions = accountProjectRole.role.rolePermissions.map((p) => ({
-  //   action: p.permissionAbility.action,
-  //   subject: p.permissionAbility.subject,
-  // }));
+  const permissions = accountWorkspaceRole.role.workspaceRolePermissions.map(
+    (p) => ({
+      action: p.permission.action,
+      subject: p.permission.subject,
+    })
+  );
 
   const accountInfo: AccountInfo = {
     accountUid: userInfo.accountId,
     workspaceIds: userInfo.workspaceIds,
     accountId,
-    role: '',
-    permissions: [],
+    role: accountWorkspaceRole.role.title,
+    permissions: permissions,
   };
 
   if (!accountInfo) {
@@ -128,7 +118,6 @@ async function getAccountInfo(userInfo: IJwtAuthInfo, projectId?: string) {
   return {
     accountUid: userInfo.accountId,
     workspaceIds: userInfo.workspaceIds,
-    projectId,
     accountId,
     role: '',
     workspaceId: '',
@@ -138,7 +127,7 @@ async function getAccountInfo(userInfo: IJwtAuthInfo, projectId?: string) {
 
 export async function verifyLocalAuthentication({
   token,
-  projectId,
+  workspaceId,
 }: ValidateLocalAuthenticationParams): Promise<AccountInfo> {
   const { isValid, userInfo } = jwtVerify(token);
 
@@ -152,12 +141,12 @@ export async function verifyLocalAuthentication({
     const accountInfo = JSON.parse(cacheAccountInfo) as AccountInfo;
 
     if (
-      (!accountInfo.projectId && projectId) ||
-      accountInfo.projectId !== projectId
+      (!accountInfo.workspaceId && workspaceId) ||
+      accountInfo.workspaceId !== workspaceId
     ) {
-      return getAccountInfo(userInfo, projectId);
+      return getAccountInfo(userInfo, workspaceId);
     }
   }
 
-  return getAccountInfo(userInfo, projectId);
+  return getAccountInfo(userInfo, workspaceId);
 }
