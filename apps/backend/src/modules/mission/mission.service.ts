@@ -22,10 +22,12 @@ export class MissionService extends PrimaryRepository<
   }
 
   private async validateDuplicateTitle(title?: string) {
+    if (!title) return;
+
     const duplicateTitle = await this.db
       .selectFrom('mission')
       .select('id')
-      .where('title', '=', title ?? null)
+      .where('title', '=', title)
       .where('deletedAt', 'is', null)
       .executeTakeFirst();
 
@@ -77,6 +79,7 @@ export class MissionService extends PrimaryRepository<
       .selectFrom('mission')
       .select(this.dbColumns)
       .where('id', '=', id)
+      .where('deletedAt', 'is', null)
       .executeTakeFirst()) as unknown as Mission;
 
     if (!mission?.id) {

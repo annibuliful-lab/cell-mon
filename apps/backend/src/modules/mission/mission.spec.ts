@@ -210,4 +210,42 @@ describe('Mission', () => {
 
     expect(deleted.deleteMission.success).toBeTruthy();
   });
+
+  it('gets by id', async () => {
+    const title = nanoid();
+    const description = nanoid();
+    const createMission = await client.mutation({
+      createMission: {
+        __scalar: true,
+        __args: {
+          title,
+          description,
+        },
+      },
+    });
+
+    const { getMissionById } = await client.query({
+      getMissionById: {
+        __args: {
+          id: createMission.createMission.id,
+        },
+        __scalar: true,
+      },
+    });
+
+    expect(getMissionById.id).toEqual(createMission.createMission.id);
+  });
+
+  it('throws not found when get by id', () => {
+    expectNotFoundError(
+      client.query({
+        getMissionById: {
+          __args: {
+            id: v4(),
+          },
+          __scalar: true,
+        },
+      })
+    );
+  });
 });
