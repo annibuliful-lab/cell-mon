@@ -10,6 +10,8 @@
     "lint:fix": "nx run-many --target=lint --all --fix",
     "db-all:generate": "pnpm run db-primary:generate && pnpm run db-job:generate",
     "db-all:migrate": "pnpm run db-primary:migrate && pnpm run db-job:migrate",
+    "db-all:deploy": "pnpm run db-primary:deploy && pnpm run db-job:deploy",
+    "db-all:seed": "pnpm run db-primary:seed",
     "db-primary:generate": "prisma generate --schema prisma/primary/schema.prisma",
     "db-primary:migrate": "prisma migrate dev --schema prisma/primary/schema.prisma",
     "db-primary:deploy": "prisma migrate deploy --schema prisma/primary/schema.prisma",
