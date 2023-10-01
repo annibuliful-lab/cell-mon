@@ -32,6 +32,10 @@ export const missionTypedef = gql`
   type Query {
     getMissionById(id: ID!): Mission! @access
 
-    getMissions(status: MissionStatus, title: String): [Mission!]! @access
+    getMissions(
+      status: MissionStatus
+      title: String
+      pagination: OffsetPaginationInput
+    ): [Mission!]! @access
   }
 `;

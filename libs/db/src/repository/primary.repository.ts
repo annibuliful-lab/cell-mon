@@ -24,6 +24,8 @@ export class PrimaryRepository<
   protected context: Context;
   protected db: Kysely<DB>;
   protected redis: Redis;
+  protected defaultLimit = 20;
+  protected defaultOffset = 0;
 
   constructor(...params: Context extends never ? [] : [Context]) {
     this.context = params[0] as Context;

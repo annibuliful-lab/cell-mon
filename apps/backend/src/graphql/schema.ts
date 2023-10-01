@@ -1,6 +1,7 @@
 import {
   accessDirective,
   deleteOperationResultTypeDef,
+  paginationTypeDef,
   serialIdTypeDef,
 } from '@cell-mon/graphql';
 import { mergeTypeDefs } from '@graphql-tools/merge';
@@ -28,5 +29,6 @@ export const typeDefs = print(
     serialIdTypeDef,
     phoneTypeDefs,
     missionTypedef,
+    paginationTypeDef,
   ])
 );

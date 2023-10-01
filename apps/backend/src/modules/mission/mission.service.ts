@@ -128,6 +128,8 @@ export class MissionService extends PrimaryRepository<
 
         return qb.and(exprs);
       })
+      .limit(filter.pagination?.limit ?? this.defaultLimit)
+      .offset(filter.pagination?.offset ?? this.defaultOffset)
       .execute();
   }
 }

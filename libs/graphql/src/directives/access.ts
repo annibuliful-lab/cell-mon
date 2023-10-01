@@ -19,14 +19,13 @@ export function accessDirective() {
 
   return {
     accessdDirectiveTypeDefs: `
-        input AccessDirectiveInput {
+
+        directive @${directiveName}(
           subject: String
           action: PermissionAction
           requiredWorkspaceId: Boolean = false
           featureFlag: String
-        }
-
-        directive @${directiveName}(conditions: AccessDirectiveInput) on FIELD_DEFINITION
+        ) on FIELD_DEFINITION
         `,
 
     accessDirectiveValidator: (schema: GraphQLSchema) =>
@@ -42,20 +41,13 @@ export function accessDirective() {
             return;
           }
 
-          const accessDirectiveCondition = accessDirective[
-            'conditions'
-          ] as IAccessDirective;
+          const subject = accessDirective?.['subject'];
 
-          const subject = accessDirectiveCondition?.['subject'];
+          const action = accessDirective?.['action'] as PermissionAction;
 
-          const action = accessDirectiveCondition?.[
-            'action'
-          ] as PermissionAction;
+          const requiredWorkspaceId = accessDirective?.['requiredWorkspaceId'];
 
-          const requiredWorkspaceId =
-            accessDirectiveCondition?.['requiredWorkspaceId'];
-
-          const featureFlag = accessDirectiveCondition?.['featureFlag'];
+          const featureFlag = accessDirective?.['featureFlag'];
 
           const { resolve = defaultFieldResolver } = fieldConfig;
           fieldConfig.resolve = function (
