@@ -240,7 +240,7 @@ devDependencies:
     version: 4.0.1(graphql@16.8.1)
   '@nrwl/cypress':
     specifier: 16.9.1
-    version: 16.9.1(@types/node@18.18.1)(cypress@13.2.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3)
+    version: 16.9.1(@types/node@18.17.19)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3)
   '@nrwl/esbuild':
     specifier: 16.9.1
     version: 16.9.1(@types/node@18.18.1)(esbuild@0.19.4)(nx@16.9.1)(typescript@5.0.3)
@@ -290,8 +290,8 @@ devDependencies:
     specifier: 29.7.0
     version: 29.7.0(@babel/core@7.22.20)
   cypress:
-    specifier: 13.2.0
-    version: 13.2.0
+    specifier: 13.3.0
+    version: 13.3.0
   esbuild:
     specifier: 0.19.4
     version: 0.19.4
@@ -4110,10 +4110,10 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
 
-  /@nrwl/cypress@16.9.1(@types/node@18.18.1)(cypress@13.2.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3):
+  /@nrwl/cypress@16.9.1(@types/node@18.17.19)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3):
     resolution: {integrity: sha512-nXYB4jrw9p5MN512UToy0e34ZFzv3W0XF0RyKV5vlTH676nIP4iQi3FAM5rlgUyd5epTWdrjQpNQJxTfWCc6kw==}
     dependencies:
-      '@nx/cypress': 16.9.1(@types/node@18.18.1)(cypress@13.2.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3)
+      '@nx/cypress': 16.9.1(@types/node@18.17.19)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -4338,8 +4338,8 @@ packages:
       - '@swc-node/register'
       - '@swc/core'
       - debug
-
-  /@nx/cypress@16.9.1(@types/node@18.18.1)(cypress@13.2.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3):
+      
+  /@nx/cypress@16.9.1(@types/node@18.17.19)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3):
     resolution: {integrity: sha512-xJT3yP4Mn/uqM6KGqVYjjoVItCG1rKMSRTVzJZULoynmqxasisjctznAbwPQCHRMHKj42o/6KEdA6l9TH+wVWA==}
     peerDependencies:
       cypress: '>= 3 < 14'
@@ -4347,12 +4347,12 @@ packages:
       cypress:
         optional: true
     dependencies:
-      '@nrwl/cypress': 16.9.1(@types/node@18.18.1)(cypress@13.2.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3)
+      '@nrwl/cypress': 16.9.1(@types/node@18.17.19)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3)
       '@nx/devkit': 16.9.1(nx@16.9.1)
       '@nx/js': 16.9.1(@types/node@18.18.1)(nx@16.9.1)(typescript@5.0.3)
       '@nx/linter': 16.9.1(@types/node@18.18.1)(eslint@8.50.0)(nx@16.9.1)
       '@phenomnomnominal/tsquery': 5.0.1(typescript@5.0.3)
-      cypress: 13.2.0
+      cypress: 13.3.0
       detect-port: 1.5.1
       semver: 7.5.3
       tslib: 2.6.2
@@ -9302,8 +9302,8 @@ packages:
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
 
-  /cypress@13.2.0:
-    resolution: {integrity: sha512-AvDQxBydE771GTq0TR4ZUBvv9m9ffXuB/ueEtpDF/6gOcvFR96amgwSJP16Yhqw6VhmwqspT5nAGzoxxB+D89g==}
+  /cypress@13.3.0:
+    resolution: {integrity: sha512-mpI8qcTwLGiA4zEQvTC/U1xGUezVV4V8HQCOYjlEOrVmU1etVvxOjkCXHGwrlYdZU/EPmUiWfsO3yt1o+Q2bgw==}
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
     requiresBuild: true
