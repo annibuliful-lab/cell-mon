@@ -106,7 +106,8 @@ jobs:
         run: pnpm run genql
 
       - name: run backend
-        run: nohup pnpm run dev-server:start &
+        # run: nohup pnpm run dev-server:start &
+        run: pnpm run dev-server:start
 
       - name: waiting for graphql
         run: wait-on -d 3000 -t 90000 -i 500 -v http://localhost:3030/graphql
