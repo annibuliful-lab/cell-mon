@@ -240,7 +240,7 @@ devDependencies:
     version: 4.0.1(graphql@16.8.1)
   '@nrwl/cypress':
     specifier: 16.9.1
-    version: 16.9.1(@types/node@18.17.19)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3)
+    version: 16.9.1(@types/node@18.18.1)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3)
   '@nrwl/esbuild':
     specifier: 16.9.1
     version: 16.9.1(@types/node@18.18.1)(esbuild@0.19.4)(nx@16.9.1)(typescript@5.0.3)
@@ -267,13 +267,13 @@ devDependencies:
     version: 16.9.1
   '@nx/jest':
     specifier: 16.9.1
-    version: 16.9.1(@types/node@18.17.19)(nx@16.9.1)(ts-node@10.9.1)(typescript@5.0.3)
+    version: 16.9.1(@types/node@18.18.1)(nx@16.9.1)(ts-node@10.9.1)(typescript@5.0.3)
   '@nx/js':
     specifier: 16.9.1
-    version: 16.9.1(@types/node@18.17.19)(nx@16.9.1)(typescript@5.0.3)
+    version: 16.9.1(@types/node@18.18.1)(nx@16.9.1)(typescript@5.0.3)
   '@nx/node':
     specifier: 16.9.1
-    version: 16.9.1(@types/node@18.17.19)(eslint@8.50.0)(nx@16.9.1)(ts-node@10.9.1)(typescript@5.0.3)
+    version: 16.9.1(@types/node@18.18.1)(eslint@8.50.0)(nx@16.9.1)(ts-node@10.9.1)(typescript@5.0.3)
   '@testing-library/react':
     specifier: 14.0.0
     version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -4119,10 +4119,10 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
 
-  /@nrwl/cypress@16.9.1(@types/node@18.17.19)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3):
+  /@nrwl/cypress@16.9.1(@types/node@18.18.1)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3):
     resolution: {integrity: sha512-nXYB4jrw9p5MN512UToy0e34ZFzv3W0XF0RyKV5vlTH676nIP4iQi3FAM5rlgUyd5epTWdrjQpNQJxTfWCc6kw==}
     dependencies:
-      '@nx/cypress': 16.9.1(@types/node@18.17.19)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3)
+      '@nx/cypress': 16.9.1(@types/node@18.18.1)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -4347,8 +4347,8 @@ packages:
       - '@swc-node/register'
       - '@swc/core'
       - debug
-      
-  /@nx/cypress@16.9.1(@types/node@18.17.19)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3):
+
+  /@nx/cypress@16.9.1(@types/node@18.18.1)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3):
     resolution: {integrity: sha512-xJT3yP4Mn/uqM6KGqVYjjoVItCG1rKMSRTVzJZULoynmqxasisjctznAbwPQCHRMHKj42o/6KEdA6l9TH+wVWA==}
     peerDependencies:
       cypress: '>= 3 < 14'
@@ -4356,7 +4356,7 @@ packages:
       cypress:
         optional: true
     dependencies:
-      '@nrwl/cypress': 16.9.1(@types/node@18.17.19)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3)
+      '@nrwl/cypress': 16.9.1(@types/node@18.18.1)(cypress@13.3.0)(eslint@8.50.0)(nx@16.9.1)(typescript@5.0.3)
       '@nx/devkit': 16.9.1(nx@16.9.1)
       '@nx/js': 16.9.1(@types/node@18.18.1)(nx@16.9.1)(typescript@5.0.3)
       '@nx/linter': 16.9.1(@types/node@18.18.1)(eslint@8.50.0)(nx@16.9.1)
