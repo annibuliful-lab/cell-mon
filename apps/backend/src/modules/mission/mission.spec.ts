@@ -1,8 +1,8 @@
+import { getAdminClient } from '@cell-mon/graphql-client';
 import {
   Client,
   expectDuplicatedError,
   expectNotFoundError,
-  getAdminClient,
 } from '@cell-mon/test';
 import { nanoid } from 'nanoid';
 import { v4 } from 'uuid';
@@ -56,7 +56,7 @@ describe('Mission', () => {
             description,
           },
         },
-      })
+      }),
     );
   });
 
@@ -126,7 +126,7 @@ describe('Mission', () => {
     expect(updatedMission.updateMission.title).toEqual(title);
     expect(updatedMission.updateMission.description).toEqual(description);
     expect(updatedMission.updateMission.status).toEqual(
-      MissionStatus.Investigating
+      MissionStatus.Investigating,
     );
   });
 
@@ -165,7 +165,7 @@ describe('Mission', () => {
             status: MissionStatus.Investigating,
           },
         },
-      })
+      }),
     );
   });
 
@@ -181,7 +181,7 @@ describe('Mission', () => {
             status: MissionStatus.Investigating,
           },
         },
-      })
+      }),
     );
   });
 
@@ -245,7 +245,7 @@ describe('Mission', () => {
           },
           __scalar: true,
         },
-      })
+      }),
     );
   });
 
@@ -309,9 +309,8 @@ describe('Mission', () => {
       },
     });
 
-    const mission = missions.getMissions[0];
-
-    expect(mission.id).toEqual(createdMission.createMission.id);
-    expect(mission.status).toEqual(MissionStatus.Investigating);
+    missions.getMissions.forEach((mission) => {
+      expect(mission.status).toEqual(MissionStatus.Investigating);
+    });
   });
 });

@@ -104,6 +104,9 @@ dependencies:
   '@types/graphql-upload':
     specifier: 16.0.2
     version: 16.0.2
+  '@types/jest':
+    specifier: ^29.5.5
+    version: 29.5.5
   '@types/jsonwebtoken':
     specifier: 9.0.3
     version: 9.0.3
@@ -265,12 +268,18 @@ devDependencies:
   '@nrwl/workspace':
     specifier: 16.9.1
     version: 16.9.1
+  '@nx/jest':
+    specifier: 16.9.1
+    version: 16.9.1(@types/node@18.18.1)(nx@16.9.1)(ts-node@10.9.1)(typescript@5.0.3)
+  '@nx/js':
+    specifier: 16.9.1
+    version: 16.9.1(@types/node@18.18.1)(nx@16.9.1)(typescript@5.0.3)
+  '@nx/node':
+    specifier: 16.9.1
+    version: 16.9.1(@types/node@18.18.1)(eslint@8.50.0)(nx@16.9.1)(ts-node@10.9.1)(typescript@5.0.3)
   '@testing-library/react':
     specifier: 14.0.0
     version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
-  '@types/jest':
-    specifier: 29.5.5
-    version: 29.5.5
   '@types/node':
     specifier: 18.18.1
     version: 18.18.1
@@ -326,6 +335,9 @@ devDependencies:
     specifier: 29.7.0
     version: 29.7.0(@types/node@18.18.1)(ts-node@10.9.1)
   jest-environment-jsdom:
+    specifier: 29.7.0
+    version: 29.7.0
+  jest-environment-node:
     specifier: 29.7.0
     version: 29.7.0
   kysely-codegen:
@@ -7244,7 +7256,7 @@ packages:
     dependencies:
       expect: 29.7.0
       pretty-format: 29.7.0
-    dev: true
+    dev: false
 
   /@types/js-yaml@4.0.6:
     resolution: {integrity: sha512-ACTuifTSIIbyksx2HTon3aFtCKWcID7/h3XEmRpDYdMCXxPbl+m9GteOJeaAkiAta/NJaSFuA7ahZ0NkwajDSw==}

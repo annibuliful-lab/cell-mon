@@ -1,0 +1,118 @@
+name: backend testing
+
+on:
+  pull_request:
+    branches: [dev, production]
+    types: [labeled]
+
+jobs:
+  runner-job:
+    if: ${{ (github.event_name == 'pull_request' && contains( github.event.pull_request.labels.*.name, 'backend-testing')) || (github.event_name == 'push' && contains( github.event.pull_request.labels.*.name, 'backend-testing'))}}
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - '6379:6379'
+      postgres:
+        image: postgres:14.5-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    env:
+      # Primary Postgres
+      POSTGRES_SERVER_URL: 'localhost'
+      POSTGRES_SERVER_PORT: 5432
+      POSTGRES_DB_NAME: 'cell-mon'
+      POSTGRES_USERNAME: 'cell-mon'
+      POSTGRES_PASSWORD: 'cell-mon'
+      PRIMARY_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/cell-mon?schema=public
+
+      # Job Postgres
+      JOB_POSTGRES_SERVER_URL: 'localhost'
+      JOB_POSTGRES_SERVER_PORT: 5432
+      JOB_POSTGRES_DB_NAME: 'cell-mon-job'
+      JOB_POSTGRES_USERNAME: 'cell-mon'
+      JOB_POSTGRES_PASSWORD: 'cell-mon'
+      JOB_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/cell-mon-job?schema=public
+
+      # Redis
+      REDIS_SERVER_URL: 'localhost'
+      REDIS_SERVER_PORT: 6379
+      REDIS_PASSWORD: 'cell-mon'
+      REDIS_URL: 'redis://127.0.0.1:6379/0'
+
+      # Application
+      GRAPHQL_ENDPOINT: http://localhost:3030/graphql
+      NODE_ENV: 'ci'
+      PORT: 3030
+      JWT_SECRET: secret
+      JWT_ISSER: cell-mon
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - uses: pnpm/action-setup@v2.2.4
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: install wait-on
+        run: pnpm install -g wait-on
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: prisma db deploy
+        run: pnpm run db-all:deploy
+
+      - name: prisma type generate
+        run: pnpm run db-all:generate
+
+      - name: prisma seed
+        run: pnpm run db-all:seed
+
+      - name: backend genql client
+        run: pnpm run genql
+
+      - name: codegen backend
+        run: pnpm run codegen:backend
+
+      - name: run backend
+        run: nohup pnpm run dev-server:start &
+
+      - name: waiting for graphql
+        run: wait-on -d 3000 -t 90000 -i 500 -v http://localhost:3030/graphql
+
+      - name: backend test
+        run: pnpm run backend:test

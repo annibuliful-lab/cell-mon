@@ -12,7 +12,10 @@ async function main() {
 
   await generate({
     schema: typeDefs,
-    output: path.join(__dirname, '../../libs/graphql/src/generated/primary'),
+    output: path.join(
+      __dirname,
+      '../../libs/graphql-client/src/generated/primary'
+    ),
   });
   process.exit(0);
 }
