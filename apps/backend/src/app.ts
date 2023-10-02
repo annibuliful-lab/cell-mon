@@ -39,7 +39,13 @@ export async function main() {
   server.register(helmet);
   server.register(hidePoweredBy, { setTo: 'PHP/7.0.33' });
   server.register(cookie, { secret: process.env.COOKIE_SECRET });
-  server.register(csrfProtection, { cookieOpts: { signed: true } });
+  server.register(csrfProtection, {
+    csrfOpts: {
+      hmacKey: 'aaaaaaa',
+    },
+    cookieOpts: { signed: true, sameSite: true, secure: 'auto' },
+    sessionPlugin: '@fastify/cookie',
+  });
   server.register(mercuriusGQLUpload);
 
   uploadFileController(server);
@@ -75,7 +81,7 @@ export async function main() {
           authProvider,
           accessToken,
           authorization,
-          accountId: null,
+          accountId: null as unknown as string,
           permissions: [],
           role: 'Guest',
           workspaceId,
@@ -87,7 +93,7 @@ export async function main() {
           authenticationService: new AuthenticationService(context),
           accountService: new AccountService(context),
           workspaceService: new WorkspaceService(context),
-        } as AppContext;
+        } as unknown as AppContext;
       }
 
       const { accountId, role, permissions } = await verifyLocalAuthentication({

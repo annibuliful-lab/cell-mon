@@ -5,6 +5,7 @@
   "scripts": {
     "backend:serve": "nx serve backend",
     "backend:test": "nx test backend",
+    "setup": "pnpm run db-all:migrate && pnpm run db-all:migrate && pnpm run genql & pnpm run codegen:backend",
     "dev-server:dev": "nodemon -e ts  --exec \"npm run dev-server:start\"",
     "dev-server:start": "UV_THREADPOOL_SIZE=64 && NODE_OPTIONS='--max-old-space-size=8192' ts-node --project tools/tsconfig.tools.json -r tsconfig-paths/register tools/bin/dev-server.ts",
     "lint:fix": "nx run-many --target=lint --all --fix",
