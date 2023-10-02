@@ -91,7 +91,7 @@ jobs:
         run: pnpm install -g wait-on
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: prisma db deploy
         run: pnpm run db-all:deploy
