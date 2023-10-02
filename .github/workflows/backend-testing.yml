@@ -88,7 +88,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: install wait-on
-        run: npm install --location=global wait-on
+        run: pnpm install -g wait-on
 
       - name: Install dependencies
         run: pnpm install
@@ -109,7 +109,7 @@ jobs:
         run: nohup pnpm run dev-server:start &
 
       - name: waiting for graphql
-        run: wait-on -d 10000 -t 30000 -i 500 -v tcp:3030
+        run: wait-on -d 30000 -t 90000 -i 500 -v tcp:3030
 
       - name: backend test
         run: pnpm run backend:test
