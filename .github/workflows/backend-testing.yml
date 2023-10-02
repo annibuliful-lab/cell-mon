@@ -74,13 +74,6 @@ jobs:
           version: 7
           run_install: false
 
-      - name: Start Typesense
-        uses: jirevwe/typesense-github-action@v1.0.1
-        with:
-          typesense-version: 0.23.1
-          typesense-port: 8108
-          typesense-api-key: TYPESENSE_API_KEY
-
       - name: Get pnpm store directory
         id: pnpm-cache
         run: |
