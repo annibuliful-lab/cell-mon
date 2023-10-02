@@ -102,7 +102,7 @@ jobs:
       - name: prisma seed
         run: pnpm run db-all:seed
 
-      - name: backend codegen
+      - name: backend genql client
         run: pnpm run genql
 
       - name: run backend
@@ -110,9 +110,6 @@ jobs:
 
       - name: waiting for graphql
         run: wait-on -d 30000 -t 90000 -i 500 -v tcp:4000
-
-      - name: backend codegen
-        run: pnpm run genql
 
       - name: backend test
         run: pnpm run backend:test
