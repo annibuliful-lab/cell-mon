@@ -1,6 +1,7 @@
 import {
   accessDirective,
   deleteOperationResultTypeDef,
+  jsonTypeDef,
   paginationTypeDef,
   serialIdTypeDef,
 } from '@cell-mon/graphql';
@@ -30,5 +31,6 @@ export const typeDefs = print(
     phoneTypeDefs,
     missionTypedef,
     paginationTypeDef,
-  ])
+    jsonTypeDef,
+  ]),
 );
