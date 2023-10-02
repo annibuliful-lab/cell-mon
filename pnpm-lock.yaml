@@ -180,8 +180,8 @@ dependencies:
     specifier: 8.15.3
     version: 8.15.3
   pino-pretty:
-    specifier: 9.4.1
-    version: 9.4.1
+    specifier: 10.2.0
+    version: 10.2.0
   prisma:
     specifier: 5.3.1
     version: 5.3.1
@@ -13920,8 +13920,8 @@ packages:
       split2: 4.2.0
     dev: false
 
-  /pino-pretty@9.4.1:
-    resolution: {integrity: sha512-loWr5SNawVycvY//hamIzyz3Fh5OSpvkcO13MwdDW+eKIGylobPLqnVGTDwDXkdmpJd1BhEG+qhDw09h6SqJiQ==}
+  /pino-pretty@10.2.0:
+    resolution: {integrity: sha512-tRvpyEmGtc2D+Lr3FulIZ+R1baggQ4S3xD2Ar93KixFEDx6SEAUP3W5aYuEw1C73d6ROrNcB2IXLteW8itlwhA==}
     hasBin: true
     dependencies:
       colorette: 2.0.20
