@@ -105,6 +105,9 @@ jobs:
       - name: backend genql client
         run: pnpm run genql
 
+      - name: codegen backend
+        run: pnpm run codegen:backend
+
       - name: run backend
         # run: nohup pnpm run dev-server:start &
         run: pnpm run dev-server:start
