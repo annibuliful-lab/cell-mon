@@ -17,7 +17,7 @@ export interface IExecuteTransactionParam {
 
 export class PrimaryRepository<
   Table extends keyof DB = never,
-  Context = never
+  Context = never,
 > {
   protected dbColumns: ReadonlyArray<SelectExpression<From<DB, Table>, Table>> =
     [];
@@ -34,10 +34,10 @@ export class PrimaryRepository<
   }
 
   executeTransaction<T = unknown>(
-    queries: IExecuteTransactionParam[]
+    queries: IExecuteTransactionParam[],
   ): Promise<QueryResult<T> | null> {
     return this.db.transaction().execute(async (db) => {
-      let result;
+      let result = null;
 
       for (const query of queries) {
         if (query.return) {
@@ -48,7 +48,7 @@ export class PrimaryRepository<
         await db.executeQuery(query.sql);
       }
 
-      return result ?? null;
+      return result;
     });
   }
 

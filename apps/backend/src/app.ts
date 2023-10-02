@@ -41,7 +41,7 @@ export async function main() {
   server.register(cookie, { secret: process.env.COOKIE_SECRET });
   server.register(csrfProtection, {
     csrfOpts: {
-      hmacKey: 'aaaaaaa',
+      hmacKey: process.env.HMAC_KEY as string,
     },
     cookieOpts: { signed: true, sameSite: true, secure: 'auto' },
     sessionPlugin: '@fastify/cookie',

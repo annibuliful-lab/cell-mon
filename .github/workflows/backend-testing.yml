@@ -109,7 +109,7 @@ jobs:
         run: nohup pnpm run dev-server:start &
 
       - name: waiting for graphql
-        run: wait-on -d 30000 -t 90000 -i 500 -v tcp:3030
+        run: wait-on -d 3000 -t 90000 -i 500 -v http://localhost:3030/graphql
 
       - name: backend test
         run: pnpm run backend:test
