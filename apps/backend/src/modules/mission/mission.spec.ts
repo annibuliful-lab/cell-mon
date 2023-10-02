@@ -1,8 +1,8 @@
+import { getAdminClient } from '@cell-mon/graphql-client';
 import {
   Client,
   expectDuplicatedError,
   expectNotFoundError,
-  getAdminClient,
 } from '@cell-mon/test';
 import { nanoid } from 'nanoid';
 import { v4 } from 'uuid';

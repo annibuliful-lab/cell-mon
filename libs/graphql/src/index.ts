@@ -1,9 +1,4 @@
 export { verifyLocalAuthentication } from './authentication/local';
-export {
-  getAdminClient,
-  getUserBClient,
-  getUserClient,
-} from './clients/primary.client';
 export { GraphqlContext, MOCK_GRAPHQL_CONTEXT } from './constants/context';
 export {
   mapDataListWithIdsByCustomField,

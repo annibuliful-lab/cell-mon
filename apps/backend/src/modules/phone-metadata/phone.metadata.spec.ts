@@ -1,4 +1,4 @@
-import { getAdminClient } from '@cell-mon/graphql';
+import { getAdminClient } from '@cell-mon/graphql-client';
 import { Client, expectNotFoundError } from '@cell-mon/test';
 import { config } from 'dotenv';
 import { nanoid } from 'nanoid';
