@@ -207,8 +207,8 @@ dependencies:
     specifier: 5.0.3
     version: 5.0.3
   undici:
-    specifier: 5.25.2
-    version: 5.25.2
+    specifier: 5.25.3
+    version: 5.25.3
   uuid:
     specifier: 9.0.1
     version: 9.0.1
@@ -2825,6 +2825,11 @@ packages:
       text-decoding: 1.0.0
     dev: false
 
+  /@fastify/busboy@2.0.0:
+    resolution: {integrity: sha512-JUFJad5lv7jxj926GPgymrWQxxjPYuJNiNjNMzqT+HiuP6Vl3dk5xzG+8sTX96np0ZAluvaMzPsjhHZ5rNuNQQ==}
+    engines: {node: '>=14'}
+    dev: false
+
   /@fastify/compress@6.4.0:
     resolution: {integrity: sha512-9zsljrMmv1mf/r+a+tQQbNJz6++jzsTUVGtJxNKnhd9LXNJNGwTJ3bndkcpJYiG/AoWHwsHGYjB13JnQhR/yNw==}
     dependencies:
@@ -2959,11 +2964,11 @@ packages:
       listr2: 6.6.1
       lodash: 4.17.21
       mkdirp: 0.5.6
-      native-fetch: 4.0.2(undici@5.25.2)
+      native-fetch: 4.0.2(undici@5.25.3)
       prettier: 2.8.8
       qs: 6.11.2
       rimraf: 2.7.1
-      undici: 5.25.2
+      undici: 5.25.3
       yargs: 15.4.1
     transitivePeerDependencies:
       - enquirer
@@ -13602,7 +13607,7 @@ packages:
       secure-json-parse: 2.7.0
       single-user-cache: 0.6.0
       tiny-lru: 11.1.2
-      undici: 5.25.2
+      undici: 5.25.3
       ws: 8.14.2
     transitivePeerDependencies:
       - bufferutil
@@ -13782,12 +13787,12 @@ packages:
     hasBin: true
     dev: false
 
-  /native-fetch@4.0.2(undici@5.25.2):
+  /native-fetch@4.0.2(undici@5.25.3):
     resolution: {integrity: sha512-4QcVlKFtv2EYVS5MBgsGX5+NWKtbDbIECdUXDBGDMAZXq3Jkv9zf+y8iS7Ub8fEdga3GpYeazp9gauNqXHJOCg==}
     peerDependencies:
       undici: '*'
     dependencies:
-      undici: 5.25.2
+      undici: 5.25.3
     dev: false
 
   /natural-compare@1.4.0:
@@ -16441,11 +16446,11 @@ packages:
       busboy: 1.6.0
     dev: false
 
-  /undici@5.25.2:
-    resolution: {integrity: sha512-tch8RbCfn1UUH1PeVCXva4V8gDpGAud/w0WubD6sHC46vYQ3KDxL+xv1A2UxK0N6jrVedutuPHxe1XIoqerwMw==}
+  /undici@5.25.3:
+    resolution: {integrity: sha512-7lmhlz3K1+IKB6IUjkdzV2l0jKY8/0KguEMdEpzzXCug5pEGIp3DxUg0DEN65DrVoxHiRKpPORC/qzX+UglSkQ==}
     engines: {node: '>=14.0'}
     dependencies:
-      busboy: 1.6.0
+      '@fastify/busboy': 2.0.0
     dev: false
 
   /undici@5.5.1:
