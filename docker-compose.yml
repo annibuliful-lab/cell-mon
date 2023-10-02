@@ -24,7 +24,7 @@ services:
 
   postgres:
     container_name: cell-mon-postgres
-    image: postgres:15-alpine
+    image: postgres:16-alpine
     restart: on-failure
     environment:
       - POSTGRES_HOST=${POSTGRES_SERVER_URL}
