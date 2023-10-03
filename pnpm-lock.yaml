@@ -210,8 +210,8 @@ dependencies:
     specifier: 5.2.2
     version: 5.2.2
   undici:
-    specifier: 5.25.3
-    version: 5.25.3
+    specifier: 5.25.4
+    version: 5.25.4
   uuid:
     specifier: 9.0.1
     version: 9.0.1
@@ -2975,11 +2975,11 @@ packages:
       listr2: 6.6.1
       lodash: 4.17.21
       mkdirp: 0.5.6
-      native-fetch: 4.0.2(undici@5.25.3)
+      native-fetch: 4.0.2(undici@5.25.4)
       prettier: 2.8.8
       qs: 6.11.2
       rimraf: 2.7.1
-      undici: 5.25.3
+      undici: 5.25.4
       yargs: 15.4.1
     transitivePeerDependencies:
       - enquirer
@@ -13027,7 +13027,7 @@ packages:
       secure-json-parse: 2.7.0
       single-user-cache: 0.6.0
       tiny-lru: 11.1.2
-      undici: 5.25.3
+      undici: 5.25.4
       ws: 8.14.2
     transitivePeerDependencies:
       - bufferutil
@@ -13207,12 +13207,12 @@ packages:
     hasBin: true
     dev: false
 
-  /native-fetch@4.0.2(undici@5.25.3):
+  /native-fetch@4.0.2(undici@5.25.4):
     resolution: {integrity: sha512-4QcVlKFtv2EYVS5MBgsGX5+NWKtbDbIECdUXDBGDMAZXq3Jkv9zf+y8iS7Ub8fEdga3GpYeazp9gauNqXHJOCg==}
     peerDependencies:
       undici: '*'
     dependencies:
-      undici: 5.25.3
+      undici: 5.25.4
     dev: false
 
   /natural-compare@1.4.0:
@@ -15832,8 +15832,8 @@ packages:
       busboy: 1.6.0
     dev: false
 
-  /undici@5.25.3:
-    resolution: {integrity: sha512-7lmhlz3K1+IKB6IUjkdzV2l0jKY8/0KguEMdEpzzXCug5pEGIp3DxUg0DEN65DrVoxHiRKpPORC/qzX+UglSkQ==}
+  /undici@5.25.4:
+    resolution: {integrity: sha512-450yJxT29qKMf3aoudzFpIciqpx6Pji3hEWaXqXmanbXF58LTAGCKxcJjxMXWu3iG+Mudgo3ZUfDB6YDFd/dAw==}
     engines: {node: '>=14.0'}
     dependencies:
       '@fastify/busboy': 2.0.0
