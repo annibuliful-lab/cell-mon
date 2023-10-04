@@ -207,6 +207,7 @@ model Target {
   address         String?
   metadata        Json?            @db.JsonB
   createdBy       String
+  updatedBy       String?
   deletedAt       DateTime?
   deleteBy        String?
   createdAt       DateTime         @default(now())
