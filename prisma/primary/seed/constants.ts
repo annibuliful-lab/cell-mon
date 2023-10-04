@@ -1,3 +1,5 @@
+import { PermissionAction } from '@prisma/client';
+
 export const auditFields = {
   createdBy: 'TEST_USER',
   updatedBy: 'TEST_USER',
@@ -15,3 +17,20 @@ export const FEATURE_FLAG_PERMISSION_IDS = {
   READ: '8b9bd245-a2f7-4d4a-9fb3-8be2807fd98f',
   DELETE: 'ed9c034f-ace9-4b22-b135-9db2ad231f72',
 };
+
+export const PERMISSION_ABILITILES = [
+  PermissionAction.CREATE,
+  PermissionAction.DELETE,
+  PermissionAction.READ,
+  PermissionAction.UPDATE,
+];
+
+export const TARGET_PERMISSIONS = PERMISSION_ABILITILES.map((action) => ({
+  action,
+  subject: 'TARGET',
+}));
+
+export const MISSION_PERMISSIONS = PERMISSION_ABILITILES.map((action) => ({
+  action,
+  subject: 'MISSION',
+}));
