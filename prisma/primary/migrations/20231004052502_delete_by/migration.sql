@@ -8,7 +8,7 @@ ALTER TABLE "mission_target" ADD COLUMN     "deleteBy" TEXT;
 ALTER TABLE "phone_target" ADD COLUMN     "deleteBy" TEXT;
 
 -- AlterTable
-ALTER TABLE "target" ADD COLUMN     "deleteBy" TEXT;
+ALTER TABLE "target" ADD COLUMN     "deletedBy" TEXT;
 
 -- AlterTable
 ALTER TABLE "target_evidence" ADD COLUMN     "deleteBy" TEXT;
