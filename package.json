@@ -86,7 +86,7 @@
     "next": "13.5.3",
     "pg": "8.11.3",
     "pg-native": "3.0.1",
-    "pino": "8.15.3",
+    "pino": "8.15.5",
     "pino-pretty": "10.2.0",
     "prisma": "5.4.1",
     "prisma-erd-generator": "1.11.1",
