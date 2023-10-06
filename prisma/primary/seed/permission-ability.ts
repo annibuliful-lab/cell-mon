@@ -1,5 +1,9 @@
 import { client } from './client';
-import { FEATURE_FLAG_PERMISSION_IDS, auditFields } from './constants';
+import {
+  FEATURE_FLAG_PERMISSION_IDS,
+  MISSION_PERMISSIONS,
+  TARGET_PERMISSIONS,
+} from './constants';
 
 export async function seedPermissionAbilities() {
   await client.permission.createMany({
@@ -40,6 +44,8 @@ export async function seedPermissionAbilities() {
         action: 'DELETE',
         subject: 'FEATURE_FLAG',
       },
+      ...TARGET_PERMISSIONS,
+      ...MISSION_PERMISSIONS,
     ],
   });
 }

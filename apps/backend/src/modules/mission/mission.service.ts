@@ -1,11 +1,11 @@
-import { PrimaryRepository } from '@cell-mon/db';
+import { mapArrayToStringRecord, PrimaryRepository } from '@cell-mon/db';
 import {
   DuplicatedResource,
   GraphqlContext,
   NotfoundResource,
 } from '@cell-mon/graphql';
 import { Expression, SqlBool } from 'kysely';
-import { isNil } from 'lodash';
+import { isNil, uniq } from 'lodash';
 import { v4 } from 'uuid';
 
 import {
@@ -20,7 +20,7 @@ export class MissionService extends PrimaryRepository<
 > {
   constructor(ctx: GraphqlContext) {
     super(ctx);
-    this.dbColumns = ['id', 'description', 'title', 'status'];
+    this.dbColumns = ['id', 'description', 'title', 'status', 'tags'];
   }
 
   private async validateDuplicateTitle(title?: string) {
@@ -45,6 +45,7 @@ export class MissionService extends PrimaryRepository<
     return this.db
       .insertInto('mission')
       .values({
+        tags: uniq(input.tags) as never,
         id: v4(),
         title: input.title,
         description: input.description,
@@ -61,6 +62,7 @@ export class MissionService extends PrimaryRepository<
     const mission = await this.db
       .updateTable('mission')
       .set({
+        tags: uniq(input.tags) as never,
         title: input.title,
         description: input.description,
         status: input.status,
@@ -98,6 +100,7 @@ export class MissionService extends PrimaryRepository<
       .updateTable('mission')
       .set({
         deletedAt: new Date(),
+        deleteBy: this.context.accountId,
       })
       .where('id', '=', id)
       .returning('id')
@@ -124,6 +127,10 @@ export class MissionService extends PrimaryRepository<
 
         if (filter.title) {
           exprs.push(qb('title', 'ilike', `%${filter.title}%`));
+        }
+
+        if (filter.tags) {
+          exprs.push(qb('tags', '&&', mapArrayToStringRecord(filter.tags)));
         }
 
         return qb.and(exprs);

@@ -1,9 +1,5 @@
-import { getAdminClient } from '@cell-mon/graphql-client';
-import {
-  Client,
-  expectDuplicatedError,
-  expectNotFoundError,
-} from '@cell-mon/test';
+import { Client, getAdminClient } from '@cell-mon/graphql-client';
+import { expectDuplicatedError, expectNotFoundError } from '@cell-mon/test';
 import { nanoid } from 'nanoid';
 import { v4 } from 'uuid';
 
@@ -19,17 +15,22 @@ describe('Mission', () => {
   it('creates new', async () => {
     const title = nanoid();
     const description = nanoid();
+    const tags = [nanoid(), nanoid()];
+
     const mission = await client.mutation({
       createMission: {
         __scalar: true,
+        tags: true,
         __args: {
           title,
           description,
+          tags,
         },
       },
     });
 
     expect(mission.createMission.title).toEqual(title);
+    expect(mission.createMission.tags).toEqual(tags);
     expect(mission.createMission.description).toEqual(description);
     expect(mission.createMission.status).toEqual(MissionStatus.Draft);
   });
@@ -185,7 +186,7 @@ describe('Mission', () => {
     );
   });
 
-  it('delete an existing', async () => {
+  it('deletes an existing', async () => {
     const title = nanoid();
     const description = nanoid();
 
@@ -233,10 +234,10 @@ describe('Mission', () => {
       },
     });
 
-    expect(getMissionById.id).toEqual(createMission.createMission.id);
+    expect(getMissionById).toEqual(createMission.createMission);
   });
 
-  it('throws not found when get by id', () => {
+  it('throws not found when get by wrong id', () => {
     expectNotFoundError(
       client.query({
         getMissionById: {
@@ -244,6 +245,40 @@ describe('Mission', () => {
             id: v4(),
           },
           __scalar: true,
+        },
+      }),
+    );
+  });
+
+  it('throws not found when get by deleted id', async () => {
+    const title = nanoid();
+    const description = nanoid();
+    const createMission = await client.mutation({
+      createMission: {
+        __scalar: true,
+        __args: {
+          title,
+          description,
+        },
+      },
+    });
+
+    await client.mutation({
+      deleteMission: {
+        __scalar: true,
+        __args: {
+          id: createMission.createMission.id,
+        },
+      },
+    });
+
+    expectNotFoundError(
+      client.query({
+        getMissionById: {
+          __scalar: true,
+          __args: {
+            id: createMission.createMission.id,
+          },
         },
       }),
     );
@@ -275,6 +310,40 @@ describe('Mission', () => {
     expect(missions.getMissions.length).toEqual(1);
     expect(mission.title.toLowerCase()).toEqual(title.toLowerCase());
     expect(mission.id).toEqual(createdMission.createMission.id);
+  });
+
+  it('gets by tags', async () => {
+    const title = nanoid();
+    const description = nanoid();
+    const tags = [nanoid(), nanoid(), nanoid(), nanoid()];
+    const createdMission = await client.mutation({
+      createMission: {
+        __scalar: true,
+        tags: true,
+        __args: {
+          title,
+          description,
+          tags,
+        },
+      },
+    });
+
+    const missions = await client.query({
+      getMissions: {
+        __scalar: true,
+        tags: true,
+        __args: {
+          tags: [tags[1], tags[3]],
+        },
+      },
+    });
+
+    const mission = missions.getMissions[0];
+
+    expect(missions.getMissions.length).toEqual(1);
+    expect(mission.title.toLowerCase()).toEqual(title.toLowerCase());
+    expect(mission.id).toEqual(createdMission.createMission.id);
+    expect(mission.tags).toEqual(tags);
   });
 
   it('gets by status', async () => {
@@ -309,8 +378,10 @@ describe('Mission', () => {
       },
     });
 
-    missions.getMissions.forEach((mission) => {
-      expect(mission.status).toEqual(MissionStatus.Investigating);
-    });
+    expect(
+      missions.getMissions.every(
+        (mission) => mission.status === 'INVESTIGATING',
+      ),
+    ).toBeTruthy();
   });
 });

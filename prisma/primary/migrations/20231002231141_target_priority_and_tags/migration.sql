@@ -1,0 +1,6 @@
+-- CreateEnum
+CREATE TYPE "PRIORITY" AS ENUM ('HIGH', 'MEDIUM', 'LOW', 'CRITICAL', 'URGENT');
+
+-- AlterTable
+ALTER TABLE "target" ADD COLUMN     "priority" "PRIORITY" NOT NULL DEFAULT 'MEDIUM',
+ADD COLUMN     "tags" TEXT[] DEFAULT ARRAY[]::TEXT[];

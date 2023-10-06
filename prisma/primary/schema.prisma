@@ -35,6 +35,14 @@ enum MissionStatus {
   FAILED
 }
 
+enum PRIORITY {
+  HIGH
+  MEDIUM
+  LOW
+  CRITICAL
+  URGENT
+}
+
 model Permission {
   id                       String                    @id @default(uuid()) @db.Uuid
   subject                  String
@@ -176,8 +184,10 @@ model Mission {
   title          String
   description    String?
   status         MissionStatus   @default(DRAFT)
+  tags           String[]        @default([])
   createdBy      String
   updatedBy      String?
+  deleteBy       String?
   deletedAt      DateTime?
   createdAt      DateTime        @default(now())
   updatedAt      DateTime?
@@ -191,13 +201,16 @@ model Target {
   workspaceId     String           @db.Uuid
   workspace       Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   title           String
+  priority        PRIORITY         @default(MEDIUM)
+  tags            String[]         @default([])
   description     String?
   photoUrl        String?
   address         String?
   metadata        Json?            @db.JsonB
   createdBy       String
   updatedBy       String?
-  deletedAt       DateTime
+  deletedAt       DateTime?
+  deletedBy       String?
   createdAt       DateTime         @default(now())
   updatedAt       DateTime?
   phoneTargets    PhoneTarget[]
@@ -208,17 +221,18 @@ model Target {
 }
 
 model MissionTarget {
+  id        String    @id @default(uuid()) @db.Uuid
   missionId String    @db.Uuid
   mission   Mission   @relation(fields: [missionId], references: [id], onDelete: Cascade)
   targetId  String    @db.Uuid
   target    Target    @relation(fields: [targetId], references: [id], onDelete: Cascade)
   createdBy String
   updatedBy String?
+  deleteBy  String?
   deletedAt DateTime?
   createdAt DateTime  @default(now())
   updatedAt DateTime?
 
-  @@id([missionId, targetId])
   @@map("mission_target")
 }
 
@@ -231,6 +245,7 @@ model TargetEvidence {
   investigatedDate DateTime
   createdBy        String
   updatedBy        String?
+  deleteBy         String?
   deletedAt        DateTime?
   createdAt        DateTime  @default(now())
   updatedAt        DateTime?
@@ -246,6 +261,7 @@ model PhoneTarget {
   target               Target                @relation(fields: [targetId], references: [id], onDelete: Cascade)
   createdBy            String
   updatedBy            String?
+  deleteBy             String?
   deletedAt            DateTime?
   createdAt            DateTime              @default(now())
   updatedAt            DateTime?
