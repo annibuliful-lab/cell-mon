@@ -18,6 +18,7 @@ export {
   jsonTypeDef,
 } from './schemas/json.schema';
 export { paginationTypeDef } from './schemas/pagination.schema';
+export { priorityTypeDef } from './schemas/priority.schemats';
 export { serialIdScalar, serialIdTypeDef } from './schemas/serial-id.schema';
 export { GraphQLUpload } from './schemas/upload.schema';
 export { graphqlLogger } from './utils/logger';

@@ -98,6 +98,7 @@ export class MissionService extends PrimaryRepository<
       .updateTable('mission')
       .set({
         deletedAt: new Date(),
+        deleteBy: this.context.accountId,
       })
       .where('id', '=', id)
       .returning('id')

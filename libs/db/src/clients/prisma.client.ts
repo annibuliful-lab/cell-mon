@@ -36,7 +36,7 @@ function getClient(): PrismaClient<typeof prismaClientOption> {
             },
           ],
         }
-      : undefined
+      : undefined,
   );
 
   if (shouldLog) {

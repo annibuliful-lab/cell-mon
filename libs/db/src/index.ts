@@ -6,5 +6,6 @@ export { s3Client } from './clients/s3.client';
 export type { Permission } from './generated/primary/types';
 export type * from './generated/primary/types';
 export { PrimaryRepository } from './repository/primary.repository';
+export { mapArrayToStringRecord } from './utils/array';
 export { cursorPagination } from './utils/pagination/cursor';
 export { offsetPagination } from './utils/pagination/offset';

@@ -7,7 +7,6 @@ export const MOCK_GRAPHQL_CONTEXT: GraphqlContext = {
   accountId: 'TEST_USER',
   permissions: [],
   role: 'MOCK_ROLE',
-  projectId: 'MOCK_PROJECT_ID',
   workspaceId: '',
   projectFeatureFlags: [],
 };

@@ -6,6 +6,7 @@ import { Fileservice } from '../modules/file/file.service';
 import { MissionService } from '../modules/mission/mission.service';
 import { PermissionAbilityService } from '../modules/permission-ability/permission-ability.service';
 import { PhoneMetadataService } from '../modules/phone-metadata/phone-metadata.service';
+import { TargetService } from '../modules/target/target.service';
 import { WorkspaceService } from '../modules/workspace/workspace.service';
 
 export interface IServiceContext {
@@ -16,6 +17,7 @@ export interface IServiceContext {
   fileservice: Fileservice;
   phoneMetadataService: PhoneMetadataService;
   missionService: MissionService;
+  targetService: TargetService;
 }
 
 export type AppContext = GraphqlContext & IServiceContext;

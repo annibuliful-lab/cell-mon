@@ -23,6 +23,7 @@ import { Fileservice } from './modules/file/file.service';
 import { MissionService } from './modules/mission/mission.service';
 import { PermissionAbilityService } from './modules/permission-ability/permission-ability.service';
 import { PhoneMetadataService } from './modules/phone-metadata/phone-metadata.service';
+import { TargetService } from './modules/target/target.service';
 import { WorkspaceService } from './modules/workspace/workspace.service';
 import { uploadFileController } from './upload-file';
 
@@ -114,6 +115,7 @@ export async function main() {
 
       return {
         ...context,
+        targetService: new TargetService(context),
         workspaceService: new WorkspaceService(context),
         authenticationService: new AuthenticationService(context),
         accountService: new AccountService(context),

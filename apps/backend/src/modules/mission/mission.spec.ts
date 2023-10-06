@@ -1,9 +1,5 @@
-import { getAdminClient } from '@cell-mon/graphql-client';
-import {
-  Client,
-  expectDuplicatedError,
-  expectNotFoundError,
-} from '@cell-mon/test';
+import { Client, getAdminClient } from '@cell-mon/graphql-client';
+import { expectDuplicatedError, expectNotFoundError } from '@cell-mon/test';
 import { nanoid } from 'nanoid';
 import { v4 } from 'uuid';
 
@@ -185,7 +181,7 @@ describe('Mission', () => {
     );
   });
 
-  it('delete an existing', async () => {
+  it('deletes an existing', async () => {
     const title = nanoid();
     const description = nanoid();
 
@@ -233,10 +229,10 @@ describe('Mission', () => {
       },
     });
 
-    expect(getMissionById.id).toEqual(createMission.createMission.id);
+    expect(getMissionById).toEqual(createMission.createMission);
   });
 
-  it('throws not found when get by id', () => {
+  it('throws not found when get by wrong id', () => {
     expectNotFoundError(
       client.query({
         getMissionById: {
@@ -244,6 +240,40 @@ describe('Mission', () => {
             id: v4(),
           },
           __scalar: true,
+        },
+      }),
+    );
+  });
+
+  it('throws not found when get by deleted id', async () => {
+    const title = nanoid();
+    const description = nanoid();
+    const createMission = await client.mutation({
+      createMission: {
+        __scalar: true,
+        __args: {
+          title,
+          description,
+        },
+      },
+    });
+
+    await client.mutation({
+      deleteMission: {
+        __scalar: true,
+        __args: {
+          id: createMission.createMission.id,
+        },
+      },
+    });
+
+    expectNotFoundError(
+      client.query({
+        getMissionById: {
+          __scalar: true,
+          __args: {
+            id: createMission.createMission.id,
+          },
         },
       }),
     );
