@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import { PRIORITY } from './generated';
 
 type Option = {
-  priority: PRIORITY;
+  priority?: PRIORITY;
 };
 
 export async function testCreateTarget(option?: Option) {
@@ -23,7 +23,7 @@ export async function testCreateTarget(option?: Option) {
           tags,
           description,
           photoUrl,
-          priority: option.priority,
+          priority: option?.priority,
         },
       },
     })
