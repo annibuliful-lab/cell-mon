@@ -21,4 +21,5 @@ export { paginationTypeDef } from './schemas/pagination.schema';
 export { priorityTypeDef } from './schemas/priority.schemats';
 export { serialIdScalar, serialIdTypeDef } from './schemas/serial-id.schema';
 export { GraphQLUpload } from './schemas/upload.schema';
+export { mapDataloaderRecord, mapDataloaderRecords } from './utils/dataloader';
 export { graphqlLogger } from './utils/logger';

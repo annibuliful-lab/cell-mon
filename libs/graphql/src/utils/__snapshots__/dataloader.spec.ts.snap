@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dataloader mapDataloaderWithIdField returns map data structure with custom field 1`] = `
+exports[`dataloader returns map data structure with custom field 1`] = `
 [
   {
     "id": "1",
@@ -13,18 +13,7 @@ exports[`dataloader mapDataloaderWithIdField returns map data structure with cus
 ]
 `;
 
-exports[`dataloader mapDataloaderWithIds returns map data structure 1`] = `
-[
-  {
-    "id": "1",
-  },
-  {
-    "id": "2",
-  },
-]
-`;
-
-exports[`dataloader mapDatasWithIdsByCustomField returns map muliple data structure with custom field 1`] = `
+exports[`dataloader returns map muliple data structure with custom field 1`] = `
 [
   [
     {
@@ -48,7 +37,7 @@ exports[`dataloader mapDatasWithIdsByCustomField returns map muliple data struct
 ]
 `;
 
-exports[`dataloader mapDatasWithIdsByCustomField returns map multiple data structure with sort order 1`] = `
+exports[`dataloader returns map multiple data structure with sort order 1`] = `
 [
   [
     {

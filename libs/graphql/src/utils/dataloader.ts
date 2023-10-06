@@ -1,20 +1,12 @@
 import { Dictionary, groupBy, orderBy } from 'lodash';
 
-export function mapDataloaderWithIds<T extends { id: string }>(
-  data: T[],
-  ids: string[],
-) {
-  const dataMap = new Map(data.map((d) => [d.id, d]));
-  return ids.map((id) => dataMap.get(id));
-}
-
 type DataloaderWithIdsByCustomFieldId<T> = {
   data: T[];
   ids: string[];
   idField: keyof T;
 };
 
-export function mapDataloaderWithIdField<T>({
+export function mapDataloaderRecord<T>({
   data,
   idField,
   ids,
