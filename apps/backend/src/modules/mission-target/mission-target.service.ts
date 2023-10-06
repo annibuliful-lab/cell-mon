@@ -70,8 +70,8 @@ export class MissionTargetService extends PrimaryRepository<
       .select(this.dbColumns)
       .innerJoin('mission', 'mission.id', 'mission_target.missionId')
       .where('mission.workspaceId', '=', this.context.workspaceId)
-      .where('deletedAt', 'is', null)
-      .where('id', '=', id)
+      .where('mission_target.deletedAt', 'is', null)
+      .where('mission_target.id', '=', id)
       .executeTakeFirst();
 
     if (!missionTarget) {
@@ -82,13 +82,21 @@ export class MissionTargetService extends PrimaryRepository<
   }
 
   async findManyByMission(filter: QueryGetMissionTargetsByMissionIdArgs) {
-    return this.db
+    const query = this.db
       .selectFrom('mission_target')
       .select(this.dbColumns)
       .innerJoin('mission', 'mission.id', 'mission_target.missionId')
       .where('mission.workspaceId', '=', this.context.workspaceId)
-      .where('deletedAt', 'is', null)
-      .where('mission.id', '=', filter.missionId)
+      .where('mission_target.deletedAt', 'is', null)
+      .where('mission_target.missionId', '=', filter.missionId);
+
+    if (filter.targetPriorities?.length) {
+      query
+        .innerJoin('target', 'mission_target.targetId', 'target.id')
+        .where('priority', 'in', uniq(filter.targetPriorities));
+    }
+
+    return query
       .limit(filter.pagination?.limit ?? this.defaultLimit)
       .offset(filter.pagination?.offset ?? this.defaultOffset)
       .execute();

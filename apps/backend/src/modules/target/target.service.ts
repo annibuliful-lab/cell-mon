@@ -135,7 +135,7 @@ export class TargetService extends PrimaryRepository<'target', GraphqlContext> {
         ];
 
         if (filter.priorities) {
-          exprs.push(qb('priority', 'in', filter.priorities));
+          exprs.push(qb('priority', 'in', uniq(filter.priorities)));
         }
 
         if (filter.search) {

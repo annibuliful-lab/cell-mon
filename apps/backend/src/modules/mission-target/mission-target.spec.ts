@@ -118,4 +118,31 @@ describe('Mission Target', () => {
       ),
     ).toBeTruthy();
   });
+
+  it('gets by id', async () => {
+    const mission = await testCreateMission();
+    const target = await testCreateTarget();
+    const missionTarget = (
+      await client.mutation({
+        assignTargetToMission: {
+          __scalar: true,
+          __args: {
+            missionId: mission.id,
+            targetId: target.id,
+          },
+        },
+      })
+    ).assignTargetToMission;
+
+    const result = await client.query({
+      getMissionTargetById: {
+        __scalar: true,
+        __args: {
+          id: missionTarget.id,
+        },
+      },
+    });
+
+    expect(result.getMissionTargetById).toEqual(missionTarget);
+  });
 });
