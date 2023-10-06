@@ -184,7 +184,7 @@ model Mission {
   title          String
   description    String?
   status         MissionStatus   @default(DRAFT)
-  tags           String[]
+  tags           String[]        @default([])
   createdBy      String
   updatedBy      String?
   deleteBy       String?
