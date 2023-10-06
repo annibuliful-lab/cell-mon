@@ -14,31 +14,14 @@ import {
   MutationCreateTargetArgs,
   MutationUpdateTargetArgs,
   QueryGetTargetsArgs,
+  Target,
 } from '../../codegen-generated';
 
-export class TargetService extends PrimaryRepository<'target', GraphqlContext> {
-  dataloader = new DataLoader(
-    async (ids: readonly string[]) => {
-      const targets = await this.db
-        .selectFrom('target')
-        .select([
-          'address',
-          'description',
-          'id',
-          'metadata',
-          'photoUrl',
-          'priority',
-          'tags',
-          'title',
-        ])
-        .where('id', 'in', uniq(ids))
-        .execute();
-
-      return mapDataloaderRecord({ data: targets, ids, idField: 'id' });
-    },
-    { cache: false },
-  );
-
+export class TargetService extends PrimaryRepository<
+  'target',
+  GraphqlContext,
+  Target
+> {
   constructor(ctx: GraphqlContext) {
     super(ctx);
 
@@ -52,6 +35,18 @@ export class TargetService extends PrimaryRepository<'target', GraphqlContext> {
       'tags',
       'title',
     ];
+    this.setupDataloader();
+  }
+
+  private setupDataloader() {
+    this.dataloader = new DataLoader(
+      async (ids: readonly string[]) => {
+        const targets = await this.findByIds(ids);
+
+        return mapDataloaderRecord({ data: targets, ids, idField: 'id' });
+      },
+      { cache: false },
+    );
   }
 
   private async validateDuplicatedTitle(title?: string) {
@@ -146,6 +141,14 @@ export class TargetService extends PrimaryRepository<'target', GraphqlContext> {
     }
 
     return target;
+  }
+
+  findByIds(ids: readonly string[]) {
+    return this.db
+      .selectFrom('target')
+      .select(this.dbColumns)
+      .where('id', 'in', uniq(ids))
+      .execute();
   }
 
   async findMany(filter: QueryGetTargetsArgs) {

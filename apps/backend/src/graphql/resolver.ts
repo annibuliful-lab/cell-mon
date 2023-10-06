@@ -17,6 +17,7 @@ import {
   query as missionQueryResolver,
 } from '../modules/mission/mission.resolver';
 import {
+  field as missionTargetFieldResolver,
   mutation as missionTargetMutationResolver,
   query as missionTargetQueryResolver,
 } from '../modules/mission-target/mission-target.resolver';
@@ -62,4 +63,5 @@ export const resolvers: Resolvers = {
   SerialId: serialIdScalar,
   JSON: GraphQLJSON,
   JSONObject: GraphQLJSONObject,
+  ...missionTargetFieldResolver,
 };

@@ -82,7 +82,7 @@ export class MissionTargetService extends PrimaryRepository<
   }
 
   async findManyByMission(filter: QueryGetMissionTargetsByMissionIdArgs) {
-    const query = this.db
+    let query = this.db
       .selectFrom('mission_target')
       .select(this.dbColumns)
       .innerJoin('mission', 'mission.id', 'mission_target.missionId')
@@ -91,9 +91,9 @@ export class MissionTargetService extends PrimaryRepository<
       .where('mission_target.missionId', '=', filter.missionId);
 
     if (filter.targetPriorities?.length) {
-      query
+      query = query
         .innerJoin('target', 'mission_target.targetId', 'target.id')
-        .where('priority', 'in', uniq(filter.targetPriorities));
+        .where('target.priority', 'in', uniq(filter.targetPriorities));
     }
 
     return query

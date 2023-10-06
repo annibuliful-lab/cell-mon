@@ -176,4 +176,78 @@ describe('Mission Target', () => {
 
     expect(result).toEqual(bulkAssigned);
   });
+
+  it('gets by target field', async () => {
+    const mission = await testCreateMission();
+    const targets = await Promise.all([
+      testCreateTarget({ priority: 'CRITICAL' }),
+      testCreateTarget({ priority: 'URGENT' }),
+    ]);
+    const targetIds = targets.map((t) => t.id);
+
+    await client.mutation({
+      bulkAssignTargetsToMission: {
+        __scalar: true,
+        __args: {
+          missionId: mission.id,
+          targetIds,
+        },
+      },
+    });
+
+    const result = (
+      await client.query({
+        getMissionTargetsByMissionId: {
+          __scalar: true,
+          target: {
+            __scalar: true,
+          },
+          __args: {
+            missionId: mission.id,
+            targetPriorities: ['CRITICAL', 'URGENT'],
+          },
+        },
+      })
+    ).getMissionTargetsByMissionId;
+
+    expect(result.map((el) => el.target)).toEqual(
+      expect.arrayContaining(targets),
+    );
+  });
+
+  it('gets by target priority', async () => {
+    const mission = await testCreateMission();
+    const targets = await Promise.all([
+      testCreateTarget({ priority: 'CRITICAL' }),
+      testCreateTarget({ priority: 'URGENT' }),
+    ]);
+    const targetIds = targets.map((t) => t.id);
+
+    await client.mutation({
+      bulkAssignTargetsToMission: {
+        __scalar: true,
+        __args: {
+          missionId: mission.id,
+          targetIds,
+        },
+      },
+    });
+
+    const result = (
+      await client.query({
+        getMissionTargetsByMissionId: {
+          __scalar: true,
+          target: {
+            __scalar: true,
+          },
+          __args: {
+            missionId: mission.id,
+            targetPriorities: ['URGENT'],
+          },
+        },
+      })
+    ).getMissionTargetsByMissionId;
+    expect(result).toHaveLength(1);
+    expect(result[0].target).toEqual(targets[1]);
+  });
 });

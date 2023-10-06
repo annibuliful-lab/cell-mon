@@ -1,7 +1,13 @@
 import { getAdminClient } from '@cell-mon/graphql-client';
 import { nanoid } from 'nanoid';
 
-export async function testCreateTarget() {
+import { PRIORITY } from './generated';
+
+type Option = {
+  priority: PRIORITY;
+};
+
+export async function testCreateTarget(option?: Option) {
   const title = nanoid();
   const description = nanoid();
   const tags = [nanoid(), nanoid()];
@@ -17,6 +23,7 @@ export async function testCreateTarget() {
           tags,
           description,
           photoUrl,
+          priority: option.priority,
         },
       },
     })
