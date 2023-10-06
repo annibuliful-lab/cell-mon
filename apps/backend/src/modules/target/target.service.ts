@@ -5,6 +5,7 @@ import {
   NotfoundResource,
 } from '@cell-mon/graphql';
 import { Expression, SqlBool } from 'kysely';
+import { uniq } from 'lodash';
 import { v4 } from 'uuid';
 
 import {
@@ -54,7 +55,7 @@ export class TargetService extends PrimaryRepository<'target', GraphqlContext> {
         address: input.address,
         photoUrl: input.photoUrl,
         priority: input.priority,
-        tags: input.tags as never,
+        tags: uniq(input.tags) as never,
         workspaceId: this.context.workspaceId,
         createdBy: this.context.accountId,
       })
@@ -90,7 +91,7 @@ export class TargetService extends PrimaryRepository<'target', GraphqlContext> {
         address: input.address,
         photoUrl: input.photoUrl,
         priority: input.priority,
-        tags: input.tags as never,
+        tags: uniq(input.tags) as never,
         updatedAt: new Date(),
         updatedBy: this.context.accountId,
       })

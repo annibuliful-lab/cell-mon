@@ -15,17 +15,22 @@ describe('Mission', () => {
   it('creates new', async () => {
     const title = nanoid();
     const description = nanoid();
+    const tags = [nanoid(), nanoid()];
+
     const mission = await client.mutation({
       createMission: {
         __scalar: true,
+        tags: true,
         __args: {
           title,
           description,
+          tags,
         },
       },
     });
 
     expect(mission.createMission.title).toEqual(title);
+    expect(mission.createMission.tags).toEqual(tags);
     expect(mission.createMission.description).toEqual(description);
     expect(mission.createMission.status).toEqual(MissionStatus.Draft);
   });
@@ -307,6 +312,40 @@ describe('Mission', () => {
     expect(mission.id).toEqual(createdMission.createMission.id);
   });
 
+  it('gets by tags', async () => {
+    const title = nanoid();
+    const description = nanoid();
+    const tags = [nanoid(), nanoid(), nanoid(), nanoid()];
+    const createdMission = await client.mutation({
+      createMission: {
+        __scalar: true,
+        tags: true,
+        __args: {
+          title,
+          description,
+          tags,
+        },
+      },
+    });
+
+    const missions = await client.query({
+      getMissions: {
+        __scalar: true,
+        tags: true,
+        __args: {
+          tags: [tags[1], tags[3]],
+        },
+      },
+    });
+
+    const mission = missions.getMissions[0];
+
+    expect(missions.getMissions.length).toEqual(1);
+    expect(mission.title.toLowerCase()).toEqual(title.toLowerCase());
+    expect(mission.id).toEqual(createdMission.createMission.id);
+    expect(mission.tags).toEqual(tags);
+  });
+
   it('gets by status', async () => {
     const title = nanoid();
     const description = nanoid();
@@ -339,8 +378,10 @@ describe('Mission', () => {
       },
     });
 
-    missions.getMissions.forEach((mission) => {
-      expect(mission.status).toEqual(MissionStatus.Investigating);
-    });
+    expect(
+      missions.getMissions.every(
+        (mission) => mission.status === 'INVESTIGATING',
+      ),
+    ).toBeTruthy();
   });
 });

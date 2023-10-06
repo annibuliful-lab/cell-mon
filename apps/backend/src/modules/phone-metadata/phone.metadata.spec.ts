@@ -1,5 +1,5 @@
-import { getAdminClient } from '@cell-mon/graphql-client';
-import { Client, expectNotFoundError } from '@cell-mon/test';
+import { Client, getAdminClient } from '@cell-mon/graphql-client';
+import { expectNotFoundError } from '@cell-mon/test';
 import { config } from 'dotenv';
 import { nanoid } from 'nanoid';
 import { v4 } from 'uuid';
@@ -54,7 +54,7 @@ describe('PhoneMetadata', () => {
     });
 
     expect(updated.updatePhoneMetadata.id).toEqual(
-      phone.createPhoneMetadata.id
+      phone.createPhoneMetadata.id,
     );
     expect(updated.updatePhoneMetadata.imsi).toEqual(imsi);
     expect(updated.updatePhoneMetadata.msisdn).toEqual(msisdn);
@@ -71,7 +71,7 @@ describe('PhoneMetadata', () => {
             msisdn: '',
           },
         },
-      })
+      }),
     );
   });
 
@@ -110,7 +110,7 @@ describe('PhoneMetadata', () => {
             id: v4(),
           },
         },
-      })
+      }),
     );
   });
 
@@ -139,7 +139,7 @@ describe('PhoneMetadata', () => {
     expect(created.createPhoneMetadata.id).toEqual(phones.getPhones[0].id);
     expect(created.createPhoneMetadata.imsi).toEqual(phones.getPhones[0].imsi);
     expect(created.createPhoneMetadata.msisdn).toEqual(
-      phones.getPhones[0].msisdn
+      phones.getPhones[0].msisdn,
     );
   });
 
@@ -168,7 +168,7 @@ describe('PhoneMetadata', () => {
     expect(created.createPhoneMetadata.id).toEqual(phones.getPhones[0].id);
     expect(created.createPhoneMetadata.imsi).toEqual(phones.getPhones[0].imsi);
     expect(created.createPhoneMetadata.msisdn).toEqual(
-      phones.getPhones[0].msisdn
+      phones.getPhones[0].msisdn,
     );
   });
 });

@@ -14,16 +14,22 @@ export const missionTypedef = gql`
     title: String!
     description: String
     status: MissionStatus!
+    tags: [String!]
   }
 
   type Mutation {
-    createMission(title: String!, description: String): Mission! @access
+    createMission(
+      title: String!
+      description: String
+      tags: [String!]
+    ): Mission! @access
 
     updateMission(
       id: ID!
       title: String
       description: String
       status: MissionStatus
+      tags: [String!]
     ): Mission! @access
 
     deleteMission(id: ID!): DeleteOperationResult! @access
@@ -36,6 +42,7 @@ export const missionTypedef = gql`
       status: MissionStatus
       title: String
       pagination: OffsetPaginationInput
+      tags: [String!]
     ): [Mission!]! @access
   }
 `;

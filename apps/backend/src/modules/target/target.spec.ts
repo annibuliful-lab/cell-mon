@@ -312,7 +312,7 @@ describe('Target', () => {
     );
   });
 
-  it('gets with title', async () => {
+  it('gets by title', async () => {
     const title = nanoid();
     const description = nanoid();
     const tags = [nanoid(), nanoid()];
@@ -345,7 +345,40 @@ describe('Target', () => {
     expect(targets.getTargets[0]).toEqual(createdTarget);
   });
 
-  it('gets targets by tags', async () => {
+  it('gets by priority', async () => {
+    const title = nanoid();
+    const description = nanoid();
+    const tags = [nanoid(), nanoid(), nanoid(), nanoid()];
+    const photoUrl = nanoid();
+
+    await client.mutation({
+      createTarget: {
+        __scalar: true,
+        tags: true,
+        __args: {
+          title,
+          tags,
+          description,
+          photoUrl,
+          priority: 'LOW',
+        },
+      },
+    });
+
+    const targets = await client.query({
+      getTargets: {
+        __scalar: true,
+        __args: {
+          priority: 'LOW',
+        },
+      },
+    });
+
+    expect(
+      targets.getTargets.every((target) => target.priority === 'LOW'),
+    ).toBeTruthy();
+  });
+  it('gets by tags', async () => {
     const title = nanoid();
     const description = nanoid();
     const tags = [nanoid(), nanoid(), nanoid(), nanoid()];
@@ -374,7 +407,7 @@ describe('Target', () => {
         },
       },
     });
-
+    expect(targets.getTargets.length).toEqual(1);
     expect(targets.getTargets[0]).toEqual(createdTarget);
   });
 });

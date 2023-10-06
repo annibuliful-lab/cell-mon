@@ -1,4 +1,5 @@
-import { Client, expectDuplicatedError, testClient } from '@cell-mon/test';
+import { Client, testClient } from '@cell-mon/graphql-client';
+import { expectDuplicatedError } from '@cell-mon/test';
 import { nanoid } from 'nanoid';
 
 describe('Account module', () => {
@@ -53,7 +54,7 @@ describe('Account module', () => {
             },
           },
         },
-      })
+      }),
     );
   });
 });
