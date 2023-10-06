@@ -145,4 +145,35 @@ describe('Mission Target', () => {
 
     expect(result.getMissionTargetById).toEqual(missionTarget);
   });
+
+  it('gets by mission id', async () => {
+    const mission = await testCreateMission();
+    const targets = await Promise.all([testCreateTarget(), testCreateTarget()]);
+    const targetIds = targets.map((t) => t.id);
+
+    const bulkAssigned = (
+      await client.mutation({
+        bulkAssignTargetsToMission: {
+          __scalar: true,
+          __args: {
+            missionId: mission.id,
+            targetIds,
+          },
+        },
+      })
+    ).bulkAssignTargetsToMission;
+
+    const result = (
+      await client.query({
+        getMissionTargetsByMissionId: {
+          __scalar: true,
+          __args: {
+            missionId: mission.id,
+          },
+        },
+      })
+    ).getMissionTargetsByMissionId;
+
+    expect(result).toEqual(bulkAssigned);
+  });
 });

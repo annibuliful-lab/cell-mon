@@ -2,8 +2,10 @@ import { mapArrayToStringRecord, PrimaryRepository } from '@cell-mon/db';
 import {
   DuplicatedResource,
   GraphqlContext,
+  mapDataloaderRecord,
   NotfoundResource,
 } from '@cell-mon/graphql';
+import DataLoader from 'dataloader';
 import { Expression, SqlBool } from 'kysely';
 import { uniq } from 'lodash';
 import { v4 } from 'uuid';
@@ -15,6 +17,28 @@ import {
 } from '../../codegen-generated';
 
 export class TargetService extends PrimaryRepository<'target', GraphqlContext> {
+  dataloader = new DataLoader(
+    async (ids: readonly string[]) => {
+      const targets = await this.db
+        .selectFrom('target')
+        .select([
+          'address',
+          'description',
+          'id',
+          'metadata',
+          'photoUrl',
+          'priority',
+          'tags',
+          'title',
+        ])
+        .where('id', 'in', uniq(ids))
+        .execute();
+
+      return mapDataloaderRecord({ data: targets, ids, idField: 'id' });
+    },
+    { cache: false },
+  );
+
   constructor(ctx: GraphqlContext) {
     super(ctx);
 

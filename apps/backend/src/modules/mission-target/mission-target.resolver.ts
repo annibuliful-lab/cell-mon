@@ -33,3 +33,11 @@ export const query: Resolvers<AppContext>['Query'] = {
     return ctx.missionTargetService.findManyByMission(input) as never;
   },
 };
+
+export const field: Resolvers<AppContext> = {
+  MissionTarget: {
+    target: (parent, _, ctx) => {
+      return ctx.targetService.dataloader.load(parent.targetId);
+    },
+  },
+};

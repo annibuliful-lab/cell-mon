@@ -2,7 +2,7 @@ import { Dictionary, groupBy, orderBy } from 'lodash';
 
 type DataloaderWithIdsByCustomFieldId<T> = {
   data: T[];
-  ids: string[];
+  ids: readonly string[];
   idField: keyof T;
 };
 

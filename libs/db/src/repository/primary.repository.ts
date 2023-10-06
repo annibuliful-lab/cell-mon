@@ -1,3 +1,4 @@
+import DataLoader from 'dataloader';
 import { Redis } from 'ioredis';
 import { CompiledQuery, Kysely, QueryResult, SelectExpression } from 'kysely';
 import { From } from 'kysely/dist/cjs/parser/table-parser';
@@ -5,7 +6,6 @@ import { From } from 'kysely/dist/cjs/parser/table-parser';
 import { primaryDbClient } from '../clients/primary.client';
 import { redisClient } from '../clients/redis.client';
 import { DB } from '../generated/primary/types';
-
 export type SqlCommand<T = unknown> = {
   readonly sql: string;
   readonly parameters: ReadonlyArray<T>;
@@ -19,6 +19,7 @@ export type ExecuteTransactionParam = {
 export class PrimaryRepository<
   Table extends keyof DB = never,
   Context = never,
+  DataLoaderType = unknown,
 > {
   protected dbColumns: ReadonlyArray<SelectExpression<From<DB, Table>, Table>> =
     [];
@@ -27,6 +28,7 @@ export class PrimaryRepository<
   protected redis: Redis;
   protected defaultLimit = 20;
   protected defaultOffset = 0;
+  dataloader!: DataLoader<string, DataLoaderType, string>;
 
   constructor(...params: Context extends never ? [] : [Context]) {
     this.context = params[0] as Context;
