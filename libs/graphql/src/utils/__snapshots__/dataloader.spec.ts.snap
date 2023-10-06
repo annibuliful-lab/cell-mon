@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dataloader mapDataloaderWithIdField returns map data structure with custom field 1`] = `
+[
+  {
+    "id": "1",
+    "name": "AAAA",
+  },
+  {
+    "id": "2",
+    "name": "BBBB",
+  },
+]
+`;
+
+exports[`dataloader mapDataloaderWithIds returns map data structure 1`] = `
+[
+  {
+    "id": "1",
+  },
+  {
+    "id": "2",
+  },
+]
+`;
+
+exports[`dataloader mapDatasWithIdsByCustomField returns map muliple data structure with custom field 1`] = `
+[
+  [
+    {
+      "id": "2860e6ff-87ef-44c8-995f-7c4b516c1794",
+      "projectId": "TEST_PROJECT_ID_1",
+      "tag": "TAG_A",
+    },
+    {
+      "id": "2860e6ff-87ef-44c8-995f-7c4b516c1890",
+      "projectId": "TEST_PROJECT_ID_1",
+      "tag": "TAG_C",
+    },
+  ],
+  [
+    {
+      "id": "6f5b77dd-7859-4229-86d8-1b92063b24e1",
+      "projectId": "TEST_PROJECT_ID_2",
+      "tag": "TAG_B",
+    },
+  ],
+]
+`;
+
+exports[`dataloader mapDatasWithIdsByCustomField returns map multiple data structure with sort order 1`] = `
+[
+  [
+    {
+      "id": "tag-3",
+      "projectId": "TEST_PROJECT_ID_1",
+      "tag": "TAG_C",
+    },
+    {
+      "id": "tag-1",
+      "projectId": "TEST_PROJECT_ID_1",
+      "tag": "TAG_A",
+    },
+  ],
+  [
+    {
+      "id": "tag-4",
+      "projectId": "TEST_PROJECT_ID_2",
+      "tag": "TAG_B",
+    },
+    {
+      "id": "tag-5",
+      "projectId": "TEST_PROJECT_ID_2",
+      "tag": "TAG_D",
+    },
+    {
+      "id": "tag-2",
+      "projectId": "TEST_PROJECT_ID_2",
+      "tag": "TAG_E",
+    },
+  ],
+]
+`;
