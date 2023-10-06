@@ -19,7 +19,7 @@ async function cleanup() {
 
   for (const tablename of tablenames) {
     await client.$executeRawUnsafe(
-      `TRUNCATE TABLE "public"."${tablename}" CASCADE;`
+      `TRUNCATE TABLE "public"."${tablename}" CASCADE;`,
     );
   }
 }
