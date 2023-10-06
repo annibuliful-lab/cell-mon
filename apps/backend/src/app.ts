@@ -1,9 +1,5 @@
 import { primaryDbClient, prismaDbClient, redisClient } from '@cell-mon/db';
-import {
-  GraphqlContext,
-  graphqlLogger,
-  verifyLocalAuthentication,
-} from '@cell-mon/graphql';
+import { graphqlLogger } from '@cell-mon/graphql';
 import { logger } from '@cell-mon/utils';
 import cookie from '@fastify/cookie';
 import csrfProtection from '@fastify/csrf-protection';
@@ -14,17 +10,9 @@ import fastify from 'fastify';
 import mercurius from 'mercurius';
 import mercuriusGQLUpload from 'mercurius-upload';
 
-import type { AppContext } from './@types/context';
 import schema from './graphql';
+import { graphqlContext } from './graphql/context';
 import { hidePoweredBy } from './hooks/hide-powered-by';
-import { AccountService } from './modules/account/account.service';
-import { AuthenticationService } from './modules/authentication/authentication.service';
-import { Fileservice } from './modules/file/file.service';
-import { MissionService } from './modules/mission/mission.service';
-import { PermissionAbilityService } from './modules/permission-ability/permission-ability.service';
-import { PhoneMetadataService } from './modules/phone-metadata/phone-metadata.service';
-import { TargetService } from './modules/target/target.service';
-import { WorkspaceService } from './modules/workspace/workspace.service';
 import { uploadFileController } from './upload-file';
 
 config();
@@ -32,7 +20,6 @@ config();
 export async function main() {
   const host = process.env.HOST ?? '0.0.0.0';
   const port = process.env.PORT ? Number(process.env.PORT) : 3000;
-  const isProduction = process.env.NODE_ENV === 'production';
 
   const server = fastify();
 
@@ -63,68 +50,7 @@ export async function main() {
         response: execution,
       };
     },
-    context: async ({ headers, body }): Promise<AppContext> => {
-      const allowIntrospection =
-        (body as { operationName: string })?.['operationName'] ===
-          'IntrospectionQuery' && !isProduction;
-
-      if (allowIntrospection) {
-        return {} as AppContext;
-      }
-
-      const authProvider = headers['x-auth-provider'] as string;
-      const accessToken = headers['access-token'] as string;
-      const authorization = headers['authorization'] as string;
-      const workspaceId = headers['x-workspace-id'] as string;
-
-      if (!authorization) {
-        const context = {
-          authProvider,
-          accessToken,
-          authorization,
-          accountId: null as unknown as string,
-          permissions: [],
-          role: 'Guest',
-          workspaceId,
-          projectFeatureFlags: [],
-        };
-
-        return {
-          ...context,
-          authenticationService: new AuthenticationService(context),
-          accountService: new AccountService(context),
-          workspaceService: new WorkspaceService(context),
-        } as unknown as AppContext;
-      }
-
-      const { accountId, role, permissions } = await verifyLocalAuthentication({
-        token: authorization,
-        workspaceId,
-      });
-
-      const context: GraphqlContext = {
-        authProvider,
-        accessToken,
-        authorization,
-        accountId: accountId.toString(),
-        permissions,
-        role: role as string,
-        projectFeatureFlags: [],
-        workspaceId,
-      };
-
-      return {
-        ...context,
-        targetService: new TargetService(context),
-        workspaceService: new WorkspaceService(context),
-        authenticationService: new AuthenticationService(context),
-        accountService: new AccountService(context),
-        permissionAbilityService: new PermissionAbilityService(context),
-        fileservice: new Fileservice(context),
-        phoneMetadataService: new PhoneMetadataService(context),
-        missionService: new MissionService(context),
-      };
-    },
+    context: graphqlContext,
   });
 
   server.graphql.addHook('preExecution', graphqlLogger);

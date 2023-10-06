@@ -369,7 +369,7 @@ describe('Target', () => {
       getTargets: {
         __scalar: true,
         __args: {
-          priority: 'LOW',
+          priorities: ['LOW'],
         },
       },
     });
@@ -378,6 +378,7 @@ describe('Target', () => {
       targets.getTargets.every((target) => target.priority === 'LOW'),
     ).toBeTruthy();
   });
+
   it('gets by tags', async () => {
     const title = nanoid();
     const description = nanoid();

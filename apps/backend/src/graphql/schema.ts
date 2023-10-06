@@ -13,6 +13,7 @@ import { accountTypeDefs } from '../modules/account/account.schema';
 import { authenticationTypeDefs } from '../modules/authentication/authentication.schema';
 import { fileTypeDefs } from '../modules/file/file.schema';
 import { missionTypedef } from '../modules/mission/mission.schema';
+import { missionTargetTypeDef } from '../modules/mission-target/mission-target.schema';
 import { permissionAbilityTypeDefs } from '../modules/permission-ability/permission-ability.schema';
 import { phoneTypeDefs } from '../modules/phone-metadata/phone-metadata.schema';
 import { targetTypeDef } from '../modules/target/target.schema';
@@ -36,5 +37,6 @@ export const typeDefs = print(
     jsonTypeDef,
     targetTypeDef,
     priorityTypeDef,
+    missionTargetTypeDef,
   ]),
 );

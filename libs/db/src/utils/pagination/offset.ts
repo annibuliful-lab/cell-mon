@@ -1,4 +1,5 @@
 import { SelectQueryBuilder, sql, StringReference } from 'kysely';
+import { uniq } from 'lodash';
 
 export type OffsetPaginationResult<O> = {
   hasNextPage: boolean;
@@ -12,7 +13,7 @@ export async function offsetPagination<O, DB, TB extends keyof DB>(
     perPage: number;
     page: number;
     experimental_deferredJoinPrimaryKey?: StringReference<DB, TB>;
-  }
+  },
 ): Promise<OffsetPaginationResult<O>> {
   qb = qb.limit(opts.perPage + 1).offset((opts.page - 1) * opts.perPage);
 
@@ -30,8 +31,8 @@ export async function offsetPagination<O, DB, TB extends keyof DB>(
       .where((eb) =>
         primaryKeys.length > 0
           ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            eb(deferredJoinPrimaryKey, 'in', primaryKeys as any)
-          : eb(sql`1`, '=', 0)
+            eb(deferredJoinPrimaryKey, 'in', uniq(primaryKeys) as any)
+          : eb(sql`1`, '=', 0),
       )
       .clearOffset()
       .clearLimit();

@@ -40,7 +40,7 @@ export const targetTypeDef = gql`
 
     getTargets(
       search: String
-      priority: PRIORITY
+      priorities: [PRIORITY!]
       tags: [String!]
       pagination: OffsetPaginationInput
     ): [Target!]! @access
