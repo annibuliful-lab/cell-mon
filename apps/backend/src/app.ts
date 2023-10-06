@@ -21,6 +21,7 @@ import { AccountService } from './modules/account/account.service';
 import { AuthenticationService } from './modules/authentication/authentication.service';
 import { Fileservice } from './modules/file/file.service';
 import { MissionService } from './modules/mission/mission.service';
+import { MissionTargetService } from './modules/mission-target/mission-target.service';
 import { PermissionAbilityService } from './modules/permission-ability/permission-ability.service';
 import { PhoneMetadataService } from './modules/phone-metadata/phone-metadata.service';
 import { TargetService } from './modules/target/target.service';
@@ -115,6 +116,7 @@ export async function main() {
 
       return {
         ...context,
+        missionTargetService: new MissionTargetService(context),
         targetService: new TargetService(context),
         workspaceService: new WorkspaceService(context),
         authenticationService: new AuthenticationService(context),

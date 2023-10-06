@@ -17,6 +17,10 @@ import {
   query as missionQueryResolver,
 } from '../modules/mission/mission.resolver';
 import {
+  mutation as missionTargetMutationResolver,
+  query as missionTargetQueryResolver,
+} from '../modules/mission-target/mission-target.resolver';
+import {
   mutation as permissionAbilityMutationResolver,
   query as permissionAbilityQueryResolver,
 } from '../modules/permission-ability/permission-ability.resolver';
@@ -41,6 +45,7 @@ export const resolvers: Resolvers = {
     ...phoneMetadataQueryResolver,
     ...missionQueryResolver,
     ...targetQueryResolver,
+    ...missionTargetQueryResolver,
   },
   Mutation: {
     ...accountMutationResolver,
@@ -51,6 +56,7 @@ export const resolvers: Resolvers = {
     ...phoneMetadataMutationResolver,
     ...missionMutationResolver,
     ...targetMutationResolver,
+    ...missionTargetMutationResolver,
   },
   Upload: GraphQLUpload,
   SerialId: serialIdScalar,

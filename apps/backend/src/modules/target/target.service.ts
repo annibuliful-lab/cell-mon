@@ -134,8 +134,8 @@ export class TargetService extends PrimaryRepository<'target', GraphqlContext> {
           qb('workspaceId', '=', this.context.workspaceId),
         ];
 
-        if (filter.priority) {
-          exprs.push(qb('priority', '=', filter.priority));
+        if (filter.priorities) {
+          exprs.push(qb('priority', 'in', filter.priorities));
         }
 
         if (filter.search) {

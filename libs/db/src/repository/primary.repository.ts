@@ -5,15 +5,16 @@ import { From } from 'kysely/dist/cjs/parser/table-parser';
 import { primaryDbClient } from '../clients/primary.client';
 import { redisClient } from '../clients/redis.client';
 import { DB } from '../generated/primary/types';
-export interface ICommand {
-  readonly sql: string;
-  readonly parameters: ReadonlyArray<unknown>;
-}
 
-export interface IExecuteTransactionParam {
+export type SqlCommand<T = unknown> = {
+  readonly sql: string;
+  readonly parameters: ReadonlyArray<T>;
+};
+
+export type ExecuteTransactionParam = {
   sql: CompiledQuery;
   return?: boolean;
-}
+};
 
 export class PrimaryRepository<
   Table extends keyof DB = never,
@@ -34,7 +35,7 @@ export class PrimaryRepository<
   }
 
   executeTransaction<T = unknown>(
-    queries: IExecuteTransactionParam[],
+    queries: ExecuteTransactionParam[],
   ): Promise<QueryResult<T> | null> {
     return this.db.transaction().execute(async (db) => {
       let result = null;
