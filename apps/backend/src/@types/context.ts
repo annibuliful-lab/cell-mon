@@ -9,6 +9,7 @@ import { PermissionAbilityService } from '../modules/permission-ability/permissi
 import { PhoneMetadataService } from '../modules/phone-metadata/phone-metadata.service';
 import { TargetService } from '../modules/target/target.service';
 import { WorkspaceService } from '../modules/workspace/workspace.service';
+import { TargetEvidenceService } from '../modules/target-evidence/target-evidence.service';
 
 export interface IServiceContext {
   accountService: AccountService;
@@ -20,6 +21,7 @@ export interface IServiceContext {
   missionService: MissionService;
   targetService: TargetService;
   missionTargetService: MissionTargetService;
+  targetEvidenceService: TargetEvidenceService;
 }
 
 export type AppContext = GraphqlContext & IServiceContext;

@@ -25,7 +25,7 @@ export const permissionAbilityTypeDefs = gql`
   }
 
   type PermissionAbility {
-    id: ID!
+    id: UUID!
     action: PermissionAction!
     subject: String!
   }
@@ -36,11 +36,11 @@ export const permissionAbilityTypeDefs = gql`
     ): PermissionAbility! @access(subject: "PERMISSION", action: CREATE)
 
     updatePermissionAbility(
-      id: ID!
+      id: UUID!
       input: UpdatePermissionAbilityInput!
     ): PermissionAbility! @access(subject: "PERMISSION", action: UPDATE)
 
-    deletePermissionAbility(id: ID!): DeleteOperationResult!
+    deletePermissionAbility(id: UUID!): DeleteOperationResult!
       @access(subject: "PERMISSION", action: DELETE)
   }
 

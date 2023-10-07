@@ -8,6 +8,7 @@ import {
 } from '@cell-mon/graphql';
 import { mergeTypeDefs } from '@graphql-tools/merge';
 import { print } from 'graphql';
+import { DateTimeTypeDefinition, UUIDDefinition } from 'graphql-scalars';
 
 import { accountTypeDefs } from '../modules/account/account.schema';
 import { authenticationTypeDefs } from '../modules/authentication/authentication.schema';
@@ -17,12 +18,15 @@ import { missionTargetTypeDef } from '../modules/mission-target/mission-target.s
 import { permissionAbilityTypeDefs } from '../modules/permission-ability/permission-ability.schema';
 import { phoneTypeDefs } from '../modules/phone-metadata/phone-metadata.schema';
 import { targetTypeDef } from '../modules/target/target.schema';
+import { targetEvidenceTypeDef } from '../modules/target-evidence/target-evidence.schema';
 import { workspaceTypeDefs } from '../modules/workspace/workspace.schema';
 
 const { accessdDirectiveTypeDefs } = accessDirective();
 
 export const typeDefs = print(
   mergeTypeDefs([
+    DateTimeTypeDefinition,
+    UUIDDefinition,
     fileTypeDefs,
     workspaceTypeDefs,
     accountTypeDefs,
@@ -38,5 +42,6 @@ export const typeDefs = print(
     targetTypeDef,
     priorityTypeDef,
     missionTargetTypeDef,
+    targetEvidenceTypeDef,
   ]),
 );
