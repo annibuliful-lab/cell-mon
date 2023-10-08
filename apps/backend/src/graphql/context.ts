@@ -10,9 +10,10 @@ import { MissionService } from '../modules/mission/mission.service';
 import { MissionTargetService } from '../modules/mission-target/mission-target.service';
 import { PermissionAbilityService } from '../modules/permission-ability/permission-ability.service';
 import { PhoneMetadataService } from '../modules/phone-metadata/phone-metadata.service';
+import { PhoneTargetService } from '../modules/phone-target/phone-target.service';
 import { TargetService } from '../modules/target/target.service';
-import { WorkspaceService } from '../modules/workspace/workspace.service';
 import { TargetEvidenceService } from '../modules/target-evidence/target-evidence.service';
+import { WorkspaceService } from '../modules/workspace/workspace.service';
 
 config();
 const isProduction = process.env.NODE_ENV === 'production';
@@ -82,5 +83,6 @@ export const graphqlContext = async ({
     fileservice: new Fileservice(context),
     phoneMetadataService: new PhoneMetadataService(context),
     missionService: new MissionService(context),
+    phoneTargetService: new PhoneTargetService(context),
   };
 };

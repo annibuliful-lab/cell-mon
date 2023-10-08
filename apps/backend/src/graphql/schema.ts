@@ -17,6 +17,7 @@ import { missionTypedef } from '../modules/mission/mission.schema';
 import { missionTargetTypeDef } from '../modules/mission-target/mission-target.schema';
 import { permissionAbilityTypeDefs } from '../modules/permission-ability/permission-ability.schema';
 import { phoneTypeDefs } from '../modules/phone-metadata/phone-metadata.schema';
+import { phoneTargetTypeDef } from '../modules/phone-target/phone-target.schema';
 import { targetTypeDef } from '../modules/target/target.schema';
 import { targetEvidenceTypeDef } from '../modules/target-evidence/target-evidence.schema';
 import { workspaceTypeDefs } from '../modules/workspace/workspace.schema';
@@ -43,5 +44,6 @@ export const typeDefs = print(
     priorityTypeDef,
     missionTargetTypeDef,
     targetEvidenceTypeDef,
+    phoneTargetTypeDef,
   ]),
 );
