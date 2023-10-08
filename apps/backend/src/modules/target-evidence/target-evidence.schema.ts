@@ -7,12 +7,12 @@ export const targetEvidenceTypeDef = gql`
   }
 
   type Evidence {
-    photos: EvidencePhoto!
+    photos: [EvidencePhoto!]
   }
 
   type TargetEvidence {
     id: UUID!
-    targetid: UUID!
+    targetId: UUID!
     evidence: Evidence
     note: String
     investigatedDate: DateTime!
@@ -24,7 +24,7 @@ export const targetEvidenceTypeDef = gql`
   }
 
   input EvidenceInput {
-    photos: EvidencePhotoInput!
+    photos: [EvidencePhotoInput!]
   }
 
   type Mutation {

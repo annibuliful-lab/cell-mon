@@ -32,29 +32,39 @@ export class TargetEvidenceService extends PrimaryRepository<
 
     const target = await this.db
       .selectFrom('target')
-      .select('id')
+      .select(['workspaceId'])
       .where('id', '=', targetId)
-      .where('workspaceId', '=', this.context.workspaceId)
       .executeTakeFirst();
 
-    if (!target?.id) {
+    if (!target) {
+      throw new NotfoundResource(['id']);
+    }
+
+    if (target.workspaceId !== this.context.workspaceId) {
       throw new ForbiddenError('you are not allow to this target');
     }
   }
 
   async create(input: MutationCreateTargetEvidenceArgs) {
     await this.verifyTargetIdInWorkspace(input.targetId);
-    return this.db.insertInto('target_evidence').values({
-      id: v4(),
-      targetId: input.targetId,
-      note: input.note,
-      investigatedDate: input.investigatedDate,
-      createdBy: this.context.accountId,
-      evidence: input.evidence,
-    });
+    return this.db
+      .insertInto('target_evidence')
+      .values({
+        id: v4(),
+        targetId: input.targetId,
+        note: input.note,
+        investigatedDate: input.investigatedDate,
+        createdBy: this.context.accountId,
+        evidence: input.evidence,
+      })
+      .returning(this.dbColumns)
+      .executeTakeFirst();
   }
 
   async update(input: MutationUpdateTargetEvidenceArgs) {
+    const targetEvidence = await this.findById(input.id);
+    await this.verifyTargetIdInWorkspace(targetEvidence?.targetId);
+
     const updated = await this.db
       .updateTable('target_evidence')
       .set({
@@ -63,6 +73,7 @@ export class TargetEvidenceService extends PrimaryRepository<
         updatedBy: this.context.accountId,
         evidence: input.evidence,
       })
+      .where('id', '=', input.id)
       .returning(this.dbColumns)
       .executeTakeFirst();
 
@@ -98,7 +109,7 @@ export class TargetEvidenceService extends PrimaryRepository<
       .selectFrom('target_evidence')
       .select(this.dbColumns)
       .innerJoin('target', 'target.id', 'target_evidence.targetId')
-      .where('id', '=', id)
+      .where('target_evidence.id', '=', id)
       .where('target.workspaceId', '=', this.context.workspaceId)
       .executeTakeFirst();
 
