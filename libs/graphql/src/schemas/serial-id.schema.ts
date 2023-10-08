@@ -1,10 +1,9 @@
 import gql from 'graphql-tag';
+import { GraphQLScalarType, Kind } from 'graphql';
 
 export const serialIdTypeDef = gql`
   scalar SerialId
 `;
-
-import { GraphQLScalarType, Kind } from 'graphql';
 
 export const serialIdScalar = new GraphQLScalarType({
   name: 'SerialId',

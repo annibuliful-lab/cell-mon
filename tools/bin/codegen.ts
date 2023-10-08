@@ -43,7 +43,7 @@ export const generateCodegen = async ({
   const { typeDefs } = await import(mainSchemaPath);
 
   const schema: GraphQLSchema = buildASTSchema(
-    mergeTypeDefsWithScalarsAndDirectives(typeDefs)
+    mergeTypeDefsWithScalarsAndDirectives(typeDefs),
   );
 
   const config = {
@@ -60,6 +60,7 @@ export const generateCodegen = async ({
             Upload: 'Promise<GraphQLFileUpload>',
             DateTime: 'Date',
             SerialId: 'number',
+            UUID: 'string',
           },
         },
       },
@@ -115,13 +116,13 @@ export const removeDirectives = (typeDefs: DocumentNode) => {
   return {
     ...typeDefs,
     definitions: typeDefs.definitions.filter(
-      (d) => d.kind !== 'DirectiveDefinition'
+      (d) => d.kind !== 'DirectiveDefinition',
     ),
   };
 };
 
 export const mergeTypeDefsWithScalarsAndDirectives = (
-  typeDefs: DocumentNode
+  typeDefs: DocumentNode,
 ): DocumentNode => {
   return mergeTypeDefs([
     typeDefs,

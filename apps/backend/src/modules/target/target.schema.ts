@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const targetTypeDef = gql`
   type Target {
-    id: ID!
+    id: UUID!
     title: String!
     description: String
     photoUrl: String
@@ -10,6 +10,7 @@ export const targetTypeDef = gql`
     priority: PRIORITY!
     tags: [String!]
     metadata: JSONObject
+    evidences(pagination: OffsetPaginationInput): [TargetEvidence!]
   }
 
   type Mutation {
@@ -23,7 +24,7 @@ export const targetTypeDef = gql`
     ): Target! @access
 
     updateTarget(
-      id: ID!
+      id: UUID!
       title: String!
       description: String
       photoUrl: String
@@ -32,11 +33,11 @@ export const targetTypeDef = gql`
       tags: [String!]
     ): Target! @access
 
-    deleteTarget(id: ID!): DeleteOperationResult! @access
+    deleteTarget(id: UUID!): DeleteOperationResult! @access
   }
 
   type Query {
-    getTargetById(id: ID!): Target! @access
+    getTargetById(id: UUID!): Target! @access
 
     getTargets(
       search: String

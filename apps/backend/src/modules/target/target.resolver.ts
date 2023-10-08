@@ -25,3 +25,14 @@ export const query: Resolvers<AppContext>['Query'] = {
     return ctx.targetService.findMany(input) as never;
   },
 };
+
+export const field: Resolvers<AppContext> = {
+  Target: {
+    evidences: (parent, filter, ctx) => {
+      return ctx.targetEvidenceService.findManyByTargetId({
+        targetId: parent.id,
+        pagination: filter.pagination,
+      }) as never;
+    },
+  },
+};

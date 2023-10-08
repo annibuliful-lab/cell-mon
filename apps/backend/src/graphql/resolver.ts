@@ -4,6 +4,7 @@ import {
   GraphQLUpload,
   serialIdScalar,
 } from '@cell-mon/graphql';
+import { UUIDResolver } from 'graphql-scalars';
 
 import { Resolvers } from '../codegen-generated';
 import {
@@ -30,9 +31,14 @@ import {
   query as phoneMetadataQueryResolver,
 } from '../modules/phone-metadata/phone-metadata.resolver';
 import {
+  field as targetFieldResolver,
   mutation as targetMutationResolver,
   query as targetQueryResolver,
 } from '../modules/target/target.resolver';
+import {
+  mutation as targetEvidenceMutationResolver,
+  query as targetEvidenceQueryResolver,
+} from '../modules/target-evidence/target-evidence.resolver';
 import {
   mutation as workspaceMutationResolver,
   query as workspaceQueryResolver,
@@ -47,6 +53,7 @@ export const resolvers: Resolvers = {
     ...missionQueryResolver,
     ...targetQueryResolver,
     ...missionTargetQueryResolver,
+    ...targetEvidenceQueryResolver,
   },
   Mutation: {
     ...accountMutationResolver,
@@ -58,10 +65,13 @@ export const resolvers: Resolvers = {
     ...missionMutationResolver,
     ...targetMutationResolver,
     ...missionTargetMutationResolver,
+    ...targetEvidenceMutationResolver,
   },
   Upload: GraphQLUpload,
   SerialId: serialIdScalar,
   JSON: GraphQLJSON,
   JSONObject: GraphQLJSONObject,
+  UUID: UUIDResolver,
   ...missionTargetFieldResolver,
+  ...targetFieldResolver,
 };
