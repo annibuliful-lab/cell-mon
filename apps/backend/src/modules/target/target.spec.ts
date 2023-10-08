@@ -1,5 +1,9 @@
 import { Client, getAdminClient } from '@cell-mon/graphql-client';
-import { expectDuplicatedError, expectNotFoundError } from '@cell-mon/test';
+import {
+  expectDuplicatedError,
+  expectNotFoundError,
+  testCreateTarget,
+} from '@cell-mon/test';
 import { nanoid } from 'nanoid';
 import { v4 } from 'uuid';
 
@@ -168,7 +172,7 @@ describe('Target', () => {
     );
   });
 
-  it('gets an existing by id', async () => {
+  it('gets by id', async () => {
     const title = nanoid();
     const description = nanoid();
     const tags = [nanoid(), nanoid()];
@@ -410,5 +414,69 @@ describe('Target', () => {
     });
     expect(targets.getTargets.length).toEqual(1);
     expect(targets.getTargets[0]).toEqual(createdTarget);
+  });
+
+  it('gets evidences by field resolver', async () => {
+    const target = await testCreateTarget();
+    const photos = [
+      {
+        url: nanoid(),
+        caption: nanoid(),
+      },
+    ];
+
+    const note = nanoid();
+    const investigatedDate = new Date();
+    const targetEvidence = (
+      await client.mutation({
+        createTargetEvidence: {
+          __scalar: true,
+          investigatedDate: true,
+          evidence: {
+            photos: {
+              url: true,
+              caption: true,
+            },
+            __scalar: true,
+          },
+          __args: {
+            targetId: target.id,
+            investigatedDate,
+            note,
+            evidence: {
+              photos,
+            },
+          },
+        },
+      })
+    ).createTargetEvidence;
+
+    const targetEvidenceResult = (
+      await client.query({
+        getTargetById: {
+          __scalar: true,
+          evidences: {
+            __scalar: true,
+            investigatedDate: true,
+            evidence: {
+              photos: {
+                url: true,
+                caption: true,
+              },
+            },
+          },
+          __args: {
+            id: target.id,
+          },
+        },
+      })
+    ).getTargetById.evidences;
+    expect(targetEvidenceResult).toHaveLength(1);
+    expect(targetEvidenceResult[0].targetId).toEqual(target.id);
+    expect(targetEvidenceResult[0].note).toEqual(targetEvidence.note);
+    expect(targetEvidenceResult[0].investigatedDate).toBeDefined();
+    expect(targetEvidenceResult[0].evidence.photos).toEqual(
+      targetEvidence.evidence.photos,
+    );
   });
 });
