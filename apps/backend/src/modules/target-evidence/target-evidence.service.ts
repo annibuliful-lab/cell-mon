@@ -85,15 +85,16 @@ export class TargetEvidenceService extends PrimaryRepository<
   }
 
   async delete(id: string) {
+    const targetEvidence = await this.findById(id);
+    await this.verifyTargetIdInWorkspace(targetEvidence?.targetId);
+
     const deleted = await this.db
       .updateTable('target_evidence')
       .set({
         deletedAt: new Date(),
         deleteBy: this.context.accountId,
       })
-      .innerJoin('target', 'target.id', 'target_evidence.targetId')
-      .where('id', '=', id)
-      .where('target.workspaceId', '=', this.context.workspaceId)
+      .where('target_evidence.id', '=', id)
       .returning(this.dbColumns)
       .executeTakeFirst();
 
@@ -109,6 +110,7 @@ export class TargetEvidenceService extends PrimaryRepository<
       .selectFrom('target_evidence')
       .select(this.dbColumns)
       .innerJoin('target', 'target.id', 'target_evidence.targetId')
+      .where('target_evidence.deletedAt', 'is', null)
       .where('target_evidence.id', '=', id)
       .where('target.workspaceId', '=', this.context.workspaceId)
       .executeTakeFirst();
@@ -120,12 +122,14 @@ export class TargetEvidenceService extends PrimaryRepository<
     return targetEvidence;
   }
 
-  findManyByTargetId(filter: QueryGetTargetEvidenceByTargetIdArgs) {
+  async findManyByTargetId(filter: QueryGetTargetEvidenceByTargetIdArgs) {
+    await this.verifyTargetIdInWorkspace(filter.targetId);
     return this.db
       .selectFrom('target_evidence')
       .select(this.dbColumns)
       .where('targetId', '=', filter.targetId)
       .innerJoin('target', 'target.id', 'target_evidence.targetId')
+      .where('target_evidence.deletedAt', 'is', null)
       .where('target.workspaceId', '=', this.context.workspaceId)
       .limit(filter.pagination?.limit ?? this.defaultLimit)
       .offset(filter.pagination?.offset ?? this.defaultOffset)

@@ -35,7 +35,10 @@ import {
   mutation as targetMutationResolver,
   query as targetQueryResolver,
 } from '../modules/target/target.resolver';
-import { mutation as targetEvidenceMutationResolver } from '../modules/target-evidence/target-evidence.resolver';
+import {
+  mutation as targetEvidenceMutationResolver,
+  query as targetEvidenceQueryResolver,
+} from '../modules/target-evidence/target-evidence.resolver';
 import {
   mutation as workspaceMutationResolver,
   query as workspaceQueryResolver,
@@ -50,6 +53,7 @@ export const resolvers: Resolvers = {
     ...missionQueryResolver,
     ...targetQueryResolver,
     ...missionTargetQueryResolver,
+    ...targetEvidenceQueryResolver,
   },
   Mutation: {
     ...accountMutationResolver,
