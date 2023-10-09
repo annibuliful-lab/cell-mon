@@ -7,9 +7,10 @@ import { MissionService } from '../modules/mission/mission.service';
 import { MissionTargetService } from '../modules/mission-target/mission-target.service';
 import { PermissionAbilityService } from '../modules/permission-ability/permission-ability.service';
 import { PhoneMetadataService } from '../modules/phone-metadata/phone-metadata.service';
+import { PhoneTargetService } from '../modules/phone-target/phone-target.service';
 import { TargetService } from '../modules/target/target.service';
-import { WorkspaceService } from '../modules/workspace/workspace.service';
 import { TargetEvidenceService } from '../modules/target-evidence/target-evidence.service';
+import { WorkspaceService } from '../modules/workspace/workspace.service';
 
 export interface IServiceContext {
   accountService: AccountService;
@@ -22,6 +23,7 @@ export interface IServiceContext {
   targetService: TargetService;
   missionTargetService: MissionTargetService;
   targetEvidenceService: TargetEvidenceService;
+  phoneTargetService: PhoneTargetService;
 }
 
 export type AppContext = GraphqlContext & IServiceContext;

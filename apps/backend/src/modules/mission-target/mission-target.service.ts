@@ -88,6 +88,7 @@ export class MissionTargetService extends PrimaryRepository<
       .innerJoin('mission', 'mission.id', 'mission_target.missionId')
       .where('mission.workspaceId', '=', this.context.workspaceId)
       .where('mission_target.deletedAt', 'is', null)
+      .where('mission.deletedAt', 'is', null)
       .where('mission_target.missionId', '=', filter.missionId);
 
     if (filter.targetPriorities?.length) {

@@ -31,6 +31,11 @@ import {
   query as phoneMetadataQueryResolver,
 } from '../modules/phone-metadata/phone-metadata.resolver';
 import {
+  field as phoneTargetFieldResolver,
+  mutation as phoneTargetMutationResolver,
+  query as phoneTargetQueryResolver,
+} from '../modules/phone-target/phone-target.resolver';
+import {
   field as targetFieldResolver,
   mutation as targetMutationResolver,
   query as targetQueryResolver,
@@ -54,6 +59,7 @@ export const resolvers: Resolvers = {
     ...targetQueryResolver,
     ...missionTargetQueryResolver,
     ...targetEvidenceQueryResolver,
+    ...phoneTargetQueryResolver,
   },
   Mutation: {
     ...accountMutationResolver,
@@ -66,6 +72,7 @@ export const resolvers: Resolvers = {
     ...targetMutationResolver,
     ...missionTargetMutationResolver,
     ...targetEvidenceMutationResolver,
+    ...phoneTargetMutationResolver,
   },
   Upload: GraphQLUpload,
   SerialId: serialIdScalar,
@@ -74,4 +81,5 @@ export const resolvers: Resolvers = {
   UUID: UUIDResolver,
   ...missionTargetFieldResolver,
   ...targetFieldResolver,
+  ...phoneTargetFieldResolver,
 };
