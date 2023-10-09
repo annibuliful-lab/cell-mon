@@ -31,6 +31,7 @@ import {
   query as phoneMetadataQueryResolver,
 } from '../modules/phone-metadata/phone-metadata.resolver';
 import {
+  field as phoneTargetFieldResolver,
   mutation as phoneTargetMutationResolver,
   query as phoneTargetQueryResolver,
 } from '../modules/phone-target/phone-target.resolver';
@@ -80,4 +81,5 @@ export const resolvers: Resolvers = {
   UUID: UUIDResolver,
   ...missionTargetFieldResolver,
   ...targetFieldResolver,
+  ...phoneTargetFieldResolver,
 };

@@ -17,14 +17,14 @@ export const phoneTargetTypeDef = gql`
   type Mutation {
     assignPhoneToTarget(phoneId: UUID!, targetId: UUID!): PhoneTarget! @access
 
-    bulkAssignPhoneToTarget(
+    bulkAssignPhonesToTarget(
       targetId: UUID!
       phoneIds: [UUID!]!
     ): [PhoneTarget!]! @access
 
     unassignPhoneFromTarget(id: UUID!): PhoneTargetOperationResult! @access
 
-    bulkUnassignPhoneFromTarget(ids: [UUID!]!): PhoneTargetOperationResult!
+    bulkUnassignPhonesFromTarget(ids: [UUID!]!): PhoneTargetOperationResult!
       @access
   }
 

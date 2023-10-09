@@ -1,21 +1,37 @@
 import { PrimaryRepository } from '@cell-mon/db';
-import { GraphqlContext, NotfoundResource } from '@cell-mon/graphql';
+import {
+  GraphqlContext,
+  mapDataloaderRecord,
+  NotfoundResource,
+} from '@cell-mon/graphql';
+import DataLoader from 'dataloader';
 import { Expression, SqlBool } from 'kysely';
 import { v4 } from 'uuid';
 
 import {
   MutationCreatePhoneMetadataArgs,
   MutationUpdatePhoneMetadataArgs,
+  PhoneMetadata,
   QueryGetPhonesArgs,
 } from '../../codegen-generated';
 
 export class PhoneMetadataService extends PrimaryRepository<
   'phone_metadata',
-  GraphqlContext
+  GraphqlContext,
+  PhoneMetadata
 > {
   constructor(ctx: GraphqlContext) {
     super(ctx);
     this.dbColumns = ['id', 'imsi', 'msisdn'];
+
+    this.dataloader = new DataLoader(
+      async (ids: readonly string[]) => {
+        const phones = await this.findByIds(ids as string[]);
+
+        return mapDataloaderRecord({ data: phones, ids, idField: 'id' });
+      },
+      { cache: false },
+    );
   }
 
   create(input: MutationCreatePhoneMetadataArgs) {
@@ -48,6 +64,14 @@ export class PhoneMetadataService extends PrimaryRepository<
     }
 
     return phone;
+  }
+
+  async findByIds(ids: string[]) {
+    return this.db
+      .selectFrom('phone_metadata')
+      .select(['id', 'imsi', 'msisdn'])
+      .where('id', 'in', ids)
+      .execute();
   }
 
   async findById(id: string) {

@@ -2,10 +2,10 @@ import { Prisma } from '@prisma/client';
 import { client } from './client';
 import util from 'util';
 import { hash } from 'argon2';
-import { TEST_ADMIN_ID, TEST_USER_B_ID, TEST_USER_ID } from './constants';
+import { TEST_ADMIN_ID, TEST_USER_B_ID, TEST_USER_A_ID } from './constants';
 
 export const MOCK_USER_A: Prisma.AccountUncheckedCreateInput = {
-  id: TEST_USER_ID,
+  id: TEST_USER_A_ID,
   username: 'MOCK_USER_A',
   password: '12345678',
 };
@@ -42,6 +42,6 @@ export async function seedUsers() {
 
   console.log(
     'created users',
-    util.inspect({ MOCK_USER_A, MOCK_USER_B, MOCK_ADMIN }, false, null, true)
+    util.inspect({ MOCK_USER_A, MOCK_USER_B, MOCK_ADMIN }, false, null, true),
   );
 }
