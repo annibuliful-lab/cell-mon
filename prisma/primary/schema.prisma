@@ -287,15 +287,13 @@ model PhoneTargetLocation {
 }
 
 model PhoneNetwork {
-  phoneLocationId    String              @id @db.Uuid
-  phoneLocation      PhoneTargetLocation @relation(fields: [phoneLocationId], references: [id], onDelete: Cascade)
-  subscriptionStatus String
-  roaming            Boolean
-  code               String
-  name               String
-  operator           String
-  mnc                String
-  mcc                String
+  phoneLocationId String              @id @db.Uuid
+  phoneLocation   PhoneTargetLocation @relation(fields: [phoneLocationId], references: [id], onDelete: Cascade)
+  code            String
+  name            String
+  operator        String
+  mnc             String
+  mcc             String
 
   @@map("phone_network")
 }
