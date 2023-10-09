@@ -292,8 +292,8 @@ model PhoneNetwork {
   code            String
   name            String
   operator        String
-  mnc             String
-  mcc             String
+  mnc             String              @db.VarChar(3)
+  mcc             String              @db.VarChar(3)
 
   @@map("phone_network")
 }
