@@ -4,7 +4,11 @@ import {
   GraphQLUpload,
   serialIdScalar,
 } from '@cell-mon/graphql';
-import { UUIDResolver } from 'graphql-scalars';
+import {
+  LatitudeResolver,
+  LongitudeResolver,
+  UUIDResolver,
+} from 'graphql-scalars';
 
 import { Resolvers } from '../codegen-generated';
 import {
@@ -79,6 +83,8 @@ export const resolvers: Resolvers = {
   JSON: GraphQLJSON,
   JSONObject: GraphQLJSONObject,
   UUID: UUIDResolver,
+  Latitude: LatitudeResolver,
+  Longitude: LongitudeResolver,
   ...missionTargetFieldResolver,
   ...targetFieldResolver,
   ...phoneTargetFieldResolver,
