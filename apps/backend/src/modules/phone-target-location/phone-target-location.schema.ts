@@ -47,4 +47,55 @@ export const phoneTargetLocationTypeDef = gql`
     longtitude: Longitude!
     source: String
   }
+
+  input CreatePhoneTargetLocationInput {
+    phoneTargetId: UUID!
+    metadata: JSONObject
+    sourceDateTime: DateTime!
+  }
+
+  input CreatePhoneNetworkInput {
+    code: String!
+    name: String!
+    operator: String!
+    mnc: String!
+    mcc: String!
+  }
+
+  input CreatePhoneCellInfoInput {
+    type: CellularTechnology!
+    cid: String
+    lcid: String
+    lac: String
+    ci: String
+    eci: String
+    tac: String
+    enb: String
+    nci: String
+  }
+
+  input CreatePhoneGeoLocationInput {
+    latitude: Latitude!
+    longtitude: Longitude!
+    source: String
+  }
+
+  type Mutation {
+    createPhoneTargetLocation(
+      phoneTargetLocation: CreatePhoneTargetLocationInput!
+      network: CreatePhoneNetworkInput!
+      cellInfo: CreatePhoneCellInfoInput!
+      geoLocations: [CreatePhoneGeoLocationInput!]!
+    ): PhoneTargetLocation! @access
+  }
+
+  type Query {
+    getPhoneTargetLocationById(id: UUID!): PhoneTargetLocation! @access
+
+    getPhoneTargeLocations(
+      pagination: OffsetPaginationInput
+      startDate: DateTime
+      endDate: DateTime
+    ): [PhoneTargetLocation!]! @access
+  }
 `;

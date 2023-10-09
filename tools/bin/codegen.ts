@@ -61,6 +61,8 @@ export const generateCodegen = async ({
             DateTime: 'Date',
             SerialId: 'number',
             UUID: 'string',
+            Latitude: 'number',
+            Longitude: 'number',
           },
         },
       },
