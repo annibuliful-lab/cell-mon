@@ -22,7 +22,7 @@ export class PhoneMetadataService extends PrimaryRepository<
 > {
   constructor(ctx: GraphqlContext) {
     super(ctx);
-    this.dbColumns = ['id', 'imsi', 'msisdn'];
+    this.tableColumns = ['id', 'imsi', 'msisdn'];
 
     this.dataloader = new DataLoader(
       async (ids: readonly string[]) => {

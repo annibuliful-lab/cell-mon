@@ -25,7 +25,7 @@ export class TargetService extends PrimaryRepository<
   constructor(ctx: GraphqlContext) {
     super(ctx);
 
-    this.dbColumns = [
+    this.tableColumns = [
       'address',
       'description',
       'id',
@@ -78,7 +78,7 @@ export class TargetService extends PrimaryRepository<
         workspaceId: this.context.workspaceId,
         createdBy: this.context.accountId,
       })
-      .returning(this.dbColumns)
+      .returning(this.tableColumns)
       .executeTakeFirst();
   }
 
@@ -117,7 +117,7 @@ export class TargetService extends PrimaryRepository<
       .where('id', '=', input.id)
       .where('workspaceId', '=', this.context.workspaceId)
       .where('deletedAt', 'is', null)
-      .returning(this.dbColumns)
+      .returning(this.tableColumns)
       .executeTakeFirst();
 
     if (!updated?.id) {
@@ -130,7 +130,7 @@ export class TargetService extends PrimaryRepository<
   async findById(id: string) {
     const target = await this.db
       .selectFrom('target')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .where('id', '=', id)
       .where('deletedAt', 'is', null)
       .where('workspaceId', '=', this.context.workspaceId)
@@ -146,7 +146,7 @@ export class TargetService extends PrimaryRepository<
   findByIds(ids: readonly string[]) {
     return this.db
       .selectFrom('target')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .where('id', 'in', uniq(ids))
       .execute();
   }
@@ -154,7 +154,7 @@ export class TargetService extends PrimaryRepository<
   async findMany(filter: QueryGetTargetsArgs) {
     return this.db
       .selectFrom('target')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .where((qb) => {
         const exprs: Expression<SqlBool>[] = [
           qb('deletedAt', 'is', null),

@@ -21,8 +21,9 @@ export class PrimaryRepository<
   Context = never,
   DataLoaderType = unknown,
 > {
-  protected dbColumns: ReadonlyArray<SelectExpression<From<DB, Table>, Table>> =
-    [];
+  protected tableColumns: ReadonlyArray<
+    SelectExpression<From<DB, Table>, Table>
+  > = [];
   protected context: Context;
   protected db: Kysely<DB>;
   protected redis: Redis;

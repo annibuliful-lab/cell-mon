@@ -15,7 +15,7 @@ export class MissionTargetService extends PrimaryRepository<
 > {
   constructor(ctx: GraphqlContext) {
     super(ctx);
-    this.dbColumns = [
+    this.tableColumns = [
       'mission_target.id as id',
       'mission_target.missionId as missionId',
       'mission_target.targetId as targetId',
@@ -31,7 +31,7 @@ export class MissionTargetService extends PrimaryRepository<
         targetId: input.targetId,
         createdBy: this.context.accountId,
       })
-      .returning(this.dbColumns)
+      .returning(this.tableColumns)
       .executeTakeFirst();
   }
 
@@ -46,7 +46,7 @@ export class MissionTargetService extends PrimaryRepository<
           createdBy: this.context.accountId,
         })),
       )
-      .returning(this.dbColumns)
+      .returning(this.tableColumns)
       .execute();
   }
 
@@ -67,7 +67,7 @@ export class MissionTargetService extends PrimaryRepository<
   async findById(id: string) {
     const missionTarget = await this.db
       .selectFrom('mission_target')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .innerJoin('mission', 'mission.id', 'mission_target.missionId')
       .where('mission.workspaceId', '=', this.context.workspaceId)
       .where('mission_target.deletedAt', 'is', null)
@@ -84,7 +84,7 @@ export class MissionTargetService extends PrimaryRepository<
   async findManyByMission(filter: QueryGetMissionTargetsByMissionIdArgs) {
     let query = this.db
       .selectFrom('mission_target')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .innerJoin('mission', 'mission.id', 'mission_target.missionId')
       .where('mission.workspaceId', '=', this.context.workspaceId)
       .where('mission_target.deletedAt', 'is', null)

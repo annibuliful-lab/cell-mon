@@ -18,7 +18,7 @@ export class TargetEvidenceService extends PrimaryRepository<
 > {
   constructor(ctx: GraphqlContext) {
     super(ctx);
-    this.dbColumns = [
+    this.tableColumns = [
       'target_evidence.id as id',
       'target_evidence.targetId as targetId',
       'target_evidence.note as note',
@@ -57,7 +57,7 @@ export class TargetEvidenceService extends PrimaryRepository<
         createdBy: this.context.accountId,
         evidence: input.evidence,
       })
-      .returning(this.dbColumns)
+      .returning(this.tableColumns)
       .executeTakeFirst();
   }
 
@@ -74,7 +74,7 @@ export class TargetEvidenceService extends PrimaryRepository<
         evidence: input.evidence,
       })
       .where('id', '=', input.id)
-      .returning(this.dbColumns)
+      .returning(this.tableColumns)
       .executeTakeFirst();
 
     if (!updated?.id) {
@@ -95,7 +95,7 @@ export class TargetEvidenceService extends PrimaryRepository<
         deleteBy: this.context.accountId,
       })
       .where('target_evidence.id', '=', id)
-      .returning(this.dbColumns)
+      .returning(this.tableColumns)
       .executeTakeFirst();
 
     if (!deleted) {
@@ -108,7 +108,7 @@ export class TargetEvidenceService extends PrimaryRepository<
   async findById(id: string) {
     const targetEvidence = await this.db
       .selectFrom('target_evidence')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .innerJoin('target', 'target.id', 'target_evidence.targetId')
       .where('target_evidence.deletedAt', 'is', null)
       .where('target_evidence.id', '=', id)
@@ -126,7 +126,7 @@ export class TargetEvidenceService extends PrimaryRepository<
     await this.verifyTargetIdInWorkspace(filter.targetId);
     return this.db
       .selectFrom('target_evidence')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .where('targetId', '=', filter.targetId)
       .innerJoin('target', 'target.id', 'target_evidence.targetId')
       .where('target_evidence.deletedAt', 'is', null)

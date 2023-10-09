@@ -19,7 +19,7 @@ export const phoneTargetLocationTypeDef = gql`
   }
 
   type PhoneNetwork {
-    phoneLocationId: UUID!
+    phoneTargetLocationId: UUID!
     code: String!
     name: String!
     operator: String!
@@ -28,7 +28,7 @@ export const phoneTargetLocationTypeDef = gql`
   }
 
   type PhoneCellInfo {
-    phoneLocationId: UUID!
+    phoneTargetLocationId: UUID!
     type: CellularTechnology!
     cid: String
     lcid: String
@@ -42,10 +42,10 @@ export const phoneTargetLocationTypeDef = gql`
 
   type PhoneGeoLocation {
     id: UUID!
-    phoneLocationId: UUID!
+    phoneTargetLocationId: UUID!
     latitude: Latitude!
     longtitude: Longitude!
-    source: String
+    source: String!
   }
 
   input CreatePhoneTargetLocationInput {
@@ -77,7 +77,7 @@ export const phoneTargetLocationTypeDef = gql`
   input CreatePhoneGeoLocationInput {
     latitude: Latitude!
     longtitude: Longitude!
-    source: String
+    source: String!
   }
 
   type Mutation {
@@ -92,7 +92,8 @@ export const phoneTargetLocationTypeDef = gql`
   type Query {
     getPhoneTargetLocationById(id: UUID!): PhoneTargetLocation! @access
 
-    getPhoneTargeLocations(
+    getPhoneTargeLocationsByPhoneTargetId(
+      phoneTargetId: UUID!
       pagination: OffsetPaginationInput
       startDate: DateTime
       endDate: DateTime

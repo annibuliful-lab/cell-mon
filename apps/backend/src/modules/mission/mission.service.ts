@@ -20,7 +20,7 @@ export class MissionService extends PrimaryRepository<
 > {
   constructor(ctx: GraphqlContext) {
     super(ctx);
-    this.dbColumns = ['id', 'description', 'title', 'status', 'tags'];
+    this.tableColumns = ['id', 'description', 'title', 'status', 'tags'];
   }
 
   private async validateDuplicateTitle(title?: string) {
@@ -82,7 +82,7 @@ export class MissionService extends PrimaryRepository<
   async findById(id: string) {
     const mission = await this.db
       .selectFrom('mission')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .where('id', '=', id)
       .where('deletedAt', 'is', null)
       .where('workspaceId', '=', this.context.workspaceId)
@@ -114,7 +114,7 @@ export class MissionService extends PrimaryRepository<
   async findMany(filter: QueryGetMissionsArgs) {
     return this.db
       .selectFrom('mission')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .where((qb) => {
         const exprs: Expression<SqlBool>[] = [
           qb('deletedAt', 'is', null),
