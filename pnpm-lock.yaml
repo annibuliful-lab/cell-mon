@@ -102,8 +102,8 @@ dependencies:
     specifier: 5.4.2
     version: 5.4.2(prisma@5.4.2)
   '@types/graphql-upload':
-    specifier: 16.0.2
-    version: 16.0.2
+    specifier: 16.0.3
+    version: 16.0.3
   '@types/jest':
     specifier: 29.5.5
     version: 29.5.5
@@ -7188,8 +7188,8 @@ packages:
     dependencies:
       '@types/node': 18.18.4
 
-  /@types/graphql-upload@16.0.2:
-    resolution: {integrity: sha512-N9ywBqlfQVG8NH8VI4ZyGIfPW/BHjiXx60eEL4ULp1GzVz8jTOITbYUAAkbsMN9LdNzVwgo2Czk8o/vouzkfAg==}
+  /@types/graphql-upload@16.0.3:
+    resolution: {integrity: sha512-2xFC5PWeS5MJ2To42ZSNyoafdEhgSoG0iCf37jrIdONWAgPZ8W7oPg9MJJVBckYhe9o4mWxQUcTGULByRMyRxQ==}
     dependencies:
       '@types/express': 4.17.18
       '@types/koa': 2.13.9
@@ -7328,7 +7328,7 @@ packages:
   /@types/koa__router@8.0.11:
     resolution: {integrity: sha512-WXgKWpBsbS14kzmzD9LeFapOIa678h7zvUHxDwXwSx4ETKXhXLVUAToX6jZ/U7EihM7qwyD9W/BZvB0MRu7MTQ==}
     dependencies:
-      '@types/koa': 2.13.8
+      '@types/koa': 2.13.9
     dev: false
 
   /@types/memcached@2.2.8:
