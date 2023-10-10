@@ -14,7 +14,7 @@ export class WorkspaceService extends PrimaryRepository<
 > {
   constructor(context: GraphqlContext) {
     super(context);
-    this.dbColumns = [
+    this.tableColumns = [
       'id',
       'title',
       'description',
@@ -88,7 +88,7 @@ export class WorkspaceService extends PrimaryRepository<
         updatedBy: this.context.accountId,
       })
       .where('id', '=', id)
-      .returning(this.dbColumns)
+      .returning(this.tableColumns)
       .executeTakeFirst();
 
     if (!workspace) {
@@ -101,7 +101,7 @@ export class WorkspaceService extends PrimaryRepository<
   async findById(id: string) {
     const workspace = await this.db
       .selectFrom('workspace')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .where('id', '=', id)
       .executeTakeFirst();
 
@@ -115,7 +115,7 @@ export class WorkspaceService extends PrimaryRepository<
   findMany(filter: WorkspaceFilterInput) {
     return this.db
       .selectFrom('workspace')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .limit(filter.limit ?? 20)
       .offset(filter.offset ?? 0)
       .execute();

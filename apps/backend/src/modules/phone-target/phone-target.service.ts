@@ -20,7 +20,7 @@ export class PhoneTargetService extends PrimaryRepository<
 > {
   constructor(ctx: GraphqlContext) {
     super(ctx);
-    this.dbColumns = [
+    this.tableColumns = [
       'phone_target.id as id',
       'phone_target.phoneId as phoneId',
       'phone_target.targetId as targetId',
@@ -81,7 +81,7 @@ export class PhoneTargetService extends PrimaryRepository<
         targetId: input.targetId,
         createdBy: this.context.accountId,
       })
-      .returning(this.dbColumns)
+      .returning(this.tableColumns)
       .executeTakeFirst();
   }
 
@@ -98,7 +98,7 @@ export class PhoneTargetService extends PrimaryRepository<
           createdBy: this.context.accountId,
         })),
       )
-      .returning(this.dbColumns)
+      .returning(this.tableColumns)
       .execute();
   }
 
@@ -129,7 +129,7 @@ export class PhoneTargetService extends PrimaryRepository<
   async findById(id: string) {
     const phoneTarget = await this.db
       .selectFrom('phone_target')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .where('phone_target.id', '=', id)
       .innerJoin('target', 'target.id', 'phone_target.targetId')
       .where('target.deletedAt', 'is', null)
@@ -146,7 +146,7 @@ export class PhoneTargetService extends PrimaryRepository<
   findManyByTargetId(filter: QueryGetPhoneTargetsByTargetIdArgs) {
     return this.db
       .selectFrom('phone_target')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .innerJoin('target', 'target.id', 'phone_target.targetId')
       .where('phone_target.targetId', '=', filter.targetId)
       .where('target.deletedAt', 'is', null)

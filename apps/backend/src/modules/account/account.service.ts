@@ -18,7 +18,7 @@ export class AccountService extends PrimaryRepository<
 > {
   constructor(ctx: GraphqlContext) {
     super(ctx);
-    this.dbColumns = ['account.id'];
+    this.tableColumns = ['account.id'];
   }
 
   private async validateDuplicatedUsername(username?: string) {
@@ -70,7 +70,7 @@ export class AccountService extends PrimaryRepository<
   async findById(id: string) {
     return this.db
       .selectFrom('account')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .where('id', '=', id)
       .executeTakeFirst();
   }

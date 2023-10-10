@@ -283,46 +283,44 @@ model PhoneTargetLocation {
   geoLocations   PhoneGeoLocation[]
   phoneTargets   PhoneTarget        @relation(fields: [phoneTargetId], references: [id])
 
-  @@map("phone_location")
+  @@map("phone_target_location")
 }
 
 model PhoneNetwork {
-  phoneLocationId    String              @id @db.Uuid
-  phoneLocation      PhoneTargetLocation @relation(fields: [phoneLocationId], references: [id], onDelete: Cascade)
-  subscriptionStatus String
-  roaming            Boolean
-  code               String
-  name               String
-  operator           String
-  mnc                String
-  mcc                String
+  phoneTargetLocationId String              @id @db.Uuid
+  phoneTargetLocation   PhoneTargetLocation @relation(fields: [phoneTargetLocationId], references: [id], onDelete: Cascade)
+  code                  String
+  name                  String
+  operator              String
+  mnc                   String              @db.VarChar(3)
+  mcc                   String              @db.VarChar(3)
 
   @@map("phone_network")
 }
 
 model PhoneCellInfo {
-  phoneLocationId String              @id @db.Uuid
-  phoneLocation   PhoneTargetLocation @relation(fields: [phoneLocationId], references: [id], onDelete: Cascade)
-  type            CellularTechnology
-  cid             String? // 2G 3G 4G
-  lcid            String? // 4G
-  lac             String? // 2G 3G
-  ci              String? // 2G
-  eci             String? // 4G
-  tac             String? // 5G 4G
-  enb             String? // 4G
-  nci             String? // 5G
+  phoneTargetLocationId String              @id @db.Uuid
+  phoneTargetLocation   PhoneTargetLocation @relation(fields: [phoneTargetLocationId], references: [id], onDelete: Cascade)
+  type                  CellularTechnology
+  cid                   String? // 2G 3G 4G
+  lcid                  String? // 4G
+  lac                   String? // 2G 3G
+  ci                    String? // 2G
+  eci                   String? // 4G
+  tac                   String? // 5G 4G
+  enb                   String? // 4G
+  nci                   String? // 5G
 
   @@map("phone_cell_info")
 }
 
 model PhoneGeoLocation {
-  id              String              @id @default(uuid()) @db.Uuid
-  phoneLocationId String              @db.Uuid
-  phoneLocation   PhoneTargetLocation @relation(fields: [phoneLocationId], references: [id], onDelete: Cascade)
-  latitude        Decimal             @db.Decimal(8, 6)
-  longtitude      Decimal             @db.Decimal(9, 6)
-  source          String
+  id                    String              @id @default(uuid()) @db.Uuid
+  phoneTargetLocationId String              @db.Uuid
+  phoneTargetLocation   PhoneTargetLocation @relation(fields: [phoneTargetLocationId], references: [id], onDelete: Cascade)
+  latitude              Decimal             @db.Decimal(8, 6)
+  longtitude            Decimal             @db.Decimal(9, 6)
+  source                String
 
   @@map("phone_geo_location")
 }

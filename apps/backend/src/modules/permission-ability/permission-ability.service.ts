@@ -15,7 +15,7 @@ export class PermissionAbilityService extends PrimaryRepository<
 > {
   constructor(context: GraphqlContext) {
     super(context);
-    this.dbColumns = ['action', 'id', 'subject'];
+    this.tableColumns = ['action', 'id', 'subject'];
   }
 
   create(input: CreatePermissionAbilityInput) {
@@ -61,7 +61,7 @@ export class PermissionAbilityService extends PrimaryRepository<
   async findById(id: string) {
     const permissionAbility = await this.db
       .selectFrom('permission')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .where('id', '=', id)
       .executeTakeFirst();
 
@@ -75,7 +75,7 @@ export class PermissionAbilityService extends PrimaryRepository<
   async findMany(filter: PermissionAbilityFilterInput) {
     return this.db
       .selectFrom('permission')
-      .select(this.dbColumns)
+      .select(this.tableColumns)
       .where((qb) => {
         const exprs: Expression<SqlBool>[] = [];
 
