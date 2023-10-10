@@ -5,6 +5,7 @@ import {
   GraphqlError,
   NotfoundResource,
 } from '@cell-mon/graphql';
+import { Expression, SqlBool } from 'kysely';
 import { uniq } from 'lodash';
 import { v4 } from 'uuid';
 
@@ -290,7 +291,20 @@ export class PhoneTargetLocationService extends PrimaryRepository<
     await this.verifyPhoneTargetId(filter.phoneTargetId);
 
     const phoneTargetLocations = await this.baseSelectQuery()
-      .where('phoneTargetId', '=', filter.phoneTargetId)
+      .where((qb) => {
+        const exprs: Expression<SqlBool>[] = [
+          qb('phoneTargetId', '=', filter.phoneTargetId),
+        ];
+
+        if (filter.startDate) {
+          exprs.push(qb('sourceDateTime', '>=', filter.startDate));
+        }
+
+        if (filter.endDate) {
+          exprs.push(qb('sourceDateTime', '<=', filter.endDate));
+        }
+        return qb.and(exprs);
+      })
       .limit(filter.pagination?.limit ?? this.defaultLimit)
       .offset(filter.pagination?.offset ?? this.defaultOffset)
       .execute();
