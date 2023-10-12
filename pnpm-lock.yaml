@@ -81,8 +81,8 @@ dependencies:
     specifier: 0.44.0
     version: 0.44.0(@opentelemetry/api@1.6.0)
   '@opentelemetry/instrumentation-graphql':
-    specifier: 0.35.1
-    version: 0.35.1(@opentelemetry/api@1.6.0)
+    specifier: 0.35.2
+    version: 0.35.2(@opentelemetry/api@1.6.0)
   '@opentelemetry/resources':
     specifier: 1.17.1
     version: 1.17.1(@opentelemetry/api@1.6.0)
@@ -4886,7 +4886,7 @@ packages:
       '@opentelemetry/instrumentation-fastify': 0.32.2(@opentelemetry/api@1.6.0)
       '@opentelemetry/instrumentation-fs': 0.8.1(@opentelemetry/api@1.6.0)
       '@opentelemetry/instrumentation-generic-pool': 0.32.2(@opentelemetry/api@1.6.0)
-      '@opentelemetry/instrumentation-graphql': 0.35.1(@opentelemetry/api@1.6.0)
+      '@opentelemetry/instrumentation-graphql': 0.35.2(@opentelemetry/api@1.6.0)
       '@opentelemetry/instrumentation-grpc': 0.41.2(@opentelemetry/api@1.6.0)
       '@opentelemetry/instrumentation-hapi': 0.33.0(@opentelemetry/api@1.6.0)
       '@opentelemetry/instrumentation-http': 0.41.2(@opentelemetry/api@1.6.0)
@@ -5320,14 +5320,14 @@ packages:
       - supports-color
     dev: false
 
-  /@opentelemetry/instrumentation-graphql@0.35.1(@opentelemetry/api@1.6.0):
-    resolution: {integrity: sha512-bAM4W5wU0lZ1UIKK/5b4p8LEU8N6W+VgpcnUIK7GTTDxdhcWTd3Q6oyS6nauhZSzEnAEmmJVXaLQAGIU4sEkyA==}
+  /@opentelemetry/instrumentation-graphql@0.35.2(@opentelemetry/api@1.6.0):
+    resolution: {integrity: sha512-lJv7BbHFK0ExwogdQMtVHfnWhCBMDQEz8KYvhShXfRPiSStU5aVwa3TmT0O00KiJFpATSKJNZMv1iZNHbF6z1g==}
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
     dependencies:
       '@opentelemetry/api': 1.6.0
-      '@opentelemetry/instrumentation': 0.41.2(@opentelemetry/api@1.6.0)
+      '@opentelemetry/instrumentation': 0.44.0(@opentelemetry/api@1.6.0)
     transitivePeerDependencies:
       - supports-color
     dev: false

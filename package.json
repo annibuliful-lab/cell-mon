@@ -53,7 +53,7 @@
     "@opentelemetry/core": "1.17.1",
     "@opentelemetry/exporter-metrics-otlp-proto": "0.44.0",
     "@opentelemetry/exporter-trace-otlp-proto": "0.44.0",
-    "@opentelemetry/instrumentation-graphql": "0.35.1",
+    "@opentelemetry/instrumentation-graphql": "0.35.2",
     "@opentelemetry/resources": "1.17.1",
     "@opentelemetry/sdk-node": "0.44.0",
     "@opentelemetry/sdk-trace-base": "1.17.1",
