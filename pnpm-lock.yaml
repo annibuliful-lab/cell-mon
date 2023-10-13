@@ -138,8 +138,8 @@ dependencies:
     specifier: 3.0.0
     version: 3.0.0(@typescript-eslint/eslint-plugin@6.7.5)(eslint@8.51.0)
   fastify:
-    specifier: 4.24.0
-    version: 4.24.0
+    specifier: 4.24.1
+    version: 4.24.1
   graphql:
     specifier: 16.8.1
     version: 16.8.1
@@ -10168,8 +10168,8 @@ packages:
     resolution: {integrity: sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==}
     dev: false
 
-  /fastify@4.24.0:
-    resolution: {integrity: sha512-6Uu2cCAV1UgexPnWKchgRt77lng9ivNmyFhPMcgUbJ4VaVBE1l6aYluiYZiVsgOBFpHrmdj7FD6n1aHswln4yQ==}
+  /fastify@4.24.1:
+    resolution: {integrity: sha512-uMthXpH0DjWWxb3/ERmBsVkFm5cllozjbOFkhsD4Xlw+OUg5wGASRBjVRcp2XeYZa91W2BbwgIWJrnGGPWY2dQ==}
     dependencies:
       '@fastify/ajv-compiler': 3.5.0
       '@fastify/error': 3.4.0
