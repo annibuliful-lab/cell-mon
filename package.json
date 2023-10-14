@@ -102,8 +102,8 @@
   },
   "devDependencies": {
     "@babel/preset-react": "7.22.15",
-    "@commitlint/cli": "17.7.2",
-    "@commitlint/config-conventional": "17.7.0",
+    "@commitlint/cli": "17.8.0",
+    "@commitlint/config-conventional": "17.8.0",
     "@emotion/babel-plugin": "11.11.0",
     "@graphql-codegen/cli": "5.0.0",
     "@graphql-codegen/typescript": "4.0.1",
