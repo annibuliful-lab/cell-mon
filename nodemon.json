@@ -2,6 +2,8 @@
   "ignore": [
     "libs/graphql/src/generated/primary",
     "libs/test/src/graphql/generated",
-    "*.spec.ts"
+    "libs/graphql-client/src/graphql/generated",
+    "*.spec.ts",
+    "codegen.frontend.ts"
   ]
 }
