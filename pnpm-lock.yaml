@@ -6,7 +6,7 @@ settings:
 
 dependencies:
   '@apollo/client':
-    specifier: ^3.8.5
+    specifier: 3.8.5
     version: 3.8.5(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
   '@aws-sdk/client-s3':
     specifier: 3.429.0
@@ -29,6 +29,9 @@ dependencies:
   '@fastify/cookie':
     specifier: 9.1.0
     version: 9.1.0
+  '@fastify/cors':
+    specifier: ^8.4.0
+    version: 8.4.0
   '@fastify/csrf-protection':
     specifier: 6.3.0
     version: 6.3.0
@@ -2937,6 +2940,13 @@ packages:
     dependencies:
       cookie: 0.5.0
       fastify-plugin: 4.5.1
+    dev: false
+
+  /@fastify/cors@8.4.0:
+    resolution: {integrity: sha512-MlVvMTenltToByTpLwlWtO+7dQ3l2J+1OpmGrx9JpSNWo1d+dhfNCOi23zHhxdFhtpDzfwGwCsKu9DTeG7k7nQ==}
+    dependencies:
+      fastify-plugin: 4.5.1
+      mnemonist: 0.39.5
     dev: false
 
   /@fastify/csrf-protection@6.3.0:
@@ -13352,6 +13362,12 @@ packages:
     hasBin: true
     dev: false
 
+  /mnemonist@0.39.5:
+    resolution: {integrity: sha512-FPUtkhtJ0efmEFGpU14x7jGbTB+s18LrzRL2KgoWz9YvcY3cPomz8tih01GbHwnGk/OmkOKfqd/RAQoc8Lm7DQ==}
+    dependencies:
+      obliterator: 2.0.4
+    dev: false
+
   /module-details-from-path@1.0.3:
     resolution: {integrity: sha512-ySViT69/76t8VhE1xXHK6Ch4NcDd26gx0MzKXLO+F7NOtnqH68d9zF94nT8ZWSxXh8ELOERsnJO/sWt1xZYw5A==}
     dev: false
@@ -13754,6 +13770,10 @@ packages:
       define-properties: 1.2.1
       es-abstract: 1.22.2
     dev: true
+
+  /obliterator@2.0.4:
+    resolution: {integrity: sha512-lgHwxlxV1qIg1Eap7LgIeoBWIMFibOjbrYPIPJZcI1mmGAI2m3lNYpK12Y+GBdPQ0U1hRwSord7GIaawz962qQ==}
+    dev: false
 
   /obuf@1.1.2:
     resolution: {integrity: sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==}

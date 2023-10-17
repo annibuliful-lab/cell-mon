@@ -7,6 +7,7 @@
 *.tfstate.*
 libs/test/src/graphql/generated
 libs/graphql-client/src/graphql/generated
+libs/graphql-codegen/src/generated
 # Crash log files
 crash.log
 crash.*.log
