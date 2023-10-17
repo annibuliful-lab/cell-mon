@@ -1,3 +1,4 @@
+import { useLoginMutation } from '@cell-mon/graphql-codegen';
 import { Button, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
@@ -5,6 +6,8 @@ import { useMobile } from '../hooks/useMobile';
 
 export function Index() {
   const { isMobile } = useMobile();
+  const [login, { loading }] = useLoginMutation();
+
   const form = useForm({
     initialValues: { username: '', password: '' },
 
@@ -35,7 +38,19 @@ export function Index() {
       >
         Cellular Monitoring
       </Title>
-      <form onSubmit={form.onSubmit(console.log)} autoComplete="off">
+      <form
+        onSubmit={form.onSubmit((data) =>
+          login({
+            variables: {
+              input: {
+                username: data.username,
+                password: data.password,
+              },
+            },
+          }),
+        )}
+        autoComplete="off"
+      >
         <TextInput
           autoComplete="off"
           label="username"
@@ -54,6 +69,7 @@ export function Index() {
           variant="filled"
           style={{ display: 'block', margin: 'auto' }}
           type="submit"
+          loading={loading}
         >
           Login
         </Button>

@@ -1,11 +1,11 @@
 import '@mantine/core/styles.css';
 
 import { ApolloProvider } from '@apollo/client';
-import { apolloClient } from '@cell-mon/graphql-client';
 import { MantineProvider } from '@mantine/core';
 import { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
 
+import { client as apolloClient } from '../clients/apollo';
 import { theme } from '../themes/core';
 
 const inter = Inter({ subsets: ['latin'] });

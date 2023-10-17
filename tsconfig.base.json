@@ -11,18 +11,39 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@cell-mon/db": ["libs/db/src/index.ts"],
-      "@cell-mon/graphql": ["libs/graphql/src/index.ts"],
-      "@cell-mon/graphql-client": ["libs/graphql-client/src/index.ts"],
-      "@cell-mon/test": ["libs/test/src/index.ts"],
-      "@cell-mon/tracer": ["libs/tracer/src/index.ts"],
-      "@cell-mon/utils": ["libs/utils/src/index.ts"]
+      "@cell-mon/db": [
+        "libs/db/src/index.ts"
+      ],
+      "@cell-mon/graphql": [
+        "libs/graphql/src/index.ts"
+      ],
+      "@cell-mon/graphql-client": [
+        "libs/graphql-client/src/index.ts"
+      ],
+      "@cell-mon/graphql-codegen": [
+        "libs/graphql-codegen/src/index.ts"
+      ],
+      "@cell-mon/test": [
+        "libs/test/src/index.ts"
+      ],
+      "@cell-mon/tracer": [
+        "libs/tracer/src/index.ts"
+      ],
+      "@cell-mon/utils": [
+        "libs/utils/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

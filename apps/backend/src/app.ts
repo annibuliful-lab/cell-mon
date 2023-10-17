@@ -2,6 +2,7 @@ import { primaryDbClient, prismaDbClient, redisClient } from '@cell-mon/db';
 import { graphqlLogger } from '@cell-mon/graphql';
 import { logger } from '@cell-mon/utils';
 import cookie from '@fastify/cookie';
+import cors from '@fastify/cors';
 import csrfProtection from '@fastify/csrf-protection';
 import helmet from '@fastify/helmet';
 import multipart from '@fastify/multipart';
@@ -14,7 +15,6 @@ import schema from './graphql';
 import { graphqlContext } from './graphql/context';
 import { hidePoweredBy } from './hooks/hide-powered-by';
 import { uploadFileController } from './upload-file';
-
 config();
 
 export async function main() {
@@ -22,7 +22,7 @@ export async function main() {
   const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
   const server = fastify();
-
+  server.register(cors, { origin: '*' });
   server.register(multipart);
   server.register(helmet);
   server.register(hidePoweredBy, { setTo: 'PHP/7.0.33' });
@@ -40,7 +40,7 @@ export async function main() {
 
   await server.register(mercurius, {
     graphiql: true,
-    ide: false,
+    ide: true,
     path: '/graphql',
     schema,
     errorFormatter(execution) {
