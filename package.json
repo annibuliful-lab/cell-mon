@@ -72,7 +72,7 @@
     "@opentelemetry/sdk-trace-node": "1.17.1",
     "@opentelemetry/semantic-conventions": "1.17.1",
     "@prisma/client": "5.4.2",
-    "@types/graphql-upload": "16.0.3",
+    "@types/graphql-upload": "16.0.4",
     "@types/jest": "29.5.5",
     "@types/jsonwebtoken": "9.0.3",
     "@types/pg": "8.10.5",
