@@ -1,23 +1,68 @@
 import { useLoginMutation } from '@cell-mon/graphql-codegen';
 import { Button, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { setCookie } from 'cookies-next';
+import { useAtom } from 'jotai';
+import { minLength, object, string } from 'valibot';
 
 import { useMobile } from '../hooks/useMobile';
+import { authAtom } from '../store/auth';
+import { errorAtom } from '../store/error';
+import { valibotResolver } from '../utils/valibot-form-resolver';
 
 export function Index() {
+  const [, setAuth] = useAtom(authAtom);
+  const [, setError] = useAtom(errorAtom);
+
   const { isMobile } = useMobile();
   const [login, { loading }] = useLoginMutation();
 
   const form = useForm({
     initialValues: { username: '', password: '' },
 
-    validate: {
-      username: (value) =>
-        value.length < 7 ? 'Name must have at least 8 letters' : null,
-      password: (value) =>
-        value.length === 0 ? 'Password must not empty' : null,
-    },
+    validate: valibotResolver(
+      object({
+        username: string('Username is required', [
+          minLength(8, 'Username must have at least 8 characters'),
+        ]),
+        password: string('Password is required', [
+          minLength(8, 'Password must have at least 8 characters'),
+        ]),
+      }),
+    ),
   });
+
+  const handleLogin = async (data: { username: string; password: string }) => {
+    const { data: loginResponse, errors } = await login({
+      variables: {
+        input: {
+          username: data.username,
+          password: data.password,
+        },
+      },
+    });
+
+    if (errors?.length) {
+      setError(
+        errors.map((error) => ({
+          code: error.name,
+          message: error.message,
+        })),
+      );
+
+      return;
+    }
+
+    setCookie('token', loginResponse.login.token);
+    setCookie('refreshToken', loginResponse.login.refreshToken);
+
+    setAuth({
+      token: loginResponse.login.token,
+      refreshToken: loginResponse.login.refreshToken,
+    });
+
+    form.reset();
+  };
 
   return (
     <div
@@ -36,21 +81,9 @@ export function Index() {
           textAlign: 'center',
         }}
       >
-        Cellular Monitoring
+        Cellular Network Surveillance
       </Title>
-      <form
-        onSubmit={form.onSubmit((data) =>
-          login({
-            variables: {
-              input: {
-                username: data.username,
-                password: data.password,
-              },
-            },
-          }),
-        )}
-        autoComplete="off"
-      >
+      <form onSubmit={form.onSubmit(handleLogin)} autoComplete="off">
         <TextInput
           autoComplete="off"
           label="username"

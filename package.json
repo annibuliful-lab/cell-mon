@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "backend:serve": "nx serve backend",
+    "backend:dev": "nx serve backend",
     "backend:test": "nx test backend",
-    "frontend:serve": "nx serve frontend",
+    "frontend:dev": "nx serve frontend",
     "frontend:test": "nx test frontend",
     "setup": "pnpm run db-all:migrate && pnpm run db-all:migrate && pnpm run genql & pnpm run codegen:backend",
     "dev-server:dev": "nodemon -e ts  --exec \"npm run dev-server:start\"",
@@ -79,6 +79,7 @@
     "@types/uuid": "9.0.6",
     "argon2": "0.31.1",
     "axios": "1.5.1",
+    "cookies-next": "4.0.0",
     "cross-undici-fetch": "0.4.14",
     "dataloader": "2.2.2",
     "dayjs": "1.11.10",
@@ -90,7 +91,10 @@
     "graphql-scalars": "1.22.4",
     "graphql-tag": "2.12.6",
     "graphql-upload": "16.0.2",
+    "immer": "^10.0.3",
     "ioredis": "5.3.2",
+    "jotai": "2.4.3",
+    "jotai-immer": "^0.2.0",
     "jsonwebtoken": "9.0.2",
     "kysely": "0.26.3",
     "lodash": "4.17.21",
@@ -110,7 +114,8 @@
     "tasuku": "2.0.1",
     "tslib": "2.6.2",
     "undici": "5.26.4",
-    "uuid": "9.0.1"
+    "uuid": "9.0.1",
+    "valibot": "0.19.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.22.15",

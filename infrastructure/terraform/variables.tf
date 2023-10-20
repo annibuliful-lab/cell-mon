@@ -21,7 +21,7 @@ variable "k8s" {
     node_pool_label = "cell-mon-k8s-node-pool"
     node_pool_plan  = "vc2-2c-4gb"
     node_quantity   = 1
-    version         = "v1.26.2+2" // https://api.vultr.com/v2/kubernetes/versions
+    version         = "v1.28.2+1" // https://api.vultr.com/v2/kubernetes/versions
   }
 }
 
@@ -34,6 +34,6 @@ variable "s3" {
 
   default = {
     cluster_id = 4 // singapore https://api.vultr.com/v2/object-storage/clusters
-    label      = "tadchud-s3"
+    label      = "cell-mon-s3"
   }
 }
