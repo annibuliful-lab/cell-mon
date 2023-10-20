@@ -194,6 +194,9 @@ dependencies:
   jotai:
     specifier: 2.4.3
     version: 2.4.3(@types/react@18.2.31)(react@18.2.0)
+  jotai-apollo:
+    specifier: ^0.2.1
+    version: 0.2.1(@apollo/client@3.8.6)(graphql@16.8.1)(jotai@2.4.3)
   jotai-immer:
     specifier: ^0.2.0
     version: 0.2.0(immer@10.0.3)(jotai@2.4.3)(react@18.2.0)
@@ -12632,6 +12635,18 @@ packages:
   /jose@4.15.2:
     resolution: {integrity: sha512-IY73F228OXRl9ar3jJagh7Vnuhj/GzBunPiZP13K0lOl7Am9SoWW3kEzq3MCllJMTtZqHTiDXQvoRd4U95aU6A==}
     dev: true
+
+  /jotai-apollo@0.2.1(@apollo/client@3.8.6)(graphql@16.8.1)(jotai@2.4.3):
+    resolution: {integrity: sha512-iUYmMCG1ootEZ21UD41kMQ2emI4FzJ3MQQN6cYHySIc4aDbTnUPIpsEu4svjdmKGmg0rybZuwc9oGGm5zW0Dhg==}
+    peerDependencies:
+      '@apollo/client': '*'
+      graphql: '*'
+      jotai: '>=1.11.0'
+    dependencies:
+      '@apollo/client': 3.8.6(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+      graphql: 16.8.1
+      jotai: 2.4.3(@types/react@18.2.31)(react@18.2.0)
+    dev: false
 
   /jotai-immer@0.2.0(immer@10.0.3)(jotai@2.4.3)(react@18.2.0):
     resolution: {integrity: sha512-hahK8EPiROS9RoNWmX/Z8rY9WkAijspX4BZ1O7umpcwI4kPNkbcCpu/PhiQ8FMcpEcF6KmbpbMpSSj/GFmo8NA==}
