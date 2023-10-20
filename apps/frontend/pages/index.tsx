@@ -3,10 +3,12 @@ import { Button, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { setCookie } from 'cookies-next';
 import { useAtom } from 'jotai';
+import { minLength, object, string } from 'valibot';
 
 import { useMobile } from '../hooks/useMobile';
 import { authAtom } from '../store/auth';
 import { errorAtom } from '../store/error';
+import { valibotResolver } from '../utils/valibot-form-resolver';
 
 export function Index() {
   const [, setAuth] = useAtom(authAtom);
@@ -18,12 +20,16 @@ export function Index() {
   const form = useForm({
     initialValues: { username: '', password: '' },
 
-    validate: {
-      username: (value) =>
-        value.length < 7 && 'Username must have at least 8 characters',
-      password: (value) =>
-        value.length < 7 && 'Password must have at least 8 characters',
-    },
+    validate: valibotResolver(
+      object({
+        username: string('Username is required', [
+          minLength(8, 'Username must have at least 8 characters'),
+        ]),
+        password: string('Password is required', [
+          minLength(8, 'Password must have at least 8 characters'),
+        ]),
+      }),
+    ),
   });
 
   const handleLogin = async (data: { username: string; password: string }) => {
