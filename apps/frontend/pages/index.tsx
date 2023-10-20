@@ -20,9 +20,9 @@ export function Index() {
 
     validate: {
       username: (value) =>
-        value.length < 7 ? 'Name must have at least 8 letters' : null,
+        value.length < 7 && 'Username must have at least 8 characters',
       password: (value) =>
-        value.length === 0 ? 'Password must not empty' : null,
+        value.length < 7 && 'Password must have at least 8 characters',
     },
   });
 
@@ -75,7 +75,7 @@ export function Index() {
           textAlign: 'center',
         }}
       >
-        Cellular Monitoring
+        Cellular Networking Surveillance
       </Title>
       <form onSubmit={form.onSubmit(handleLogin)} autoComplete="off">
         <TextInput

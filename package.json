@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "backend:serve": "nx serve backend",
+    "backend:dev": "nx serve backend",
     "backend:test": "nx test backend",
-    "frontend:serve": "nx serve frontend",
+    "frontend:dev": "nx serve frontend",
     "frontend:test": "nx test frontend",
     "setup": "pnpm run db-all:migrate && pnpm run db-all:migrate && pnpm run genql & pnpm run codegen:backend",
     "dev-server:dev": "nodemon -e ts  --exec \"npm run dev-server:start\"",
@@ -114,7 +114,8 @@
     "tasuku": "2.0.1",
     "tslib": "2.6.2",
     "undici": "5.26.4",
-    "uuid": "9.0.1"
+    "uuid": "9.0.1",
+    "valibot": "0.19.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.22.15",
