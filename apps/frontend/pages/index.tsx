@@ -1,6 +1,7 @@
 import { useLoginMutation } from '@cell-mon/graphql-codegen';
 import { Button, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { setCookie } from 'cookies-next';
 import { useAtom } from 'jotai';
 
 import { useMobile } from '../hooks/useMobile';
@@ -35,7 +36,7 @@ export function Index() {
       },
     });
 
-    if (errors.length) {
+    if (errors?.length) {
       setError(
         errors.map((error) => ({
           code: error.name,
@@ -46,10 +47,15 @@ export function Index() {
       return;
     }
 
+    setCookie('token', loginResponse.login.token);
+    setCookie('refreshToken', loginResponse.login.refreshToken);
+
     setAuth({
       token: loginResponse.login.token,
       refreshToken: loginResponse.login.refreshToken,
     });
+
+    form.reset();
   };
 
   return (
