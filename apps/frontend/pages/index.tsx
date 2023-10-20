@@ -33,35 +33,57 @@ export function Index() {
   });
 
   const handleLogin = async (data: { username: string; password: string }) => {
-    const { data: loginResponse, errors } = await login({
-      variables: {
-        input: {
-          username: data.username,
-          password: data.password,
+    try {
+      setAuth({
+        token: null,
+        refreshToken: null,
+        loading: true,
+      });
+
+      const { data: loginResponse, errors } = await login({
+        variables: {
+          input: {
+            username: data.username,
+            password: data.password,
+          },
         },
-      },
-    });
+      });
 
-    if (errors?.length) {
-      setError(
-        errors.map((error) => ({
-          code: error.name,
-          message: error.message,
-        })),
-      );
+      if (errors?.length) {
+        setError(
+          errors.map((error) => ({
+            code: error.name,
+            message: error.message,
+          })),
+        );
 
-      return;
+        return;
+      }
+
+      setCookie('token', loginResponse.login.token);
+      setCookie('refreshToken', loginResponse.login.refreshToken);
+
+      setAuth({
+        token: loginResponse.login.token,
+        refreshToken: loginResponse.login.refreshToken,
+        loading: false,
+      });
+    } catch (error) {
+      setError([
+        {
+          code: error,
+          message: error,
+        },
+      ]);
+    } finally {
+      setAuth({
+        token: null,
+        refreshToken: null,
+        loading: false,
+      });
+
+      form.reset();
     }
-
-    setCookie('token', loginResponse.login.token);
-    setCookie('refreshToken', loginResponse.login.refreshToken);
-
-    setAuth({
-      token: loginResponse.login.token,
-      refreshToken: loginResponse.login.refreshToken,
-    });
-
-    form.reset();
   };
 
   return (

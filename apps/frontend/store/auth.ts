@@ -4,11 +4,13 @@ import { atomWithImmer } from 'jotai-immer';
 type Authentication = {
   token: string | null;
   refreshToken: string | null;
+  loading: boolean;
 };
 
 export const authAtom = atomWithImmer<Authentication>({
   token: null,
   refreshToken: null,
+  loading: false,
 });
 
 export const authAction = atom(
