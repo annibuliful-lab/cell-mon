@@ -75,7 +75,7 @@ export function Index() {
           textAlign: 'center',
         }}
       >
-        Cellular Networking Surveillance
+        Cellular Network Surveillance
       </Title>
       <form onSubmit={form.onSubmit(handleLogin)} autoComplete="off">
         <TextInput
