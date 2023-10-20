@@ -1,10 +1,16 @@
 import { useLoginMutation } from '@cell-mon/graphql-codegen';
 import { Button, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useAtom } from 'jotai';
 
 import { useMobile } from '../hooks/useMobile';
+import { authAtom } from '../store/auth';
+import { errorAtom } from '../store/error';
 
 export function Index() {
+  const [, setAuth] = useAtom(authAtom);
+  const [, setError] = useAtom(errorAtom);
+
   const { isMobile } = useMobile();
   const [login, { loading }] = useLoginMutation();
 
@@ -18,6 +24,33 @@ export function Index() {
         value.length === 0 ? 'Password must not empty' : null,
     },
   });
+
+  const handleLogin = async (data: { username: string; password: string }) => {
+    const { data: loginResponse, errors } = await login({
+      variables: {
+        input: {
+          username: data.username,
+          password: data.password,
+        },
+      },
+    });
+
+    if (errors.length) {
+      setError(
+        errors.map((error) => ({
+          code: error.name,
+          message: error.message,
+        })),
+      );
+
+      return;
+    }
+
+    setAuth({
+      token: loginResponse.login.token,
+      refreshToken: loginResponse.login.refreshToken,
+    });
+  };
 
   return (
     <div
@@ -38,19 +71,7 @@ export function Index() {
       >
         Cellular Monitoring
       </Title>
-      <form
-        onSubmit={form.onSubmit((data) =>
-          login({
-            variables: {
-              input: {
-                username: data.username,
-                password: data.password,
-              },
-            },
-          }),
-        )}
-        autoComplete="off"
-      >
+      <form onSubmit={form.onSubmit(handleLogin)} autoComplete="off">
         <TextInput
           autoComplete="off"
           label="username"
