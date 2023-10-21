@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@apollo/client':
     specifier: 3.8.6
-    version: 3.8.6(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+    version: 3.8.6(graphql-ws@5.14.1)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
   '@aws-sdk/client-s3':
     specifier: 3.433.0
     version: 3.433.0
@@ -185,6 +185,9 @@ dependencies:
   graphql-upload:
     specifier: 16.0.2
     version: 16.0.2(graphql@16.8.1)
+  graphql-ws:
+    specifier: ^5.14.1
+    version: 5.14.1(graphql@16.8.1)
   immer:
     specifier: ^10.0.3
     version: 10.0.3
@@ -437,7 +440,7 @@ packages:
     hasBin: true
     dev: false
 
-  /@apollo/client@3.8.6(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
+  /@apollo/client@3.8.6(graphql-ws@5.14.1)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-FnHg3vhQP8tQzgBs6oTJCFFIbovelDGYujj6MK7CJneiHf62TJstCIO0Ot4A1h7XrgFEtgl8a/OgajQWqrTuYw==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -461,6 +464,7 @@ packages:
       '@wry/trie': 0.4.3
       graphql: 16.8.1
       graphql-tag: 2.12.6(graphql@16.8.1)
+      graphql-ws: 5.14.1(graphql@16.8.1)
       hoist-non-react-statics: 3.3.2
       optimism: 0.17.5
       prop-types: 15.8.1
@@ -11384,7 +11388,6 @@ packages:
       graphql: '>=0.11 <=16'
     dependencies:
       graphql: 16.8.1
-    dev: true
 
   /graphql@16.8.1:
     resolution: {integrity: sha512-59LZHPdGZVh695Ud9lRzPBVTtlX9ZCV150Er2W43ro37wVof0ctenSaskPPjN7lVTIN8mSZt8PHUNKZuNQUuxw==}
@@ -12666,7 +12669,7 @@ packages:
       graphql: '*'
       jotai: '>=1.11.0'
     dependencies:
-      '@apollo/client': 3.8.6(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+      '@apollo/client': 3.8.6(graphql-ws@5.14.1)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
       graphql: 16.8.1
       jotai: 2.4.3(@types/react@18.2.31)(react@18.2.0)
     dev: false
