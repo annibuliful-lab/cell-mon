@@ -33,6 +33,7 @@ export function Index() {
   });
 
   const handleLogin = async (data: { username: string; password: string }) => {
+    console.log('asdasdasda');
     try {
       setAuth({
         token: null,
@@ -69,6 +70,7 @@ export function Index() {
         loading: false,
       });
     } catch (error) {
+      console.log(error);
       setError([
         {
           code: error,
@@ -82,7 +84,7 @@ export function Index() {
         loading: false,
       });
 
-      form.reset();
+      // form.reset();
     }
   };
 

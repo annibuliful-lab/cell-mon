@@ -14,7 +14,15 @@ async function main() {
     schema: typeDefs,
     output: path.join(
       __dirname,
-      '../../libs/graphql-client/src/generated/primary'
+      '../../libs/graphql-client/src/generated/primary',
+    ),
+  });
+
+  await generate({
+    schema: typeDefs,
+    output: path.join(
+      __dirname,
+      '../../libs/graphql-codegen/src/generated/primary',
     ),
   });
   process.exit(0);

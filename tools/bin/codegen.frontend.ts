@@ -10,21 +10,6 @@ const config: CodegenConfig = {
         'typescript',
         'typescript-operations',
         'typescript-react-apollo',
-        {
-          typescript: {
-            enumsAsTypes: false,
-            skipTypename: true,
-            maybeValue: 'T | undefined',
-            scalars: {
-              Upload: 'Promise<GraphQLFileUpload>',
-              DateTime: 'Date',
-              SerialId: 'number',
-              UUID: 'string',
-              Latitude: 'number',
-              Longitude: 'number',
-            },
-          },
-        },
       ],
       config: {
         withHooks: true,

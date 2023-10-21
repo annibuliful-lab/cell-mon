@@ -3,6 +3,7 @@
     "libs/graphql/src/generated/primary",
     "libs/test/src/graphql/generated",
     "libs/graphql-client/src/graphql/generated",
+    "libs/graphql-codegen/src/generated",
     "*.spec.ts",
     "codegen.frontend.ts"
   ]

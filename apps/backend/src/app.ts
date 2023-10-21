@@ -44,7 +44,11 @@ export async function main() {
     path: '/graphql',
     schema,
     errorFormatter(execution) {
-      logger.error(execution);
+      console.log(execution.extensions);
+      logger.error({
+        ...execution,
+        service: 'Backend',
+      });
       return {
         statusCode: 200,
         response: execution,
