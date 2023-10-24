@@ -126,8 +126,8 @@ dependencies:
     specifier: 1.17.1
     version: 1.17.1
   '@prisma/client':
-    specifier: 5.4.2
-    version: 5.4.2(prisma@5.4.2)
+    specifier: 5.5.0
+    version: 5.5.0(prisma@5.5.0)
   '@types/graphql-upload':
     specifier: 16.0.4
     version: 16.0.4
@@ -231,11 +231,11 @@ dependencies:
     specifier: 10.2.3
     version: 10.2.3
   prisma:
-    specifier: 5.4.2
-    version: 5.4.2
+    specifier: 5.5.0
+    version: 5.5.0
   prisma-erd-generator:
     specifier: 1.11.1
-    version: 1.11.1(@prisma/client@5.4.2)(typescript@5.2.2)
+    version: 1.11.1(@prisma/client@5.5.0)(typescript@5.2.2)
   prisma-kysely:
     specifier: 1.7.1
     version: 1.7.1
@@ -6278,8 +6278,8 @@ packages:
       esquery: 1.5.0
       typescript: 5.2.2
 
-  /@prisma/client@5.4.2(prisma@5.4.2):
-    resolution: {integrity: sha512-2xsPaz4EaMKj1WS9iW6MlPhmbqtBsXAOeVttSePp8vTFTtvzh2hZbDgswwBdSCgPzmmwF+tLB259QzggvCmJqA==}
+  /@prisma/client@5.5.0(prisma@5.5.0):
+    resolution: {integrity: sha512-JiCj/h79PRawWiBVa4Ng4tBaKMrfJgUwuRrZi4NuQRd58gWIP4kEYMqIidpUrab3dU2NM617pWRG2avX+dh+Sg==}
     engines: {node: '>=16.13'}
     requiresBuild: true
     peerDependencies:
@@ -6288,8 +6288,8 @@ packages:
       prisma:
         optional: true
     dependencies:
-      '@prisma/engines-version': 5.4.1-2.ac9d7041ed77bcc8a8dbd2ab6616b39013829574
-      prisma: 5.4.2
+      '@prisma/engines-version': 5.5.0-19.475c616176945d72f4330c92801f0c5e6398dc0f
+      prisma: 5.5.0
     dev: false
 
   /@prisma/debug@5.3.1:
@@ -6312,8 +6312,8 @@ packages:
       - supports-color
     dev: false
 
-  /@prisma/engines-version@5.4.1-2.ac9d7041ed77bcc8a8dbd2ab6616b39013829574:
-    resolution: {integrity: sha512-wvupDL4AA1vf4TQNANg7kR7y98ITqPsk6aacfBxZKtrJKRIsWjURHkZCGcQliHdqCiW/hGreO6d6ZuSv9MhdAA==}
+  /@prisma/engines-version@5.5.0-19.475c616176945d72f4330c92801f0c5e6398dc0f:
+    resolution: {integrity: sha512-/1orOUq7I54ISYBJockYB15FmF/VkCBeFzYYkWyLtBl2tLlJWHmA3NEUBM+wSmXGLK78BmuSNHrLbf8bmXkukQ==}
     dev: false
 
   /@prisma/engines@5.3.1:
@@ -6321,8 +6321,8 @@ packages:
     requiresBuild: true
     dev: false
 
-  /@prisma/engines@5.4.2:
-    resolution: {integrity: sha512-fqeucJ3LH0e1eyFdT0zRx+oETLancu5+n4lhiYECyEz6H2RDskPJHJYHkVc0LhkU4Uv7fuEnppKU3nVKNzMh8g==}
+  /@prisma/engines@5.5.0:
+    resolution: {integrity: sha512-WX+8l4sJuWeS3A/5WqJpdBHp32UzUticiKwUWbFggcd6/sqGtCiiaFmXYmNw6Au2O6hjSX37Y07Vu2ZhP9cmWg==}
     requiresBuild: true
     dev: false
 
@@ -14442,7 +14442,7 @@ packages:
       ansi-styles: 5.2.0
       react-is: 18.2.0
 
-  /prisma-erd-generator@1.11.1(@prisma/client@5.4.2)(typescript@5.2.2):
+  /prisma-erd-generator@1.11.1(@prisma/client@5.5.0)(typescript@5.2.2):
     resolution: {integrity: sha512-/NbHGnsn3emYaGJPRA/0MTzYa1RawRLKu0WOfp5pUugcyFNBwOLd38gQyhdlmkzbVSDSOp78ySNqYzt1Tq1QMQ==}
     engines: {node: '>=14'}
     hasBin: true
@@ -14450,7 +14450,7 @@ packages:
       '@prisma/client': ^4.0.0 || ^5.0.0
     dependencies:
       '@mermaid-js/mermaid-cli': 10.5.0(typescript@5.2.2)
-      '@prisma/client': 5.4.2(prisma@5.4.2)
+      '@prisma/client': 5.5.0(prisma@5.5.0)
       '@prisma/generator-helper': 5.4.1
       dotenv: 16.3.1
     transitivePeerDependencies:
@@ -14475,13 +14475,13 @@ packages:
       - supports-color
     dev: false
 
-  /prisma@5.4.2:
-    resolution: {integrity: sha512-GDMZwZy7mysB2oXU+angQqJ90iaPFdD0rHaZNkn+dio5NRkGLmMqmXs31//tg/qXT3iB0cTQwnGGQNuirhSTZg==}
+  /prisma@5.5.0:
+    resolution: {integrity: sha512-QyMMh1WQiGU07Iz3Q8jd6y5KlomGLDVb4etkMWpQ4EmDAaY+zGgNHmBk2MfRPb0A+un1Ior1nZWZorfnKD6E5A==}
     engines: {node: '>=16.13'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@prisma/engines': 5.4.2
+      '@prisma/engines': 5.5.0
     dev: false
 
   /proc-log@3.0.0:
