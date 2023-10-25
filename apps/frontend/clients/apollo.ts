@@ -1,5 +1,4 @@
-import { ApolloClient, InMemoryCache, split } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import { ApolloClient, HttpLink, InMemoryCache, split } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { getMainDefinition } from '@apollo/client/utilities';
@@ -21,30 +20,26 @@ const getAuthContext = () => {
   const refreshToken = getCookie('refreshToken');
 
   return {
-    authorization,
-    refreshToken,
+    authorization: `Bearer ${authorization}`,
+    refreshToken: `Bearer ${refreshToken}`,
   };
 };
 
-const httpLink = setContext((_, { headers }) => {
-  const { authorization } = getAuthContext();
-  return {
-    headers: {
-      ...headers,
-      ...(authorization && { authorization: `Bearer ${authorization}` }),
-    },
-  };
+const httpLink = new HttpLink({
+  uri: 'http://localhost:3030/graphql',
+  headers: getAuthContext(),
 });
 
 const wsLink = new GraphQLWsLink(
   createClient({
     lazy: true,
-    url: 'ws://localhost:4000/subscriptions',
+    shouldRetry: () => true,
+    url: 'ws://localhost:3030/graphql',
     connectionParams: () => {
       const { authorization } = getAuthContext();
 
       return {
-        headers: authorization,
+        authorization: authorization ?? 'test-auth',
       };
     },
   }),
