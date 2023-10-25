@@ -62,6 +62,32 @@ export async function main() {
 
   server.graphql.addHook('preExecution', graphqlLogger);
 
+  server.graphql.addHook(
+    'preSubscriptionExecution',
+    (_schema, _source, context) => {
+      const websocketPayload = (
+        context as unknown as {
+          payload: {
+            authorization: string;
+            workspaceId: string;
+          };
+        }
+      )?.payload;
+
+      const websocketType = (context as unknown as { type: 'connection_init' })
+        ?.type;
+
+      if (websocketType !== 'connection_init') {
+        return;
+      }
+
+      context.app.decorateRequest(
+        'authorization',
+        websocketPayload.authorization,
+      );
+      context.app.decorateRequest('workspaceId', websocketPayload.workspaceId);
+    },
+  );
   async function gracefulShutdown() {
     await server.close();
     redisClient.disconnect();
