@@ -293,11 +293,11 @@ devDependencies:
     specifier: 4.0.1
     version: 4.0.1(graphql@16.8.1)
   '@graphql-codegen/typescript-graphql-request':
-    specifier: 6.0.0
-    version: 6.0.0(graphql-request@6.1.0)(graphql-tag@2.12.6)(graphql@16.8.1)
+    specifier: 6.0.1
+    version: 6.0.1(graphql-request@6.1.0)(graphql-tag@2.12.6)(graphql@16.8.1)
   '@graphql-codegen/typescript-react-apollo':
-    specifier: 4.0.0
-    version: 4.0.0(graphql-tag@2.12.6)(graphql@16.8.1)
+    specifier: 4.1.0
+    version: 4.1.0(graphql-tag@2.12.6)(graphql@16.8.1)
   '@graphql-codegen/typescript-resolvers':
     specifier: 4.0.1
     version: 4.0.1(graphql@16.8.1)
@@ -3337,8 +3337,8 @@ packages:
       - supports-color
     dev: true
 
-  /@graphql-codegen/typescript-graphql-request@6.0.0(graphql-request@6.1.0)(graphql-tag@2.12.6)(graphql@16.8.1):
-    resolution: {integrity: sha512-Vi6tawqtcnOje/AW8a8ijwf7OLbNGolBB8VlVzG3Cb2bFnI7Vetocy7xUxkEpxe0Lqp2vmOvXTRNdC7eiQeoCw==}
+  /@graphql-codegen/typescript-graphql-request@6.0.1(graphql-request@6.1.0)(graphql-tag@2.12.6)(graphql@16.8.1):
+    resolution: {integrity: sha512-aScw7ICyscW7bYLh2HyjQU3geCAjvFy6sRIlzgdkeFvcKBdjCil69upkyZAyntnSno2C4ZoUv7sHOpyQ9hQmFQ==}
     engines: {node: '>= 16.0.0'}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -3372,8 +3372,8 @@ packages:
       - encoding
       - supports-color
 
-  /@graphql-codegen/typescript-react-apollo@4.0.0(graphql-tag@2.12.6)(graphql@16.8.1):
-    resolution: {integrity: sha512-XDaZdciZ4216RyV/7HphaAP32oeqlHZbgyXUzpA8TQDu/dmgzCN0gapZU6xAQnZe+hiec+e7DLSu9AKBy55b2w==}
+  /@graphql-codegen/typescript-react-apollo@4.1.0(graphql-tag@2.12.6)(graphql@16.8.1):
+    resolution: {integrity: sha512-G7l4ECoilGnW1zJeqgsFQEVup9ME3w3811ZxHP5yvTra3ZNsbZO4WbYBOPKyS5uc4swsTAxj70a28hNF7kdVcw==}
     engines: {node: '>= 16.0.0'}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
