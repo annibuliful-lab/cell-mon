@@ -213,8 +213,8 @@ dependencies:
     specifier: 4.17.21
     version: 4.17.21
   mercurius:
-    specifier: 13.2.0
-    version: 13.2.0(graphql@16.8.1)
+    specifier: 13.2.1
+    version: 13.2.1(graphql@16.8.1)
   mercurius-upload:
     specifier: 7.0.0
     version: 7.0.0(graphql@16.8.1)
@@ -13347,8 +13347,8 @@ packages:
       graphql-upload-minimal: 1.5.5(graphql@16.8.1)
     dev: false
 
-  /mercurius@13.2.0(graphql@16.8.1):
-    resolution: {integrity: sha512-UbMl3KX+jYy+bSIzaR4+rrurat/PEXVYWsj44OU8M1+dm+NJQfhPANLs4r9qhRU9FF+Pd+6UncGfbwqc8XtI3g==}
+  /mercurius@13.2.1(graphql@16.8.1):
+    resolution: {integrity: sha512-q3p+n72I6g8dznA6u6XW9sIbApQOuc9ZkWCDMz++RAnJU37LP6TmGZx2SErpEhNgbRWOLUbBhVkVkVxwo75x4Q==}
     engines: {node: '>=14.19.3'}
     peerDependencies:
       graphql: ^16.0.0
