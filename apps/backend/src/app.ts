@@ -7,7 +7,7 @@ import csrfProtection from '@fastify/csrf-protection';
 import helmet from '@fastify/helmet';
 import multipart from '@fastify/multipart';
 import { config } from 'dotenv';
-import fastify from 'fastify';
+import fastify, { FastifyRequest } from 'fastify';
 import mercurius from 'mercurius';
 import mercuriusGQLUpload from 'mercurius-upload';
 
@@ -63,31 +63,32 @@ export async function main() {
   server.graphql.addHook('preExecution', graphqlLogger);
 
   server.graphql.addHook(
-    'preSubscriptionExecution',
+    'preSubscriptionParsing',
     (_schema, _source, context) => {
       const websocketPayload = (
         context as unknown as {
-          payload: {
+          _connectionInit: {
             authorization: string;
             workspaceId: string;
           };
         }
-      )?.payload;
+      )?._connectionInit;
 
-      const websocketType = (context as unknown as { type: 'connection_init' })
-        ?.type;
-
-      if (websocketType !== 'connection_init') {
+      if (!websocketPayload) {
         return;
       }
 
-      context.app.decorateRequest(
-        'authorization',
-        websocketPayload.authorization,
-      );
-      context.app.decorateRequest('workspaceId', websocketPayload.workspaceId);
+      const headers = (context as unknown as { request: FastifyRequest })
+        .request.headers;
+
+      (context as unknown as { request: FastifyRequest }).request.headers = {
+        ...headers,
+        authorization: websocketPayload.authorization,
+        workspaceId: websocketPayload.workspaceId,
+      };
     },
   );
+
   async function gracefulShutdown() {
     await server.close();
     redisClient.disconnect();
