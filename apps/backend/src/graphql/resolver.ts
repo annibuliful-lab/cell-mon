@@ -52,6 +52,7 @@ import {
   mutation as targetEvidenceMutationResolver,
   query as targetEvidenceQueryResolver,
 } from '../modules/target-evidence/target-evidence.resolver';
+import { subscription as webhookSubscriptionResolver } from '../modules/webhook/webhook.resolver';
 import {
   mutation as workspaceMutationResolver,
   query as workspaceQueryResolver,
@@ -83,6 +84,9 @@ export const resolvers: Resolvers = {
     ...targetEvidenceMutationResolver,
     ...phoneTargetMutationResolver,
     ...phoneTargetLocationMutationResolver,
+  },
+  Subscription: {
+    ...webhookSubscriptionResolver,
   },
   Upload: GraphQLUpload,
   SerialId: serialIdScalar,

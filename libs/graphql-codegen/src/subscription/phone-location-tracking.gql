@@ -1,0 +1,35 @@
+subscription subscribePhoneLocationTracking {
+  subscribePhoneLocationTracking {
+    id
+    phoneTargetId
+    metadata
+    sourceDateTime
+    network {
+      phoneTargetLocationId
+      code
+      name
+      operator
+      mnc
+      mcc
+    }
+    cellInfo {
+      phoneTargetLocationId
+      type
+      cid
+      lcid
+      lac
+      ci
+      eci
+      tac
+      enb
+      nci
+    }
+    geoLocations {
+      id
+      phoneTargetLocationId
+      latitude
+      longtitude
+      source
+    }
+  }
+}

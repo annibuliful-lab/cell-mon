@@ -1,1 +1,4 @@
-export { useLoginMutation } from './generated/graphql';
+export {
+  useLoginMutation,
+  useSubscribePhoneLocationTrackingSubscription,
+} from './generated/graphql';

@@ -5,6 +5,7 @@
     "libs/graphql-client/src/graphql/generated",
     "libs/graphql-codegen/src/generated",
     "*.spec.ts",
-    "codegen.frontend.ts"
+    "codegen.frontend.ts",
+    "apps/frontend"
   ]
 }
