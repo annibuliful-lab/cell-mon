@@ -1,4 +1,9 @@
-import { primaryDbClient, prismaDbClient, redisClient } from '@cell-mon/db';
+import {
+  mqRedisEmitter,
+  primaryDbClient,
+  prismaDbClient,
+  redisClient,
+} from '@cell-mon/db';
 import { graphqlLogger } from '@cell-mon/graphql';
 import { logger } from '@cell-mon/utils';
 import cookie from '@fastify/cookie';
@@ -7,13 +12,13 @@ import csrfProtection from '@fastify/csrf-protection';
 import helmet from '@fastify/helmet';
 import multipart from '@fastify/multipart';
 import { config } from 'dotenv';
-import fastify, { FastifyRequest } from 'fastify';
+import fastify from 'fastify';
+import { NoSchemaIntrospectionCustomRule } from 'graphql';
 import mercurius from 'mercurius';
 import mercuriusGQLUpload from 'mercurius-upload';
 
 import schema from './graphql';
 import { graphqlContext } from './graphql/context';
-import { subscriptionResolver } from './graphql/subscription';
 import { hidePoweredBy } from './hooks/hide-powered-by';
 import { uploadFileController } from './upload-file';
 config();
@@ -44,50 +49,57 @@ export async function main() {
     ide: true,
     path: '/graphql',
     schema,
-    subscription: subscriptionResolver,
-    errorFormatter(execution) {
+    subscription: {
+      fullWsTransport: true,
+      emitter: mqRedisEmitter,
+    },
+    errorFormatter(err, ctx) {
       logger.error({
-        ...execution,
+        ...err,
         service: 'Backend',
       });
 
+      const response = mercurius.defaultErrorFormatter(err, ctx);
+
       return {
-        statusCode: (execution.errors[0].extensions as Record<string, number>)
-          .statusCode,
-        response: execution,
+        statusCode: response.statusCode,
+        response: err,
       };
     },
     context: graphqlContext,
+    validationRules: process.env.NODE_ENV
+      ? [NoSchemaIntrospectionCustomRule]
+      : [],
   });
 
   server.graphql.addHook('preExecution', graphqlLogger);
 
-  server.graphql.addHook(
-    'preSubscriptionParsing',
-    (_schema, _source, context) => {
-      const websocketPayload = (
-        context as unknown as {
-          _connectionInit: {
-            authorization: string;
-            workspaceId: string;
-          };
-        }
-      )?._connectionInit;
+  // server.graphql.addHook(
+  //   'preSubscriptionParsing',
+  //   (_schema, _source, context) => {
+  //     const websocketPayload = (
+  //       context as unknown as {
+  //         _connectionInit: {
+  //           authorization: string;
+  //           workspaceId: string;
+  //         };
+  //       }
+  //     )?._connectionInit;
 
-      if (!websocketPayload) {
-        return;
-      }
+  //     if (!websocketPayload) {
+  //       return;
+  //     }
 
-      const headers = (context as unknown as { request: FastifyRequest })
-        .request.headers;
+  //     const headers = (context as unknown as { request: FastifyRequest })
+  //       .request.headers;
 
-      (context as unknown as { request: FastifyRequest }).request.headers = {
-        ...headers,
-        authorization: websocketPayload.authorization,
-        workspaceId: websocketPayload.workspaceId,
-      };
-    },
-  );
+  //     (context as unknown as { request: FastifyRequest }).request.headers = {
+  //       ...headers,
+  //       authorization: websocketPayload.authorization,
+  //       workspaceId: websocketPayload.workspaceId,
+  //     };
+  //   },
+  // );
 
   async function gracefulShutdown() {
     await server.close();

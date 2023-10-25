@@ -25,6 +25,7 @@ const getAuthContext = () => {
   const workspaceId = getCookie('workspaceId');
 
   return {
+    authorization: 'asdasdasdasddadsada',
     ...(authorization && { authorization: `Bearer ${authorization}` }),
     ...(refreshToken && { refreshToken: `Bearer ${refreshToken}` }),
     workspaceId,
