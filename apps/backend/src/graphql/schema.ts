@@ -26,6 +26,7 @@ import { phoneTargetTypeDef } from '../modules/phone-target/phone-target.schema'
 import { phoneTargetLocationTypeDef } from '../modules/phone-target-location/phone-target-location.schema';
 import { targetTypeDef } from '../modules/target/target.schema';
 import { targetEvidenceTypeDef } from '../modules/target-evidence/target-evidence.schema';
+import { webhookTypeDef } from '../modules/webhook/webhook.schema';
 import { workspaceTypeDefs } from '../modules/workspace/workspace.schema';
 
 const { accessdDirectiveTypeDefs } = accessDirective();
@@ -54,5 +55,6 @@ export const typeDefs = print(
     phoneTargetLocationTypeDef,
     LatitudeDefinition,
     LongitudeDefinition,
+    webhookTypeDef,
   ]),
 );

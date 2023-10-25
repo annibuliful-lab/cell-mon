@@ -1,4 +1,5 @@
 import { GraphqlContext } from '@cell-mon/graphql';
+import { PubSub } from 'mercurius';
 
 import { AccountService } from '../modules/account/account.service';
 import { AuthenticationService } from '../modules/authentication/authentication.service';
@@ -13,7 +14,7 @@ import { TargetService } from '../modules/target/target.service';
 import { TargetEvidenceService } from '../modules/target-evidence/target-evidence.service';
 import { WorkspaceService } from '../modules/workspace/workspace.service';
 
-export interface IServiceContext {
+export type ServiceContext = {
   accountService: AccountService;
   permissionAbilityService: PermissionAbilityService;
   authenticationService: AuthenticationService;
@@ -26,6 +27,7 @@ export interface IServiceContext {
   targetEvidenceService: TargetEvidenceService;
   phoneTargetService: PhoneTargetService;
   phoneTargetLocationService: PhoneTargetLocationService;
-}
+  pubsub: PubSub;
+};
 
-export type AppContext = GraphqlContext & IServiceContext;
+export type AppContext = GraphqlContext & ServiceContext;

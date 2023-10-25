@@ -13,6 +13,7 @@ import mercuriusGQLUpload from 'mercurius-upload';
 
 import schema from './graphql';
 import { graphqlContext } from './graphql/context';
+import { subscriptionResolver } from './graphql/subscription';
 import { hidePoweredBy } from './hooks/hide-powered-by';
 import { uploadFileController } from './upload-file';
 config();
@@ -43,6 +44,7 @@ export async function main() {
     ide: true,
     path: '/graphql',
     schema,
+    subscription: subscriptionResolver,
     errorFormatter(execution) {
       logger.error({
         ...execution,
