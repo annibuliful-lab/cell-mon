@@ -10,6 +10,15 @@ import { authAtom } from '../store/auth';
 import { errorAtom } from '../store/error';
 import { valibotResolver } from '../utils/valibot-form-resolver';
 
+const schema = object({
+  username: string('Username is required', [
+    minLength(8, 'Username must have at least 8 characters'),
+  ]),
+  password: string('Password is required', [
+    minLength(8, 'Password must have at least 8 characters'),
+  ]),
+});
+
 export function Index() {
   const [, setAuth] = useAtom(authAtom);
   const [, setError] = useAtom(errorAtom);
@@ -19,20 +28,16 @@ export function Index() {
 
   const form = useForm({
     initialValues: { username: '', password: '' },
-
-    validate: valibotResolver(
-      object({
-        username: string('Username is required', [
-          minLength(8, 'Username must have at least 8 characters'),
-        ]),
-        password: string('Password is required', [
-          minLength(8, 'Password must have at least 8 characters'),
-        ]),
-      }),
-    ),
+    validate: valibotResolver(schema),
   });
 
   const handleLogin = async (data: { username: string; password: string }) => {
+    setAuth({
+      token: null,
+      refreshToken: null,
+      loading: true,
+    });
+
     const { data: loginResponse, errors } = await login({
       variables: {
         input: {
@@ -59,8 +64,8 @@ export function Index() {
     setAuth({
       token: loginResponse.login.token,
       refreshToken: loginResponse.login.refreshToken,
+      loading: false,
     });
-
     form.reset();
   };
 

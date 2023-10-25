@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@apollo/client':
     specifier: 3.8.6
-    version: 3.8.6(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+    version: 3.8.6(graphql-ws@5.14.1)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
   '@aws-sdk/client-s3':
     specifier: 3.435.0
     version: 3.435.0
@@ -185,6 +185,9 @@ dependencies:
   graphql-upload:
     specifier: 16.0.2
     version: 16.0.2(graphql@16.8.1)
+  graphql-ws:
+    specifier: 5.14.1
+    version: 5.14.1(graphql@16.8.1)
   immer:
     specifier: ^10.0.3
     version: 10.0.3
@@ -194,6 +197,9 @@ dependencies:
   jotai:
     specifier: 2.5.0
     version: 2.5.0(@types/react@18.2.31)(react@18.2.0)
+  jotai-apollo:
+    specifier: 0.2.1
+    version: 0.2.1(@apollo/client@3.8.6)(graphql@16.8.1)(jotai@2.5.0)
   jotai-immer:
     specifier: ^0.2.0
     version: 0.2.0(immer@10.0.3)(jotai@2.5.0)(react@18.2.0)
@@ -286,6 +292,9 @@ devDependencies:
   '@graphql-codegen/typescript-document-nodes':
     specifier: 4.0.1
     version: 4.0.1(graphql@16.8.1)
+  '@graphql-codegen/typescript-graphql-request':
+    specifier: ^6.0.0
+    version: 6.0.0(graphql-request@6.1.0)(graphql-tag@2.12.6)(graphql@16.8.1)
   '@graphql-codegen/typescript-react-apollo':
     specifier: ^4.0.0
     version: 4.0.0(graphql-tag@2.12.6)(graphql@16.8.1)
@@ -431,7 +440,7 @@ packages:
     hasBin: true
     dev: false
 
-  /@apollo/client@3.8.6(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
+  /@apollo/client@3.8.6(graphql-ws@5.14.1)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-FnHg3vhQP8tQzgBs6oTJCFFIbovelDGYujj6MK7CJneiHf62TJstCIO0Ot4A1h7XrgFEtgl8a/OgajQWqrTuYw==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -455,6 +464,7 @@ packages:
       '@wry/trie': 0.4.3
       graphql: 16.8.1
       graphql-tag: 2.12.6(graphql@16.8.1)
+      graphql-ws: 5.14.1(graphql@16.8.1)
       hoist-non-react-statics: 3.3.2
       optimism: 0.17.5
       prop-types: 15.8.1
@@ -3322,6 +3332,26 @@ packages:
       auto-bind: 4.0.0
       graphql: 16.8.1
       tslib: 2.5.3
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: true
+
+  /@graphql-codegen/typescript-graphql-request@6.0.0(graphql-request@6.1.0)(graphql-tag@2.12.6)(graphql@16.8.1):
+    resolution: {integrity: sha512-Vi6tawqtcnOje/AW8a8ijwf7OLbNGolBB8VlVzG3Cb2bFnI7Vetocy7xUxkEpxe0Lqp2vmOvXTRNdC7eiQeoCw==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql-request: ^6.0.0
+      graphql-tag: ^2.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.8.1)
+      '@graphql-codegen/visitor-plugin-common': 2.13.1(graphql@16.8.1)
+      auto-bind: 4.0.0
+      graphql: 16.8.1
+      graphql-request: 6.1.0(graphql@16.8.1)
+      graphql-tag: 2.12.6(graphql@16.8.1)
+      tslib: 2.6.2
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -11333,7 +11363,6 @@ packages:
       graphql: '>=0.11 <=16'
     dependencies:
       graphql: 16.8.1
-    dev: true
 
   /graphql@16.8.1:
     resolution: {integrity: sha512-59LZHPdGZVh695Ud9lRzPBVTtlX9ZCV150Er2W43ro37wVof0ctenSaskPPjN7lVTIN8mSZt8PHUNKZuNQUuxw==}
@@ -12620,6 +12649,18 @@ packages:
   /jose@4.15.2:
     resolution: {integrity: sha512-IY73F228OXRl9ar3jJagh7Vnuhj/GzBunPiZP13K0lOl7Am9SoWW3kEzq3MCllJMTtZqHTiDXQvoRd4U95aU6A==}
     dev: true
+
+  /jotai-apollo@0.2.1(@apollo/client@3.8.6)(graphql@16.8.1)(jotai@2.5.0):
+    resolution: {integrity: sha512-iUYmMCG1ootEZ21UD41kMQ2emI4FzJ3MQQN6cYHySIc4aDbTnUPIpsEu4svjdmKGmg0rybZuwc9oGGm5zW0Dhg==}
+    peerDependencies:
+      '@apollo/client': '*'
+      graphql: '*'
+      jotai: '>=1.11.0'
+    dependencies:
+      '@apollo/client': 3.8.6(graphql-ws@5.14.1)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+      graphql: 16.8.1
+      jotai: 2.5.0(@types/react@18.2.31)(react@18.2.0)
+    dev: false
 
   /jotai-immer@0.2.0(immer@10.0.3)(jotai@2.5.0)(react@18.2.0):
     resolution: {integrity: sha512-hahK8EPiROS9RoNWmX/Z8rY9WkAijspX4BZ1O7umpcwI4kPNkbcCpu/PhiQ8FMcpEcF6KmbpbMpSSj/GFmo8NA==}

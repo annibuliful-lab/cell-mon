@@ -8,6 +8,7 @@
 libs/test/src/graphql/generated
 libs/graphql-client/src/graphql/generated
 libs/graphql-codegen/src/generated
+libs/graphql-codegen/src/generated
 .nx
 # Crash log files
 crash.log

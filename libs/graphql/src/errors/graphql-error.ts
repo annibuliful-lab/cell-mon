@@ -1,10 +1,3 @@
-export class GraphqlError extends Error {
-  extensions: object;
-  statusCode: number;
+import * as mercurius from 'mercurius';
 
-  constructor(message: string, extensions?: object, statusCode?: number) {
-    super(message);
-    this.extensions = extensions as object;
-    this.statusCode = statusCode || 200;
-  }
-}
+export const GraphqlError = mercurius.default.ErrorWithProps;
