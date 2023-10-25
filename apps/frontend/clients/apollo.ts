@@ -6,22 +6,28 @@ import { getCookie } from 'cookies-next';
 import { createClient } from 'graphql-ws';
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors)
+  if (graphQLErrors) {
     graphQLErrors.forEach(({ message, locations, path }) =>
       console.log(
         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
       ),
     );
-  if (networkError) console.log(`[Network error]: ${networkError}`);
+  }
+
+  if (networkError) {
+    console.log(`[Network error]: ${networkError}`);
+  }
 });
 
 const getAuthContext = () => {
   const authorization = getCookie('token');
   const refreshToken = getCookie('refreshToken');
+  const workspaceId = getCookie('workspaceId');
 
   return {
-    authorization: `Bearer ${authorization}`,
-    refreshToken: `Bearer ${refreshToken}`,
+    ...(authorization && { authorization: `Bearer ${authorization}` }),
+    ...(refreshToken && { refreshToken: `Bearer ${refreshToken}` }),
+    workspaceId,
   };
 };
 
@@ -32,16 +38,8 @@ const httpLink = new HttpLink({
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    lazy: true,
-    shouldRetry: () => true,
     url: 'ws://localhost:3030/graphql',
-    connectionParams: () => {
-      const { authorization } = getAuthContext();
-
-      return {
-        authorization: authorization ?? 'test-auth',
-      };
-    },
+    connectionParams: getAuthContext(),
   }),
 );
 
