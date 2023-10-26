@@ -219,7 +219,7 @@ dependencies:
     specifier: 7.0.0
     version: 7.0.0(graphql@16.8.1)
   mqemitter-redis:
-    specifier: ^5.0.0
+    specifier: 5.0.0
     version: 5.0.0
   nanoid:
     specifier: 3.3.6

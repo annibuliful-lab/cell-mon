@@ -23,8 +23,8 @@ const schema = object({
 });
 
 export function Index() {
-  const { data } = useSubscribePhoneLocationTrackingSubscription();
-  console.log('data', data);
+  useSubscribePhoneLocationTrackingSubscription();
+
   const [, setAuth] = useAtom(authAtom);
   const [, setError] = useAtom(errorAtom);
 

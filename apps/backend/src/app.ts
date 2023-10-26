@@ -40,6 +40,7 @@ export async function main() {
     cookieOpts: { signed: true, sameSite: true, secure: 'auto' },
     sessionPlugin: '@fastify/cookie',
   });
+
   server.register(mercuriusGQLUpload);
 
   uploadFileController(server);
@@ -52,6 +53,28 @@ export async function main() {
     subscription: {
       fullWsTransport: true,
       emitter: mqRedisEmitter,
+      onConnect: ({
+        payload,
+      }: {
+        payload: {
+          authorization: string;
+          workspaceId?: string;
+        };
+      }) => {
+        console.log('payload', payload);
+        return payload;
+      },
+      context: (connection, request) => {
+        console.log('request', request.headers);
+        console.log('request', request.originalUrl);
+        // logger.info(connection, 'aaaaa');
+        // logger.info(request, 'bbbbb');
+        return {};
+      },
+      verifyClient(info, next) {
+        // console.log('xxxxx', info);
+        next(true, 200);
+      },
     },
     errorFormatter(err, ctx) {
       logger.error({
@@ -67,9 +90,10 @@ export async function main() {
       };
     },
     context: graphqlContext,
-    validationRules: process.env.NODE_ENV
-      ? [NoSchemaIntrospectionCustomRule]
-      : [],
+    validationRules:
+      process.env.NODE_ENV !== 'development'
+        ? [NoSchemaIntrospectionCustomRule]
+        : [],
   });
 
   server.graphql.addHook('preExecution', graphqlLogger);
