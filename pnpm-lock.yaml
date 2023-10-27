@@ -200,6 +200,9 @@ dependencies:
   graphql-upload-minimal:
     specifier: 1.5.5
     version: 1.5.5(graphql@16.8.1)
+  graphql-voyager-fastify-plugin:
+    specifier: 0.1.3
+    version: 0.1.3
   graphql-ws:
     specifier: 5.14.2
     version: 5.14.2(graphql@16.8.1)
@@ -10822,6 +10825,10 @@ packages:
       strnum: 1.0.5
     dev: false
 
+  /fastify-plugin@3.0.1:
+    resolution: {integrity: sha512-qKcDXmuZadJqdTm6vlCqioEbyewF60b/0LOFCcYN1B6BIZGlYJumWWOYs70SFYLDAH4YqdE1cxH/RKMG7rFxgA==}
+    dev: false
+
   /fastify-plugin@4.5.1:
     resolution: {integrity: sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==}
     dev: false
@@ -11472,6 +11479,12 @@ packages:
       graphql: 16.8.1
       http-errors: 2.0.0
       object-path: 0.11.8
+    dev: false
+
+  /graphql-voyager-fastify-plugin@0.1.3:
+    resolution: {integrity: sha512-WgZh6VSU+Oit9tfyImrsRjA23D3S8+TJC75Aj9EBmgiwT1wY0xXpPlzfOTBBbN4YK/TH5FqLM0LmM5HUPXri1Q==}
+    dependencies:
+      fastify-plugin: 3.0.1
     dev: false
 
   /graphql-ws@5.14.2(graphql@16.8.1):
