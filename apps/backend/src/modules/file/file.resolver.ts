@@ -6,3 +6,9 @@ export const mutation: Resolvers<AppContext>['Mutation'] = {
     return ctx.fileservice.upload(file);
   },
 };
+
+export const query: Resolvers<AppContext>['Query'] = {
+  getFileSignedUrl: (_, { key }, ctx) => {
+    return ctx.fileservice.getSignedUrl(key);
+  },
+};

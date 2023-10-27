@@ -24,7 +24,7 @@ import mercuriusGQLUpload from 'mercurius-upload';
 import schema from './graphql';
 import { graphqlContext } from './graphql/context';
 import { hidePoweredBy } from './hooks/hide-powered-by';
-import { uploadFileController } from './upload-file';
+
 config();
 
 export async function main() {
@@ -46,8 +46,6 @@ export async function main() {
   });
 
   server.register(mercuriusGQLUpload);
-
-  uploadFileController(server);
 
   await server.register(mercurius, {
     graphiql: true,
@@ -100,33 +98,6 @@ export async function main() {
   });
 
   server.graphql.addHook('preExecution', graphqlLogger);
-
-  // server.graphql.addHook(
-  //   'preSubscriptionParsing',
-  //   (_schema, _source, context) => {
-  //     const websocketPayload = (
-  //       context as unknown as {
-  //         _connectionInit: {
-  //           authorization: string;
-  //           workspaceId: string;
-  //         };
-  //       }
-  //     )?._connectionInit;
-
-  //     if (!websocketPayload) {
-  //       return;
-  //     }
-
-  //     const headers = (context as unknown as { request: FastifyRequest })
-  //       .request.headers;
-
-  //     (context as unknown as { request: FastifyRequest }).request.headers = {
-  //       ...headers,
-  //       authorization: websocketPayload.authorization,
-  //       workspaceId: websocketPayload.workspaceId,
-  //     };
-  //   },
-  // );
 
   async function gracefulShutdown() {
     await server.close();

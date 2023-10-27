@@ -43,6 +43,7 @@ export const graphqlContext = async ({
       authenticationService: new AuthenticationService(context),
       accountService: new AccountService(context),
       workspaceService: new WorkspaceService(context),
+      fileservice: new Fileservice(context),
     } as unknown as AppContext;
   }
 
