@@ -17,20 +17,10 @@ import { TargetEvidenceService } from '../modules/target-evidence/target-evidenc
 import { WorkspaceService } from '../modules/workspace/workspace.service';
 
 config();
-const isProduction = process.env.NODE_ENV === 'production';
 
 export const graphqlContext = async ({
   headers,
-  body,
 }: FastifyRequest): Promise<AppContext> => {
-  const allowIntrospection =
-    (body as { operationName: string })?.['operationName'] ===
-      'IntrospectionQuery' && !isProduction;
-
-  if (allowIntrospection) {
-    return {} as AppContext;
-  }
-
   const authProvider = headers['x-auth-provider'] as string;
   const accessToken = headers['access-token'] as string;
   const authorization = headers['authorization'] as string;
@@ -86,5 +76,5 @@ export const graphqlContext = async ({
     missionService: new MissionService(context),
     phoneTargetService: new PhoneTargetService(context),
     phoneTargetLocationService: new PhoneTargetLocationService(context),
-  };
+  } as AppContext;
 };

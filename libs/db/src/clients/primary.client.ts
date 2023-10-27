@@ -8,6 +8,10 @@ config();
 let _primaryDBClient: Kysely<DB> | null = null;
 
 function getClient(): Kysely<DB> {
+  if (!process.env.PRIMARY_DATABASE_URL) {
+    throw new Error('please add PRIMARY_DATABASE_URL to .env');
+  }
+
   if (_primaryDBClient) {
     return _primaryDBClient;
   }

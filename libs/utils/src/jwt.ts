@@ -25,7 +25,7 @@ export const sign = ({
 };
 
 export const verify = <T = IJwtAuthInfo>(
-  token: string
+  token: string,
 ): { isValid: boolean; userInfo?: T } => {
   try {
     if (!token) {

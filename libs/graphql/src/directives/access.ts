@@ -5,12 +5,14 @@ import { defaultFieldResolver, GraphQLSchema } from 'graphql';
 import { GraphqlContext } from '../constants/context';
 import { AuthenticationError } from '../errors/authentication';
 import { ForbiddenError } from '../errors/forbidden';
-export interface IAccessDirective {
+export interface AccessDirective {
   subject: string;
   action: PermissionAction;
   requiredWorkspaceId: boolean;
   role?: string;
   validateOrganization: boolean;
+  allowExternal?: boolean;
+  apiKey?: string;
   featureFlag?: string;
 }
 
@@ -25,6 +27,8 @@ export function accessDirective() {
           action: PermissionAction
           requiredWorkspaceId: Boolean = false
           featureFlag: String
+          allowExternal: Boolean = false
+          apiKey: ID
         ) on FIELD_DEFINITION
         `,
 
@@ -34,8 +38,8 @@ export function accessDirective() {
           const accessDirective = getDirective(
             schema,
             fieldConfig,
-            directiveName
-          )?.[0];
+            directiveName,
+          )?.[0] as AccessDirective;
 
           if (!accessDirective) {
             return;
@@ -54,7 +58,7 @@ export function accessDirective() {
             source,
             args,
             context: GraphqlContext,
-            info
+            info,
           ) {
             if (!context.accountId) {
               throw new AuthenticationError();
@@ -69,7 +73,7 @@ export function accessDirective() {
               !context.projectFeatureFlags.includes(featureFlag)
             ) {
               throw new ForbiddenError(
-                `You must have feature flag: ${featureFlag}`
+                `You must have feature flag: ${featureFlag}`,
               );
             }
 
@@ -77,11 +81,11 @@ export function accessDirective() {
               subject &&
               action &&
               !context.permissions.some(
-                (p) => p.subject === subject && p.action === action
+                (p) => p.subject === subject && p.action === action,
               )
             ) {
               throw new ForbiddenError(
-                `You do not allow to access this subject: ${subject}`
+                `You do not allow to access this subject: ${subject}`,
               );
             }
 

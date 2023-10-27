@@ -42,6 +42,7 @@ import {
 import {
   mutation as phoneTargetLocationMutationResolver,
   query as phoneTargetLocationQueryResolver,
+  subscription as phoneTargetLocationSuscriptionResolver,
 } from '../modules/phone-target-location/phone-target-location.resolver';
 import {
   field as targetFieldResolver,
@@ -83,6 +84,9 @@ export const resolvers: Resolvers = {
     ...targetEvidenceMutationResolver,
     ...phoneTargetMutationResolver,
     ...phoneTargetLocationMutationResolver,
+  },
+  Subscription: {
+    ...phoneTargetLocationSuscriptionResolver,
   },
   Upload: GraphQLUpload,
   SerialId: serialIdScalar,

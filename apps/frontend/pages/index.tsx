@@ -1,4 +1,7 @@
-import { useLoginMutation } from '@cell-mon/graphql-codegen';
+import {
+  useLoginMutation,
+  useSubscribePhoneLocationTrackingSubscription,
+} from '@cell-mon/graphql-codegen';
 import { Button, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { setCookie } from 'cookies-next';
@@ -20,6 +23,8 @@ const schema = object({
 });
 
 export function Index() {
+  useSubscribePhoneLocationTrackingSubscription();
+
   const [, setAuth] = useAtom(authAtom);
   const [, setError] = useAtom(errorAtom);
 

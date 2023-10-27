@@ -1,26 +1,26 @@
 import { Dictionary, groupBy, orderBy } from 'lodash';
 
-interface IMapDataWithIdsByCustomFieldId<T> {
+type MapDataWithIdsByCustomFieldId<T> = {
   data: T[];
   ids: string[];
   idField: keyof T;
-}
+};
 
 export function mapDataListWithIdsByCustomFieldIds<T>({
   data,
   idField,
   ids,
-}: IMapDataWithIdsByCustomFieldId<T>) {
+}: MapDataWithIdsByCustomFieldId<T>) {
   if (data.length === 0) return Array(ids.length).fill(null);
 
   const dataMap = new Map(
-    data.map((d) => [d[idField] as unknown as string, d])
+    data.map((d) => [d[idField] as unknown as string, d]),
   );
 
   return ids.map((id) => dataMap.get(id.toString()));
 }
 
-interface IMapListWithIdsByCustomFieldId<T extends { id: string }> {
+type MapListWithIdsByCustomFieldId<T extends { id: string }> = {
   data: T[];
   ids: string[];
   idField: keyof T;
@@ -29,7 +29,7 @@ interface IMapListWithIdsByCustomFieldId<T extends { id: string }> {
     keyIds: string[];
   }>;
   sortOrderType?: 'asc' | 'desc';
-}
+};
 
 export function mapDataListWithIdsByCustomField<T extends { id: string }>({
   data,
@@ -37,7 +37,7 @@ export function mapDataListWithIdsByCustomField<T extends { id: string }>({
   idField,
   keySortOrder,
   sortOrderType = 'asc',
-}: IMapListWithIdsByCustomFieldId<T>) {
+}: MapListWithIdsByCustomFieldId<T>) {
   const groupedData = groupBy(data, (tag) => tag[idField]);
 
   return ids.map((id) => {
@@ -48,7 +48,7 @@ export function mapDataListWithIdsByCustomField<T extends { id: string }>({
     return orderBy(
       groupedData[id],
       (d) => itemSortOrder.findIndex((id) => id === d.id),
-      sortOrderType
+      sortOrderType,
     );
   });
 }
