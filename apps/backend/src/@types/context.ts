@@ -31,3 +31,10 @@ export type ServiceContext = {
 };
 
 export type AppContext = GraphqlContext & ServiceContext;
+export type WebsocketAppContext = {
+  pubsub: PubSub;
+  _connectionInit: {
+    authorization: string;
+    workspaceId: string;
+  };
+};

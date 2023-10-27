@@ -61,16 +61,29 @@ export async function main() {
           workspaceId?: string;
         };
       }) => {
-        console.log('payload', payload);
-        return payload;
+        return {
+          payload,
+        };
+        // const authorization = payload.authorization;
+        // if (!authorization) {
+        //   throw new AuthenticationError();
+        // }
+
+        // const token = authorization.replace('Bearer ', '');
+        // const { isValid, userInfo } = jwtVerify(token);
+
+        // if (!isValid) {
+        //   throw new ForbiddenError();
+        // }
+        // return { userInfo };
       },
-      context: (connection, request) => {
-        console.log('request', request.headers);
-        console.log('request', request.originalUrl);
-        // logger.info(connection, 'aaaaa');
-        // logger.info(request, 'bbbbb');
-        return {};
-      },
+      // context: (connection, request) => {
+      //   console.log('request', request.headers);
+      //   console.log('request', request.originalUrl);
+      //   // logger.info(connection, 'aaaaa');
+      //   // logger.info(request, 'bbbbb');
+      //   return {};
+      // },
       verifyClient(info, next) {
         // console.log('xxxxx', info);
         next(true, 200);

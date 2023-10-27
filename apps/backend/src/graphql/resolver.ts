@@ -42,6 +42,7 @@ import {
 import {
   mutation as phoneTargetLocationMutationResolver,
   query as phoneTargetLocationQueryResolver,
+  subscription as phoneTargetLocationSuscriptionResolver,
 } from '../modules/phone-target-location/phone-target-location.resolver';
 import {
   field as targetFieldResolver,
@@ -52,7 +53,6 @@ import {
   mutation as targetEvidenceMutationResolver,
   query as targetEvidenceQueryResolver,
 } from '../modules/target-evidence/target-evidence.resolver';
-import { subscription as webhookSubscriptionResolver } from '../modules/webhook/webhook.resolver';
 import {
   mutation as workspaceMutationResolver,
   query as workspaceQueryResolver,
@@ -86,7 +86,7 @@ export const resolvers: Resolvers = {
     ...phoneTargetLocationMutationResolver,
   },
   Subscription: {
-    ...webhookSubscriptionResolver,
+    ...phoneTargetLocationSuscriptionResolver,
   },
   Upload: GraphQLUpload,
   SerialId: serialIdScalar,

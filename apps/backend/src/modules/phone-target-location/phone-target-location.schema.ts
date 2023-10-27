@@ -99,4 +99,8 @@ export const phoneTargetLocationTypeDef = gql`
       endDate: DateTime
     ): [PhoneTargetLocation!]! @access
   }
+
+  type Subscription {
+    subscribePhoneLocationTracking: PhoneTargetLocation
+  }
 `;
