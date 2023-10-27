@@ -1,0 +1,6 @@
+query getsignUrl($key: String!) {
+  getFileSignedUrl(key: $key) {
+    key
+    signedUrl
+  }
+}

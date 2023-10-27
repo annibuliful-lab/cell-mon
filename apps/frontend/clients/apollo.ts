@@ -14,6 +14,7 @@ import {
   RefreshTokenMutation,
   RefreshTokenMutationVariables,
 } from '@cell-mon/graphql-codegen';
+import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { GraphQLError } from 'graphql';
 import { createClient } from 'graphql-ws';
@@ -23,7 +24,7 @@ import {
   AUTH_REFRESH_COOKIE_KEY,
   WORKSPACE_ID_COOKIE_KEY,
 } from '../constants';
-
+const GRAPHQL_ENDPOINT = 'http://localhost:3030/graphql';
 const errorLink = onError(({ networkError, operation, forward }) => {
   const networkErrors = networkError as ServerError;
 
@@ -76,7 +77,7 @@ const getAuthContext = () => {
 };
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:3030/graphql',
+  uri: GRAPHQL_ENDPOINT,
   headers: getAuthContext(),
 });
 
@@ -100,7 +101,12 @@ const splitLink = split(
 );
 
 export const apolloClient = new ApolloClient({
-  link: splitLink.concat(errorLink),
+  link: createUploadLink({
+    uri: GRAPHQL_ENDPOINT,
+    headers: getAuthContext(),
+  })
+    .concat(splitLink)
+    .concat(errorLink),
   cache: new InMemoryCache(),
 });
 
