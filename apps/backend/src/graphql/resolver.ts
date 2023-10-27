@@ -1,7 +1,6 @@
 import {
   GraphQLJSON,
   GraphQLJSONObject,
-  GraphQLUpload,
   serialIdScalar,
 } from '@cell-mon/graphql';
 import {
@@ -9,6 +8,7 @@ import {
   LongitudeResolver,
   UUIDResolver,
 } from 'graphql-scalars';
+import { GraphQLUpload } from 'graphql-upload-minimal';
 
 import { Resolvers } from '../codegen-generated';
 import {
@@ -16,7 +16,10 @@ import {
   query as accountQueryResolver,
 } from '../modules/account/account.resolver';
 import { mutation as authenticationResolver } from '../modules/authentication/authentication.resolver';
-import { mutation as fileMutationResolver } from '../modules/file/file.resolver';
+import {
+  mutation as fileMutationResolver,
+  query as fileQueryResolver,
+} from '../modules/file/file.resolver';
 import {
   mutation as missionMutationResolver,
   query as missionQueryResolver,
@@ -57,7 +60,6 @@ import {
   mutation as workspaceMutationResolver,
   query as workspaceQueryResolver,
 } from '../modules/workspace/workspace.resolver';
-
 export const resolvers: Resolvers = {
   Query: {
     ...permissionAbilityQueryResolver,
@@ -70,6 +72,7 @@ export const resolvers: Resolvers = {
     ...targetEvidenceQueryResolver,
     ...phoneTargetQueryResolver,
     ...phoneTargetLocationQueryResolver,
+    ...fileQueryResolver,
   },
   Mutation: {
     ...accountMutationResolver,

@@ -24,7 +24,7 @@ import mercuriusGQLUpload from 'mercurius-upload';
 import schema from './graphql';
 import { graphqlContext } from './graphql/context';
 import { hidePoweredBy } from './hooks/hide-powered-by';
-import { uploadFileController } from './upload-file';
+
 config();
 
 export async function main() {
@@ -46,8 +46,6 @@ export async function main() {
   });
 
   server.register(mercuriusGQLUpload);
-
-  uploadFileController(server);
 
   await server.register(mercurius, {
     graphiql: true,

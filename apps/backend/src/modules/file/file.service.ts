@@ -1,47 +1,44 @@
-import { GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
+import { GetObjectCommand } from '@aws-sdk/client-s3';
+import { Upload } from '@aws-sdk/lib-storage';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { PrimaryRepository, s3Client } from '@cell-mon/db';
 import { GraphqlContext } from '@cell-mon/graphql';
-import { PassThrough } from 'stream';
+import { config } from 'dotenv';
+import { nanoid } from 'nanoid';
 
 import { File, GraphQLFileUpload } from '../../codegen-generated';
-
+config();
 export class Fileservice extends PrimaryRepository<never, GraphqlContext> {
-  private readFileFromStream(filename: string) {
-    const pass = new PassThrough();
+  private expiresInFiftteenMinutes = 15 * 60;
+  async getSignedUrl(filename: string): Promise<File> {
+    const signedUrl = await getSignedUrl(
+      s3Client,
+      new GetObjectCommand({
+        Bucket: process.env.S3_BUCKET,
+        Key: filename,
+      }),
+      { expiresIn: this.expiresInFiftteenMinutes },
+    );
 
-    const params = {
-      Bucket: process.env.S3_BUCKET,
-      Key: filename,
-      Body: pass,
-    };
-
-    s3Client.send(new PutObjectCommand(params));
-
-    return pass;
+    return { key: filename, signedUrl };
   }
 
   async upload(file: Promise<GraphQLFileUpload>) {
-    const { filename, createReadStream } = await file;
-    return new Promise<File>((resolve, reject) => {
-      const rs = createReadStream();
+    const { filename: _filename, createReadStream } = await file;
+    const rs = createReadStream();
 
-      rs.on('error', (error) => {
-        reject(error);
-      });
-
-      return rs.pipe(this.readFileFromStream(filename)).end(() => {
-        getSignedUrl(
-          s3Client,
-          new GetObjectCommand({
-            Bucket: process.env.S3_BUCKET,
-            Key: filename,
-          }),
-          { expiresIn: 15 * 60 }
-        ).then((signedUrl) => {
-          resolve({ key: filename, signedUrl });
-        });
-      });
+    const filename = `${nanoid()}-${_filename.replace(/ /g, '-')}`;
+    const upload = new Upload({
+      client: s3Client,
+      params: {
+        Bucket: process.env.S3_BUCKET,
+        Key: filename,
+        Body: rs,
+      },
     });
+
+    await upload.done();
+
+    return this.getSignedUrl(filename);
   }
 }

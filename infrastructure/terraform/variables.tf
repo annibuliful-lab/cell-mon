@@ -21,7 +21,7 @@ variable "k8s" {
     node_pool_label = "cell-mon-k8s-node-pool"
     node_pool_plan  = "vc2-2c-4gb"
     node_quantity   = 1
-    version         = "v1.28.2+1" // https://api.vultr.com/v2/kubernetes/versions
+    version         = "v1.26.9+1" // https://api.vultr.com/v2/kubernetes/versions
   }
 }
 
