@@ -85,7 +85,7 @@ export async function main() {
       //   return {};
       // },
       verifyClient(info, next) {
-        // console.log('xxxxx', info);
+        console.log('xxxxx', info);
         next(true, 200);
       },
     },

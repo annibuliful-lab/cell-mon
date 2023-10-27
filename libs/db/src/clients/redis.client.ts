@@ -6,6 +6,10 @@ config();
 let _redisClient: Redis;
 
 function getRedisClient() {
+  if (!process.env.REDIS_URL) {
+    throw new Error('please add REDIS_URL to .env');
+  }
+
   if (_redisClient) {
     return _redisClient;
   }
