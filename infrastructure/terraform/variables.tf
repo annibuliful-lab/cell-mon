@@ -34,6 +34,6 @@ variable "s3" {
 
   default = {
     cluster_id = 4 // singapore https://api.vultr.com/v2/object-storage/clusters
-    label      = "cell-mon-s3"
+    label      = "cell-mon"
   }
 }
