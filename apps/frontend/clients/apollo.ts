@@ -14,6 +14,7 @@ import {
   RefreshTokenMutation,
   RefreshTokenMutationVariables,
 } from '@cell-mon/graphql-codegen';
+import { createUploadLink } from 'apollo-upload-client';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { GraphQLError } from 'graphql';
 import { createClient } from 'graphql-ws';
@@ -100,7 +101,7 @@ const splitLink = split(
 );
 
 export const apolloClient = new ApolloClient({
-  link: splitLink.concat(errorLink),
+  link: splitLink.concat(createUploadLink()).concat(errorLink),
   cache: new InMemoryCache(),
 });
 

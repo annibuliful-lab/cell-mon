@@ -1,0 +1,6 @@
+mutation uploadfile($file: Upload!) {
+  uploadFile(file: $file) {
+    key
+    signedUrl
+  }
+}
