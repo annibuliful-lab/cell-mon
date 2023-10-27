@@ -101,33 +101,6 @@ export async function main() {
 
   server.graphql.addHook('preExecution', graphqlLogger);
 
-  // server.graphql.addHook(
-  //   'preSubscriptionParsing',
-  //   (_schema, _source, context) => {
-  //     const websocketPayload = (
-  //       context as unknown as {
-  //         _connectionInit: {
-  //           authorization: string;
-  //           workspaceId: string;
-  //         };
-  //       }
-  //     )?._connectionInit;
-
-  //     if (!websocketPayload) {
-  //       return;
-  //     }
-
-  //     const headers = (context as unknown as { request: FastifyRequest })
-  //       .request.headers;
-
-  //     (context as unknown as { request: FastifyRequest }).request.headers = {
-  //       ...headers,
-  //       authorization: websocketPayload.authorization,
-  //       workspaceId: websocketPayload.workspaceId,
-  //     };
-  //   },
-  // );
-
   async function gracefulShutdown() {
     await server.close();
     redisClient.disconnect();
