@@ -99,6 +99,12 @@ export async function main() {
 
   server.graphql.addHook('preExecution', graphqlLogger);
 
+  server.get('/health', (_req, res) => {
+    res.status(200).send({
+      message: 'Running',
+    });
+  });
+
   async function gracefulShutdown() {
     await server.close();
     redisClient.disconnect();
