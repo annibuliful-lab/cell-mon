@@ -4,8 +4,12 @@ import {
   prismaDbClient,
   redisClient,
 } from '@cell-mon/db';
-import { graphqlLogger } from '@cell-mon/graphql';
-import { logger } from '@cell-mon/utils';
+import {
+  AuthenticationError,
+  ForbiddenError,
+  graphqlLogger,
+} from '@cell-mon/graphql';
+import { jwtVerify, logger } from '@cell-mon/utils';
 import cookie from '@fastify/cookie';
 import cors from '@fastify/cors';
 import csrfProtection from '@fastify/csrf-protection';
@@ -61,32 +65,18 @@ export async function main() {
           workspaceId?: string;
         };
       }) => {
-        return {
-          payload,
-        };
-        // const authorization = payload.authorization;
-        // if (!authorization) {
-        //   throw new AuthenticationError();
-        // }
+        const authorization = payload.authorization;
+        if (!authorization) {
+          throw new AuthenticationError();
+        }
 
-        // const token = authorization.replace('Bearer ', '');
-        // const { isValid, userInfo } = jwtVerify(token);
+        const token = authorization.replace('Bearer ', '');
+        const { isValid, userInfo } = jwtVerify(token);
 
-        // if (!isValid) {
-        //   throw new ForbiddenError();
-        // }
-        // return { userInfo };
-      },
-      // context: (connection, request) => {
-      //   console.log('request', request.headers);
-      //   console.log('request', request.originalUrl);
-      //   // logger.info(connection, 'aaaaa');
-      //   // logger.info(request, 'bbbbb');
-      //   return {};
-      // },
-      verifyClient(info, next) {
-        console.log('xxxxx', info);
-        next(true, 200);
+        if (!isValid) {
+          throw new ForbiddenError();
+        }
+        return { userInfo };
       },
     },
     errorFormatter(err, ctx) {
