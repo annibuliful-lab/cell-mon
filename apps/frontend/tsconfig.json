@@ -1,11 +1,13 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "module": "nodenext",
     "jsx": "preserve",
     "jsxImportSource": "@emotion/react",
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "maxNodeModuleJsDepth": 10,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
