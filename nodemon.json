@@ -6,6 +6,8 @@
     "libs/graphql-codegen/src/generated",
     "*.spec.ts",
     "codegen.frontend.ts",
-    "apps/frontend"
+    "apps/frontend",
+    "infrastructure",
+    "node_modules"
   ]
 }
