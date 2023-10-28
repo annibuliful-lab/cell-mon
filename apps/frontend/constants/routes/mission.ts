@@ -1,3 +1,5 @@
+import { targetRoutes } from './target';
+
 export const missionRoutes = {
   mission: {
     showOnSidebar: true,
@@ -24,6 +26,7 @@ export const missionRoutes = {
         label: 'Delete mission',
         path: (id: string) => `/mission/delete/${id}`,
       },
+      ...targetRoutes,
     },
   },
 } as const;
