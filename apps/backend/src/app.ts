@@ -18,6 +18,7 @@ import multipart from '@fastify/multipart';
 import { config } from 'dotenv';
 import fastify from 'fastify';
 import { NoSchemaIntrospectionCustomRule } from 'graphql';
+import GraphQLVoyagerFastify from 'graphql-voyager-fastify-plugin';
 import mercurius from 'mercurius';
 import mercuriusGQLUpload from 'mercurius-upload';
 
@@ -30,11 +31,20 @@ config();
 export async function main() {
   const host = process.env.HOST ?? '0.0.0.0';
   const port = process.env.PORT ? Number(process.env.PORT) : 3000;
-
+  const isDev = process.env.NODE_ENV === 'development';
   const server = fastify();
   server.register(cors, { origin: '*' });
   server.register(multipart);
-  server.register(helmet);
+  server.register(
+    helmet,
+    isDev
+      ? {
+          contentSecurityPolicy: false,
+          xDownloadOptions: false,
+          strictTransportSecurity: false,
+        }
+      : {},
+  );
   server.register(hidePoweredBy, { setTo: 'PHP/7.0.33' });
   server.register(cookie, { secret: process.env.COOKIE_SECRET });
   server.register(csrfProtection, {
@@ -104,6 +114,13 @@ export async function main() {
       message: 'Running',
     });
   });
+
+  if (isDev) {
+    server.register(GraphQLVoyagerFastify, {
+      path: '/voyager',
+      endpoint: '/graphql',
+    });
+  }
 
   async function gracefulShutdown() {
     await server.close();

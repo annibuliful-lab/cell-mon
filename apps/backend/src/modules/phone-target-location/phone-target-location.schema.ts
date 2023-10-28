@@ -11,6 +11,7 @@ export const phoneTargetLocationTypeDef = gql`
   type PhoneTargetLocation {
     id: UUID!
     phoneTargetId: UUID!
+    phoneTarget: PhoneTarget!
     metadata: JSONObject
     sourceDateTime: DateTime!
     network: PhoneNetwork!

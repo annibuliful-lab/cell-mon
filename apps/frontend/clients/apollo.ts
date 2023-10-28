@@ -23,7 +23,7 @@ import {
   AUTH_COOKIE_KEY,
   AUTH_REFRESH_COOKIE_KEY,
   WORKSPACE_ID_COOKIE_KEY,
-} from '../constants';
+} from '../constants/constants';
 const GRAPHQL_ENDPOINT = 'http://localhost:3030/graphql';
 const errorLink = onError(({ networkError, operation, forward }) => {
   const networkErrors = networkError as ServerError;

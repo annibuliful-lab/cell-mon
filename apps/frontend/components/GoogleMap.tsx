@@ -2,7 +2,7 @@ import { Loader } from '@mantine/core';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import React, { useEffect, useState } from 'react';
 
-import { GOOGLE_MAP_API_KEY } from '../constants';
+import { GOOGLE_MAP_API_KEY } from '../constants/constants';
 
 const containerStyle = {
   width: '80vw',
