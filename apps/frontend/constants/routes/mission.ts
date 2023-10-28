@@ -5,6 +5,7 @@ export const missionRoutes = {
     showOnSidebar: true,
     label: 'Mission',
     path: '/mission',
+    icon: 'jam:document',
     children: {
       get: {
         showOnSidebar: false,
