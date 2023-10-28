@@ -5,7 +5,7 @@ import { workspaceRoutes } from './workspace';
 
 export const routes = {
   ...authRoutes,
-  ...missionRoutes,
   ...workspaceRoutes,
+  ...missionRoutes,
   ...phoneRoutes,
 };

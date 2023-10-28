@@ -3,6 +3,7 @@ export const workspaceRoutes = {
     showOnSidebar: true,
     label: 'Workspace',
     path: '/workspace',
+    icon: 'material-symbols:open-jam',
     children: {
       get: {
         showOnSidebar: false,

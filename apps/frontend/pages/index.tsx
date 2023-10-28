@@ -1,8 +1,6 @@
-import {
-  useLoginMutation,
-  useSubscribePhoneLocationTrackingSubscription,
-} from '@cell-mon/graphql-codegen';
-import { Button, TextInput, Title } from '@mantine/core';
+import { useLoginMutation } from '@cell-mon/graphql-codegen';
+import { Icon } from '@iconify/react';
+import { Box, Button, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { setCookie } from 'cookies-next';
 import { useAtom } from 'jotai';
@@ -23,8 +21,6 @@ const schema = object({
 });
 
 export function Index() {
-  useSubscribePhoneLocationTrackingSubscription();
-
   const [, setAuth] = useAtom(authAtom);
   const [, setError] = useAtom(errorAtom);
 
@@ -85,14 +81,32 @@ export function Index() {
         width: isMobile ? '70vw' : '30vw',
       }}
     >
-      <Title
-        order={3}
+      <Box
         style={{
-          textAlign: 'center',
+          margin: 'auto',
+          width: '85%',
         }}
       >
-        Cellular Network Surveillance
-      </Title>
+        <Icon
+          icon="carbon:cell-tower"
+          width="48"
+          style={{
+            display: 'inline',
+          }}
+        />
+
+        <Title
+          order={3}
+          style={{
+            textAlign: 'center',
+            paddingLeft: '8px',
+          }}
+          display="inline"
+        >
+          Cellular Network Surveillance
+        </Title>
+      </Box>
+
       <form onSubmit={form.onSubmit(handleLogin)} autoComplete="off">
         <TextInput
           autoComplete="off"

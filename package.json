@@ -138,6 +138,7 @@
     "@graphql-codegen/typescript-graphql-request": "6.0.1",
     "@graphql-codegen/typescript-react-apollo": "4.1.0",
     "@graphql-codegen/typescript-resolvers": "4.0.1",
+    "@iconify/react": "4.1.1",
     "@nrwl/cypress": "17.0.2",
     "@nrwl/esbuild": "17.0.2",
     "@nrwl/eslint-plugin-nx": "17.0.2",
