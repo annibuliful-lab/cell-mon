@@ -1,16 +1,20 @@
 import { Icon } from '@iconify/react';
-import { AppShell, Burger, Group, NavLink } from '@mantine/core';
+import { AppShell, Burger, Group, NavLink, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { ReactNode } from 'react';
 
 import { routes } from '../constants/routes';
 import { missionRoutes } from '../constants/routes/mission';
+import { useMobile } from '../hooks/useMobile';
 
 type DashboardLayoutProps = {
   children: ReactNode;
 };
+
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const [opened, { toggle }] = useDisclosure();
+  const { isMobile } = useMobile();
+
   return (
     <AppShell
       header={{ height: 60 }}
@@ -20,7 +24,8 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
       <AppShell.Header>
         <Group h="100%" px="md">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-          Logo
+          <Icon icon="carbon:cell-tower" width="48" />
+          <Title order={isMobile ? 5 : 3}>Cellular Network Surveillance</Title>
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="md">
