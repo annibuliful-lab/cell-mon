@@ -36,8 +36,8 @@ dependencies:
     specifier: 8.4.0
     version: 8.4.0
   '@fastify/csrf-protection':
-    specifier: 6.3.0
-    version: 6.3.0
+    specifier: 6.4.0
+    version: 6.4.0
   '@fastify/helmet':
     specifier: 11.1.1
     version: 11.1.1
@@ -3029,8 +3029,8 @@ packages:
       mnemonist: 0.39.5
     dev: false
 
-  /@fastify/csrf-protection@6.3.0:
-    resolution: {integrity: sha512-RktewyPbVMSbKrRKmn0VzKfqtRp+0mYodAz7tbJMmz1QJFWFeP5F5mS8Ym1djaM0EFqCBItIceJizeLOD+UILA==}
+  /@fastify/csrf-protection@6.4.0:
+    resolution: {integrity: sha512-x8JLaa18A5OMGXVLY35gN6nEaOBSI1uoUjjnNKRYqyXq/HMGCwc+ZuSOhgrN7zkhruVoAO5s4gQ0i7Fp+BvTrQ==}
     dependencies:
       '@fastify/csrf': 6.2.0
       '@fastify/error': 3.4.0
