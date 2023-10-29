@@ -19,9 +19,7 @@
         "bundle": false,
         "main": "apps/job-worker/src/main.ts",
         "tsConfig": "apps/job-worker/tsconfig.app.json",
-        "assets": [
-          "apps/job-worker/src/assets"
-        ],
+        "assets": [],
         "generatePackageJson": true,
         "esbuildOptions": {
           "sourcemap": true,
@@ -83,6 +81,12 @@
           "codeCoverage": true
         }
       }
+    },
+    "docker-build": {
+      "dependsOn": [
+        "build"
+      ],
+      "command": "docker build -f apps/job-worker/Dockerfile . -t job-worker"
     }
   },
   "tags": []
