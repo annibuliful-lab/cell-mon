@@ -1,4 +1,5 @@
 export { prismaClientOption } from './@types';
+export { jobDbClient } from './clients/job-db.client';
 export { mqRedisEmitter } from './clients/mq-redis.client';
 export { primaryDbClient } from './clients/primary.client';
 export { prismaDbClient } from './clients/prisma.client';

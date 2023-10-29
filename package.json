@@ -24,7 +24,6 @@
     "db-job:deploy": "prisma migrate deploy --schema prisma/job/schema.prisma",
     "db-job:seed": "ts-node prisma/job/seed",
     "genql": "ts-node --project tools/tsconfig.tools.json -r tsconfig-paths/register tools/bin/genql.ts",
-    "codegen:kysely": "kysely-codegen --exclude-pattern _prisma_migrations",
     "codegen:backend": "ts-node --project tools/tsconfig.tools.json -r tsconfig-paths/register tools/bin/codegen-backend.ts",
     "tool:query-builder": "ts-node --project tools/tsconfig.tools.json -r tsconfig-paths/register tools/bin/query-builder.ts",
     "codegen:frontend": "graphql-codegen --config tools/bin/codegen.frontend.ts"
