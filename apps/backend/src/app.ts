@@ -43,8 +43,9 @@ export async function main() {
           xDownloadOptions: false,
           strictTransportSecurity: false,
         }
-      : {},
+      : undefined,
   );
+
   server.register(hidePoweredBy, { setTo: 'PHP/7.0.33' });
   server.register(cookie, { secret: process.env.COOKIE_SECRET });
   server.register(csrfProtection, {
