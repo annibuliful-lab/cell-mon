@@ -1,0 +1,19 @@
+query getMissions(
+  $status: MissionStatus
+  $title: String
+  $pagination: OffsetPaginationInput
+  $tags: [String!]
+) {
+  getMissions(
+    status: $status
+    title: $title
+    pagination: $pagination
+    tags: $tags
+  ) {
+    id
+    title
+    description
+    status
+    tags
+  }
+}
