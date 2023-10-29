@@ -9,14 +9,21 @@ export const jobeTypedefs = gql`
     type: String!
     title: String!
     input: JSONObject
+    result: JSONObject
+    retryCount: Int!
+    maxRetries: Int!
+    errorMessage: String
   }
 
   type Mutation {
     callInstanceGeoJob(
       msisdn: String!
       phoneTargetId: ID!
+      maxRetries: Int = 1
     ): CallInstanceGeoJob! @access(subject: "CALL_INSTANCE_GEO", action: CREATE)
+  }
 
+  type Query {
     getInstanceGeoJob(id: ID!): CallInstanceGeoJob!
       @access(subject: "CALL_INSTANCE_GEO", action: READ)
   }

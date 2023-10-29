@@ -21,6 +21,10 @@ import {
   query as fileQueryResolver,
 } from '../modules/file/file.resolver';
 import {
+  mutation as jobMutationResolver,
+  query as jobQueryResolver,
+} from '../modules/job/job.resolver';
+import {
   mutation as missionMutationResolver,
   query as missionQueryResolver,
 } from '../modules/mission/mission.resolver';
@@ -60,8 +64,10 @@ import {
   mutation as workspaceMutationResolver,
   query as workspaceQueryResolver,
 } from '../modules/workspace/workspace.resolver';
+
 export const resolvers: Resolvers = {
   Query: {
+    ...jobQueryResolver,
     ...permissionAbilityQueryResolver,
     ...workspaceQueryResolver,
     ...accountQueryResolver,
@@ -75,6 +81,7 @@ export const resolvers: Resolvers = {
     ...fileQueryResolver,
   },
   Mutation: {
+    ...jobMutationResolver,
     ...accountMutationResolver,
     ...permissionAbilityMutationResolver,
     ...authenticationResolver,
