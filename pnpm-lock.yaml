@@ -188,6 +188,9 @@ dependencies:
   graphql:
     specifier: 16.8.1
     version: 16.8.1
+  graphql-rate-limit-directive:
+    specifier: ^2.0.4
+    version: 2.0.4(@graphql-tools/utils@10.0.7)(graphql@16.8.1)(rate-limiter-flexible@2.4.2)
   graphql-scalars:
     specifier: 1.22.4
     version: 1.22.4(graphql@16.8.1)
@@ -11447,6 +11450,18 @@ packages:
       lodash.mergewith: 4.6.2
     dev: false
 
+  /graphql-rate-limit-directive@2.0.4(@graphql-tools/utils@10.0.7)(graphql@16.8.1)(rate-limiter-flexible@2.4.2):
+    resolution: {integrity: sha512-C6MOmh/xnCuZkNgS3mMIZuLd5hWJhZF64YrqhEfNt8e2YbVjy2I/EAHgiD99FagCPGMmue4fttHTsVSqbYcQDg==}
+    peerDependencies:
+      '@graphql-tools/utils': ^8.0.0 || ^9.0.0 || ^10.0.0
+      graphql: ^16.0.0
+      rate-limiter-flexible: ^2.0.0
+    dependencies:
+      '@graphql-tools/utils': 10.0.7(graphql@16.8.1)
+      graphql: 16.8.1
+      rate-limiter-flexible: 2.4.2
+    dev: false
+
   /graphql-request@6.1.0(graphql@16.8.1):
     resolution: {integrity: sha512-p+XPfS4q7aIpKVcgmnZKhMNqhltk20hfXtkaIkTfjjmiKMJ5xrt5c743cL03y/K7y1rg3WrIC49xGiEQ4mxdNw==}
     peerDependencies:
@@ -14913,6 +14928,10 @@ packages:
     resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
     dependencies:
       safe-buffer: 5.2.1
+
+  /rate-limiter-flexible@2.4.2:
+    resolution: {integrity: sha512-rMATGGOdO1suFyf/mI5LYhts71g1sbdhmd6YvdiXO2gJnd42Tt6QS4JUKJKSWVVkMtBacm6l40FR7Trjo6Iruw==}
+    dev: false
 
   /react-dom@18.2.0(react@18.2.0):
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
