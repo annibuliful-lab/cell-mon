@@ -12,7 +12,12 @@ export const jobeTypedefs = gql`
   }
 
   type Mutation {
-    callInstanceGeoJob(msisdn: String!, phoneTargetId: ID!): CallInstanceGeoJob
-      @access(subject: "CALL_INSTANCE_GEO", action: CREATE)
+    callInstanceGeoJob(
+      msisdn: String!
+      phoneTargetId: ID!
+    ): CallInstanceGeoJob! @access(subject: "CALL_INSTANCE_GEO", action: CREATE)
+
+    getInstanceGeoJob(id: ID!): CallInstanceGeoJob!
+      @access(subject: "CALL_INSTANCE_GEO", action: READ)
   }
 `;
