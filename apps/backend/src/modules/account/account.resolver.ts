@@ -1,11 +1,18 @@
+import { parseAsync } from 'valibot';
+
 import { AppContext } from '../../@types/context';
 import { Resolvers } from '../../codegen-generated';
+import { createAccountSchema, updateAccountSchema } from './account.validation';
 
 export const mutation: Resolvers<AppContext>['Mutation'] = {
-  createAccount: (_, { input }, ctx) => {
+  createAccount: async (_, { input }, ctx) => {
+    await parseAsync(createAccountSchema, input);
+
     return ctx.accountService.create(input) as never;
   },
-  updateAccount: (_, { id, input }, ctx) => {
+  updateAccount: async (_, { id, input }, ctx) => {
+    await parseAsync(updateAccountSchema, input);
+
     return ctx.accountService.update(id, input);
   },
 };

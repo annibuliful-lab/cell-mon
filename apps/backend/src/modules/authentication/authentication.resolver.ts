@@ -1,8 +1,13 @@
+import { parseAsync } from 'valibot';
+
 import { AppContext } from '../../@types/context';
 import { Resolvers } from '../../codegen-generated';
+import { loginSchema } from './account.validation';
 
 export const mutation: Resolvers<AppContext>['Mutation'] = {
-  login: (_, { input }, ctx) => {
+  login: async (_, { input }, ctx) => {
+    await parseAsync(loginSchema, input);
+
     return ctx.authenticationService.login(input);
   },
   refreshToken: (_parent, _, ctx) => {

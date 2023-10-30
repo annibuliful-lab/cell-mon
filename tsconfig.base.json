@@ -39,6 +39,9 @@
       ],
       "@cell-mon/utils": [
         "libs/utils/src/index.ts"
+      ],
+      "job": [
+        "libs/job/src/index.ts"
       ]
     }
   },

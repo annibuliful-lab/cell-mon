@@ -4,6 +4,7 @@ import { PubSub } from 'mercurius';
 import { AccountService } from '../modules/account/account.service';
 import { AuthenticationService } from '../modules/authentication/authentication.service';
 import { Fileservice } from '../modules/file/file.service';
+import { JobService } from '../modules/job/job.service';
 import { MissionService } from '../modules/mission/mission.service';
 import { MissionTargetService } from '../modules/mission-target/mission-target.service';
 import { PermissionAbilityService } from '../modules/permission-ability/permission-ability.service';
@@ -27,6 +28,7 @@ export type ServiceContext = {
   targetEvidenceService: TargetEvidenceService;
   phoneTargetService: PhoneTargetService;
   phoneTargetLocationService: PhoneTargetLocationService;
+  jobService: JobService;
   pubsub: PubSub;
 };
 

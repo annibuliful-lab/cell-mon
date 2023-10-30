@@ -1,4 +1,5 @@
 export { prismaClientOption } from './@types';
+export { jobDbClient } from './clients/job-db.client';
 export { mqRedisEmitter } from './clients/mq-redis.client';
 export { primaryDbClient } from './clients/primary.client';
 export { prismaDbClient } from './clients/prisma.client';
@@ -6,6 +7,7 @@ export { redisClient } from './clients/redis.client';
 export { s3Client } from './clients/s3.client';
 export type { Permission } from './generated/primary/types';
 export type * from './generated/primary/types';
+export { JobRepository } from './repository/job.repository';
 export { PrimaryRepository } from './repository/primary.repository';
 export { mapArrayToStringRecord } from './utils/array';
 export { cursorPagination } from './utils/pagination/cursor';
