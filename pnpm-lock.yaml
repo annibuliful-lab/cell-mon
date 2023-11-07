@@ -138,8 +138,8 @@ dependencies:
     specifier: ^17.0.4
     version: 17.0.4(graphql-ws@5.14.2)(react-dom@18.2.0)(react@18.2.0)
   '@types/graphql-upload':
-    specifier: 16.0.4
-    version: 16.0.4
+    specifier: 16.0.5
+    version: 16.0.5
   '@types/jest':
     specifier: 29.5.7
     version: 29.5.7
@@ -7683,8 +7683,8 @@ packages:
     dependencies:
       '@types/node': 20.8.10
 
-  /@types/graphql-upload@16.0.4:
-    resolution: {integrity: sha512-QnDR8RdD2LKWnYTEgersn9dx5dfUrzLMeunblEpDxL0agd0XOujZezsnlfhD60eZxa2oG51ntVl/Gpu7rhs9ow==}
+  /@types/graphql-upload@16.0.5:
+    resolution: {integrity: sha512-rLSQM56p6k0yIQJfF2ibL50dKqNtAx7Q5DicUn+hTpBKlZWQfD5YrBFqH2TaYDXFvz4gsGe9Rtsa12v1gL3kcA==}
     dependencies:
       '@types/express': 4.17.18
       '@types/koa': 2.13.9
