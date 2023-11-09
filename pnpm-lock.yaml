@@ -147,8 +147,8 @@ dependencies:
     specifier: 9.0.5
     version: 9.0.5
   '@types/pg':
-    specifier: 8.10.8
-    version: 8.10.8
+    specifier: 8.10.9
+    version: 8.10.9
   '@types/uuid':
     specifier: 9.0.6
     version: 9.0.6
@@ -8172,11 +8172,11 @@ packages:
   /@types/pg-pool@2.0.4:
     resolution: {integrity: sha512-qZAvkv1K3QbmHHFYSNRYPkRjOWRLBYrL4B9c+wG0GSVGBw0NtJwPcgx/DSddeDJvRGMHCEQ4VMEVfuJ/0gZ3XQ==}
     dependencies:
-      '@types/pg': 8.10.8
+      '@types/pg': 8.10.9
     dev: false
 
-  /@types/pg@8.10.8:
-    resolution: {integrity: sha512-EqSUgXvnbEnMkIdffX1cDsmbvNt5Fzoim17JRwdaHaCpeTz440FocCxcStU9GgJvA+1aqtHEjHgFlH0d8ZCjAg==}
+  /@types/pg@8.10.9:
+    resolution: {integrity: sha512-UksbANNE/f8w0wOMxVKKIrLCbEMV+oM1uKejmwXr39olg4xqcfBDbXxObJAt6XxHbDa4XTKOlUEcEltXDX+XLQ==}
     dependencies:
       '@types/node': 20.9.0
       pg-protocol: 1.6.0
