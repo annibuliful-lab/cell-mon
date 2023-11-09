@@ -127,7 +127,7 @@
     "valibot": "0.20.1"
   },
   "devDependencies": {
-    "@babel/preset-react": "7.22.15",
+    "@babel/preset-react": "7.23.3",
     "@commitlint/cli": "18.2.0",
     "@commitlint/config-conventional": "18.1.0",
     "@emotion/babel-plugin": "11.11.0",
