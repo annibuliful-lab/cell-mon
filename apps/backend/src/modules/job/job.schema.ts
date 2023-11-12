@@ -20,6 +20,7 @@ export const jobTypedefs = gql`
       msisdn: String!
       phoneTargetId: ID!
       maxRetries: Int = 1
+      imsi: String
     ): CallInstanceGeoJob! @access(subject: "CALL_INSTANCE_GEO", action: CREATE)
   }
 
