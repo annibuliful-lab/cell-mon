@@ -17,7 +17,7 @@ export type CallInstanceGeoWebhookPayload = {
   tImsiTwo?: string;
   range: string;
   cellInfo: Omit<PhoneCellInfo, 'phoneTargetLocationId'>;
-  position: Omit<PhoneGeoLocation, 'phoneTargetLocationId' | 'id'>;
+  geoLocations: Omit<PhoneGeoLocation, 'phoneTargetLocationId' | 'id'>[];
   collectedTimestamp: number;
 };
 
