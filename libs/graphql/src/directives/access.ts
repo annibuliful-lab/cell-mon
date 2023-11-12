@@ -12,7 +12,7 @@ export interface AccessDirective {
   role?: string;
   validateOrganization: boolean;
   allowExternal?: boolean;
-  apiKey?: string;
+  requiredApiKey: boolean;
   featureFlag?: string;
 }
 
@@ -28,7 +28,7 @@ export function accessDirective() {
           requiredWorkspaceId: Boolean = false
           featureFlag: String
           allowExternal: Boolean = false
-          apiKey: ID
+          requiredApiKey: Boolean = false
         ) on FIELD_DEFINITION
         `,
 
@@ -53,6 +53,8 @@ export function accessDirective() {
 
           const featureFlag = accessDirective?.['featureFlag'];
 
+          const requiredApiKey = accessDirective?.['requiredApiKey'];
+
           const { resolve = defaultFieldResolver } = fieldConfig;
           fieldConfig.resolve = function (
             source,
@@ -60,6 +62,10 @@ export function accessDirective() {
             context: GraphqlContext,
             info,
           ) {
+            if (requiredApiKey && context.apiKey) {
+              return resolve(source, args, context, info);
+            }
+
             if (!context.accountId) {
               throw new AuthenticationError();
             }
@@ -72,9 +78,7 @@ export function accessDirective() {
               featureFlag &&
               !context.projectFeatureFlags.includes(featureFlag)
             ) {
-              throw new ForbiddenError(
-                `You must have feature flag: ${featureFlag}`,
-              );
+              throw new ForbiddenError('You must have feature flag');
             }
 
             if (
@@ -84,9 +88,7 @@ export function accessDirective() {
                 (p) => p.subject === subject && p.action === action,
               )
             ) {
-              throw new ForbiddenError(
-                `You do not allow to access this subject: ${subject}`,
-              );
+              throw new ForbiddenError('You do not allow to access');
             }
 
             return resolve(source, args, context, info);

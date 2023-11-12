@@ -15,6 +15,12 @@ export async function seedWorkspace() {
       title: nanoid(),
       createdBy: TEST_ADMIN_ID,
       updatedBy: TEST_ADMIN_ID,
+      workspaceConfiguration: {
+        create: {
+          apiKey: 'ADMIN_WORKSPACE_API_KEY',
+          createdBy: TEST_ADMIN_ID,
+        },
+      },
       workspaceRoles: {
         create: {
           id: v4(),
@@ -39,6 +45,12 @@ export async function seedWorkspace() {
       title: nanoid(),
       createdBy: TEST_USER_A_ID,
       updatedBy: TEST_USER_A_ID,
+      workspaceConfiguration: {
+        create: {
+          apiKey: 'USER_A_WORKSPACE_API_KEY',
+          createdBy: TEST_USER_A_ID,
+        },
+      },
       workspaceRoles: {
         create: {
           id: v4(),
