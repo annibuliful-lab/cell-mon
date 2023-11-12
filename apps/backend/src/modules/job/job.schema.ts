@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const jobeTypedefs = gql`
+export const jobTypedefs = gql`
   type CallInstanceGeoJob {
     id: ID!
     workspaceId: ID!
@@ -20,6 +20,7 @@ export const jobeTypedefs = gql`
       msisdn: String!
       phoneTargetId: ID!
       maxRetries: Int = 1
+      imsi: String
     ): CallInstanceGeoJob! @access(subject: "CALL_INSTANCE_GEO", action: CREATE)
   }
 

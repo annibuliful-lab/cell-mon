@@ -16,24 +16,19 @@ import {
   QueryGetPhoneTargeLocationsByPhoneTargetIdArgs,
 } from '../../codegen-generated';
 type StringOrNull = string | null;
+
 export type PhoneTargetLocationSelection = {
   phoneTargetLocationId: string;
   phoneTargetLocationMetadata: unknown;
   phoneTargetId: string;
   phoneTargetLocationSourceDateTime: Date;
-  phoneNetworkCode: string;
   phoneNetworkMcc: string;
   phoneNetworkMnc: string;
-  phoneNetworkName: string;
   phoneNetworkOperator: string;
-  phoneCellInfoCi: StringOrNull;
+  phoneNetworkCountry: string;
+  phoneNetworkCode: string;
   phoneCellInfoCid: StringOrNull;
-  phoneCellInfoEci: StringOrNull;
-  phoneCellInfoEnb: StringOrNull;
   phoneCellInfoLac: StringOrNull;
-  phoneCellInfoLcid: StringOrNull;
-  phoneCellInfoNci: StringOrNull;
-  phoneCellInfoTac: StringOrNull;
   phoneCellInfoType: CellularTechnology;
   phoneGeoLocations: {
     id: string;
@@ -56,23 +51,17 @@ export class PhoneTargetLocationService extends PrimaryRepository<
       sourceDateTime: phoneTargetLocation.phoneTargetLocationSourceDateTime,
       network: {
         phoneTargetLocationId: phoneTargetLocation.phoneTargetLocationId,
-        code: phoneTargetLocation.phoneNetworkCode,
         mcc: phoneTargetLocation.phoneNetworkMcc,
         mnc: phoneTargetLocation.phoneNetworkMnc,
-        name: phoneTargetLocation.phoneNetworkName,
         operator: phoneTargetLocation.phoneNetworkOperator,
+        code: phoneTargetLocation.phoneNetworkCode,
+        country: phoneTargetLocation.phoneNetworkCountry,
       },
       cellInfo: {
         phoneTargetLocationId: phoneTargetLocation.phoneTargetLocationId,
         type: phoneTargetLocation.phoneCellInfoType as CellularTechnology,
-        ci: phoneTargetLocation.phoneCellInfoCi as string,
         cid: phoneTargetLocation.phoneCellInfoCid as string,
-        eci: phoneTargetLocation.phoneCellInfoEci as string,
-        enb: phoneTargetLocation.phoneCellInfoEnb as string,
         lac: phoneTargetLocation.phoneCellInfoLac as string,
-        lcid: phoneTargetLocation.phoneCellInfoLcid as string,
-        nci: phoneTargetLocation.phoneCellInfoNci as string,
-        tac: phoneTargetLocation.phoneCellInfoTac as string,
       },
       geoLocations: phoneTargetLocation.phoneGeoLocations.map((location) => ({
         id: location.id,
@@ -81,7 +70,7 @@ export class PhoneTargetLocationService extends PrimaryRepository<
         latitude: Number(location.latitude),
         longtitude: Number(location.longtitude),
       })),
-    };
+    } as PhoneTargetLocation;
   }
 
   private async verifyPhoneTargetId(id: string) {
@@ -133,11 +122,11 @@ export class PhoneTargetLocationService extends PrimaryRepository<
           .insertInto('phone_network')
           .values({
             phoneTargetLocationId: createdPhoneTargetLocation.id,
-            code: network.code,
+            operator: network.operator,
             mcc: network.mcc,
             mnc: network.mnc,
-            name: network.name,
-            operator: network.operator,
+            code: network.code,
+            country: network.country,
           })
           .returningAll()
           .executeTakeFirst();
@@ -146,15 +135,10 @@ export class PhoneTargetLocationService extends PrimaryRepository<
           .insertInto('phone_cell_info')
           .values({
             phoneTargetLocationId: createdPhoneTargetLocation.id,
-            type: cellInfo.type,
-            ci: cellInfo.ci,
-            cid: cellInfo.cid,
-            eci: cellInfo.eci,
-            enb: cellInfo.enb,
+            type: cellInfo.type as never,
             lac: cellInfo.lac,
-            lcid: cellInfo.lcid,
-            nci: cellInfo.nci,
-            tac: cellInfo.tac,
+            cid: cellInfo.cid,
+            range: cellInfo.range,
           })
           .returningAll()
           .executeTakeFirst();
@@ -191,21 +175,15 @@ export class PhoneTargetLocationService extends PrimaryRepository<
           cellInfo: {
             phoneTargetLocationId: createdPhoneTargetLocation.id,
             type: createdCellInfo.type as CellularTechnology,
-            ci: createdCellInfo.ci as string,
             cid: createdCellInfo.cid as string,
-            eci: createdCellInfo.eci as string,
-            enb: createdCellInfo.enb as string,
             lac: createdCellInfo.lac as string,
-            lcid: createdCellInfo.lcid as string,
-            nci: createdCellInfo.nci as string,
-            tac: createdCellInfo.tac as string,
           },
           geoLocations: createdGeoLocations.map((location) => ({
             ...location,
             latitude: Number(location.latitude),
             longtitude: Number(location.longtitude),
           })),
-        };
+        } as PhoneTargetLocation;
       });
   }
 
@@ -230,17 +208,12 @@ export class PhoneTargetLocationService extends PrimaryRepository<
         'phone_network.code as phoneNetworkCode',
         'phone_network.mcc as phoneNetworkMcc',
         'phone_network.mnc as phoneNetworkMnc',
-        'phone_network.name as phoneNetworkName',
         'phone_network.operator as phoneNetworkOperator',
-        'phone_cell_info.ci as phoneCellInfoCi',
         'phone_cell_info.cid as phoneCellInfoCid',
-        'phone_cell_info.eci as phoneCellInfoEci',
-        'phone_cell_info.enb as phoneCellInfoEnb',
         'phone_cell_info.lac as phoneCellInfoLac',
-        'phone_cell_info.lcid as phoneCellInfoLcid',
-        'phone_cell_info.nci as phoneCellInfoNci',
-        'phone_cell_info.tac as phoneCellInfoTac',
         'phone_cell_info.type as phoneCellInfoType',
+        'phone_network.country as phoneNetworkCountry',
+        'phone_network.code as phoneNetworkCode',
       ]);
   }
 

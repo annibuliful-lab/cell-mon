@@ -1,5 +1,6 @@
 import {
   accessDirective,
+  cellTechnologyTypedef,
   deleteOperationResultTypeDef,
   jsonTypeDef,
   paginationTypeDef,
@@ -18,7 +19,7 @@ import {
 import { accountTypeDefs } from '../modules/account/account.schema';
 import { authenticationTypeDefs } from '../modules/authentication/authentication.schema';
 import { fileTypeDefs } from '../modules/file/file.schema';
-import { jobeTypedefs } from '../modules/job/job.schema';
+import { jobTypedefs } from '../modules/job/job.schema';
 import { missionTypedef } from '../modules/mission/mission.schema';
 import { missionTargetTypeDef } from '../modules/mission-target/mission-target.schema';
 import { permissionAbilityTypeDefs } from '../modules/permission-ability/permission-ability.schema';
@@ -55,6 +56,7 @@ export const typeDefs = print(
     phoneTargetLocationTypeDef,
     LatitudeDefinition,
     LongitudeDefinition,
-    jobeTypedefs,
+    jobTypedefs,
+    cellTechnologyTypedef,
   ]),
 );

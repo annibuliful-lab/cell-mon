@@ -2,6 +2,7 @@ import { Client, getAdminClient } from '@cell-mon/graphql-client';
 import { testCreatePhoneTarget } from '@cell-mon/test';
 
 import { CellularTechnology } from '../../codegen-generated';
+
 describe('Phone Target Location', () => {
   let client: Client;
 
@@ -14,16 +15,15 @@ describe('Phone Target Location', () => {
     const network = {
       code: '66',
       operator: 'OPERATOR',
-      name: 'Thailand',
+      country: 'Thailand',
       mcc: '433',
       mnc: '03',
     };
 
     const cellInfo = {
-      ci: 'CI',
+      cid: 'CI',
       type: 'GSM' as CellularTechnology,
       lac: 'LAC',
-      tac: 'TAC',
     };
 
     const geoLocations = [
@@ -53,7 +53,10 @@ describe('Phone Target Location', () => {
               sourceDateTime: new Date(),
             },
             network,
-            cellInfo,
+            cellInfo: {
+              ...cellInfo,
+              range: '1000m',
+            },
             geoLocations,
           },
         },
@@ -78,16 +81,15 @@ describe('Phone Target Location', () => {
     const network = {
       code: '66',
       operator: 'OPERATOR',
-      name: 'Thailand',
+      country: 'Thailand',
       mcc: '433',
       mnc: '03',
     };
 
     const cellInfo = {
-      ci: 'CI',
+      cid: 'CID',
       type: 'GSM' as CellularTechnology,
       lac: 'LAC',
-      tac: 'TAC',
     };
 
     const geoLocations = [
@@ -117,7 +119,10 @@ describe('Phone Target Location', () => {
               sourceDateTime: new Date(),
             },
             network,
-            cellInfo,
+            cellInfo: {
+              ...cellInfo,
+              range: '1000m',
+            },
             geoLocations,
           },
         },
@@ -162,16 +167,15 @@ describe('Phone Target Location', () => {
     const network = {
       code: '66',
       operator: 'OPERATOR',
-      name: 'Thailand',
+      country: 'Thailand',
       mcc: '433',
       mnc: '03',
     };
 
     const cellInfo = {
-      ci: 'CI',
+      cid: 'CID',
       type: 'GSM' as CellularTechnology,
       lac: 'LAC',
-      tac: 'TAC',
     };
 
     const geoLocations = [
@@ -201,7 +205,10 @@ describe('Phone Target Location', () => {
               sourceDateTime: new Date(),
             },
             network,
-            cellInfo,
+            cellInfo: {
+              ...cellInfo,
+              range: '1000m',
+            },
             geoLocations,
           },
         },

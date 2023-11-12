@@ -1,3 +1,4 @@
+export { verifyApiKey } from './authentication/api-key';
 export { verifyLocalAuthentication } from './authentication/local';
 export { GraphqlContext, MOCK_GRAPHQL_CONTEXT } from './constants/context';
 export {
@@ -11,6 +12,7 @@ export { DuplicatedResource } from './errors/duplicated-resource';
 export { ForbiddenError } from './errors/forbidden';
 export { GraphqlError } from './errors/graphql-error';
 export { NotfoundResource } from './errors/not-found-resource';
+export { cellTechnologyTypedef } from './schemas/cell-technology.schema';
 export { deleteOperationResultTypeDef } from './schemas/delete.schema';
 export {
   GraphQLJSON,

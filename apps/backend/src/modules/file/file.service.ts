@@ -13,6 +13,7 @@ config();
 
 export class Fileservice extends PrimaryRepository<never, GraphqlContext> {
   private expiresInFiftteenMinutes = 15 * 60;
+
   async getSignedUrl(filename: string): Promise<File> {
     const signedUrl = await getSignedUrl(
       s3Client,
@@ -26,7 +27,7 @@ export class Fileservice extends PrimaryRepository<never, GraphqlContext> {
     return { key: filename, signedUrl };
   }
 
-  async upload(file: Promise<GraphQLFileUpload>) {
+  async upload(file: Promise<GraphQLFileUpload>): Promise<File> {
     try {
       const { filename: _filename, createReadStream } = await file;
       const rs = createReadStream();

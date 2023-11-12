@@ -108,6 +108,7 @@ model WorkspaceConfiguration {
   workspaceId String    @id @db.Uuid
   workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   isActive    Boolean   @default(true)
+  apiKey      String    @unique
   createdAt   DateTime  @default(now())
   updatedAt   DateTime?
   createdBy   String
@@ -290,7 +291,7 @@ model PhoneNetwork {
   phoneTargetLocationId String              @id @db.Uuid
   phoneTargetLocation   PhoneTargetLocation @relation(fields: [phoneTargetLocationId], references: [id], onDelete: Cascade)
   code                  String
-  name                  String
+  country               String
   operator              String
   mnc                   String              @db.VarChar(3)
   mcc                   String              @db.VarChar(3)
@@ -302,14 +303,17 @@ model PhoneCellInfo {
   phoneTargetLocationId String              @id @db.Uuid
   phoneTargetLocation   PhoneTargetLocation @relation(fields: [phoneTargetLocationId], references: [id], onDelete: Cascade)
   type                  CellularTechnology
-  cid                   String? // 2G 3G 4G
-  lcid                  String? // 4G
-  lac                   String? // 2G 3G
-  ci                    String? // 2G
-  eci                   String? // 4G
-  tac                   String? // 5G 4G
-  enb                   String? // 4G
-  nci                   String? // 5G
+  lac                   String
+  cid                   String
+  range                 String
+  // cid                   String? // 2G 3G 4G
+  // lcid                  String? // 4G
+  // lac                   String? // 2G 3G
+  // ci                    String? // 2G
+  // eci                   String? // 4G
+  // tac                   String? // 5G 4G
+  // enb                   String? // 4G
+  // nci                   String? // 5G
 
   @@map("phone_cell_info")
 }

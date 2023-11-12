@@ -17,15 +17,15 @@ export async function testCreatePhoneTargetLocation() {
         network: {
           code: '66',
           operator: 'OPERATOR',
-          name: 'Thailand',
+          country: 'Thailand',
           mcc: '433',
           mnc: '03',
         },
         cellInfo: {
-          ci: 'CI',
+          cid: 'CID',
           type: 'GSM',
           lac: 'LAC',
-          tac: 'TAC',
+          range: '1000m',
         },
         geoLocations: [
           {
