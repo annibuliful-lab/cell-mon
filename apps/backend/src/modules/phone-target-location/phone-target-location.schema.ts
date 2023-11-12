@@ -22,7 +22,7 @@ export const phoneTargetLocationTypeDef = gql`
   type PhoneNetwork {
     phoneTargetLocationId: UUID!
     code: String!
-    name: String!
+    country: String!
     operator: String!
     mnc: String!
     mcc: String!
@@ -31,14 +31,9 @@ export const phoneTargetLocationTypeDef = gql`
   type PhoneCellInfo {
     phoneTargetLocationId: UUID!
     type: CellularTechnology!
-    cid: String
-    lcid: String
     lac: String
-    ci: String
-    eci: String
-    tac: String
-    enb: String
-    nci: String
+    cid: String
+    range: String
   }
 
   type PhoneGeoLocation {
@@ -57,7 +52,7 @@ export const phoneTargetLocationTypeDef = gql`
 
   input CreatePhoneNetworkInput {
     code: String!
-    name: String!
+    country: String!
     operator: String!
     mnc: String!
     mcc: String!
@@ -65,14 +60,9 @@ export const phoneTargetLocationTypeDef = gql`
 
   input CreatePhoneCellInfoInput {
     type: CellularTechnology!
-    cid: String
-    lcid: String
     lac: String
-    ci: String
-    eci: String
-    tac: String
-    enb: String
-    nci: String
+    cid: String
+    range: String
   }
 
   input CreatePhoneGeoLocationInput {
