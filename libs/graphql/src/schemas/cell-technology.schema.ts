@@ -13,7 +13,7 @@ export const cellTechnologyTypedef = gql`
     """
     3G
     """
-    WCDMA
+    UMTS
 
     """
     4G
