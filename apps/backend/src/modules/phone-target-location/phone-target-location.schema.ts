@@ -60,9 +60,9 @@ export const phoneTargetLocationTypeDef = gql`
 
   input CreatePhoneCellInfoInput {
     type: CellularTechnology!
-    lac: String
-    cid: String
-    range: String
+    lac: String!
+    cid: String!
+    range: String!
   }
 
   input CreatePhoneGeoLocationInput {
@@ -77,7 +77,7 @@ export const phoneTargetLocationTypeDef = gql`
       network: CreatePhoneNetworkInput!
       cellInfo: CreatePhoneCellInfoInput!
       geoLocations: [CreatePhoneGeoLocationInput!]!
-    ): PhoneTargetLocation! @access
+    ): PhoneTargetLocation! @access(requiredApiKey: true)
   }
 
   type Query {
