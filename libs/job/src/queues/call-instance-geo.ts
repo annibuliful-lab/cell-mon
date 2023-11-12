@@ -1,3 +1,5 @@
+import { PhoneCellInfo, PhoneGeoLocation } from '@cell-mon/db';
+
 import { createQueueClient } from '../client';
 import { JOB_KEYS } from '../constants';
 
@@ -13,21 +15,9 @@ export type CallInstanceGeoWebhookPayload = {
   imsi: string;
   tImsiOne?: string;
   tImsiTwo?: string;
-  accuracy: number;
-  radius: number;
-  cellInfo: {
-    technology: string;
-    mnc: string;
-    mcc: string;
-    operator: string;
-    country: string;
-    band: string;
-    lac: string;
-  };
-  position: {
-    latitude: string;
-    longitude: string;
-  };
+  range: string;
+  cellInfo: Omit<PhoneCellInfo, 'phoneTargetLocationId'>;
+  position: Omit<PhoneGeoLocation, 'phoneTargetLocationId' | 'id'>;
   collectedTimestamp: number;
 };
 
