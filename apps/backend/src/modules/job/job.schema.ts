@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const jobeTypedefs = gql`
+export const jobTypedefs = gql`
   type CallInstanceGeoJob {
     id: ID!
     workspaceId: ID!
