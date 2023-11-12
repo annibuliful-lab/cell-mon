@@ -1,4 +1,4 @@
-import { prismaDbClient, redisClient } from '@cell-mon/db';
+import { PermissionAction, prismaDbClient, redisClient } from '@cell-mon/db';
 import { IJwtAuthInfo, jwtVerify } from '@cell-mon/utils';
 import { Permission } from '@prisma/client';
 
@@ -22,107 +22,129 @@ type ValidateLocalAuthenticationParams = {
   workspaceId?: string;
 };
 
-async function getAccountInfo(userInfo: IJwtAuthInfo, workspaceId?: string) {
-  const accountId = (
-    await prismaDbClient.account.findUnique({
-      select: {
-        id: true,
-      },
-      where: {
-        id: userInfo.accountId,
-      },
-    })
-  )?.id;
-
-  if (!accountId) {
-    throw new AuthenticationError();
-  }
+async function getAccountInfo(
+  userInfo: IJwtAuthInfo,
+  workspaceId?: string,
+): Promise<AccountInfo> {
+  const accountId = await getAccountId(userInfo);
 
   if (!workspaceId) {
-    const accountInfo: AccountInfo = {
-      accountUid: userInfo.accountId,
-      workspaceIds: userInfo.workspaceIds,
-      accountId,
-      permissions: [],
-    };
-
-    await redisClient.set(
-      userInfo.accountId,
-      JSON.stringify(accountInfo),
-      'EX',
-      CACHE_EXPIRE
-    );
-
+    const accountInfo = buildAccountInfo(userInfo, accountId);
+    await updateCache(userInfo.accountId, accountInfo);
     return accountInfo;
   }
 
-  const accountWorkspaceRole = await prismaDbClient.workspaceAccount.findFirst({
-    select: {
-      workspace: {
-        select: {
-          id: true,
-        },
-      },
-      role: {
-        select: {
-          title: true,
-          workspaceRolePermissions: {
-            select: {
-              permission: {
-                select: {
-                  action: true,
-                  subject: true,
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-    where: {
-      accountId,
-      workspaceId,
-    },
-  });
+  const accountWorkspaceRole = await getAccountWorkspaceRole(
+    accountId,
+    workspaceId,
+  );
 
   if (!accountWorkspaceRole) {
     throw new ForbiddenError('You are not in this project');
   }
 
-  const permissions = accountWorkspaceRole.role.workspaceRolePermissions.map(
-    (p) => ({
-      action: p.permission.action,
-      subject: p.permission.subject,
-    })
+  const permissions = buildPermissions(
+    accountWorkspaceRole.role.workspaceRolePermissions,
   );
 
-  const accountInfo: AccountInfo = {
-    accountUid: userInfo.accountId,
-    workspaceIds: userInfo.workspaceIds,
+  const accountInfo = buildAccountInfoWithRole(
+    userInfo,
     accountId,
-    role: accountWorkspaceRole.role.title,
-    permissions: permissions,
-  };
+    accountWorkspaceRole,
+    permissions,
+  );
+  await updateCache(userInfo.accountId, accountInfo);
 
-  if (!accountInfo) {
+  return accountInfo;
+}
+
+async function getAccountId(userInfo: IJwtAuthInfo): Promise<string> {
+  const account = await prismaDbClient.account.findUnique({
+    select: { id: true },
+    where: { id: userInfo.accountId },
+  });
+
+  if (!account?.id) {
     throw new AuthenticationError();
   }
 
-  await redisClient.set(
-    userInfo.accountId,
-    JSON.stringify(accountInfo),
-    'EX',
-    CACHE_EXPIRE
-  );
+  return account.id;
+}
 
+function buildAccountInfo(
+  userInfo: IJwtAuthInfo,
+  accountId: string,
+): AccountInfo {
   return {
     accountUid: userInfo.accountId,
     workspaceIds: userInfo.workspaceIds,
     accountId,
-    role: '',
-    workspaceId: '',
     permissions: [],
   };
+}
+
+async function getAccountWorkspaceRole(accountId: string, workspaceId: string) {
+  return prismaDbClient.workspaceAccount.findFirst({
+    select: {
+      workspace: { select: { id: true } },
+      role: {
+        select: {
+          title: true,
+          workspaceRolePermissions: {
+            select: {
+              permission: { select: { action: true, subject: true } },
+            },
+          },
+        },
+      },
+    },
+    where: { accountId, workspaceId },
+  });
+}
+
+function buildPermissions(
+  accountWorkspaceRole: {
+    permission: {
+      action: PermissionAction;
+      subject: string;
+    };
+  }[],
+) {
+  return accountWorkspaceRole.map((p) => ({
+    action: p.permission.action,
+    subject: p.permission.subject,
+  }));
+}
+
+function buildAccountInfoWithRole(
+  userInfo: IJwtAuthInfo,
+  accountId: string,
+  accountWorkspaceRole: {
+    role: {
+      title: string;
+    };
+  },
+  permissions: {
+    action: PermissionAction;
+    subject: string;
+  }[],
+): AccountInfo {
+  return {
+    accountUid: userInfo.accountId,
+    workspaceIds: userInfo.workspaceIds,
+    accountId,
+    role: accountWorkspaceRole.role.title,
+    permissions,
+  };
+}
+
+async function updateCache(accountId: string, accountInfo: AccountInfo) {
+  await redisClient.set(
+    accountId,
+    JSON.stringify(accountInfo),
+    'EX',
+    CACHE_EXPIRE,
+  );
 }
 
 export async function verifyLocalAuthentication({
