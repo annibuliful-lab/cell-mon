@@ -1,5 +1,6 @@
 import {
   accessDirective,
+  cellTechnologyTypedef,
   deleteOperationResultTypeDef,
   jsonTypeDef,
   paginationTypeDef,
@@ -56,5 +57,6 @@ export const typeDefs = print(
     LatitudeDefinition,
     LongitudeDefinition,
     jobeTypedefs,
+    cellTechnologyTypedef,
   ]),
 );

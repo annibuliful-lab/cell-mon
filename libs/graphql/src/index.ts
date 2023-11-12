@@ -11,6 +11,7 @@ export { DuplicatedResource } from './errors/duplicated-resource';
 export { ForbiddenError } from './errors/forbidden';
 export { GraphqlError } from './errors/graphql-error';
 export { NotfoundResource } from './errors/not-found-resource';
+export { cellTechnologyTypedef } from './schemas/cell-technology.schema';
 export { deleteOperationResultTypeDef } from './schemas/delete.schema';
 export {
   GraphQLJSON,
