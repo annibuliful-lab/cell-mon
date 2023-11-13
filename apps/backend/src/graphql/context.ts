@@ -38,10 +38,10 @@ export const graphqlContext = async ({
       authProvider,
       accessToken,
       authorization,
-      accountId: null as unknown as string,
+      accountId: apiKey,
       permissions: [],
       role: 'API_KEY',
-      workspaceId,
+      workspaceId: workspace.workspaceId,
       projectFeatureFlags: [],
       apiKey: workspace.apiKey,
     };
