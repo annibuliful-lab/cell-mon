@@ -1,4 +1,8 @@
-import { GraphqlContext, verifyLocalAuthentication } from '@cell-mon/graphql';
+import {
+  GraphqlContext,
+  verifyApiKey,
+  verifyLocalAuthentication,
+} from '@cell-mon/graphql';
 import { config } from 'dotenv';
 import { FastifyRequest } from 'fastify';
 
@@ -26,6 +30,27 @@ export const graphqlContext = async ({
   const accessToken = headers['access-token'] as string;
   const authorization = headers['authorization'] as string;
   const workspaceId = headers['x-workspace-id'] as string;
+  const apiKey = headers['x-api-key'] as string;
+
+  if (apiKey) {
+    const workspace = await verifyApiKey({ apiKey });
+    const context: GraphqlContext = {
+      authProvider,
+      accessToken,
+      authorization,
+      accountId: null as unknown as string,
+      permissions: [],
+      role: 'API_KEY',
+      workspaceId,
+      projectFeatureFlags: [],
+      apiKey: workspace.apiKey,
+    };
+
+    return {
+      ...context,
+      phoneTargetLocationService: new PhoneTargetLocationService(context),
+    } as AppContext;
+  }
 
   if (!authorization) {
     const context = {

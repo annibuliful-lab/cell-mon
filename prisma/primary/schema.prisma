@@ -67,7 +67,7 @@ model Account {
 
 model AccountConfiguration {
   accountId String    @id @db.Uuid
-  account   Account   @relation(fields: [accountId], onDelete: Cascade, references: [id])
+  account   Account   @relation(fields: [accountId], references: [id])
   isActive  Boolean   @default(true)
   createdAt DateTime  @default(now())
   updatedAt DateTime?
@@ -79,7 +79,7 @@ model SessionToken {
   token     String    @id
   revoke    Boolean   @default(false)
   accountId String    @db.Uuid
-  account   Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  account   Account   @relation(fields: [accountId], references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime?
 
@@ -106,7 +106,7 @@ model Workspace {
 
 model WorkspaceConfiguration {
   workspaceId String    @id @db.Uuid
-  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
   isActive    Boolean   @default(true)
   apiKey      String    @unique
   createdAt   DateTime  @default(now())
@@ -120,7 +120,7 @@ model WorkspaceConfiguration {
 model WorkspaceRole {
   id                       String                    @id @db.Uuid
   workspaceId              String                    @db.Uuid
-  workspace                Workspace                 @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace                Workspace                 @relation(fields: [workspaceId], references: [id])
   title                    String
   createdAt                DateTime                  @default(now())
   updatedAt                DateTime?
@@ -135,11 +135,11 @@ model WorkspaceRole {
 model WorkspaceRolePermission {
   id           String        @id
   workspaceId  String        @db.Uuid
-  workspace    Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace    Workspace     @relation(fields: [workspaceId], references: [id])
   roleId       String        @db.Uuid
-  role         WorkspaceRole @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  role         WorkspaceRole @relation(fields: [roleId], references: [id])
   permissionId String        @db.Uuid
-  permission   Permission    @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  permission   Permission    @relation(fields: [permissionId], references: [id])
   createdAt    DateTime      @default(now())
   updatedAt    DateTime?
   createdBy    String
@@ -151,11 +151,11 @@ model WorkspaceRolePermission {
 model WorkspaceAccount {
   id          String        @id @db.Uuid
   workspaceId String        @db.Uuid
-  workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id])
   accountId   String        @db.Uuid
-  account     Account       @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  account     Account       @relation(fields: [accountId], references: [id])
   roleId      String        @db.Uuid
-  role        WorkspaceRole @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  role        WorkspaceRole @relation(fields: [roleId], references: [id])
   createdAt   DateTime      @default(now())
   updatedAt   DateTime?
   createdBy   String
@@ -181,7 +181,7 @@ model PhoneMetadata {
 model Mission {
   id             String          @id @default(uuid()) @db.Uuid
   workspaceId    String          @db.Uuid
-  workspace      Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace      Workspace       @relation(fields: [workspaceId], references: [id])
   title          String
   description    String?
   status         MissionStatus   @default(DRAFT)
@@ -200,7 +200,7 @@ model Mission {
 model Target {
   id              String           @id @default(uuid()) @db.Uuid
   workspaceId     String           @db.Uuid
-  workspace       Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace       Workspace        @relation(fields: [workspaceId], references: [id])
   title           String
   priority        PRIORITY         @default(MEDIUM)
   tags            String[]         @default([])
@@ -224,9 +224,9 @@ model Target {
 model MissionTarget {
   id        String    @id @default(uuid()) @db.Uuid
   missionId String    @db.Uuid
-  mission   Mission   @relation(fields: [missionId], references: [id], onDelete: Cascade)
+  mission   Mission   @relation(fields: [missionId], references: [id])
   targetId  String    @db.Uuid
-  target    Target    @relation(fields: [targetId], references: [id], onDelete: Cascade)
+  target    Target    @relation(fields: [targetId], references: [id])
   createdBy String
   updatedBy String?
   deleteBy  String?
@@ -241,7 +241,7 @@ model MissionTarget {
 model TargetEvidence {
   id               String    @id @default(uuid()) @db.Uuid
   targetId         String    @db.Uuid
-  target           Target    @relation(fields: [targetId], references: [id], onDelete: Cascade)
+  target           Target    @relation(fields: [targetId], references: [id])
   evidence         Json?     @db.JsonB
   note             String
   investigatedDate DateTime
@@ -258,9 +258,9 @@ model TargetEvidence {
 model PhoneTarget {
   id                   String                @id @default(uuid()) @db.Uuid
   phoneId              String                @db.Uuid
-  phone                PhoneMetadata         @relation(fields: [phoneId], references: [id], onDelete: Cascade)
+  phone                PhoneMetadata         @relation(fields: [phoneId], references: [id])
   targetId             String                @db.Uuid
-  target               Target                @relation(fields: [targetId], references: [id], onDelete: Cascade)
+  target               Target                @relation(fields: [targetId], references: [id])
   createdBy            String
   updatedBy            String?
   deleteBy             String?
@@ -289,7 +289,7 @@ model PhoneTargetLocation {
 
 model PhoneNetwork {
   phoneTargetLocationId String              @id @db.Uuid
-  phoneTargetLocation   PhoneTargetLocation @relation(fields: [phoneTargetLocationId], references: [id], onDelete: Cascade)
+  phoneTargetLocation   PhoneTargetLocation @relation(fields: [phoneTargetLocationId], references: [id])
   code                  String
   country               String
   operator              String
@@ -301,7 +301,7 @@ model PhoneNetwork {
 
 model PhoneCellInfo {
   phoneTargetLocationId String              @id @db.Uuid
-  phoneTargetLocation   PhoneTargetLocation @relation(fields: [phoneTargetLocationId], references: [id], onDelete: Cascade)
+  phoneTargetLocation   PhoneTargetLocation @relation(fields: [phoneTargetLocationId], references: [id])
   type                  CellularTechnology
   lac                   String
   cid                   String
@@ -321,7 +321,7 @@ model PhoneCellInfo {
 model PhoneGeoLocation {
   id                    String              @id @default(uuid()) @db.Uuid
   phoneTargetLocationId String              @db.Uuid
-  phoneTargetLocation   PhoneTargetLocation @relation(fields: [phoneTargetLocationId], references: [id], onDelete: Cascade)
+  phoneTargetLocation   PhoneTargetLocation @relation(fields: [phoneTargetLocationId], references: [id])
   latitude              Decimal             @db.Decimal(8, 6)
   longtitude            Decimal             @db.Decimal(9, 6)
   source                String
