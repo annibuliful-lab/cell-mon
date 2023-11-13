@@ -1,0 +1,11 @@
+{
+  "name": "cell-mon",
+  "main": "index.ts",
+  "devDependencies": {
+    "@types/node": "^18"
+  },
+  "dependencies": {
+    "@ediri/vultr": "^2.17.0",
+    "@pulumi/pulumi": "^3.0.0"
+  }
+}
