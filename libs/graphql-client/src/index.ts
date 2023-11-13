@@ -4,4 +4,4 @@ export {
   getUserClient,
   testClient,
 } from '../../graphql-client/src/clients/primary.client';
-export { Client } from './generated/primary';
+export { Client, createClient } from './generated/primary';

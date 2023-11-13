@@ -3,6 +3,7 @@ import * as mercurius from 'mercurius';
 import { AppContext, WebsocketAppContext } from '../../@types/context';
 import { PhoneTargetLocation, Resolvers } from '../../codegen-generated';
 import { PUBSUB_PHONE_LOCATION_TRACKING_TOPIC } from '../../constants';
+
 export const mutation: Resolvers<AppContext>['Mutation'] = {
   createPhoneTargetLocation: async (_, input, ctx) => {
     const phoneTargetLocation =
