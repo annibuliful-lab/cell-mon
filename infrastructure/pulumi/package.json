@@ -1,6 +1,6 @@
 {
   "name": "cell-mon",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "devDependencies": {
     "@types/node": "^20.0.0"
   },
