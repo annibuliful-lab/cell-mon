@@ -90,8 +90,8 @@ dependencies:
     specifier: 7.2.2
     version: 7.2.2(@mantine/core@7.2.2)(@mantine/hooks@7.2.2)(react-dom@18.2.0)(react@18.2.0)
   '@mermaid-js/mermaid-cli':
-    specifier: 10.6.0
-    version: 10.6.0(typescript@5.2.2)
+    specifier: 10.6.1
+    version: 10.6.1(typescript@5.2.2)
   '@nrwl/next':
     specifier: 17.1.2
     version: 17.1.2(@babel/core@7.23.0)(@swc-node/register@1.6.8)(@swc/core@1.3.96)(@types/node@20.9.0)(eslint@8.53.0)(next@14.0.2)(nx@17.1.2)(typescript@5.2.2)(webpack@5.88.2)
@@ -4541,8 +4541,8 @@ packages:
       - supports-color
     dev: false
 
-  /@mermaid-js/mermaid-cli@10.6.0(typescript@5.2.2):
-    resolution: {integrity: sha512-BFjvlB4YcZKnGy7AO6cl3eXK+SNRW3caCEThfD+ChJ92lFJZ3c4PLOESA3JP/hJ66y5bO63MNa8OtIJo4iEi8w==}
+  /@mermaid-js/mermaid-cli@10.6.1(typescript@5.2.2):
+    resolution: {integrity: sha512-OH2uOXW3/GBaMGagVF7Fzu/9TJrGge+Bu/+Tm8OyIaRBaKa2NN+3SggJOmr5s51oTPaGKu/X1XBDoauvtlXAPg==}
     engines: {node: ^14.13 || >=16.0}
     hasBin: true
     dependencies:
@@ -14788,7 +14788,7 @@ packages:
     peerDependencies:
       '@prisma/client': ^4.0.0 || ^5.0.0
     dependencies:
-      '@mermaid-js/mermaid-cli': 10.6.0(typescript@5.2.2)
+      '@mermaid-js/mermaid-cli': 10.6.1(typescript@5.2.2)
       '@prisma/client': 5.5.2(prisma@5.5.2)
       '@prisma/generator-helper': 5.4.1
       dotenv: 16.3.1
