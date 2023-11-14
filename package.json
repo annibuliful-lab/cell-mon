@@ -61,7 +61,7 @@
     "@mermaid-js/mermaid-cli": "10.6.0",
     "@nrwl/next": "17.1.2",
     "@opentelemetry/api": "1.7.0",
-    "@opentelemetry/auto-instrumentations-node": "0.39.4",
+    "@opentelemetry/auto-instrumentations-node": "0.40.0",
     "@opentelemetry/core": "1.18.1",
     "@opentelemetry/exporter-metrics-otlp-proto": "0.45.1",
     "@opentelemetry/exporter-trace-otlp-proto": "0.45.1",
