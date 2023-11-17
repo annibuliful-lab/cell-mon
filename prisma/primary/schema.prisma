@@ -164,17 +164,48 @@ model WorkspaceAccount {
   @@map("workspace_account")
 }
 
-model PhoneMetadata {
-  id          String        @id @db.Uuid
-  msisdn      String
-  imsi        String?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime?
-  createdBy   String
-  updatedBy   String?
-  PhoneTarget PhoneTarget[]
+model PhoneMetadataImsi {
+  id            String          @id @db.Uuid
+  imsi          String
+  operator      String
+  mcc           String
+  mnc           String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?
+  createdBy     String
+  updatedBy     String?
+  phoneMetadata PhoneMetadata[]
 
-  @@unique([imsi, msisdn])
+  @@unique([imsi, mcc, mnc, operator])
+  @@index([imsi, operator])
+  @@map("phone_metadata_imsi")
+}
+
+model PhoneMetadataMsisdn {
+  id            String          @id @db.Uuid
+  msisdn        String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?
+  createdBy     String
+  updatedBy     String?
+  phoneMetadata PhoneMetadata[]
+
+  @@unique([msisdn])
+  @@map("phone_metadata_msisdn")
+}
+
+model PhoneMetadata {
+  id           String              @id @db.Uuid
+  msisdnId     String              @db.Uuid
+  msisdn       PhoneMetadataMsisdn @relation(fields: [msisdnId], references: [id])
+  imsiId       String?             @db.Uuid
+  imsi         PhoneMetadataImsi?  @relation(fields: [imsiId], references: [id])
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime?
+  createdBy    String
+  updatedBy    String?
+  phoneTargets PhoneTarget[]
+
   @@map("phone_metadata")
 }
 
