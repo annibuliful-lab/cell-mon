@@ -1,12 +1,22 @@
+import { BadRequest } from '@cell-mon/graphql';
+import { isValidIMSI } from '@cell-mon/utils';
+
 import { AppContext } from '../../@types/context';
 import { Resolvers } from '../../codegen-generated';
 
 export const mutation: Resolvers<AppContext>['Mutation'] = {
   createPhoneMetadata: (_, input, ctx) => {
-    return ctx.phoneMetadataService.create(input) as never;
+    if (input.imsi && !isValidIMSI(input.imsi)) {
+      throw new BadRequest(['imsi']);
+    }
+
+    return ctx.phoneMetadataService.create(input);
   },
   updatePhoneMetadata: (_, input, ctx) => {
-    return ctx.phoneMetadataService.update(input) as never;
+    if (input.imsi && !isValidIMSI(input.imsi)) {
+      throw new BadRequest(['imsi']);
+    }
+    return ctx.phoneMetadataService.update(input);
   },
 };
 

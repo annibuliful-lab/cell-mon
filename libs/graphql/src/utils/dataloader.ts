@@ -10,14 +10,14 @@ export function mapDataloaderRecord<T>({
   data,
   idField,
   ids,
-}: DataloaderWithIdsByCustomFieldId<T>) {
+}: DataloaderWithIdsByCustomFieldId<T>): T[] {
   if (data.length === 0) return Array(ids.length).fill(null);
 
   const dataMap = new Map(
     data.map((d) => [d[idField] as unknown as string, d]),
   );
 
-  return ids.map((id) => dataMap.get(id));
+  return ids.map((id) => dataMap.get(id)) as T[];
 }
 
 type MapDatasWithIdsByCustomFieldId<T extends { id: string }> = {

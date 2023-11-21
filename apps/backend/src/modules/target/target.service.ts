@@ -43,7 +43,11 @@ export class TargetService extends PrimaryRepository<
       async (ids: readonly string[]) => {
         const targets = await this.findByIds(ids);
 
-        return mapDataloaderRecord({ data: targets, ids, idField: 'id' });
+        return mapDataloaderRecord<Target>({
+          data: targets as Target[],
+          ids,
+          idField: 'id',
+        });
       },
       { cache: false },
     );

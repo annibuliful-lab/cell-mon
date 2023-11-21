@@ -1,4 +1,5 @@
 import { getAdminClient } from '@cell-mon/graphql-client';
+import { generateRandomIMSI } from '@cell-mon/utils';
 import { nanoid } from 'nanoid';
 
 export async function testCreatePhoneMetadata() {
@@ -10,7 +11,7 @@ export async function testCreatePhoneMetadata() {
         __scalar: true,
         __args: {
           msisdn: nanoid(),
-          imsi: nanoid(),
+          imsi: generateRandomIMSI(),
         },
       },
     })

@@ -11,6 +11,7 @@ export { BadRequest } from './errors/bad-request';
 export { DuplicatedResource } from './errors/duplicated-resource';
 export { ForbiddenError } from './errors/forbidden';
 export { GraphqlError } from './errors/graphql-error';
+export { InternalGraphqlError } from './errors/internal-server';
 export { NotfoundResource } from './errors/not-found-resource';
 export { cellTechnologyTypedef } from './schemas/cell-technology.schema';
 export { deleteOperationResultTypeDef } from './schemas/delete.schema';
