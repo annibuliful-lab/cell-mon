@@ -198,7 +198,9 @@ export class PhoneMetadataService extends PrimaryRepository<
   }
 
   async findByIds(ids: string[]) {
-    return this.baseSelectQuery().where('id', 'in', ids).execute();
+    return this.baseSelectQuery()
+      .where('phone_metadata.id', 'in', ids)
+      .execute();
   }
 
   async findById(id: string) {
