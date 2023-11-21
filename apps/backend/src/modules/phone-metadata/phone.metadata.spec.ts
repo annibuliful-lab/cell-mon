@@ -1,5 +1,6 @@
 import { Client, getAdminClient } from '@cell-mon/graphql-client';
 import { expectNotFoundError } from '@cell-mon/test';
+import { generateRandomIMSI } from '@cell-mon/utils';
 import { config } from 'dotenv';
 import { nanoid } from 'nanoid';
 import { v4 } from 'uuid';
@@ -13,7 +14,7 @@ describe('PhoneMetadata', () => {
   });
 
   it('creates new', async () => {
-    const imsi = nanoid();
+    const imsi = generateRandomIMSI();
     const msisdn = nanoid();
     const phone = await client.mutation({
       createPhoneMetadata: {
@@ -30,13 +31,13 @@ describe('PhoneMetadata', () => {
   });
 
   it('updates by id', async () => {
-    const imsi = nanoid();
+    const imsi = generateRandomIMSI();
     const msisdn = nanoid();
     const phone = await client.mutation({
       createPhoneMetadata: {
         __scalar: true,
         __args: {
-          imsi: nanoid(),
+          imsi: generateRandomIMSI(),
           msisdn: nanoid(),
         },
       },
@@ -76,7 +77,7 @@ describe('PhoneMetadata', () => {
   });
 
   it('gets by id', async () => {
-    const imsi = nanoid();
+    const imsi = generateRandomIMSI();
     const msisdn = nanoid();
     const created = await client.mutation({
       createPhoneMetadata: {
@@ -115,7 +116,7 @@ describe('PhoneMetadata', () => {
   });
 
   it('gets by msisdn', async () => {
-    const imsi = nanoid();
+    const imsi = generateRandomIMSI();
     const msisdn = nanoid();
     const created = await client.mutation({
       createPhoneMetadata: {
@@ -144,7 +145,7 @@ describe('PhoneMetadata', () => {
   });
 
   it('gets by imsi', async () => {
-    const imsi = nanoid();
+    const imsi = generateRandomIMSI();
     const msisdn = nanoid();
     const created = await client.mutation({
       createPhoneMetadata: {
