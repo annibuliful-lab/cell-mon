@@ -122,8 +122,14 @@ export class TargetEvidenceService extends PrimaryRepository<
     return targetEvidence;
   }
 
-  async findManyByTargetId(filter: QueryGetTargetEvidenceByTargetIdArgs) {
-    await this.verifyTargetIdInWorkspace(filter.targetId);
+  async findManyByTargetId(
+    filter: QueryGetTargetEvidenceByTargetIdArgs,
+    verifyTargetId = true,
+  ) {
+    if (verifyTargetId) {
+      await this.verifyTargetIdInWorkspace(filter.targetId);
+    }
+
     return this.db
       .selectFrom('target_evidence')
       .select(this.tableColumns)
