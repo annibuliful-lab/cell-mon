@@ -116,3 +116,7 @@ jobs:
 
       - name: backend test
         run: pnpm run backend:test
+
+      - uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: backend-testing
