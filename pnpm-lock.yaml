@@ -162,8 +162,8 @@ dependencies:
     specifier: 1.6.2
     version: 1.6.2
   bullmq:
-    specifier: 4.14.0
-    version: 4.14.0
+    specifier: 4.14.1
+    version: 4.14.1
   cookies-next:
     specifier: 4.1.0
     version: 4.1.0
@@ -9097,8 +9097,8 @@ packages:
     dependencies:
       semver: 7.5.4
 
-  /bullmq@4.14.0:
-    resolution: {integrity: sha512-2IjTzXfTkXQ+WNRy2/CVupnHJtqp6JpxacIvYbru2EvporUALnIcpiSpjJbk4V6kAbsYvrV2wRdUKllb+LfssQ==}
+  /bullmq@4.14.1:
+    resolution: {integrity: sha512-vz937j5eHRP11cUASP0oQPse4XM1UdWUPdTdqkaNtRyKQenU5GZvEb4Oxptk1nRBZsiTUMHciWkzKnFPdvIVLQ==}
     dependencies:
       cron-parser: 4.9.0
       glob: 8.1.0
