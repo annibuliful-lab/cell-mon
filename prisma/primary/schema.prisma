@@ -43,6 +43,21 @@ enum PRIORITY {
   URGENT
 }
 
+model PhoneOperator {
+  id          String   @id @default(uuid()) @db.Uuid
+  mnc         String
+  mcc         String
+  operator    String
+  brand       String
+  country     String
+  countryCode String
+  technology  String[]
+
+  @@unique([mnc, mcc, country, countryCode, brand, operator])
+  @@index([mcc, mnc])
+  @@map("phone_operator")
+}
+
 model Permission {
   id                       String                    @id @default(uuid()) @db.Uuid
   subject                  String

@@ -121,6 +121,12 @@ export class PhoneMetadataService extends PrimaryRepository<
 
       if (input.imsi) {
         const imsi = extractMccMncFromImsi(input.imsi);
+        if (!imsi) throw new BadRequest(['imsi']);
+
+        const phoneOperator = await this.findPhoneOperator({
+          mcc: imsi.mcc,
+          mnc: imsi.mnc,
+        });
 
         imsiId = (
           await tx
@@ -128,9 +134,9 @@ export class PhoneMetadataService extends PrimaryRepository<
             .values({
               id: v4(),
               imsi: input.imsi,
-              mcc: imsi?.mcc as string,
-              mnc: imsi?.mnc as string,
-              operator: 'Unknown',
+              mcc: imsi.mcc,
+              mnc: imsi.mnc,
+              operator: phoneOperator.operator,
               createdBy: this.context.accountId,
             })
             .onConflict((qb) =>
@@ -213,6 +219,27 @@ export class PhoneMetadataService extends PrimaryRepository<
     }
 
     return phone;
+  }
+
+  async findPhoneOperator({ mcc, mnc }: { mnc: string; mcc: string }) {
+    const phoneOperator = await this.db
+      .selectFrom('phone_operator')
+      .select(['operator', 'brand', 'country', 'countryCode', 'id'])
+      .where('mcc', '=', mcc)
+      .where('mnc', '=', mnc)
+      .executeTakeFirst();
+
+    if (!phoneOperator) {
+      return {
+        operator: 'Unknown',
+        brand: 'Unknown',
+        country: 'Unknown',
+        countryCode: 'Unknown',
+        technology: [''],
+      };
+    }
+
+    return phoneOperator;
   }
 
   findMany(filter: QueryGetPhonesArgs) {
