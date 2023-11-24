@@ -83,7 +83,7 @@
     "apollo-upload-client": "18.0.1",
     "argon2": "0.31.2",
     "axios": "1.6.2",
-    "bullmq": "4.14.1",
+    "bullmq": "4.14.2",
     "cookies-next": "4.1.0",
     "cross-undici-fetch": "0.4.14",
     "dataloader": "2.2.2",
