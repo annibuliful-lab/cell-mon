@@ -49,6 +49,7 @@ export const graphqlContext = async ({
     return {
       ...context,
       phoneTargetLocationService: new PhoneTargetLocationService(context),
+      phoneMetadataService: new PhoneMetadataService(context),
     } as AppContext;
   }
 

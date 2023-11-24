@@ -1,11 +1,20 @@
-import { prismaDbClient } from '@cell-mon/db';
+import { prismaDbClient, redisClient } from '@cell-mon/db';
 
 import { ForbiddenError } from '../errors/forbidden';
 
 type VerifyApiKeyPayload = {
   apiKey: string;
 };
-export async function verifyApiKey({ apiKey }: VerifyApiKeyPayload) {
+
+export async function verifyApiKey({ apiKey }: VerifyApiKeyPayload): Promise<{
+  apiKey: string;
+  workspaceId: string;
+}> {
+  const cache = await redisClient.get(apiKey);
+
+  if (cache) {
+    return JSON.parse(cache);
+  }
   const workspace = await prismaDbClient.workspaceConfiguration.findFirst({
     select: {
       workspaceId: true,
@@ -23,6 +32,14 @@ export async function verifyApiKey({ apiKey }: VerifyApiKeyPayload) {
   if (!workspace.isActive) {
     throw new ForbiddenError('you do not allow with API key');
   }
+
+  await redisClient.set(
+    apiKey,
+    JSON.stringify({
+      apiKey,
+      workspaceId: workspace.workspaceId,
+    }),
+  );
 
   return {
     apiKey,
