@@ -61,6 +61,10 @@ jobs:
       JWT_SECRET: secret
       JWT_ISSER: cell-mon
     steps:
+      - uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: backend-testing
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
@@ -116,7 +120,3 @@ jobs:
 
       - name: backend test
         run: pnpm run backend:test
-
-      - uses: actions-ecosystem/action-remove-labels@v1
-        with:
-          labels: backend-testing

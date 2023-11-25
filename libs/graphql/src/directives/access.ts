@@ -62,6 +62,10 @@ export function accessDirective() {
             context: GraphqlContext,
             info,
           ) {
+            if (requiredApiKey && !context.apiKey) {
+              throw new ForbiddenError('You must provide api key');
+            }
+
             if (requiredApiKey && context.apiKey) {
               return resolve(source, args, context, info);
             }

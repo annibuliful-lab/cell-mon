@@ -77,3 +77,13 @@ export async function getAdminClient() {
     },
   });
 }
+
+export function getAdminApiKeyClient() {
+  return createClient({
+    url: process.env.GRAPHQL_ENDPOINT,
+    fetch,
+    headers: {
+      'x-api-key': 'ADMIN_WORKSPACE_API_KEY',
+    },
+  });
+}

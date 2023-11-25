@@ -34,6 +34,10 @@ export function expectBadUserInputError(request: Promise<unknown>) {
   return expectError(/BAD_USER_INPUT/)(request);
 }
 
+export function expectBadRequestError(request: Promise<unknown>) {
+  return expectError(/Bad request/)(request);
+}
+
 export function expectNotFoundError(request: Promise<unknown>) {
   return expectError(/Not found resources/)(request);
 }
@@ -55,7 +59,7 @@ export function expectRoleError(request: Promise<unknown>) {
 }
 
 export function expectError(
-  error?: string | RegExp | Error
+  error?: string | RegExp | Error,
 ): (request: Promise<unknown>) => Promise<void> {
   return (req) => expect(req).rejects.toThrow(error);
 }

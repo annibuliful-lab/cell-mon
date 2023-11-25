@@ -1,4 +1,5 @@
 export {
+  getAdminApiKeyClient,
   getAdminClient,
   getUserBClient,
   getUserClient,

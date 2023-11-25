@@ -31,13 +31,9 @@ async function main() {
         countryCode: operator.countryCode,
       },
       where: {
-        mnc_mcc_country_countryCode_brand_operator: {
+        mnc_mcc: {
           mcc: operator.mcc,
           mnc: operator.mcc,
-          brand: operator.brand,
-          operator: operator.operator,
-          country: operator.countryName,
-          countryCode: operator.countryCode,
         },
       },
     });

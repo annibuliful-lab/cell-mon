@@ -1,5 +1,9 @@
-import { Client, getAdminClient } from '@cell-mon/graphql-client';
-import { expectNotFoundError } from '@cell-mon/test';
+import {
+  Client,
+  getAdminApiKeyClient,
+  getAdminClient,
+} from '@cell-mon/graphql-client';
+import { expectBadRequestError, expectNotFoundError } from '@cell-mon/test';
 import { generateRandomIMSI } from '@cell-mon/utils';
 import { config } from 'dotenv';
 import { nanoid } from 'nanoid';
@@ -8,9 +12,39 @@ config();
 
 describe('PhoneMetadata', () => {
   let client: Client;
+  let apiKeyClient: Client;
 
   beforeEach(async () => {
     client = await getAdminClient();
+    apiKeyClient = getAdminApiKeyClient();
+  });
+
+  it('creates new imsi', async () => {
+    const imsi = generateRandomIMSI();
+    const phone = await apiKeyClient.mutation({
+      createPhoneMetadataImsi: {
+        __scalar: true,
+        __args: {
+          imsi,
+        },
+      },
+    });
+
+    expect(imsi).toEqual(phone.createPhoneMetadataImsi.imsi);
+  });
+
+  it('throws bad request when create imsi with invalid number', async () => {
+    const imsi = '123456789';
+    expectBadRequestError(
+      apiKeyClient.mutation({
+        createPhoneMetadataImsi: {
+          __scalar: true,
+          __args: {
+            imsi,
+          },
+        },
+      }),
+    );
   });
 
   it('creates new', async () => {
@@ -19,6 +53,12 @@ describe('PhoneMetadata', () => {
     const phone = await client.mutation({
       createPhoneMetadata: {
         __scalar: true,
+        imsi: {
+          __scalar: true,
+        },
+        msisdn: {
+          __scalar: true,
+        },
         __args: {
           imsi,
           msisdn,
@@ -26,8 +66,8 @@ describe('PhoneMetadata', () => {
       },
     });
 
-    expect(imsi).toEqual(phone.createPhoneMetadata.imsi);
-    expect(msisdn).toEqual(phone.createPhoneMetadata.msisdn);
+    expect(imsi).toEqual(phone.createPhoneMetadata.imsi.imsi);
+    expect(msisdn).toEqual(phone.createPhoneMetadata.msisdn.msisdn);
   });
 
   it('updates by id', async () => {
@@ -45,6 +85,12 @@ describe('PhoneMetadata', () => {
 
     const updated = await client.mutation({
       updatePhoneMetadata: {
+        imsi: {
+          __scalar: true,
+        },
+        msisdn: {
+          __scalar: true,
+        },
         __scalar: true,
         __args: {
           id: phone.createPhoneMetadata.id,
@@ -57,8 +103,8 @@ describe('PhoneMetadata', () => {
     expect(updated.updatePhoneMetadata.id).toEqual(
       phone.createPhoneMetadata.id,
     );
-    expect(updated.updatePhoneMetadata.imsi).toEqual(imsi);
-    expect(updated.updatePhoneMetadata.msisdn).toEqual(msisdn);
+    expect(updated.updatePhoneMetadata.imsi.imsi).toEqual(imsi);
+    expect(updated.updatePhoneMetadata.msisdn.msisdn).toEqual(msisdn);
   });
 
   it('throws not found when update by wrong id', () => {
@@ -81,6 +127,12 @@ describe('PhoneMetadata', () => {
     const msisdn = nanoid();
     const created = await client.mutation({
       createPhoneMetadata: {
+        imsi: {
+          __scalar: true,
+        },
+        msisdn: {
+          __scalar: true,
+        },
         __scalar: true,
         __args: {
           imsi,
@@ -91,14 +143,20 @@ describe('PhoneMetadata', () => {
 
     const phone = await client.query({
       getPhoneById: {
+        imsi: {
+          __scalar: true,
+        },
+        msisdn: {
+          __scalar: true,
+        },
         __scalar: true,
         __args: {
           id: created.createPhoneMetadata.id,
         },
       },
     });
-    expect(imsi).toEqual(phone.getPhoneById.imsi);
-    expect(msisdn).toEqual(phone.getPhoneById.msisdn);
+    expect(imsi).toEqual(phone.getPhoneById.imsi.imsi);
+    expect(msisdn).toEqual(phone.getPhoneById.msisdn.msisdn);
     expect(created.createPhoneMetadata.id).toEqual(phone.getPhoneById.id);
   });
 
@@ -121,6 +179,12 @@ describe('PhoneMetadata', () => {
     const created = await client.mutation({
       createPhoneMetadata: {
         __scalar: true,
+        imsi: {
+          __scalar: true,
+        },
+        msisdn: {
+          __scalar: true,
+        },
         __args: {
           imsi,
           msisdn,
@@ -131,6 +195,12 @@ describe('PhoneMetadata', () => {
     const phones = await client.query({
       getPhones: {
         __scalar: true,
+        imsi: {
+          __scalar: true,
+        },
+        msisdn: {
+          __scalar: true,
+        },
         __args: {
           msisdn,
         },
@@ -150,6 +220,12 @@ describe('PhoneMetadata', () => {
     const created = await client.mutation({
       createPhoneMetadata: {
         __scalar: true,
+        imsi: {
+          __scalar: true,
+        },
+        msisdn: {
+          __scalar: true,
+        },
         __args: {
           imsi,
           msisdn,
@@ -160,6 +236,12 @@ describe('PhoneMetadata', () => {
     const phones = await client.query({
       getPhones: {
         __scalar: true,
+        imsi: {
+          __scalar: true,
+        },
+        msisdn: {
+          __scalar: true,
+        },
         __args: {
           imsi,
         },

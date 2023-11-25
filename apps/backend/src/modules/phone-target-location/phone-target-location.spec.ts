@@ -1,4 +1,9 @@
-import { Client, createClient, getAdminClient } from '@cell-mon/graphql-client';
+import {
+  Client,
+  createClient,
+  getAdminApiKeyClient,
+  getAdminClient,
+} from '@cell-mon/graphql-client';
 import { expectForbiddenError, testCreatePhoneTarget } from '@cell-mon/test';
 import { config } from 'dotenv';
 import { fetch } from 'undici';
@@ -9,9 +14,11 @@ config();
 
 describe('Phone Target Location', () => {
   let client: Client;
+  let apiKeyClient: Client;
 
   beforeAll(async () => {
     client = await getAdminClient();
+    apiKeyClient = getAdminApiKeyClient();
   });
 
   it('throws forbidden error when creates with invalid api key', async () => {
@@ -75,6 +82,7 @@ describe('Phone Target Location', () => {
       }),
     );
   });
+
   it('creates new with api key', async () => {
     const phoneTarget = await testCreatePhoneTarget();
     const network = {
@@ -98,14 +106,6 @@ describe('Phone Target Location', () => {
         longtitude: 53.472,
       },
     ];
-
-    const apiKeyClient = createClient({
-      url: process.env.GRAPHQL_ENDPOINT,
-      fetch,
-      headers: {
-        'x-api-key': 'ADMIN_WORKSPACE_API_KEY',
-      },
-    });
 
     const phoneTargetLocation = (
       await apiKeyClient.mutation({
@@ -174,7 +174,7 @@ describe('Phone Target Location', () => {
     ];
 
     const phoneTargetLocation = (
-      await client.mutation({
+      await apiKeyClient.mutation({
         createPhoneTargetLocation: {
           __scalar: true,
           network: {
@@ -240,7 +240,7 @@ describe('Phone Target Location', () => {
     ];
 
     const createdPhoneTargetLocation = (
-      await client.mutation({
+      await apiKeyClient.mutation({
         createPhoneTargetLocation: {
           __scalar: true,
           network: {
@@ -326,7 +326,7 @@ describe('Phone Target Location', () => {
     ];
 
     const createdPhoneTargetLocation = (
-      await client.mutation({
+      await apiKeyClient.mutation({
         createPhoneTargetLocation: {
           __scalar: true,
           network: {

@@ -53,8 +53,7 @@ model PhoneOperator {
   countryCode String
   technology  String[]
 
-  @@unique([mnc, mcc, country, countryCode, brand, operator])
-  @@index([mcc, mnc])
+  @@unique([mnc, mcc])
   @@map("phone_operator")
 }
 

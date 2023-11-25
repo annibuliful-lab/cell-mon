@@ -1,10 +1,25 @@
 import gql from 'graphql-tag';
 
 export const phoneTypeDefs = gql`
+  type PhoneMetadataImsi {
+    id: ID!
+    imsi: String!
+    operator: String!
+    mcc: String!
+    mnc: String!
+  }
+
+  type PhoneMetadataMsisdn {
+    id: ID!
+    msisdn: String!
+  }
+
   type PhoneMetadata {
     id: UUID!
-    msisdn: String!
-    imsi: String
+    msisdnId: String!
+    msisdn: PhoneMetadataMsisdn
+    imsiId: String
+    imsi: PhoneMetadataImsi
   }
 
   type Mutation {
@@ -14,6 +29,9 @@ export const phoneTypeDefs = gql`
       imsi: String
       msisdn: String
     ): PhoneMetadata! @access
+
+    createPhoneMetadataImsi(imsi: String!): PhoneMetadataImsi!
+      @access(requiredApiKey: true)
   }
 
   type Query {

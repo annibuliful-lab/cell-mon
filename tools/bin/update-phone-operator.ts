@@ -27,13 +27,9 @@ async function main() {
         countryCode: operator.countryCode ?? 'Unknown',
       },
       where: {
-        mnc_mcc_country_countryCode_brand_operator: {
+        mnc_mcc: {
           mcc: operator.mcc,
           mnc: operator.mnc,
-          brand: operator.brand ?? 'Unknown',
-          operator: operator.operator ?? 'Unknown',
-          country: operator.countryName ?? 'Unknown',
-          countryCode: operator.countryCode ?? 'Unknown',
         },
       },
     });
