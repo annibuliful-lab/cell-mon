@@ -49,6 +49,7 @@ export class PhoneMetadataService extends PrimaryRepository<
             throw new BadRequest(['imsi'], 'Invalid Imsi number');
           }
 
+          const operator = await this.findPhoneOperator(imsiInfo);
           const imsi = await tx
             .insertInto('phone_metadata_imsi')
             .values({
@@ -56,7 +57,7 @@ export class PhoneMetadataService extends PrimaryRepository<
               imsi: input.imsi,
               mcc: imsiInfo.mcc,
               mnc: imsiInfo.mnc,
-              operator: 'Unknown',
+              operator: operator.operator,
               createdBy: this.context.accountId,
             })
             .returningAll()

@@ -1,5 +1,5 @@
 import { Client, getAdminClient } from '@cell-mon/graphql-client';
-import { expectNotFoundError } from '@cell-mon/test';
+import { expectBadRequestError, expectNotFoundError } from '@cell-mon/test';
 import { generateRandomIMSI } from '@cell-mon/utils';
 import { config } from 'dotenv';
 import { nanoid } from 'nanoid';
@@ -11,6 +11,34 @@ describe('PhoneMetadata', () => {
 
   beforeEach(async () => {
     client = await getAdminClient();
+  });
+
+  it('creates new imsi', async () => {
+    const imsi = generateRandomIMSI();
+    const phone = await client.mutation({
+      createPhoneMetadataImsi: {
+        __scalar: true,
+        __args: {
+          imsi,
+        },
+      },
+    });
+
+    expect(imsi).toEqual(phone.createPhoneMetadataImsi.imsi);
+  });
+
+  it('throws bad request when create imsi with invalid number', async () => {
+    const imsi = '123456789';
+    expectBadRequestError(
+      client.mutation({
+        createPhoneMetadataImsi: {
+          __scalar: true,
+          __args: {
+            imsi,
+          },
+        },
+      }),
+    );
   });
 
   it('creates new', async () => {

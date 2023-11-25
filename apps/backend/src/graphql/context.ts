@@ -15,6 +15,7 @@ import { MissionService } from '../modules/mission/mission.service';
 import { MissionTargetService } from '../modules/mission-target/mission-target.service';
 import { PermissionAbilityService } from '../modules/permission-ability/permission-ability.service';
 import { PhoneMetadataService } from '../modules/phone-metadata/phone-metadata.service';
+import { PhoneMetadataImsiService } from '../modules/phone-metadata/phone-metadata-imsi.service';
 import { PhoneTargetService } from '../modules/phone-target/phone-target.service';
 import { PhoneTargetLocationService } from '../modules/phone-target-location/phone-target-location.service';
 import { TargetService } from '../modules/target/target.service';
@@ -50,6 +51,7 @@ export const graphqlContext = async ({
       ...context,
       phoneTargetLocationService: new PhoneTargetLocationService(context),
       phoneMetadataService: new PhoneMetadataService(context),
+      phoneMetadataImsiService: new PhoneMetadataImsiService(context),
     } as AppContext;
   }
 
@@ -104,6 +106,7 @@ export const graphqlContext = async ({
     missionService: new MissionService(context),
     phoneTargetService: new PhoneTargetService(context),
     phoneTargetLocationService: new PhoneTargetLocationService(context),
+    phoneMetadataImsiService: new PhoneMetadataImsiService(context),
     jobService: new JobService(context),
   } as AppContext;
 };

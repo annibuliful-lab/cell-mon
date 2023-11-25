@@ -1,10 +1,30 @@
 import { BadRequest } from '@cell-mon/graphql';
-import { isValidIMSI } from '@cell-mon/utils';
+import { extractMccMncFromImsi, isValidIMSI } from '@cell-mon/utils';
 
 import { AppContext } from '../../@types/context';
 import { Resolvers } from '../../codegen-generated';
 
 export const mutation: Resolvers<AppContext>['Mutation'] = {
+  createPhoneMetadataImsi: async (_, input, ctx) => {
+    if (!isValidIMSI(input.imsi)) {
+      throw new BadRequest(['imsi']);
+    }
+
+    const imsi = extractMccMncFromImsi(input.imsi);
+    if (!imsi) {
+      throw new BadRequest(['imsi']);
+    }
+
+    const operator = await ctx.phoneMetadataService.findPhoneOperator({
+      mcc: imsi.mcc,
+      mnc: imsi.mnc,
+    });
+
+    return ctx.phoneMetadataImsiService.create({
+      ...input,
+      operator: operator.operator,
+    });
+  },
   createPhoneMetadata: (_, input, ctx) => {
     if (input.imsi && !isValidIMSI(input.imsi)) {
       throw new BadRequest(['imsi']);
