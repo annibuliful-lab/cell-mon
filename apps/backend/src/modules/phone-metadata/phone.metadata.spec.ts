@@ -1,4 +1,8 @@
-import { Client, getAdminClient } from '@cell-mon/graphql-client';
+import {
+  Client,
+  getAdminApiKeyClient,
+  getAdminClient,
+} from '@cell-mon/graphql-client';
 import { expectBadRequestError, expectNotFoundError } from '@cell-mon/test';
 import { generateRandomIMSI } from '@cell-mon/utils';
 import { config } from 'dotenv';
@@ -8,14 +12,16 @@ config();
 
 describe('PhoneMetadata', () => {
   let client: Client;
+  let apiKeyClient: Client;
 
   beforeEach(async () => {
     client = await getAdminClient();
+    apiKeyClient = getAdminApiKeyClient();
   });
 
   it('creates new imsi', async () => {
     const imsi = generateRandomIMSI();
-    const phone = await client.mutation({
+    const phone = await apiKeyClient.mutation({
       createPhoneMetadataImsi: {
         __scalar: true,
         __args: {
@@ -30,7 +36,7 @@ describe('PhoneMetadata', () => {
   it('throws bad request when create imsi with invalid number', async () => {
     const imsi = '123456789';
     expectBadRequestError(
-      client.mutation({
+      apiKeyClient.mutation({
         createPhoneMetadataImsi: {
           __scalar: true,
           __args: {
