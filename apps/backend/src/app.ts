@@ -1,9 +1,4 @@
-import {
-  mqRedisEmitter,
-  primaryDbClient,
-  prismaDbClient,
-  redisClient,
-} from '@cell-mon/db';
+import { mqRedisEmitter, primaryDbClient, redisClient } from '@cell-mon/db';
 import {
   AuthenticationError,
   ForbiddenError,
@@ -126,7 +121,6 @@ export async function main() {
   async function gracefulShutdown() {
     await server.close();
     redisClient.disconnect();
-    await prismaDbClient.$disconnect();
     await primaryDbClient.destroy();
     process.exit(1);
   }
