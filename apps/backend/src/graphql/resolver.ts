@@ -38,6 +38,7 @@ import {
   query as permissionAbilityQueryResolver,
 } from '../modules/permission-ability/permission-ability.resolver';
 import {
+  fields as phoneMetadataFieldResolver,
   mutation as phoneMetadataMutationResolver,
   query as phoneMetadataQueryResolver,
 } from '../modules/phone-metadata/phone-metadata.resolver';
@@ -108,4 +109,5 @@ export const resolvers: Resolvers = {
   ...missionTargetFieldResolver,
   ...targetFieldResolver,
   ...phoneTargetFieldResolver,
+  ...phoneMetadataFieldResolver,
 };

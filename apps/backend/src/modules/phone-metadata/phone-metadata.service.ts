@@ -25,13 +25,17 @@ export class PhoneMetadataService extends PrimaryRepository<
 > {
   constructor(ctx: GraphqlContext) {
     super(ctx);
-    this.tableColumns = ['phone_metadata.id as id'];
+    this.tableColumns = ['phone_metadata.id as id', 'imsiId', 'msisdnId'];
 
     this.dataloader = new DataLoader(
       async (ids: readonly string[]) => {
         const phones = await this.findByIds(ids as string[]);
 
-        return mapDataloaderRecord({ data: phones, ids, idField: 'id' });
+        return mapDataloaderRecord({
+          data: phones,
+          ids,
+          idField: 'id',
+        }) as PhoneMetadata[];
       },
       { cache: false },
     );
@@ -89,11 +93,15 @@ export class PhoneMetadataService extends PrimaryRepository<
           throw new InternalGraphqlError();
         }
 
+        if (!msisdn) {
+          throw new InternalGraphqlError();
+        }
+
         return {
           id: phone.id,
-          imsi: input.imsi,
-          msisdn: input.msisdn,
-        };
+          imsiId: imsiId,
+          msisdnId: msisdn.id,
+        } as PhoneMetadata;
       });
   }
 
@@ -111,12 +119,12 @@ export class PhoneMetadataService extends PrimaryRepository<
     if (!input.imsi && !input.msisdn) {
       return {
         id: input.id,
-        imsi: input.imsi,
-        msisdn: input.msisdn as string,
+        imsiId: phone.imsiId as string,
+        msisdnId: phone.msisdnId,
       };
     }
 
-    await this.db.transaction().execute(async (tx) => {
+    return this.db.transaction().execute(async (tx) => {
       let imsiId = phone.imsiId;
       let msisdnId = phone.msisdnId;
 
@@ -177,11 +185,13 @@ export class PhoneMetadataService extends PrimaryRepository<
         })
         .where('id', '=', input.id)
         .execute();
-    });
 
-    return this.baseSelectQuery()
-      .where('phone_metadata.id', '=', input.id)
-      .executeTakeFirst() as Promise<PhoneMetadata>;
+      return {
+        id: input.id,
+        imsiId,
+        msisdnId,
+      } as PhoneMetadata;
+    });
   }
 
   private baseSelectQuery() {
@@ -199,19 +209,23 @@ export class PhoneMetadataService extends PrimaryRepository<
       )
       .select([
         'phone_metadata.id as id',
-        'msisdn.msisdn as msisdn',
-        'imsi.imsi as imsi',
+        'phone_metadata.msisdnId as msisdnId',
+        'phone_metadata.imsiId as imsiId',
       ]);
   }
 
   async findByIds(ids: string[]) {
-    return this.baseSelectQuery()
+    return this.db
+      .selectFrom('phone_metadata')
+      .select(this.tableColumns)
       .where('phone_metadata.id', 'in', ids)
       .execute();
   }
 
   async findById(id: string) {
-    const phone = await this.baseSelectQuery()
+    const phone = await this.db
+      .selectFrom('phone_metadata')
+      .select(this.tableColumns)
       .where('phone_metadata.id', '=', id)
       .executeTakeFirst();
 

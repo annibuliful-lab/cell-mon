@@ -48,3 +48,18 @@ export const query: Resolvers<AppContext>['Query'] = {
     return ctx.phoneMetadataService.findMany(input) as never;
   },
 };
+
+export const fields: Resolvers<AppContext> = {
+  PhoneMetadata: {
+    imsi: (parent, _, ctx) => {
+      if (!parent.imsiId) return;
+
+      return ctx.phoneMetadataImsiService.dataloader.load(parent.imsiId);
+    },
+    msisdn: (parent, _, ctx) => {
+      if (!parent.msisdnId) return;
+
+      return ctx.phoneMetadataMsisdnService.dataloader.load(parent.msisdnId);
+    },
+  },
+};

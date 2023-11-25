@@ -9,11 +9,17 @@ export const phoneTypeDefs = gql`
     mnc: String!
   }
 
+  type PhoneMetadataMsisdn {
+    id: ID!
+    msisdn: String!
+  }
+
   type PhoneMetadata {
     id: UUID!
-    msisdn: String!
-    imsi: String
-    imsiInfo: PhoneMetadataImsi
+    msisdnId: String!
+    msisdn: PhoneMetadataMsisdn
+    imsiId: String
+    imsi: PhoneMetadataImsi
   }
 
   type Mutation {

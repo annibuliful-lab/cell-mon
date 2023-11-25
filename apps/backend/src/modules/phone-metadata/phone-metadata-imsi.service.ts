@@ -3,8 +3,10 @@ import {
   BadRequest,
   GraphqlContext,
   InternalGraphqlError,
+  mapDataloaderRecord,
 } from '@cell-mon/graphql';
 import { extractMccMncFromImsi } from '@cell-mon/utils';
+import DataLoader from 'dataloader';
 import { v4 } from 'uuid';
 
 import {
@@ -19,6 +21,25 @@ export class PhoneMetadataImsiService extends PrimaryRepository<
 > {
   constructor(ctx: GraphqlContext) {
     super(ctx);
+
+    this.tableColumns = ['id', 'imsi', 'mcc', 'mnc', 'operator'];
+
+    this.dataloader = new DataLoader(
+      async (ids: readonly string[]) => {
+        const phones = await this.findByIds(ids as string[]);
+
+        return mapDataloaderRecord({ data: phones, ids, idField: 'id' });
+      },
+      { cache: false },
+    );
+  }
+
+  async findByIds(ids: string[]) {
+    return this.db
+      .selectFrom('phone_metadata_imsi')
+      .select(this.tableColumns)
+      .where('id', 'in', ids)
+      .execute();
   }
 
   async create(
