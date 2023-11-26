@@ -21,7 +21,7 @@ export const targetTypeDef = gql`
       photoUrl: String
       priority: PRIORITY
       tags: [String!]
-    ): Target! @access
+    ): Target! @access(subject: "TARGET", action: CREATE)
 
     updateTarget(
       id: UUID!
@@ -31,19 +31,20 @@ export const targetTypeDef = gql`
       address: String
       priority: PRIORITY
       tags: [String!]
-    ): Target! @access
+    ): Target! @access(subject: "TARGET", action: UPDATE)
 
-    deleteTarget(id: UUID!): DeleteOperationResult! @access
+    deleteTarget(id: UUID!): DeleteOperationResult!
+      @access(subject: "TARGET", action: DELETE)
   }
 
   type Query {
-    getTargetById(id: UUID!): Target! @access
+    getTargetById(id: UUID!): Target! @access(subject: "TARGET", action: READ)
 
     getTargets(
       search: String
       priorities: [PRIORITY!]
       tags: [String!]
       pagination: OffsetPaginationInput
-    ): [Target!]! @access
+    ): [Target!]! @access(subject: "TARGET", action: READ)
   }
 `;

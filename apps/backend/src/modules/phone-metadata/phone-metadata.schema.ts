@@ -23,19 +23,24 @@ export const phoneTypeDefs = gql`
   }
 
   type Mutation {
-    createPhoneMetadata(msisdn: String!, imsi: String): PhoneMetadata! @access
+    createPhoneMetadata(msisdn: String!, imsi: String): PhoneMetadata!
+      @access(subject: "PHONE_METADATA", action: CREATE)
+
     updatePhoneMetadata(
       id: UUID!
       imsi: String
       msisdn: String
-    ): PhoneMetadata! @access
+    ): PhoneMetadata! @access(subject: "PHONE_METADATA", action: UPDATE)
 
     createPhoneMetadataImsi(imsi: String!): PhoneMetadataImsi!
       @access(requiredApiKey: true)
   }
 
   type Query {
-    getPhoneById(id: UUID!): PhoneMetadata! @access
-    getPhones(msisdn: String, imsi: String): [PhoneMetadata!]! @access
+    getPhoneById(id: UUID!): PhoneMetadata!
+      @access(subject: "PHONE_METADATA", action: READ)
+
+    getPhones(msisdn: String, imsi: String): [PhoneMetadata!]!
+      @access(subject: "PHONE_METADATA", action: READ)
   }
 `;

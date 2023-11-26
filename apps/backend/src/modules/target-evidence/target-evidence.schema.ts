@@ -33,24 +33,26 @@ export const targetEvidenceTypeDef = gql`
       investigatedDate: DateTime!
       note: String!
       evidence: EvidenceInput
-    ): TargetEvidence! @access
+    ): TargetEvidence! @access(subject: "TARGET_EVIDENCE", action: CREATE)
 
     updateTargetEvidence(
       id: UUID!
       investigatedDate: DateTime
       note: String
       evidence: EvidenceInput
-    ): TargetEvidence! @access
+    ): TargetEvidence! @access(subject: "TARGET_EVIDENCE", action: UPDATE)
 
-    deleteTargetEvidence(id: UUID!): DeleteOperationResult! @access
+    deleteTargetEvidence(id: UUID!): DeleteOperationResult!
+      @access(subject: "TARGET_EVIDENCE", action: DELETE)
   }
 
   type Query {
-    getTargetEvidenceById(id: UUID!): TargetEvidence! @access
+    getTargetEvidenceById(id: UUID!): TargetEvidence!
+      @access(subject: "TARGET_EVIDENCE", action: READ)
 
     getTargetEvidenceByTargetId(
       targetId: UUID!
       pagination: OffsetPaginationInput
-    ): [TargetEvidence!]! @access
+    ): [TargetEvidence!]! @access(subject: "TARGET_EVIDENCE", action: READ)
   }
 `;

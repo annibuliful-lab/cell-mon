@@ -22,7 +22,7 @@ export const missionTypedef = gql`
       title: String!
       description: String
       tags: [String!]
-    ): Mission! @access
+    ): Mission! @access(subject: "MISSION", action: CREATE)
 
     updateMission(
       id: ID!
@@ -30,19 +30,20 @@ export const missionTypedef = gql`
       description: String
       status: MissionStatus
       tags: [String!]
-    ): Mission! @access
+    ): Mission! @access(subject: "MISSION", action: UPDATE)
 
-    deleteMission(id: ID!): DeleteOperationResult! @access
+    deleteMission(id: ID!): DeleteOperationResult!
+      @access(subject: "MISSION", action: DELETE)
   }
 
   type Query {
-    getMissionById(id: ID!): Mission! @access
+    getMissionById(id: ID!): Mission! @access(subject: "MISSION", action: READ)
 
     getMissions(
       status: MissionStatus
       title: String
       pagination: OffsetPaginationInput
       tags: [String!]
-    ): [Mission!]! @access
+    ): [Mission!]! @access(subject: "MISSION", action: READ)
   }
 `;

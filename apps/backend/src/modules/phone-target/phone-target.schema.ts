@@ -15,22 +15,26 @@ export const phoneTargetTypeDef = gql`
   }
 
   type Mutation {
-    assignPhoneToTarget(phoneId: UUID!, targetId: UUID!): PhoneTarget! @access
+    assignPhoneToTarget(phoneId: UUID!, targetId: UUID!): PhoneTarget!
+      @access(subject: "TARGET", action: CREATE)
 
     bulkAssignPhonesToTarget(
       targetId: UUID!
       phoneIds: [UUID!]!
-    ): [PhoneTarget!]! @access
+    ): [PhoneTarget!]! @access(subject: "TARGET", action: CREATE)
 
-    unassignPhoneFromTarget(id: UUID!): PhoneTargetOperationResult! @access
+    unassignPhoneFromTarget(id: UUID!): PhoneTargetOperationResult!
+      @access(subject: "TARGET", action: DELETE)
 
     bulkUnassignPhonesFromTarget(ids: [UUID!]!): PhoneTargetOperationResult!
-      @access
+      @access(subject: "TARGET", action: DELETE)
   }
 
   type Query {
-    getPhoneTargetById(id: UUID!): PhoneTarget! @access
+    getPhoneTargetById(id: UUID!): PhoneTarget!
+      @access(subject: "TARGET", action: READ)
 
-    getPhoneTargetsByTargetId(targetId: UUID!): [PhoneTarget!]! @access
+    getPhoneTargetsByTargetId(targetId: UUID!): [PhoneTarget!]!
+      @access(subject: "TARGET", action: READ)
   }
 `;

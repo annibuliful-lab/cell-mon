@@ -14,26 +14,29 @@ export const missionTargetTypeDef = gql`
   }
 
   type Mutation {
-    assignTargetToMission(targetId: ID!, missionId: ID!): MissionTarget! @access
+    assignTargetToMission(targetId: ID!, missionId: ID!): MissionTarget!
+      @access(subject: "MISSION_TARGET", action: CREATE)
 
     bulkAssignTargetsToMission(
       targetIds: [ID!]!
       missionId: ID!
-    ): [MissionTarget!]! @access
+    ): [MissionTarget!]! @access(subject: "MISSION_TARGET", action: CREATE)
 
-    unassignTargetFromMission(id: ID!): MissionTargetOperationResult! @access
+    unassignTargetFromMission(id: ID!): MissionTargetOperationResult!
+      @access(subject: "MISSION_TARGET", action: DELETE)
 
     bulkUnassignTargetsFromMission(ids: [ID!]!): MissionTargetOperationResult!
-      @access
+      @access(subject: "MISSION_TARGET", action: DELETE)
   }
 
   type Query {
-    getMissionTargetById(id: ID!): MissionTarget! @access
+    getMissionTargetById(id: ID!): MissionTarget!
+      @access(subject: "MISSION_TARGET", action: READ)
 
     getMissionTargetsByMissionId(
       missionId: ID!
       targetPriorities: [PRIORITY!]
       pagination: OffsetPaginationInput
-    ): [MissionTarget!]! @access
+    ): [MissionTarget!]! @access(subject: "MISSION_TARGET", action: READ)
   }
 `;
