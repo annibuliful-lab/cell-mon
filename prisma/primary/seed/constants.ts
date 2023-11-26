@@ -37,3 +37,63 @@ export const MISSION_PERMISSIONS = PERMISSION_ABILITILES.map((action) => ({
   action,
   subject: 'MISSION',
 }));
+
+export const FILE_PERMISSIONS = PERMISSION_ABILITILES.map((action) => ({
+  action,
+  subject: 'FILE',
+}));
+
+export const JOB_PERMISSIONS = PERMISSION_ABILITILES.map((action) => ({
+  action,
+  subject: 'JOB',
+}));
+
+export const MISSION_TARGET_PERMISSIONS = PERMISSION_ABILITILES.map(
+  (action) => ({
+    action,
+    subject: 'MISSION_TARGET',
+  }),
+);
+
+export const PHONE_METADATA_PERMISSIONS = PERMISSION_ABILITILES.map(
+  (action) => ({
+    action,
+    subject: 'PHONE_METADATA',
+  }),
+);
+
+export const PHONE_TARGET_PERMISSIONS = PERMISSION_ABILITILES.map((action) => ({
+  action,
+  subject: 'PHONE_TARGET',
+}));
+
+export const TARGET_EVIDENCE_PERMISSIONS = PERMISSION_ABILITILES.map(
+  (action) => ({
+    action,
+    subject: 'TARGET_EVIDENCE',
+  }),
+);
+
+export const WORKSPACE_PERMISSIONS = PERMISSION_ABILITILES.map((action) => ({
+  action,
+  subject: 'WORKSPACE',
+}));
+
+export const WORKSPACE_ROLE_PERMISSIONS = PERMISSION_ABILITILES.map(
+  (action) => ({
+    action,
+    subject: 'WORKSPACE_ROLE',
+  }),
+);
+
+export const WORKSPACE_ROLE_PERMISSION_PERMISSIONS = PERMISSION_ABILITILES.map(
+  (action) => ({
+    action,
+    subject: 'WORKSPACE_ROLE_PERMISSION',
+  }),
+);
+
+export const PERMISSION_PERMISSIONS = PERMISSION_ABILITILES.map((action) => ({
+  action,
+  subject: 'PERMISSION',
+}));

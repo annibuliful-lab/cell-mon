@@ -62,6 +62,7 @@ import {
   query as targetEvidenceQueryResolver,
 } from '../modules/target-evidence/target-evidence.resolver';
 import {
+  fields as workspaceFieldResolver,
   mutation as workspaceMutationResolver,
   query as workspaceQueryResolver,
 } from '../modules/workspace/workspace.resolver';
@@ -110,4 +111,5 @@ export const resolvers: Resolvers = {
   ...targetFieldResolver,
   ...phoneTargetFieldResolver,
   ...phoneMetadataFieldResolver,
+  ...workspaceFieldResolver,
 };

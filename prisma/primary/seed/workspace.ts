@@ -9,6 +9,12 @@ import {
 import { v4 } from 'uuid';
 
 export async function seedWorkspace() {
+  const permissions = await client.permission.findMany({
+    select: {
+      id: true,
+    },
+  });
+
   const adminWorkspace = await client.workspace.create({
     data: {
       id: WORKSPACE_ID,
@@ -26,6 +32,17 @@ export async function seedWorkspace() {
           id: v4(),
           title: 'OWNER',
           createdBy: 'SYSTEM',
+          workspaceRolePermissions: {
+            createMany: {
+              data: permissions.map((p) => ({
+                id: v4(),
+                createdBy: 'SYSTEM',
+                workspaceId: WORKSPACE_ID,
+                permissionId: p.id,
+              })),
+              skipDuplicates: true,
+            },
+          },
           workspaceAccounts: {
             create: {
               id: v4(),

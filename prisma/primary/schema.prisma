@@ -63,6 +63,7 @@ model Permission {
   action                   PermissionAction
   workspaceRolePermissions WorkspaceRolePermission[]
 
+  @@unique([subject, action])
   @@map("permission")
 }
 
@@ -115,6 +116,7 @@ model Workspace {
   workspaceRoles           WorkspaceRole[]
   workspaceRolePermissions WorkspaceRolePermission[]
 
+  @@unique([title])
   @@map("workspace")
 }
 

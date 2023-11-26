@@ -1,20 +1,33 @@
 import gql from 'graphql-tag';
 
 export const workspaceTypeDefs = gql`
+  type WorkspaceRolePermission {
+    id: ID!
+    roleId: ID!
+    subject: String!
+    action: PermissionAction!
+  }
+
+  type WorkspaceRole {
+    id: ID!
+    title: String!
+    permissions: [WorkspaceRolePermission!]
+  }
+
   type Workspace {
-    id: Int!
+    id: ID!
     title: String!
     description: String
+    roles: [WorkspaceRole!]
   }
 
   input WorkspaceFilterInput {
-    accountId: Int!
+    accountId: ID!
     limit: Int
     offset: Int
   }
 
   input CreateWorkspaceInput {
-    slug: String!
     title: String!
     description: String
   }
@@ -25,12 +38,17 @@ export const workspaceTypeDefs = gql`
   }
 
   type Mutation {
+    createWorkspaceRole(title: String!, permissionIds: [ID!]!): WorkspaceRole!
+      @access
+
     createWorkspace(input: CreateWorkspaceInput!): Workspace! @access
-    updateWorkspace(id: UUID!, input: CreateWorkspaceInput!): Workspace! @access
+
+    updateWorkspace(id: ID!, input: CreateWorkspaceInput!): Workspace! @access
   }
 
   type Query {
-    getWorkspaceById(id: UUID!): Workspace! @access
+    getWorkspaceById(id: ID!): Workspace! @access
+
     getWorkspaces(limit: Int, offset: Int): [Workspace!]! @access
   }
 `;

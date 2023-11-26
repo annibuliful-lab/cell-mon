@@ -27,8 +27,8 @@ async function cleanup() {
 async function main() {
   await cleanup();
   await seedUsers();
-  await seedWorkspace();
   await seedPermissionAbilities();
+  await seedWorkspace();
 }
 
 main();

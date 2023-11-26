@@ -15,7 +15,11 @@ export class PermissionAbilityService extends PrimaryRepository<
 > {
   constructor(context: GraphqlContext) {
     super(context);
-    this.tableColumns = ['action', 'id', 'subject'];
+    this.tableColumns = [
+      'permission.action as action',
+      'permission.id as id',
+      'permission.subject as subject',
+    ];
   }
 
   create(input: CreatePermissionAbilityInput) {
@@ -87,6 +91,24 @@ export class PermissionAbilityService extends PrimaryRepository<
       })
       .limit(filter.limit ?? 20)
       .offset(filter.offset ?? 0)
+      .execute();
+  }
+
+  async findManyByRoleId(roleId: string) {
+    return this.db
+      .selectFrom('permission')
+      .innerJoin(
+        'workspace_role_permission',
+        'permission.id',
+        'workspace_role_permission.permissionId',
+      )
+      .select([
+        'permission.action as action',
+        'permission.id as id',
+        'permission.subject as subject',
+        'workspace_role_permission.roleId as roleId',
+      ])
+      .where('workspace_role_permission.roleId', '=', roleId)
       .execute();
   }
 }

@@ -47,6 +47,6 @@ export const permissionAbilityTypeDefs = gql`
   type Query {
     getPermissionAbilities(
       filter: PermissionAbilityFilterInput!
-    ): [PermissionAbility!]! @access(subject: "PERMISSION", action: READ)
+    ): [PermissionAbility!]! @access
   }
 `;
