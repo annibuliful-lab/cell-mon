@@ -47,7 +47,13 @@ export class Fileservice extends PrimaryRepository<never, GraphqlContext> {
       return this.getSignedUrl(filename);
     } catch (error) {
       logger.error(error, 'Upload file');
-      throw new GraphqlError('Internal server error to upload file');
+      throw new GraphqlError(
+        'Internal server error to upload file',
+        {
+          statusCode: 500,
+        },
+        500,
+      );
     }
   }
 }

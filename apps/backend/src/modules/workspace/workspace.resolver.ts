@@ -8,6 +8,9 @@ export const mutation: Resolvers<AppContext>['Mutation'] = {
   updateWorkspace: (_, { id, input }, ctx) => {
     return ctx.workspaceService.update(id, input) as never;
   },
+  createWorkspaceRole: (_, input, ctx) => {
+    return ctx.workspaceRoleService.create(input);
+  },
 };
 
 export const query: Resolvers<AppContext>['Query'] = {
@@ -17,7 +20,15 @@ export const query: Resolvers<AppContext>['Query'] = {
   getWorkspaces: (_, filter, ctx) => {
     return ctx.workspaceService.findMany({
       ...filter,
-      accountId: Number(ctx.accountId),
+      accountId: ctx.accountId,
     }) as unknown as Promise<Workspace[]>;
+  },
+};
+
+export const fields: Resolvers<AppContext> = {
+  Workspace: {
+    roles: (parent, _, ctx) => {
+      return ctx.workspaceRoleService.dataloader.load(parent.id);
+    },
   },
 };

@@ -16,6 +16,7 @@ import { PhoneTargetLocationService } from '../modules/phone-target-location/pho
 import { TargetService } from '../modules/target/target.service';
 import { TargetEvidenceService } from '../modules/target-evidence/target-evidence.service';
 import { WorkspaceService } from '../modules/workspace/workspace.service';
+import { WorkspaceRoleService } from '../modules/workspace/workspace-role.service';
 
 export type ServiceContext = {
   accountService: AccountService;
@@ -32,6 +33,7 @@ export type ServiceContext = {
   phoneTargetLocationService: PhoneTargetLocationService;
   phoneMetadataImsiService: PhoneMetadataImsiService;
   phoneMetadataMsisdnService: PhoneMetadataMsisdnService;
+  workspaceRoleService: WorkspaceRoleService;
   jobService: JobService;
   pubsub: PubSub;
 };

@@ -22,6 +22,7 @@ import { PhoneTargetLocationService } from '../modules/phone-target-location/pho
 import { TargetService } from '../modules/target/target.service';
 import { TargetEvidenceService } from '../modules/target-evidence/target-evidence.service';
 import { WorkspaceService } from '../modules/workspace/workspace.service';
+import { WorkspaceRoleService } from '../modules/workspace/workspace-role.service';
 
 config();
 
@@ -110,6 +111,7 @@ export const graphqlContext = async ({
     phoneTargetLocationService: new PhoneTargetLocationService(context),
     phoneMetadataImsiService: new PhoneMetadataImsiService(context),
     phoneMetadataMsisdnService: new PhoneMetadataMsisdnService(context),
+    workspaceRoleService: new WorkspaceRoleService(context),
     jobService: new JobService(context),
   } as AppContext;
 };
