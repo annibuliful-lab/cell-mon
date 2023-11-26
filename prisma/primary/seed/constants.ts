@@ -92,3 +92,8 @@ export const WORKSPACE_ROLE_PERMISSION_PERMISSIONS = PERMISSION_ABILITILES.map(
     subject: 'WORKSPACE_ROLE_PERMISSION',
   }),
 );
+
+export const PERMISSION_PERMISSIONS = PERMISSION_ABILITILES.map((action) => ({
+  action,
+  subject: 'PERMISSION',
+}));

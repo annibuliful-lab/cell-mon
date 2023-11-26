@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 
 export const workspaceTypeDefs = gql`
   type WorkspaceRolePermission {
+    id: ID!
     roleId: ID!
     subject: String!
     action: PermissionAction!

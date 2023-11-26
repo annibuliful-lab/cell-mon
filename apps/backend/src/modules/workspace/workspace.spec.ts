@@ -27,17 +27,33 @@ describe('Workspace', () => {
 
   it('creates new role', async () => {
     const title = nanoid();
-
-    const role = await client.mutation({
-      createWorkspaceRole: {
+    const permissions = await client.query({
+      getPermissionAbilities: {
         __scalar: true,
         __args: {
-          title,
-          permissionIds: [],
+          filter: {
+            subject: 'TEST',
+          },
         },
       },
     });
 
+    const role = await client.mutation({
+      createWorkspaceRole: {
+        __scalar: true,
+        permissions: {
+          __scalar: true,
+        },
+        __args: {
+          title,
+          permissionIds: permissions.getPermissionAbilities.map((p) => p.id),
+        },
+      },
+    });
+
+    expect(role.createWorkspaceRole.permissions.map((p) => p.id)).toEqual(
+      permissions.getPermissionAbilities.map((p) => p.id),
+    );
     expect(role.createWorkspaceRole.title).toEqual(title);
   });
 

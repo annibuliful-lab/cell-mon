@@ -31,4 +31,10 @@ export const fields: Resolvers<AppContext> = {
       return ctx.workspaceRoleService.dataloader.load(parent.id);
     },
   },
+  WorkspaceRole: {
+    permissions: (parent, _, ctx) => {
+      if (!parent.id) return [];
+      return ctx.permissionAbilityService.findManyByRoleId(parent.id) as never;
+    },
+  },
 };
