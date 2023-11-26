@@ -35,10 +35,7 @@ export class TargetService extends PrimaryRepository<
       'tags',
       'title',
     ];
-    this.setupDataloader();
-  }
 
-  private setupDataloader() {
     this.dataloader = new DataLoader(
       async (ids: readonly string[]) => {
         const targets = await this.findByIds(ids);

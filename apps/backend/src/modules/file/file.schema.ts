@@ -10,6 +10,7 @@ export const fileTypeDefs = gql`
 
   type Mutation {
     uploadFile(file: Upload!): File!
+    deleteFile(key: String!): DeleteOperationResult!
   }
 
   type Query {

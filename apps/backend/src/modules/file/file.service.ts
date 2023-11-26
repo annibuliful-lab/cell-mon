@@ -1,4 +1,4 @@
-import { GetObjectCommand } from '@aws-sdk/client-s3';
+import { DeleteObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { PrimaryRepository, s3Client } from '@cell-mon/db';
@@ -49,6 +49,26 @@ export class Fileservice extends PrimaryRepository<never, GraphqlContext> {
       logger.error(error, 'Upload file');
       throw new GraphqlError(
         'Internal server error to upload file',
+        {
+          statusCode: 500,
+        },
+        500,
+      );
+    }
+  }
+
+  async delete(key: string) {
+    try {
+      const command = new DeleteObjectCommand({
+        Bucket: process.env.S3_BUCKET,
+        Key: key,
+      });
+      await s3Client.send(command);
+    } catch (error) {
+      logger.error(error, 'Delete file');
+
+      throw new GraphqlError(
+        'Internal server error to delete file',
         {
           statusCode: 500,
         },
