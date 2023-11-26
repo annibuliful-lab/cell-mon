@@ -10,6 +10,8 @@ import {
   FILE_PERMISSIONS,
   WORKSPACE_PERMISSIONS,
   TARGET_EVIDENCE_PERMISSIONS,
+  WORKSPACE_ROLE_PERMISSIONS,
+  WORKSPACE_ROLE_PERMISSION_PERMISSIONS,
 } from './constants';
 
 export async function seedPermissionAbilities() {
@@ -60,6 +62,8 @@ export async function seedPermissionAbilities() {
       ...FILE_PERMISSIONS,
       ...WORKSPACE_PERMISSIONS,
       ...TARGET_EVIDENCE_PERMISSIONS,
+      ...WORKSPACE_ROLE_PERMISSIONS,
+      ...WORKSPACE_ROLE_PERMISSION_PERMISSIONS,
     ],
   });
 }

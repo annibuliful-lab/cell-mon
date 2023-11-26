@@ -116,6 +116,7 @@ model Workspace {
   workspaceRoles           WorkspaceRole[]
   workspaceRolePermissions WorkspaceRolePermission[]
 
+  @@unique([title])
   @@map("workspace")
 }
 
