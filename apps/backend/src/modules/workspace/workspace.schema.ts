@@ -2,19 +2,18 @@ import gql from 'graphql-tag';
 
 export const workspaceTypeDefs = gql`
   type Workspace {
-    id: Int!
+    id: ID!
     title: String!
     description: String
   }
 
   input WorkspaceFilterInput {
-    accountId: Int!
+    accountId: ID!
     limit: Int
     offset: Int
   }
 
   input CreateWorkspaceInput {
-    slug: String!
     title: String!
     description: String
   }

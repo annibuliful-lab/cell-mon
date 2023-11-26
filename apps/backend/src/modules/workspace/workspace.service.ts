@@ -1,5 +1,9 @@
 import { PrimaryRepository } from '@cell-mon/db';
-import { GraphqlContext, NotfoundResource } from '@cell-mon/graphql';
+import {
+  GraphqlContext,
+  InternalGraphqlError,
+  NotfoundResource,
+} from '@cell-mon/graphql';
 import { v4 } from 'uuid';
 
 import {
@@ -25,7 +29,12 @@ export class WorkspaceService extends PrimaryRepository<
     ];
   }
 
-  create(input: CreateWorkspaceInput) {
+  async create(input: CreateWorkspaceInput) {
+    const permissions = await this.db
+      .selectFrom('permission')
+      .select(['id'])
+      .execute();
+
     return this.db
       .transaction()
       .setIsolationLevel('read uncommitted')
@@ -49,7 +58,9 @@ export class WorkspaceService extends PrimaryRepository<
           ])
           .executeTakeFirst();
 
-        if (!workspace?.id) return;
+        if (!workspace) {
+          throw new InternalGraphqlError();
+        }
 
         const role = await tx
           .insertInto('workspace_role')
@@ -62,7 +73,22 @@ export class WorkspaceService extends PrimaryRepository<
           .returning('id')
           .executeTakeFirst();
 
-        if (!role) return;
+        if (!role) {
+          throw new InternalGraphqlError();
+        }
+
+        await tx
+          .insertInto('workspace_role_permission')
+          .values(
+            permissions.map((permission) => ({
+              id: v4(),
+              roleId: role.id,
+              permissionId: permission.id,
+              workspaceId: workspace.id,
+              createdBy: this.context.accountId,
+            })),
+          )
+          .execute();
 
         await tx
           .insertInto('workspace_account')
