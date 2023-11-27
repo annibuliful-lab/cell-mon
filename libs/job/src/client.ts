@@ -50,7 +50,7 @@ type CreateQueueWorkerClient<Type, Result> = {
   name: string;
   processor: Processor<Type, Result, string>;
   options?: WorkerOptions;
-  connection: Redis;
+  connection?: Redis;
 };
 
 export const createWorkerClient = <Type, Result>({
