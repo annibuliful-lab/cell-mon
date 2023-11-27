@@ -1,5 +1,5 @@
 import { exit } from 'process';
-import { prismaDbClient } from '../../libs/db/src';
+import { prismaDbClient } from '../../../libs/db/src';
 import mcc_mnc_list from 'mcc-mnc-list';
 
 async function main() {

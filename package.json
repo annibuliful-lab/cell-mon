@@ -27,7 +27,8 @@
     "codegen:backend": "ts-node --project tools/tsconfig.tools.json -r tsconfig-paths/register tools/bin/codegen-backend.ts",
     "tool:query-builder": "ts-node --project tools/tsconfig.tools.json -r tsconfig-paths/register tools/bin/query-builder.ts",
     "codegen:frontend": "graphql-codegen --config tools/bin/codegen.frontend.ts",
-    "update-phone-operator": "ts-node --project tools/tsconfig.tools.json -r tsconfig-paths/register tools/bin/update-phone-operator.ts"
+    "update-phone-operator": "ts-node --project tools/tsconfig.tools.json -r tsconfig-paths/register tools/bin/update-phone-operator/update-phone-operator.ts",
+    "bullmq-test": "ts-node --project tools/tsconfig.tools.json -r tsconfig-paths/register tools/bin/bullmq-tester"
   },
   "private": true,
   "dependencies": {
