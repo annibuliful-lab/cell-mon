@@ -270,8 +270,8 @@ dependencies:
     specifier: 5.6.0
     version: 5.6.0
   prisma-erd-generator:
-    specifier: 1.11.1
-    version: 1.11.1(@prisma/client@5.6.0)(typescript@5.3.2)
+    specifier: 1.11.2
+    version: 1.11.2(@prisma/client@5.6.0)(typescript@5.3.2)
   prisma-kysely:
     specifier: 1.7.1
     version: 1.7.1
@@ -14918,8 +14918,8 @@ packages:
       ansi-styles: 5.2.0
       react-is: 18.2.0
 
-  /prisma-erd-generator@1.11.1(@prisma/client@5.6.0)(typescript@5.3.2):
-    resolution: {integrity: sha512-/NbHGnsn3emYaGJPRA/0MTzYa1RawRLKu0WOfp5pUugcyFNBwOLd38gQyhdlmkzbVSDSOp78ySNqYzt1Tq1QMQ==}
+  /prisma-erd-generator@1.11.2(@prisma/client@5.6.0)(typescript@5.3.2):
+    resolution: {integrity: sha512-abo2EBIjqJALfjm8p+uOsQk38DlU3rlLJA9/cOvcLLt8A9bjMkRwlqaZDAD/iXVZcXJRJPgJ98fEviTa+w8oTQ==}
     engines: {node: '>=14'}
     hasBin: true
     peerDependencies:
