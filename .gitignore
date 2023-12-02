@@ -9,6 +9,7 @@ libs/test/src/graphql/generated
 libs/graphql-client/src/graphql/generated
 libs/graphql-codegen/src/generated
 libs/graphql-codegen/src/generated
+libs/test/src/graphql/generated-core
 Pulumi.dev.yaml
 .nx
 # Crash log files
