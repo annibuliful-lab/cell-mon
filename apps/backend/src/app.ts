@@ -103,7 +103,7 @@ export async function main() {
         : [],
   });
 
-  server.graphql.addHook('preExecution', graphqlLogger);
+  server.graphql.addHook('preExecution', graphqlLogger('backend'));
 
   server.get('/health', (_req, res) => {
     res.status(200).send({
@@ -134,6 +134,6 @@ export async function main() {
       process.exit(1);
     }
 
-    logger.info(`[ ready ] http://${host}:${port}`);
+    logger.info(`[ backend ready ] http://${host}:${port}`);
   });
 }

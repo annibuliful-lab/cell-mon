@@ -12,17 +12,17 @@ type MercuriusLoggingOptions = {
 function readOperations(
   document: DocumentNode,
   operation: 'mutation' | 'query' | 'subscription',
-  opts: MercuriusLoggingOptions
+  opts: MercuriusLoggingOptions,
 ) {
   return document.definitions
     .filter(
-      (d) => d.kind === 'OperationDefinition' && d.operation === operation
+      (d) => d.kind === 'OperationDefinition' && d.operation === operation,
     )
     .flatMap(
       (d) =>
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (d as unknown as { selectionSet: { selections: any } }).selectionSet
-          .selections
+          .selections,
     )
     .map((selectionSet) => {
       const opName = selectionSet.name.value;
@@ -35,28 +35,32 @@ function readOperations(
     });
 }
 
-export function graphqlLogger(
-  _schema: GraphQLSchema,
-  document: DocumentNode,
-  context: MercuriusContext,
-  variables: Record<string, unknown>
-) {
-  const queryOps = readOperations(document, 'query', { prependAlias: true });
-  const mutationOps = readOperations(document, 'mutation', {
-    prependAlias: true,
-  });
-  const subscriptionOps = readOperations(document, 'subscription', {
-    prependAlias: true,
-  });
+export function graphqlLogger(serviceName: string) {
+  return function (
+    _schema: GraphQLSchema,
+    document: DocumentNode,
+    context: MercuriusContext,
+    variables: Record<string, unknown>,
+  ) {
+    const queryOps = readOperations(document, 'query', { prependAlias: true });
+    const mutationOps = readOperations(document, 'mutation', {
+      prependAlias: true,
+    });
+    const subscriptionOps = readOperations(document, 'subscription', {
+      prependAlias: true,
+    });
 
-  logger.info({
-    graphql: {
-      queries: queryOps.length > 0 ? queryOps : undefined,
-      mutations: mutationOps.length > 0 ? mutationOps : undefined,
-      subscriptionOps: subscriptionOps.length > 0 ? subscriptionOps : undefined,
-      operationName: (context.reply.request.body as { operationName: string })
-        ?.operationName,
-      variables,
-    },
-  });
+    logger.info({
+      serviceName,
+      graphql: {
+        queries: queryOps.length > 0 ? queryOps : undefined,
+        mutations: mutationOps.length > 0 ? mutationOps : undefined,
+        subscriptionOps:
+          subscriptionOps.length > 0 ? subscriptionOps : undefined,
+        operationName: (context.reply.request.body as { operationName: string })
+          ?.operationName,
+        variables,
+      },
+    });
+  };
 }

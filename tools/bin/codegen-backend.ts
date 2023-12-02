@@ -99,6 +99,11 @@ const generateSchemas = async () => {
       schemaPath: `apps/backend/${baseAppPath}/${baseSchemaPath}`,
       outputCodegenPath: `apps/backend/${baseAppPath}/${baseOutputCodegenPath}`,
     },
+    'backend-core': {
+      serviceName: 'backend-core',
+      schemaPath: `apps/backend-core/${baseAppPath}/${baseSchemaPath}`,
+      outputCodegenPath: `apps/backend-core/${baseAppPath}/${baseOutputCodegenPath}`,
+    },
   });
 
   for (const service of serviceValues) {

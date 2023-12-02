@@ -21,6 +21,7 @@ export {
   jsonTypeDef,
 } from './schemas/json.schema';
 export { paginationTypeDef } from './schemas/pagination.schema';
+export { permissionAbilityTypeDefs } from './schemas/permission.schema';
 export { priorityTypeDef } from './schemas/priority.schemats';
 export { serialIdScalar, serialIdTypeDef } from './schemas/serial-id.schema';
 export { GraphQLUpload } from './schemas/upload.schema';
