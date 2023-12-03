@@ -131,7 +131,7 @@
     "tslib": "2.6.2",
     "undici": "5.28.2",
     "uuid": "9.0.1",
-    "valibot": "0.21.0"
+    "valibot": "0.22.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.23.3",
