@@ -303,8 +303,8 @@ dependencies:
     specifier: 9.0.1
     version: 9.0.1
   valibot:
-    specifier: 0.21.0
-    version: 0.21.0
+    specifier: 0.22.0
+    version: 0.22.0
 
 devDependencies:
   '@babel/preset-react':
@@ -17050,8 +17050,8 @@ packages:
       convert-source-map: 2.0.0
     dev: true
 
-  /valibot@0.21.0:
-    resolution: {integrity: sha512-XnzpX93b1vQL7CB3fHlhpLg7OutYpc3ke8SKOvp7IXgicRfTdP/w8+bf0DjhVsySq6YdF4Opld05mj6bTobo9g==}
+  /valibot@0.22.0:
+    resolution: {integrity: sha512-tINTvsrvSaN6wN4Hxes1KG7VMM7nysk4zD0Q7CjE8Id7Zx1tKKaF3eGGP84N6nkhqiv0fgyArUeDoRNF0JO4ng==}
     dev: false
 
   /validate-npm-package-license@3.0.4:
