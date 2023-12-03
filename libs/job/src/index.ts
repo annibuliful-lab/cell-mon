@@ -1,3 +1,11 @@
+export type {
+  HunterCoreWsPayload,
+  HunterCoreWsPayloadData,
+  Location,
+  locationCountry,
+  locationNetwork,
+  locationPosition,
+} from './@types/hlr';
 export {
   createQueueClient,
   createQueueEventClient,
