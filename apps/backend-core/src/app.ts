@@ -5,6 +5,12 @@ import fastify from 'fastify';
 import mercurius from 'mercurius';
 
 import schema from './graphql';
+import { redisClient } from '@cell-mon/db';
+import { HUNTER_CACHE_SESSION_KEY } from './constants';
+import {
+  healthCheckCookieTimeout,
+  hlrWSConnect,
+} from './modules/hlr/hlr-websocket.client';
 
 config();
 
@@ -36,11 +42,15 @@ export async function main() {
   process.on('SIGTERM', gracefulShutdown);
   process.on('SIGINT', gracefulShutdown);
 
-  server.listen({ port, host }, (err) => {
+  server.listen({ port, host }, async (err) => {
     if (err) {
       logger.error(err);
       process.exit(1);
     }
+
+    await redisClient.del(HUNTER_CACHE_SESSION_KEY);
+    await healthCheckCookieTimeout(6000);
+    await hlrWSConnect();
 
     logger.info(`[ backend-core ready ] http://${host}:${port}`);
   });

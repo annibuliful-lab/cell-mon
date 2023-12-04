@@ -5,3 +5,4 @@ export const TAG = 'dev';
 export const REGION = 'spg';
 export const K8S_VERSION = 'v1.28.3+2';
 export const K8S_NODE_QUANTITY = 1;
+export const PRIMARY_K8S_NODE_POOL_PLAN = 'vc2-2c-4gb';
