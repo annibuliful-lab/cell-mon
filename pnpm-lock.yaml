@@ -171,7 +171,7 @@ dependencies:
     specifier: 4.14.4
     version: 4.14.4
   cookie:
-    specifier: ^0.6.0
+    specifier: 0.6.0
     version: 0.6.0
   cookies-next:
     specifier: 4.1.0
