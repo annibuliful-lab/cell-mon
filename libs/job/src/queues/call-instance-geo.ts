@@ -21,7 +21,12 @@ export type CallInstanceGeoWebhookPayload = {
   collectedTimestamp: number;
 };
 
-export const callInstanceGeoRequestQueue =
+export const hlrGeoRequestQueue =
   createQueueClient<CallInstanceGeoRequestPayload>({
-    name: JOB_KEYS.INSTANGE_GEO_REQUEST,
+    name: JOB_KEYS.HLR_GEO_REQUEST,
+  });
+
+export const hlrGeoWebhookQueue =
+  createQueueClient<CallInstanceGeoWebhookPayload>({
+    name: JOB_KEYS.HLR_GEO_WEBHOOK,
   });

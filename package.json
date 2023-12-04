@@ -87,6 +87,7 @@
     "argon2": "0.31.2",
     "axios": "1.6.2",
     "bullmq": "4.14.4",
+    "cookie": "0.6.0",
     "cookies-next": "4.1.0",
     "cross-undici-fetch": "0.4.14",
     "dataloader": "2.2.2",
@@ -131,7 +132,8 @@
     "tslib": "2.6.2",
     "undici": "5.28.2",
     "uuid": "9.0.1",
-    "valibot": "0.21.0"
+    "valibot": "0.21.0",
+    "ws": "8.14.2"
   },
   "devDependencies": {
     "@babel/preset-react": "7.23.3",

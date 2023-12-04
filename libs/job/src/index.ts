@@ -1,6 +1,6 @@
 export type {
-  HunterCoreWsPayload,
-  HunterCoreWsPayloadData,
+  HlrCoreWsPayload,
+  HlrCoreWsPayloadData,
   Location,
   locationCountry,
   locationNetwork,
@@ -16,4 +16,7 @@ export type {
   CallInstanceGeoRequestPayload,
   CallInstanceGeoWebhookPayload,
 } from './queues/call-instance-geo';
-export { callInstanceGeoRequestQueue } from './queues/call-instance-geo';
+export {
+  hlrGeoRequestQueue,
+  hlrGeoWebhookQueue,
+} from './queues/call-instance-geo';

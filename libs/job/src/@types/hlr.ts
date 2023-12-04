@@ -1,4 +1,4 @@
-export type HunterCoreWsPayload = {
+export type HlrCoreWsPayload = {
   type: 'ASYNC_OPERATION_SUCCESS' | string;
   progressInPercentage?: number;
   dialogId: string;
@@ -55,7 +55,7 @@ export type ReturnCode = {
   code: number;
 };
 
-export type HunterCoreWsPayloadData = {
+export type HlrCoreWsPayloadData = {
   targetId: Target;
   location: Location;
   targetInfo: object;
