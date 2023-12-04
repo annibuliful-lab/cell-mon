@@ -1,11 +1,34 @@
-import { GraphqlContext } from '@cell-mon/graphql';
+import { AppContext } from '../../@types/context';
+import { JobType, Resolvers } from '../../codegen-generated';
 
-import { Resolvers } from '../../codegen-generated';
+export const mutation: Resolvers<AppContext>['Mutation'] = {
+  callHlr: async (_, input, ctx) => {
+    const isLoggedin = await ctx.hlrService.isLoggedin();
+    if (!isLoggedin.isLoggedin) {
+      await ctx.hlrService.loginSession();
+    }
 
-export const mutation: Resolvers<GraphqlContext>['Mutation'] = {
-  callHlr: (_, input, ctx) => {
+    const response = await ctx.hlrService.tracking({
+      missionId: '109',
+      msisdn: input.msisdn,
+    });
+
+    const jobInput = {
+      missionId: '109',
+      msisdn: input.msisdn,
+      dialogId: response.dialogId,
+    };
+
+    await ctx.jobService.create({
+      referenceId: jobInput.dialogId,
+      workspaceId: ctx.workspaceId,
+      type: JobType.HlrQuery,
+      title: JobType.HlrQuery,
+      maxRetries: 1,
+    });
+
     return {
-      dialogId: '',
+      dialogId: response.dialogId,
     };
   },
 };

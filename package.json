@@ -24,7 +24,7 @@
     "db-job:deploy": "prisma migrate deploy --schema prisma/job/schema.prisma",
     "db-job:seed": "ts-node prisma/job/seed",
     "genql": "ts-node --project tools/tsconfig.tools.json -r tsconfig-paths/register tools/bin/genql.ts",
-    "codegen:backend": "ts-node --project tools/tsconfig.tools.json -r tsconfig-paths/register tools/bin/codegen-backend.ts",
+    "codegen:backend": "ts-node --project tools/tsconfig.tools.json -r tsconfig-paths/register tools/bin/codegen.backend.ts",
     "tool:query-builder": "ts-node --project tools/tsconfig.tools.json -r tsconfig-paths/register tools/bin/query-builder.ts",
     "codegen:frontend": "graphql-codegen --config tools/bin/codegen.frontend.ts",
     "update-phone-operator": "ts-node --project tools/tsconfig.tools.json -r tsconfig-paths/register tools/bin/update-phone-operator/update-phone-operator.ts",

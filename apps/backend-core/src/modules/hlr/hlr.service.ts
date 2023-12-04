@@ -1,23 +1,21 @@
-import cookie from 'cookie';
-import fs from 'fs';
-import https from 'https';
-import axios, { AxiosError } from 'axios';
-import path from 'path';
-
-import { HUNTER_CACHE_SESSION_KEY } from '../../constants';
 import { redisClient } from '@cell-mon/db';
 import { logger } from '@cell-mon/utils';
+import axios, { AxiosError } from 'axios';
+import cookie from 'cookie';
+import https from 'https';
 
-const Certpath = path.resolve(
-  process.cwd(),
-  'apps',
-  'backend-core',
-  'src',
-  'graphql',
-  'modules',
-  'hunter',
-  'UANDLINCA.cer',
-);
+import { HUNTER_CACHE_SESSION_KEY } from '../../constants';
+
+// const Certpath = path.resolve(
+//   process.cwd(),
+//   'apps',
+//   'backend-core',
+//   'src',
+//   'graphql',
+//   'modules',
+//   'hunter',
+//   'UANDLINCA.cer',
+// );
 const httpsAgent = new https.Agent({
   rejectUnauthorized: false,
 });
