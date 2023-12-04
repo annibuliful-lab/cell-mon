@@ -330,7 +330,7 @@ model PhoneTargetLocation {
   cellInfo       PhoneCellInfo?
   network        PhoneNetwork?
   geoLocations   PhoneGeoLocation[]
-  phoneTargets   PhoneTarget        @relation(fields: [phoneTargetId], references: [id])
+  phoneTarget    PhoneTarget        @relation(fields: [phoneTargetId], references: [id])
 
   @@map("phone_target_location")
 }

@@ -5,6 +5,7 @@ import { seedPermissionAbilities } from './permission-ability';
 
 import { seedUsers } from './user';
 import { seedWorkspace } from './workspace';
+import { seedPhone } from './phone';
 config();
 
 async function cleanup() {
@@ -29,6 +30,7 @@ async function main() {
   await seedUsers();
   await seedPermissionAbilities();
   await seedWorkspace();
+  await seedPhone();
 }
 
 main();
