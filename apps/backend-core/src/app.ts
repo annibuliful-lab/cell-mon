@@ -68,8 +68,9 @@ export async function main() {
       logger.error(err);
       process.exit(1);
     }
-
+    const hlr = new HrlService();
     await redisClient.del(HUNTER_CACHE_SESSION_KEY);
+    await hlr.loginSession();
     await healthCheckCookieTimeout(6000);
     await hlrWSConnect();
 
