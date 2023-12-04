@@ -25,6 +25,7 @@ export const mutation: Resolvers<AppContext>['Mutation'] = {
       type: JobType.HlrQuery,
       title: JobType.HlrQuery,
       maxRetries: 1,
+      input,
     });
 
     return {

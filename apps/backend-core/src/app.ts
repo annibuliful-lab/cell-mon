@@ -19,7 +19,7 @@ config();
 
 export async function main() {
   const host = '0.0.0.0';
-  const port = 3001;
+  const port = 3031;
   const server = fastify();
 
   await server.register(mercurius, {
@@ -68,6 +68,7 @@ export async function main() {
       logger.error(err);
       process.exit(1);
     }
+
     const hlr = new HrlService();
     await redisClient.del(HUNTER_CACHE_SESSION_KEY);
     await hlr.loginSession();

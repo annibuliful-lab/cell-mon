@@ -1,6 +1,10 @@
 import { redisClient } from '@cell-mon/db';
 import { logger } from '@cell-mon/utils';
-import { HlrCoreWsPayload, hlrGeoWebhookQueue } from 'job';
+import {
+  HlrCoreWsPayload,
+  HlrCoreWsPayloadData,
+  hlrGeoWebhookQueue,
+} from 'job';
 import { isNil } from 'lodash';
 import { WebSocket } from 'ws';
 
@@ -89,21 +93,40 @@ export async function hlrWSConnect(
 
   wsClient.on('message', async (data) => {
     const payload = JSON.parse(data.toString()) as HlrCoreWsPayload;
-    logger.info(payload, 'Hunter data');
 
     if (isNil(payload.data) || payload.type === 'ASYNC_OPERATION_PROGRESS') {
       return;
     }
 
+    const hlrData = JSON.parse(payload.data) as HlrCoreWsPayloadData;
+
+    logger.info(hlrData, 'HLR data');
+
     await hlrGeoWebhookQueue.add(
       'Hlr',
-      {
-        dialogId: '',
-        imsi: '',
-        range: '',
-        cellInfo: undefined,
-        geoLocations: [],
-      },
+      payload,
+      // {
+
+      //   dialogId: hlrData.dialogId,
+      //   imsi: hlrData.targetId.imsi,
+      //   range: hlrData.location.radius.toString(),
+      //   cellInfo: {
+      //     type: getCellTechnology({
+      //       on4G: hlrData.location.network.on4G,
+      //       mnc: hlrData.location.country.mnc,
+      //     }),
+      //     range: hlrData.location.radius.toString(),
+      //     lac: hlrData.location.network.lac?.toString() ?? '',
+      //     cid: hlrData.location.network.cellId?.toString() ?? '',
+      //   },
+      //   geoLocations: [
+      //     {
+      //       source: 'HLR_Query',
+      //       latitude: hlrData.location.position.latitude.toString(),
+      //       longtitude: hlrData.location.position.longitude.toString(),
+      //     },
+      //   ],
+      // },
       {
         removeOnComplete: true,
       },
@@ -155,7 +178,7 @@ export async function healthCheckCookieTimeout(ms: number): Promise<void> {
       }
       await hlr.loginSession();
     } catch (error) {
-      console.log({ error });
+      console.log({ error }, `HLR-login err`);
     }
   }, ms);
 }
