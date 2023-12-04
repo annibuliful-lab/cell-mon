@@ -79,7 +79,12 @@ export const graphqlContext = async ({
     } as unknown as AppContext;
   }
 
-  const { accountId, role, permissions } = await verifyLocalAuthentication({
+  const {
+    accountId,
+    role,
+    permissions,
+    apiKey: workspaceApiKey,
+  } = await verifyLocalAuthentication({
     token: authorization,
     workspaceId,
   });
@@ -93,6 +98,7 @@ export const graphqlContext = async ({
     role: role as string,
     projectFeatureFlags: [],
     workspaceId,
+    apiKey: workspaceApiKey ?? '',
   };
 
   return {

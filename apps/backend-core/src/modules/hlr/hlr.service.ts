@@ -1,36 +1,25 @@
-import cookie from 'cookie';
-import fs from 'fs';
-import https from 'https';
-import axios, { AxiosError } from 'axios';
-import path from 'path';
-
-import { HUNTER_CACHE_SESSION_KEY } from '../../constants';
 import { redisClient } from '@cell-mon/db';
 import { logger } from '@cell-mon/utils';
+import axios, { AxiosError } from 'axios';
+import cookie from 'cookie';
+import { config } from 'dotenv';
+import https from 'https';
 
-const Certpath = path.resolve(
-  process.cwd(),
-  'apps',
-  'backend-core',
-  'src',
-  'graphql',
-  'modules',
-  'hunter',
-  'UANDLINCA.cer',
-);
-const httpsAgent = new https.Agent({
-  rejectUnauthorized: false,
-});
+import { HUNTER_CACHE_SESSION_KEY } from '../../constants';
+
+config();
 
 export class HrlService {
   private instance = axios.create({
     method: 'get',
-    baseURL: process.env.HUNTER_SERVER,
+    baseURL: process.env.HLR_SERVER,
     headers: {
       'Content-Type': 'application/json',
     },
     timeout: 20000,
-    httpsAgent: httpsAgent,
+    httpsAgent: new https.Agent({
+      rejectUnauthorized: false,
+    }),
   });
 
   async tracking({
@@ -81,13 +70,13 @@ export class HrlService {
 
   async loginSession() {
     try {
-      logger.info({ serviceName: '[Hunter]-loginSession' });
+      logger.info({ serviceName: '[HLR]-loginSession' });
       const response = await this.instance.request({
         method: 'post',
         url: '/ULINClient/authenticateUser',
         data: JSON.stringify({
-          username: 'devthailand',
-          pass: 'dev@hailan#21',
+          username: process.env.HLR_USERNAME,
+          pass: process.env.HLR_PASSWORD,
         }),
       });
 
@@ -104,6 +93,8 @@ export class HrlService {
       }
       return { isLoggedin: false };
     } catch (error) {
+      logger.error(error, `HLR-login err:`);
+
       return { isLoggedin: false };
     }
   }

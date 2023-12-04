@@ -1,4 +1,4 @@
-import { PermissionAction, primaryDbClient, redisClient } from '@cell-mon/db';
+import { primaryDbClient, redisClient } from '@cell-mon/db';
 import { IJwtAuthInfo, jwtVerify } from '@cell-mon/utils';
 import { Permission } from '@prisma/client';
 
@@ -15,6 +15,7 @@ type AccountInfo = {
   workspaceIds: string[];
   permissions: Pick<Permission, 'action' | 'subject'>[];
   workspaceId?: string;
+  apiKey: string | null;
 };
 
 type ValidateLocalAuthenticationParams = {
@@ -39,16 +40,25 @@ async function getAccountInfo(
     workspaceId,
   );
 
+  const workspaceConfiguration = await primaryDbClient
+    .selectFrom('workspace_configuration')
+    .select(['apiKey', 'isActive'])
+    .where('workspaceId', '=', workspaceId)
+    .executeTakeFirst();
+
   if (!accountWorkspaceRole) {
     throw new ForbiddenError('You are not allow in this project');
   }
 
-  const accountInfo = buildAccountInfoWithRole(
-    userInfo,
+  const accountInfo = {
+    accountUid: userInfo.accountId,
+    workspaceIds: userInfo.workspaceIds,
     accountId,
-    accountWorkspaceRole,
-    accountWorkspaceRole.role.workspaceRolePermissions,
-  );
+    role: accountWorkspaceRole.role.title,
+    permissions: accountWorkspaceRole.role.workspaceRolePermissions,
+    apiKey: workspaceConfiguration?.apiKey ?? null,
+  };
+
   await updateCache(userInfo.accountId, accountInfo);
 
   return accountInfo;
@@ -77,6 +87,7 @@ function buildAccountInfo(
     workspaceIds: userInfo.workspaceIds,
     accountId,
     permissions: [],
+    apiKey: null,
   };
 }
 
@@ -127,30 +138,8 @@ async function getAccountWorkspaceRole(accountId: string, workspaceId: string) {
   };
 }
 
-function buildAccountInfoWithRole(
-  userInfo: IJwtAuthInfo,
-  accountId: string,
-  accountWorkspaceRole: {
-    role: {
-      title: string;
-    };
-  },
-  permissions: {
-    action: PermissionAction;
-    subject: string;
-  }[],
-): AccountInfo {
-  return {
-    accountUid: userInfo.accountId,
-    workspaceIds: userInfo.workspaceIds,
-    accountId,
-    role: accountWorkspaceRole.role.title,
-    permissions,
-  };
-}
-
-async function updateCache(accountId: string, accountInfo: AccountInfo) {
-  await redisClient.set(
+function updateCache(accountId: string, accountInfo: AccountInfo) {
+  return redisClient.set(
     accountId,
     JSON.stringify(accountInfo),
     'EX',

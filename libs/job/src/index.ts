@@ -12,11 +12,5 @@ export {
   createWorkerClient,
 } from './client';
 export { JOB_KEYS } from './constants';
-export type {
-  CallInstanceGeoRequestPayload,
-  CallInstanceGeoWebhookPayload,
-} from './queues/call-instance-geo';
-export {
-  hlrGeoRequestQueue,
-  hlrGeoWebhookQueue,
-} from './queues/call-instance-geo';
+export type { HlrGeoRequestPayload, HlrGeoWebhookPayload } from './queues/hlr';
+export { hlrGeoRequestQueue, hlrGeoWebhookQueue } from './queues/hlr';

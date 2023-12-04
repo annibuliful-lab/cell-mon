@@ -1,16 +1,19 @@
-import { graphqlLogger } from '@cell-mon/graphql';
+import { redisClient } from '@cell-mon/db';
+import { ForbiddenError, graphqlLogger, verifyApiKey } from '@cell-mon/graphql';
 import { logger } from '@cell-mon/utils';
 import { config } from 'dotenv';
 import fastify from 'fastify';
 import mercurius from 'mercurius';
 
-import schema from './graphql';
-import { redisClient } from '@cell-mon/db';
+import { AppContext } from './@types/context';
 import { HUNTER_CACHE_SESSION_KEY } from './constants';
+import schema from './graphql';
+import { HrlService } from './modules/hlr/hlr.service';
 import {
   healthCheckCookieTimeout,
   hlrWSConnect,
 } from './modules/hlr/hlr-websocket.client';
+import { JobService } from './modules/job/job.service';
 
 config();
 
@@ -24,6 +27,24 @@ export async function main() {
     graphiql: true,
     ide: true,
     path: '/graphql',
+    context: async (request): Promise<AppContext> => {
+      const apiKey = request.headers['x-api-key'] as string;
+      if (!apiKey) {
+        throw new ForbiddenError('you do not allow with API key');
+      }
+
+      const verified = await verifyApiKey({ apiKey });
+
+      return {
+        apiKey,
+        workspaceId: verified.workspaceId,
+        hlrService: new HrlService(),
+        jobService: new JobService({
+          apiKey,
+          workspaceId: verified.workspaceId,
+        }),
+      };
+    },
   });
 
   server.graphql.addHook('preExecution', graphqlLogger('backend-core'));
@@ -47,8 +68,9 @@ export async function main() {
       logger.error(err);
       process.exit(1);
     }
-
+    const hlr = new HrlService();
     await redisClient.del(HUNTER_CACHE_SESSION_KEY);
+    await hlr.loginSession();
     await healthCheckCookieTimeout(6000);
     await hlrWSConnect();
 

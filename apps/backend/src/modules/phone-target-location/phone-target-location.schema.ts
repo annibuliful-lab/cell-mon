@@ -1,6 +1,9 @@
 import gql from 'graphql-tag';
 
 export const phoneTargetLocationTypeDef = gql`
+  type CreateHlrGeoJobResponse {
+    dialogId: ID!
+  }
   enum CellularTechnology {
     NR
     LTE
@@ -78,6 +81,9 @@ export const phoneTargetLocationTypeDef = gql`
       cellInfo: CreatePhoneCellInfoInput!
       geoLocations: [CreatePhoneGeoLocationInput!]!
     ): PhoneTargetLocation! @access(requiredApiKey: true)
+
+    createHrlGeoJobRequest(phoneTargetId: UUID!): CreateHlrGeoJobResponse!
+      @access
   }
 
   type Query {

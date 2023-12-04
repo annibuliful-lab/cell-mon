@@ -3,6 +3,7 @@ import { logger } from '@cell-mon/utils';
 import { HlrCoreWsPayload, hlrGeoWebhookQueue } from 'job';
 import { isNil } from 'lodash';
 import { WebSocket } from 'ws';
+
 import { HUNTER_CACHE_SESSION_KEY } from '../../constants';
 import { HrlService } from './hlr.service';
 
@@ -97,13 +98,11 @@ export async function hlrWSConnect(
     await hlrGeoWebhookQueue.add(
       'Hlr',
       {
-        jobId: '',
-        workspaceId: '',
+        dialogId: '',
         imsi: '',
         range: '',
         cellInfo: undefined,
         geoLocations: [],
-        collectedTimestamp: 0,
       },
       {
         removeOnComplete: true,

@@ -1,5 +1,9 @@
 import { PrimaryRepository } from '@cell-mon/db';
-import { GraphqlContext, mapDataloaderRecord } from '@cell-mon/graphql';
+import {
+  GraphqlContext,
+  mapDataloaderRecord,
+  NotfoundResource,
+} from '@cell-mon/graphql';
 import DataLoader from 'dataloader';
 
 import { PhoneMetadataMsisdn } from '../../codegen-generated';
@@ -11,7 +15,10 @@ export class PhoneMetadataMsisdnService extends PrimaryRepository<
 > {
   constructor(ctx: GraphqlContext) {
     super(ctx);
-    this.tableColumns = ['id', 'msisdn'];
+    this.tableColumns = [
+      'phone_metadata_msisdn.id as id',
+      'phone_metadata_msisdn.msisdn as msisdn',
+    ];
 
     this.dataloader = new DataLoader(
       async (ids: readonly string[]) => {
@@ -23,7 +30,31 @@ export class PhoneMetadataMsisdnService extends PrimaryRepository<
     );
   }
 
-  findByIds(ids: string[]) {
+  async findFirst({
+    phoneTargetId,
+  }: {
+    phoneTargetId: string;
+  }): Promise<PhoneMetadataMsisdn> {
+    const phone = await this.db
+      .selectFrom('phone_metadata_msisdn')
+      .innerJoin(
+        'phone_metadata',
+        'phone_metadata.msisdnId',
+        'phone_metadata_msisdn.id',
+      )
+      .innerJoin('phone_target', 'phone_target.phoneId', 'phone_metadata.id')
+      .select(this.tableColumns)
+      .where('phone_target.id', '=', phoneTargetId)
+      .executeTakeFirst();
+
+    if (!phone) {
+      throw new NotfoundResource(['msisdn']);
+    }
+
+    return phone;
+  }
+
+  findByIds(ids: string[]): Promise<PhoneMetadataMsisdn[]> {
     return this.db
       .selectFrom('phone_metadata_msisdn')
       .select(this.tableColumns)
