@@ -95,6 +95,7 @@ export class PhoneTargetLocationService extends PrimaryRepository<
     network,
     cellInfo,
     geoLocations,
+    hrlReferenceId,
   }: MutationCreatePhoneTargetLocationArgs): Promise<PhoneTargetLocation> {
     await this.verifyPhoneTargetId(phoneTargetLocation.phoneTargetId);
 
@@ -110,6 +111,7 @@ export class PhoneTargetLocationService extends PrimaryRepository<
             metadata: phoneTargetLocation.metadata,
             sourceDateTime: phoneTargetLocation.sourceDateTime,
             createdBy: this.context.accountId,
+            hrlReferenceId,
           })
           .returningAll()
           .executeTakeFirst();
@@ -118,44 +120,78 @@ export class PhoneTargetLocationService extends PrimaryRepository<
           throw new GraphqlError('Service unavailable');
         }
 
-        const createdNetwork = await tx
-          .insertInto('phone_network')
-          .values({
-            phoneTargetLocationId: createdPhoneTargetLocation.id,
-            operator: network.operator,
-            mcc: network.mcc,
-            mnc: network.mnc,
-            code: network.code,
-            country: network.country,
-          })
-          .returningAll()
-          .executeTakeFirst();
+        let createdNetwork:
+          | {
+              phoneTargetLocationId: string;
+              code: string;
+              country: string;
+              operator: string;
+              mnc: string;
+              mcc: string;
+            }
+          | undefined;
 
-        const createdCellInfo = await tx
-          .insertInto('phone_cell_info')
-          .values({
-            phoneTargetLocationId: createdPhoneTargetLocation.id,
-            type: cellInfo.type as never,
-            lac: cellInfo.lac,
-            cid: cellInfo.cid,
-            range: cellInfo.range,
-          })
-          .returningAll()
-          .executeTakeFirst();
-
-        const createdGeoLocations = await tx
-          .insertInto('phone_geo_location')
-          .values(
-            geoLocations.map((location) => ({
-              id: v4(),
+        if (network) {
+          createdNetwork = await tx
+            .insertInto('phone_network')
+            .values({
               phoneTargetLocationId: createdPhoneTargetLocation.id,
-              latitude: location.latitude.toString(),
-              longtitude: location.longtitude.toString(),
-              source: location.source,
-            })),
-          )
-          .returningAll()
-          .execute();
+              operator: network.operator,
+              mcc: network.mcc,
+              mnc: network.mnc,
+              code: network.code,
+              country: network.country,
+            })
+            .returningAll()
+            .executeTakeFirst();
+        }
+        let createdCellInfo:
+          | {
+              phoneTargetLocationId: string;
+              type: CellularTechnology;
+              lac: string;
+              cid: string;
+              range: string;
+            }
+          | undefined;
+
+        if (cellInfo) {
+          createdCellInfo = (await tx
+            .insertInto('phone_cell_info')
+            .values({
+              phoneTargetLocationId: createdPhoneTargetLocation.id,
+              type: cellInfo.type as never,
+              lac: cellInfo.lac,
+              cid: cellInfo.cid,
+              range: cellInfo.range,
+            })
+            .returningAll()
+            .executeTakeFirst()) as never;
+        }
+
+        let createdGeoLocations: {
+          id: string;
+          phoneTargetLocationId: string;
+          latitude: string;
+          longtitude: string;
+          source: string;
+        }[] = [];
+
+        if (geoLocations) {
+          createdGeoLocations = await tx
+            .insertInto('phone_geo_location')
+            .values(
+              geoLocations.map((location) => ({
+                id: v4(),
+                phoneTargetLocationId: createdPhoneTargetLocation.id,
+                latitude: location.latitude.toString(),
+                longtitude: location.longtitude.toString(),
+                source: location.source,
+              })),
+            )
+            .returningAll()
+            .execute();
+        }
 
         if (
           !createdCellInfo ||
@@ -171,7 +207,7 @@ export class PhoneTargetLocationService extends PrimaryRepository<
           phoneTargetId: createdPhoneTargetLocation.phoneTargetId,
           metadata: createdPhoneTargetLocation.metadata,
           sourceDateTime: createdPhoneTargetLocation.sourceDateTime,
-          network: createdNetwork,
+          network: createdNetwork ?? null,
           cellInfo: {
             phoneTargetLocationId: createdPhoneTargetLocation.id,
             type: createdCellInfo.type as CellularTechnology,
@@ -183,6 +219,7 @@ export class PhoneTargetLocationService extends PrimaryRepository<
             latitude: Number(location.latitude),
             longtitude: Number(location.longtitude),
           })),
+          status: createdPhoneTargetLocation.status,
         } as PhoneTargetLocation;
       });
   }

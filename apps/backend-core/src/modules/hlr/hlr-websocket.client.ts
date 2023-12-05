@@ -102,35 +102,9 @@ export async function hlrWSConnect(
 
     logger.info(hlrData, 'HLR data');
 
-    await hlrGeoWebhookQueue.add(
-      'Hlr',
-      payload,
-      // {
-
-      //   dialogId: hlrData.dialogId,
-      //   imsi: hlrData.targetId.imsi,
-      //   range: hlrData.location.radius.toString(),
-      //   cellInfo: {
-      //     type: getCellTechnology({
-      //       on4G: hlrData.location.network.on4G,
-      //       mnc: hlrData.location.country.mnc,
-      //     }),
-      //     range: hlrData.location.radius.toString(),
-      //     lac: hlrData.location.network.lac?.toString() ?? '',
-      //     cid: hlrData.location.network.cellId?.toString() ?? '',
-      //   },
-      //   geoLocations: [
-      //     {
-      //       source: 'HLR_Query',
-      //       latitude: hlrData.location.position.latitude.toString(),
-      //       longtitude: hlrData.location.position.longitude.toString(),
-      //     },
-      //   ],
-      // },
-      {
-        removeOnComplete: true,
-      },
-    );
+    await hlrGeoWebhookQueue.add('Hlr', payload, {
+      removeOnComplete: true,
+    });
   });
 
   wsClient.on('close', (close) => {

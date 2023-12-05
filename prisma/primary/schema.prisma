@@ -43,6 +43,14 @@ enum PRIORITY {
   URGENT
 }
 
+enum PhoneTargetJobStatus {
+  IDLE
+  IN_QUEUE
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
 model PhoneOperator {
   id          String   @id @default(uuid()) @db.Uuid
   mnc         String
@@ -320,17 +328,18 @@ model PhoneTarget {
 }
 
 model PhoneTargetLocation {
-  id             String             @id @default(uuid()) @db.Uuid
-  phoneTargetId  String             @db.Uuid
+  id             String               @id @default(uuid()) @db.Uuid
+  status         PhoneTargetJobStatus @default(IDLE)
+  phoneTargetId  String               @db.Uuid
   hrlReferenceId String
-  metadata       Json?              @db.JsonB
+  metadata       Json?                @db.JsonB
   createdBy      String
   sourceDateTime DateTime
-  createdAt      DateTime           @default(now())
+  createdAt      DateTime             @default(now())
   cellInfo       PhoneCellInfo?
   network        PhoneNetwork?
   geoLocations   PhoneGeoLocation[]
-  phoneTarget    PhoneTarget        @relation(fields: [phoneTargetId], references: [id])
+  phoneTarget    PhoneTarget          @relation(fields: [phoneTargetId], references: [id])
 
   @@map("phone_target_location")
 }
