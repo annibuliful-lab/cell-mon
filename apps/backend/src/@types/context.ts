@@ -1,4 +1,4 @@
-import { GraphqlContext } from '@cell-mon/graphql';
+import { AccountInfo, GraphqlContext } from '@cell-mon/graphql';
 import { PubSub } from 'mercurius';
 
 import { AccountService } from '../modules/account/account.service';
@@ -41,6 +41,7 @@ export type ServiceContext = {
 export type AppContext = GraphqlContext & ServiceContext;
 export type WebsocketAppContext = {
   pubsub: PubSub;
+  userInfo: AccountInfo;
   _connectionInit: {
     authorization: string;
     workspaceId: string;

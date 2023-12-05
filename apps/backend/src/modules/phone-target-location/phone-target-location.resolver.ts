@@ -4,17 +4,45 @@ import * as mercurius from 'mercurius';
 import { fetch } from 'undici';
 
 import { AppContext, WebsocketAppContext } from '../../@types/context';
-import { PhoneTargetLocation, Resolvers } from '../../codegen-generated';
+import {
+  PhoneTargetJobStatus,
+  PhoneTargetLocation,
+  Resolvers,
+} from '../../codegen-generated';
 import { PUBSUB_PHONE_LOCATION_TRACKING_TOPIC } from '../../constants';
 
 export const mutation: Resolvers<AppContext>['Mutation'] = {
-  createHrlGeoJobRequest: async (_, input, ctx) => {
+  updatePhoneTargetLocation: async (_, input, ctx) => {
+    const phoneTargetLocation =
+      await ctx.phoneTargetLocationService.update(input);
+
+    await ctx.pubsub.publish({
+      topic: PUBSUB_PHONE_LOCATION_TRACKING_TOPIC,
+      payload: {
+        subscribePhoneLocationTracking: {
+          ...phoneTargetLocation,
+          workspaceId: ctx.workspaceId,
+        },
+      },
+    });
+
+    return phoneTargetLocation;
+  },
+  createHlrGeoJobRequest: async (_, input, ctx) => {
     if (!ctx.apiKey) {
       throw new ForbiddenError('API key is invalid');
     }
 
     const phone = await ctx.phoneMetadataMsisdnService.findFirst({
       phoneTargetId: input.phoneTargetId,
+    });
+
+    const phoneTargetLocation = await ctx.phoneTargetLocationService.create({
+      phoneTargetLocation: {
+        phoneTargetId: input.phoneTargetId,
+        sourceDateTime: new Date(),
+      },
+      status: PhoneTargetJobStatus.Processing,
     });
 
     const client = createCoreClient({
@@ -30,6 +58,17 @@ export const mutation: Resolvers<AppContext>['Mutation'] = {
         __scalar: true,
         __args: {
           msisdn: phone.msisdn,
+          phoneTargetLocationId: phoneTargetLocation.id,
+        },
+      },
+    });
+
+    await ctx.pubsub.publish({
+      topic: PUBSUB_PHONE_LOCATION_TRACKING_TOPIC,
+      payload: {
+        subscribePhoneLocationTracking: {
+          ...phoneTargetLocation,
+          workspaceId: ctx.workspaceId,
         },
       },
     });

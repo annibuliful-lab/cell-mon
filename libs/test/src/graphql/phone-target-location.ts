@@ -1,4 +1,5 @@
 import { getAdminClient } from '@cell-mon/graphql-client';
+import { nanoid } from 'nanoid';
 
 import { testCreatePhoneTarget } from './phone-target';
 
@@ -10,6 +11,8 @@ export async function testCreatePhoneTargetLocation() {
     createPhoneTargetLocation: {
       __scalar: true,
       __args: {
+        hrlReferenceId: nanoid(),
+        status: 'COMPLETED',
         phoneTargetLocation: {
           phoneTargetId: phoneTarget.id,
           sourceDateTime: new Date(),

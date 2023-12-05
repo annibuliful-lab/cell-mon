@@ -4,6 +4,7 @@ export const phoneTargetLocationTypeDef = gql`
   type CreateHlrGeoJobResponse {
     dialogId: ID!
   }
+
   enum CellularTechnology {
     NR
     LTE
@@ -11,15 +12,24 @@ export const phoneTargetLocationTypeDef = gql`
     WCDMA
   }
 
+  enum PhoneTargetJobStatus {
+    IDLE
+    IN_QUEUE
+    PROCESSING
+    COMPLETED
+    FAILED
+  }
+
   type PhoneTargetLocation {
     id: UUID!
+    status: PhoneTargetJobStatus!
     phoneTargetId: UUID!
     phoneTarget: PhoneTarget!
     metadata: JSONObject
     sourceDateTime: DateTime!
-    network: PhoneNetwork!
-    cellInfo: PhoneCellInfo!
-    geoLocations: [PhoneGeoLocation!]!
+    network: PhoneNetwork
+    cellInfo: PhoneCellInfo
+    geoLocations: [PhoneGeoLocation!]
   }
 
   type PhoneNetwork {
@@ -77,12 +87,23 @@ export const phoneTargetLocationTypeDef = gql`
   type Mutation {
     createPhoneTargetLocation(
       phoneTargetLocation: CreatePhoneTargetLocationInput!
-      network: CreatePhoneNetworkInput!
-      cellInfo: CreatePhoneCellInfoInput!
-      geoLocations: [CreatePhoneGeoLocationInput!]!
+      network: CreatePhoneNetworkInput
+      cellInfo: CreatePhoneCellInfoInput
+      geoLocations: [CreatePhoneGeoLocationInput!]
+      hrlReferenceId: ID
+      status: PhoneTargetJobStatus!
     ): PhoneTargetLocation! @access(requiredApiKey: true)
 
-    createHrlGeoJobRequest(phoneTargetId: UUID!): CreateHlrGeoJobResponse!
+    updatePhoneTargetLocation(
+      id: ID!
+      network: CreatePhoneNetworkInput
+      cellInfo: CreatePhoneCellInfoInput
+      geoLocations: [CreatePhoneGeoLocationInput!]
+      hrlReferenceId: ID
+      status: PhoneTargetJobStatus
+    ): PhoneTargetLocation! @access(requiredApiKey: true)
+
+    createHlrGeoJobRequest(phoneTargetId: UUID!): CreateHlrGeoJobResponse!
       @access
   }
 

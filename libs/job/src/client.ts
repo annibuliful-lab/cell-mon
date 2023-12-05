@@ -53,7 +53,7 @@ type CreateQueueWorkerClient<Type, Result> = {
   connection?: Redis;
 };
 
-export const createWorkerClient = <Type, Result>({
+export const createWorkerClient = <Type, Result = void>({
   name,
   processor,
   options = {},

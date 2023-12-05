@@ -1,5 +1,5 @@
 export { verifyApiKey } from './authentication/api-key';
-export { verifyLocalAuthentication } from './authentication/local';
+export { AccountInfo, verifyLocalAuthentication } from './authentication/local';
 export { GraphqlContext, MOCK_GRAPHQL_CONTEXT } from './constants/context';
 export {
   mapDataListWithIdsByCustomField,

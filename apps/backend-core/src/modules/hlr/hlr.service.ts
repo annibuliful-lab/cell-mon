@@ -61,7 +61,7 @@ export class HrlService {
     } catch (error) {
       const err: AxiosError = error;
       if (['ECONNABORTED', 'EHOSTUNREACH'].includes(err.code)) {
-        throw 'Request rejected. Please check your VPN connection.';
+        throw new Error('Request rejected. Please check your VPN connection.');
       }
       logger.error(error, `HLR-login err: ${err.code}`);
       return { isLoggedin: false };
@@ -83,14 +83,19 @@ export class HrlService {
       const setCookieHeader = response.headers['set-cookie'];
 
       if (setCookieHeader.length) {
-        setCookieHeader.map((data) => {
+        for (const data of setCookieHeader) {
           const result = cookie.parse(data);
           if (result['JSESSIONID']) {
-            redisClient.set(HUNTER_CACHE_SESSION_KEY, result['JSESSIONID']);
+            await redisClient.set(
+              HUNTER_CACHE_SESSION_KEY,
+              result['JSESSIONID'],
+            );
           }
-        });
+        }
+
         return { isLoggedin: true };
       }
+
       return { isLoggedin: false };
     } catch (error) {
       logger.error(error, `HLR-login err:`);

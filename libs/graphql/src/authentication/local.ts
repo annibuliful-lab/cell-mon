@@ -7,7 +7,7 @@ import { ForbiddenError } from '../errors/forbidden';
 
 const CACHE_EXPIRE = 3600;
 
-type AccountInfo = {
+export type AccountInfo = {
   accountUid: string;
   accountId: string;
   projectId?: string;
@@ -100,7 +100,7 @@ async function getAccountWorkspaceRole(accountId: string, workspaceId: string) {
     .executeTakeFirst();
 
   if (!workspaceAccount) {
-    throw new AuthenticationError();
+    throw new ForbiddenError('You are not allow in this project');
   }
 
   const role = await primaryDbClient
@@ -110,7 +110,7 @@ async function getAccountWorkspaceRole(accountId: string, workspaceId: string) {
     .executeTakeFirst();
 
   if (!role) {
-    throw new AuthenticationError();
+    throw new ForbiddenError('You are not allow in this project');
   }
 
   const workspaceRolePermissions = await primaryDbClient
@@ -168,6 +168,8 @@ export async function verifyLocalAuthentication({
     ) {
       return getAccountInfo(userInfo, workspaceId);
     }
+
+    return accountInfo;
   }
 
   return getAccountInfo(userInfo, workspaceId);

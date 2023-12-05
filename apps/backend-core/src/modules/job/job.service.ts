@@ -69,6 +69,7 @@ export class JobService extends JobRepository<'job', GraphqlContext> {
       .select(this.tableColumns)
       .where('id', '=', id)
       .executeTakeFirst();
+
     if (!job) {
       throw new NotfoundResource(['id']);
     }

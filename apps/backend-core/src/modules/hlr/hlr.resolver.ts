@@ -17,6 +17,7 @@ export const mutation: Resolvers<AppContext>['Mutation'] = {
       missionId: '109',
       msisdn: input.msisdn,
       dialogId: response.dialogId,
+      phoneTargetLocationId: input.phoneTargetLocationId,
     };
 
     await ctx.jobService.create({
@@ -25,6 +26,7 @@ export const mutation: Resolvers<AppContext>['Mutation'] = {
       type: JobType.HlrQuery,
       title: JobType.HlrQuery,
       maxRetries: 1,
+      input,
     });
 
     return {
