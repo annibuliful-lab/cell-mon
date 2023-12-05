@@ -31,6 +31,7 @@ export type PhoneTargetLocationSelection = {
   phoneCellInfoCid: StringOrNull;
   phoneCellInfoLac: StringOrNull;
   phoneCellInfoType: CellularTechnology;
+  status: string;
   phoneGeoLocations: {
     id: string;
     latitude: string;
@@ -46,6 +47,7 @@ export class PhoneTargetLocationService extends PrimaryRepository<
     phoneTargetLocation: PhoneTargetLocationSelection,
   ) {
     return {
+      status: phoneTargetLocation.status,
       id: phoneTargetLocation.phoneTargetLocationId,
       phoneTargetId: phoneTargetLocation.phoneTargetId,
       metadata: phoneTargetLocation.phoneTargetLocationMetadata,
@@ -380,6 +382,8 @@ export class PhoneTargetLocationService extends PrimaryRepository<
         'phone_cell_info.type as phoneCellInfoType',
         'phone_network.country as phoneNetworkCountry',
         'phone_network.code as phoneNetworkCode',
+        'phone_target_location.status as status',
+        'phone_target_location.hrlReferenceId as hrlReferenceId',
       ]);
   }
 
