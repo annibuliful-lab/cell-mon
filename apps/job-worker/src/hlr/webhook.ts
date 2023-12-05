@@ -34,10 +34,24 @@ export const hlrWebhookWorker = createWorkerClient<HlrCoreWsPayload>({
       return;
     }
 
-    const msisdn = (job.input as { msisdn: string }).msisdn;
+    const jobInput = job.input as {
+      missionId: string;
+      msisdn: string;
+      dialogId: string;
+      phoneTargetLocationId: string;
+    };
+
+    const msisdn = jobInput.msisdn;
+    const phoneTargetLocationId = jobInput.phoneTargetLocationId;
 
     if (!msisdn) {
       logger.warn(hlrData, '[Job-Worker]: msisdn is null');
+      await worker.remove();
+      return;
+    }
+
+    if (!phoneTargetLocationId) {
+      logger.warn(hlrData, '[Job-Worker]: phoneTargetLocationId is null');
       await worker.remove();
       return;
     }
@@ -102,12 +116,9 @@ export const hlrWebhookWorker = createWorkerClient<HlrCoreWsPayload>({
 
       if (!isSuccess) {
         await client.mutation({
-          createPhoneTargetLocation: {
+          updatePhoneTargetLocation: {
             __args: {
-              phoneTargetLocation: {
-                phoneTargetId: phoneTarget.id,
-                sourceDateTime: new Date(),
-              },
+              id: phoneTargetLocationId,
               status: 'FAILED',
               hrlReferenceId: hlrData.dialogId,
             },
@@ -119,15 +130,12 @@ export const hlrWebhookWorker = createWorkerClient<HlrCoreWsPayload>({
       }
 
       await client.mutation({
-        createPhoneTargetLocation: {
+        updatePhoneTargetLocation: {
           __scalar: true,
           __args: {
             status: 'COMPLETED',
             hrlReferenceId: hlrData.dialogId,
-            phoneTargetLocation: {
-              phoneTargetId: phoneTarget.id,
-              sourceDateTime: new Date(),
-            },
+            id: phoneTargetLocationId,
             geoLocations: [
               {
                 source: 'HLR_Query',
@@ -154,6 +162,17 @@ export const hlrWebhookWorker = createWorkerClient<HlrCoreWsPayload>({
           },
         },
       });
+
+      await jobDbClient
+        .updateTable('job')
+        .set({
+          result: hlrData,
+          updatedAt: new Date(),
+          completedAt: new Date(),
+          status: 'COMPLETED',
+        })
+        .where('id', '=', job.id)
+        .execute();
     } catch (error) {
       logger.error(error, '[Job-Worker]: internal server failed');
 
@@ -164,17 +183,6 @@ export const hlrWebhookWorker = createWorkerClient<HlrCoreWsPayload>({
           updatedAt: new Date(),
           completedAt: new Date(),
           status: 'FAILED',
-        })
-        .where('id', '=', job.id)
-        .execute();
-    } finally {
-      await jobDbClient
-        .updateTable('job')
-        .set({
-          result: hlrData,
-          updatedAt: new Date(),
-          completedAt: new Date(),
-          status: 'COMPLETED',
         })
         .where('id', '=', job.id)
         .execute();

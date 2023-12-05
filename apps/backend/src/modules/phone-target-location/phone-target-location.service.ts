@@ -12,6 +12,7 @@ import { v4 } from 'uuid';
 import {
   CellularTechnology,
   MutationCreatePhoneTargetLocationArgs,
+  MutationUpdatePhoneTargetLocationArgs,
   PhoneTargetLocation,
   QueryGetPhoneTargeLocationsByPhoneTargetIdArgs,
 } from '../../codegen-generated';
@@ -88,6 +89,142 @@ export class PhoneTargetLocationService extends PrimaryRepository<
     if (phoneTarget.workspaceId !== this.context.workspaceId) {
       throw new ForbiddenError('You are allow to this phone target');
     }
+  }
+
+  async update({
+    network,
+    cellInfo,
+    geoLocations,
+    hrlReferenceId,
+    id,
+    status,
+  }: MutationUpdatePhoneTargetLocationArgs): Promise<PhoneTargetLocation> {
+    const phoneTargetLocation = await this.db
+      .selectFrom('phone_target_location')
+      .select(['phone_target_location.id as id'])
+      .where('id', '=', id)
+      .executeTakeFirst();
+
+    if (!phoneTargetLocation) {
+      throw new NotfoundResource(['id']);
+    }
+
+    return this.db
+      .transaction()
+      .setIsolationLevel('read committed')
+      .execute(async (tx) => {
+        const updatedPhoneTargetLocation = await tx
+          .updateTable('phone_target_location')
+          .set({
+            hrlReferenceId,
+            status,
+          })
+          .where('id', '=', id)
+          .returningAll()
+          .executeTakeFirst();
+
+        let updatePhoneNetwork:
+          | {
+              phoneTargetLocationId: string;
+              code: string;
+              country: string;
+              operator: string;
+              mnc: string;
+              mcc: string;
+            }
+          | undefined;
+
+        if (network) {
+          updatePhoneNetwork = await tx
+            .updateTable('phone_network')
+            .set({
+              operator: network.operator,
+              mcc: network.mcc,
+              mnc: network.mnc,
+              code: network.code,
+              country: network.country,
+            })
+            .where('phone_network.phoneTargetLocationId', '=', id)
+            .returningAll()
+            .executeTakeFirst();
+        }
+
+        let createdGeoLocations: {
+          id: string;
+          phoneTargetLocationId: string;
+          latitude: string;
+          longtitude: string;
+          source: string;
+        }[] = [];
+
+        if (geoLocations) {
+          createdGeoLocations = await tx
+            .insertInto('phone_geo_location')
+            .values(
+              geoLocations.map((location) => ({
+                id: v4(),
+                phoneTargetLocationId: id,
+                latitude: location.latitude.toString(),
+                longtitude: location.longtitude.toString(),
+                source: location.source,
+              })),
+            )
+            .returningAll()
+            .execute();
+        }
+
+        let updatedCellInfo:
+          | {
+              phoneTargetLocationId: string;
+              type: CellularTechnology;
+              lac: string;
+              cid: string;
+              range: string;
+            }
+          | undefined;
+
+        if (cellInfo) {
+          updatedCellInfo = (await tx
+            .insertInto('phone_cell_info')
+            .values({
+              phoneTargetLocationId: id,
+              type: cellInfo.type,
+              lac: cellInfo.lac,
+              cid: cellInfo.cid,
+              range: cellInfo.range,
+            })
+            .returningAll()
+            .executeTakeFirst()) as never;
+        }
+
+        if (
+          !updatedPhoneTargetLocation ||
+          !updatePhoneNetwork ||
+          !updatedCellInfo
+        ) {
+          throw new GraphqlError('Service unavailable');
+        }
+
+        return {
+          id: updatedPhoneTargetLocation.id,
+          phoneTargetId: updatedPhoneTargetLocation.phoneTargetId,
+          metadata: updatedPhoneTargetLocation.metadata,
+          sourceDateTime: updatedPhoneTargetLocation.sourceDateTime,
+          network: updatePhoneNetwork,
+          cellInfo: {
+            phoneTargetLocationId: updatedPhoneTargetLocation.id,
+            type: updatedCellInfo.type,
+            cid: updatedCellInfo.cid,
+            lac: updatedCellInfo.lac,
+          },
+          geoLocations: createdGeoLocations.map((location) => ({
+            ...location,
+            latitude: Number(location.latitude),
+            longtitude: Number(location.longtitude),
+          })),
+          status: updatedPhoneTargetLocation.status,
+        } as PhoneTargetLocation;
+      });
   }
 
   async create({
@@ -207,12 +344,12 @@ export class PhoneTargetLocationService extends PrimaryRepository<
           phoneTargetId: createdPhoneTargetLocation.phoneTargetId,
           metadata: createdPhoneTargetLocation.metadata,
           sourceDateTime: createdPhoneTargetLocation.sourceDateTime,
-          network: createdNetwork ?? null,
+          network: createdNetwork,
           cellInfo: {
             phoneTargetLocationId: createdPhoneTargetLocation.id,
-            type: createdCellInfo.type as CellularTechnology,
-            cid: createdCellInfo.cid as string,
-            lac: createdCellInfo.lac as string,
+            type: createdCellInfo.type,
+            cid: createdCellInfo.cid,
+            lac: createdCellInfo.lac,
           },
           geoLocations: createdGeoLocations.map((location) => ({
             ...location,

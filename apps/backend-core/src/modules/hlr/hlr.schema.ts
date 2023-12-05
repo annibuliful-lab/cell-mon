@@ -6,7 +6,7 @@ export const hlrTypeDefs = gql`
   }
 
   type Mutation {
-    callHlr(msisdn: String!): CallHrlResponse!
+    callHlr(msisdn: String!, phoneTargetLocationId: ID!): CallHrlResponse!
   }
 
   type Query {
