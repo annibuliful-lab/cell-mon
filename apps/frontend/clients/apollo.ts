@@ -24,7 +24,9 @@ import {
   AUTH_REFRESH_COOKIE_KEY,
   WORKSPACE_ID_COOKIE_KEY,
 } from '../constants/constants';
+
 const GRAPHQL_ENDPOINT = 'http://localhost:3030/graphql';
+
 const errorLink = onError(({ networkError, operation, forward }) => {
   const networkErrors = networkError as ServerError;
 
@@ -83,7 +85,7 @@ const httpLink = new HttpLink({
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: 'ws://localhost:3030/graphql',
+    url: GRAPHQL_ENDPOINT.replace('http', 'ws'),
     connectionParams: getAuthContext(),
   }),
 );

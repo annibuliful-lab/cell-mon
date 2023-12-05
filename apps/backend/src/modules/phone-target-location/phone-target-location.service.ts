@@ -135,16 +135,21 @@ export class PhoneTargetLocationService extends PrimaryRepository<
           | undefined;
 
         if (network) {
+          await tx
+            .deleteFrom('phone_network')
+            .where('phoneTargetLocationId', '=', id)
+            .executeTakeFirst();
+
           updatePhoneNetwork = await tx
-            .updateTable('phone_network')
-            .set({
+            .insertInto('phone_network')
+            .values({
+              phoneTargetLocationId: id,
               operator: network.operator,
               mcc: network.mcc,
               mnc: network.mnc,
               code: network.code,
               country: network.country,
             })
-            .where('phone_network.phoneTargetLocationId', '=', id)
             .returningAll()
             .executeTakeFirst();
         }
@@ -158,6 +163,11 @@ export class PhoneTargetLocationService extends PrimaryRepository<
         }[] = [];
 
         if (geoLocations) {
+          await tx
+            .deleteFrom('phone_geo_location')
+            .where('phoneTargetLocationId', '=', id)
+            .executeTakeFirst();
+
           createdGeoLocations = await tx
             .insertInto('phone_geo_location')
             .values(
@@ -184,24 +194,25 @@ export class PhoneTargetLocationService extends PrimaryRepository<
           | undefined;
 
         if (cellInfo) {
+          await tx
+            .deleteFrom('phone_cell_info')
+            .where('phoneTargetLocationId', '=', id)
+            .executeTakeFirst();
+
           updatedCellInfo = (await tx
-            .updateTable('phone_cell_info')
-            .set({
+            .insertInto('phone_cell_info')
+            .values({
+              phoneTargetLocationId: id,
               type: cellInfo.type,
               lac: cellInfo.lac,
               cid: cellInfo.cid,
               range: cellInfo.range,
             })
-            .where('phoneTargetLocationId', '=', id)
             .returningAll()
             .executeTakeFirst()) as never;
         }
 
-        if (
-          !updatedPhoneTargetLocation ||
-          !updatePhoneNetwork ||
-          !updatedCellInfo
-        ) {
+        if (!updatedPhoneTargetLocation) {
           throw new GraphqlError('Service unavailable');
         }
 
@@ -211,12 +222,7 @@ export class PhoneTargetLocationService extends PrimaryRepository<
           metadata: updatedPhoneTargetLocation.metadata,
           sourceDateTime: updatedPhoneTargetLocation.sourceDateTime,
           network: updatePhoneNetwork,
-          cellInfo: {
-            phoneTargetLocationId: updatedPhoneTargetLocation.id,
-            type: updatedCellInfo.type,
-            cid: updatedCellInfo.cid,
-            lac: updatedCellInfo.lac,
-          },
+          cellInfo: updatedCellInfo,
           geoLocations: createdGeoLocations.map((location) => ({
             ...location,
             latitude: Number(location.latitude),
@@ -330,27 +336,13 @@ export class PhoneTargetLocationService extends PrimaryRepository<
             .execute();
         }
 
-        if (
-          !createdCellInfo ||
-          !createdGeoLocations ||
-          !createdNetwork ||
-          !createdGeoLocations
-        ) {
-          throw new GraphqlError('Service unavailable');
-        }
-
         return {
           id: createdPhoneTargetLocation.id,
           phoneTargetId: createdPhoneTargetLocation.phoneTargetId,
           metadata: createdPhoneTargetLocation.metadata,
           sourceDateTime: createdPhoneTargetLocation.sourceDateTime,
           network: createdNetwork,
-          cellInfo: {
-            phoneTargetLocationId: createdPhoneTargetLocation.id,
-            type: createdCellInfo.type,
-            cid: createdCellInfo.cid,
-            lac: createdCellInfo.lac,
-          },
+          cellInfo: createdCellInfo,
           geoLocations: createdGeoLocations.map((location) => ({
             ...location,
             latitude: Number(location.latitude),

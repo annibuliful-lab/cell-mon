@@ -7,7 +7,7 @@ import { ForbiddenError } from '../errors/forbidden';
 
 const CACHE_EXPIRE = 3600;
 
-type AccountInfo = {
+export type AccountInfo = {
   accountUid: string;
   accountId: string;
   projectId?: string;
@@ -168,6 +168,8 @@ export async function verifyLocalAuthentication({
     ) {
       return getAccountInfo(userInfo, workspaceId);
     }
+
+    return accountInfo;
   }
 
   return getAccountInfo(userInfo, workspaceId);

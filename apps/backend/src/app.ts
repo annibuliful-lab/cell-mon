@@ -1,10 +1,10 @@
 import { mqRedisEmitter, primaryDbClient, redisClient } from '@cell-mon/db';
 import {
   AuthenticationError,
-  ForbiddenError,
   graphqlLogger,
+  verifyLocalAuthentication,
 } from '@cell-mon/graphql';
-import { jwtVerify, logger } from '@cell-mon/utils';
+import { logger } from '@cell-mon/utils';
 import cookie from '@fastify/cookie';
 import cors from '@fastify/cors';
 import csrfProtection from '@fastify/csrf-protection';
@@ -61,7 +61,7 @@ export async function main() {
     subscription: {
       fullWsTransport: true,
       emitter: mqRedisEmitter,
-      onConnect: ({
+      onConnect: async ({
         payload,
       }: {
         payload: {
@@ -70,17 +70,18 @@ export async function main() {
         };
       }) => {
         const authorization = payload.authorization;
+        const workspaceId = payload.workspaceId;
         if (!authorization) {
           throw new AuthenticationError();
         }
 
         const token = authorization.replace('Bearer ', '');
-        const { isValid, userInfo } = jwtVerify(token);
+        const userInfo = await verifyLocalAuthentication({
+          token,
+          workspaceId,
+        });
 
-        if (!isValid) {
-          throw new ForbiddenError();
-        }
-        return { userInfo };
+        return { ...userInfo, workspaceId };
       },
     },
     errorFormatter(err, ctx) {

@@ -85,7 +85,7 @@ export const graphqlContext = async ({
     permissions,
     apiKey: workspaceApiKey,
   } = await verifyLocalAuthentication({
-    token: authorization,
+    token: authorization.replace('Bearer ', ''),
     workspaceId,
   });
 
