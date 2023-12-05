@@ -151,6 +151,116 @@ describe('Phone Target Location', () => {
     expect(geoLocation.source).toEqual(geoLocations[0].source);
   });
 
+  it('updates an existing', async () => {
+    const phoneTarget = await testCreatePhoneTarget();
+    const network = {
+      code: '66',
+      operator: 'OPERATOR',
+      country: 'Thailand',
+      mcc: '433',
+      mnc: '03',
+    };
+
+    const cellInfo = {
+      cid: 'CI',
+      type: 'GSM' as CellularTechnology,
+      lac: 'LAC',
+    };
+
+    const geoLocations = [
+      {
+        source: 'MOCK_SOURCE',
+        latitude: 53.471,
+        longtitude: 53.472,
+      },
+    ];
+
+    const phoneTargetLocation = (
+      await apiKeyClient.mutation({
+        createPhoneTargetLocation: {
+          __scalar: true,
+          network: {
+            __scalar: true,
+          },
+          cellInfo: {
+            __scalar: true,
+          },
+          geoLocations: {
+            __scalar: true,
+          },
+          __args: {
+            status: 'COMPLETED',
+            phoneTargetLocation: {
+              phoneTargetId: phoneTarget.id,
+              sourceDateTime: new Date(),
+            },
+            network,
+            cellInfo: {
+              ...cellInfo,
+              range: '1000m',
+            },
+            geoLocations,
+          },
+        },
+      })
+    ).createPhoneTargetLocation;
+
+    const newNetwork = {
+      code: '66',
+      operator: 'OPERATOR',
+      country: 'Thailand',
+      mcc: '223',
+      mnc: '01',
+    };
+
+    const newCellInfo = {
+      cid: 'NEW_CI',
+      type: 'LTE' as CellularTechnology,
+      lac: 'NEW_LAC',
+    };
+
+    const updated = (
+      await client.mutation({
+        updatePhoneTargetLocation: {
+          __scalar: true,
+          network: {
+            __scalar: true,
+          },
+          cellInfo: {
+            __scalar: true,
+          },
+          geoLocations: {
+            __scalar: true,
+          },
+
+          __args: {
+            id: phoneTargetLocation.id,
+            status: 'IDLE',
+            network: newNetwork,
+            cellInfo: {
+              ...newCellInfo,
+              range: '200m',
+            },
+          },
+        },
+      })
+    ).updatePhoneTargetLocation;
+    expect(updated.phoneTargetId).toEqual(phoneTarget.id);
+    expect(updated.network).toEqual(expect.objectContaining(newNetwork));
+    expect(updated.cellInfo).toEqual(expect.objectContaining(newCellInfo));
+
+    const geoLocation = phoneTargetLocation.geoLocations[0];
+    expect(phoneTargetLocation.phoneTargetId).toEqual(phoneTarget.id);
+    expect(phoneTargetLocation.network).toEqual(
+      expect.objectContaining(network),
+    );
+    expect(phoneTargetLocation.cellInfo).toEqual(
+      expect.objectContaining(cellInfo),
+    );
+    expect(geoLocation.phoneTargetLocationId).toEqual(phoneTargetLocation.id);
+    expect(geoLocation.latitude).toEqual(geoLocations[0].latitude);
+    expect(geoLocation.source).toEqual(geoLocations[0].source);
+  });
   it('creates new', async () => {
     const phoneTarget = await testCreatePhoneTarget();
     const network = {

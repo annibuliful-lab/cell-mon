@@ -185,14 +185,14 @@ export class PhoneTargetLocationService extends PrimaryRepository<
 
         if (cellInfo) {
           updatedCellInfo = (await tx
-            .insertInto('phone_cell_info')
-            .values({
-              phoneTargetLocationId: id,
+            .updateTable('phone_cell_info')
+            .set({
               type: cellInfo.type,
               lac: cellInfo.lac,
               cid: cellInfo.cid,
               range: cellInfo.range,
             })
+            .where('phoneTargetLocationId', '=', id)
             .returningAll()
             .executeTakeFirst()) as never;
         }

@@ -100,7 +100,7 @@ export const phoneTargetLocationTypeDef = gql`
       cellInfo: CreatePhoneCellInfoInput
       geoLocations: [CreatePhoneGeoLocationInput!]
       hrlReferenceId: ID
-      status: PhoneTargetJobStatus!
+      status: PhoneTargetJobStatus
     ): PhoneTargetLocation! @access(requiredApiKey: true)
 
     createHlrGeoJobRequest(phoneTargetId: UUID!): CreateHlrGeoJobResponse!
