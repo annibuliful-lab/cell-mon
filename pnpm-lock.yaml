@@ -300,8 +300,8 @@ dependencies:
     specifier: 2.6.2
     version: 2.6.2
   undici:
-    specifier: 5.28.2
-    version: 5.28.2
+    specifier: 6.0.0
+    version: 6.0.0
   uuid:
     specifier: 9.0.1
     version: 9.0.1
@@ -16848,6 +16848,13 @@ packages:
   /undici@5.5.1:
     resolution: {integrity: sha512-MEvryPLf18HvlCbLSzCW0U00IMftKGI5udnjrQbC5D4P0Hodwffhv+iGfWuJwg16Y/TK11ZFK8i+BPVW2z/eAw==}
     engines: {node: '>=12.18'}
+    dev: false
+
+  /undici@6.0.0:
+    resolution: {integrity: sha512-m3nzx/3ji00Y6wY9hAJTBOBdtcMj0SyxpHKd5kaxghTftjB3icbYaPXGeogxIVcm6FVvnAM9aB6wz9L8Sntt8w==}
+    engines: {node: '>=18.0'}
+    dependencies:
+      '@fastify/busboy': 2.0.0
     dev: false
 
   /unicode-canonical-property-names-ecmascript@2.0.0:
