@@ -67,6 +67,7 @@ describe('Phone Target Location', () => {
             __scalar: true,
           },
           __args: {
+            status: 'COMPLETED',
             phoneTargetLocation: {
               phoneTargetId: phoneTarget.id,
               sourceDateTime: new Date(),
@@ -121,6 +122,7 @@ describe('Phone Target Location', () => {
             __scalar: true,
           },
           __args: {
+            status: 'COMPLETED',
             phoneTargetLocation: {
               phoneTargetId: phoneTarget.id,
               sourceDateTime: new Date(),
@@ -187,6 +189,7 @@ describe('Phone Target Location', () => {
             __scalar: true,
           },
           __args: {
+            status: 'COMPLETED',
             phoneTargetLocation: {
               phoneTargetId: phoneTarget.id,
               sourceDateTime: new Date(),
@@ -253,6 +256,7 @@ describe('Phone Target Location', () => {
             __scalar: true,
           },
           __args: {
+            status: 'COMPLETED',
             phoneTargetLocation: {
               phoneTargetId: phoneTarget.id,
               sourceDateTime: new Date(),
@@ -339,6 +343,7 @@ describe('Phone Target Location', () => {
             __scalar: true,
           },
           __args: {
+            status: 'COMPLETED',
             phoneTargetLocation: {
               phoneTargetId: phoneTarget.id,
               sourceDateTime: new Date(),

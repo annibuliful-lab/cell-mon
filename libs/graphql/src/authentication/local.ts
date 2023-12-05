@@ -100,7 +100,7 @@ async function getAccountWorkspaceRole(accountId: string, workspaceId: string) {
     .executeTakeFirst();
 
   if (!workspaceAccount) {
-    throw new AuthenticationError();
+    throw new ForbiddenError('You are not allow in this project');
   }
 
   const role = await primaryDbClient
@@ -110,7 +110,7 @@ async function getAccountWorkspaceRole(accountId: string, workspaceId: string) {
     .executeTakeFirst();
 
   if (!role) {
-    throw new AuthenticationError();
+    throw new ForbiddenError('You are not allow in this project');
   }
 
   const workspaceRolePermissions = await primaryDbClient
