@@ -61,8 +61,11 @@ export class HrlService {
     } catch (error) {
       const err: AxiosError = error;
       if (['ECONNABORTED', 'EHOSTUNREACH'].includes(err.code)) {
+        logger.error('Request rejected. Please check your VPN connection.');
+
         throw new Error('Request rejected. Please check your VPN connection.');
       }
+
       logger.error(error, `HLR-login err: ${err.code}`);
       return { isLoggedin: false };
     }
