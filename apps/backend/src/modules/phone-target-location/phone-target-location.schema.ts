@@ -90,15 +90,11 @@ export const phoneTargetLocationTypeDef = gql`
       network: CreatePhoneNetworkInput
       cellInfo: CreatePhoneCellInfoInput
       geoLocations: [CreatePhoneGeoLocationInput!]
-      hrlReferenceId: ID!
+      hrlReferenceId: ID
       status: PhoneTargetJobStatus!
     ): PhoneTargetLocation! @access(requiredApiKey: true)
 
-    createFailedPhoneTargetLocation(
-      phoneTargetLocation: CreatePhoneTargetLocationInput!
-    ): PhoneTargetLocation! @access(requiredApiKey: true)
-
-    createHrlGeoJobRequest(phoneTargetId: UUID!): CreateHlrGeoJobResponse!
+    createHlrGeoJobRequest(phoneTargetId: UUID!): CreateHlrGeoJobResponse!
       @access
   }
 

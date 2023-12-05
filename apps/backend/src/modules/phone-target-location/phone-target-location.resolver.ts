@@ -4,11 +4,15 @@ import * as mercurius from 'mercurius';
 import { fetch } from 'undici';
 
 import { AppContext, WebsocketAppContext } from '../../@types/context';
-import { PhoneTargetLocation, Resolvers } from '../../codegen-generated';
+import {
+  PhoneTargetJobStatus,
+  PhoneTargetLocation,
+  Resolvers,
+} from '../../codegen-generated';
 import { PUBSUB_PHONE_LOCATION_TRACKING_TOPIC } from '../../constants';
 
 export const mutation: Resolvers<AppContext>['Mutation'] = {
-  createHrlGeoJobRequest: async (_, input, ctx) => {
+  createHlrGeoJobRequest: async (_, input, ctx) => {
     if (!ctx.apiKey) {
       throw new ForbiddenError('API key is invalid');
     }
@@ -30,6 +34,24 @@ export const mutation: Resolvers<AppContext>['Mutation'] = {
         __scalar: true,
         __args: {
           msisdn: phone.msisdn,
+        },
+      },
+    });
+
+    const phoneTargetLocation = await ctx.phoneTargetLocationService.create({
+      phoneTargetLocation: {
+        phoneTargetId: input.phoneTargetId,
+        sourceDateTime: new Date(),
+      },
+      status: PhoneTargetJobStatus.Processing,
+    });
+
+    await ctx.pubsub.publish({
+      topic: PUBSUB_PHONE_LOCATION_TRACKING_TOPIC,
+      payload: {
+        subscribePhoneLocationTracking: {
+          ...phoneTargetLocation,
+          workspaceId: ctx.workspaceId,
         },
       },
     });

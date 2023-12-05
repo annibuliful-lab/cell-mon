@@ -12,6 +12,7 @@ export async function testCreatePhoneTargetLocation() {
       __scalar: true,
       __args: {
         hrlReferenceId: nanoid(),
+        status: 'COMPLETED',
         phoneTargetLocation: {
           phoneTargetId: phoneTarget.id,
           sourceDateTime: new Date(),

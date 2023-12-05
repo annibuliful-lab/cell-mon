@@ -331,7 +331,7 @@ model PhoneTargetLocation {
   id             String               @id @default(uuid()) @db.Uuid
   status         PhoneTargetJobStatus @default(IDLE)
   phoneTargetId  String               @db.Uuid
-  hrlReferenceId String
+  hrlReferenceId String?
   metadata       Json?                @db.JsonB
   createdBy      String
   sourceDateTime DateTime
