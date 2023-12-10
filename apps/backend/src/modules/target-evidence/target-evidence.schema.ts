@@ -19,7 +19,7 @@ export const targetEvidenceTypeDef = gql`
   }
 
   input EvidencePhotoInput {
-    url: String!
+    key: String!
     caption: String
   }
 

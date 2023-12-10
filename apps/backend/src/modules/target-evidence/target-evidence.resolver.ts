@@ -1,5 +1,5 @@
 import { AppContext } from '../../@types/context';
-import { Resolvers } from '../../codegen-generated';
+import { EvidencePhoto, Resolvers } from '../../codegen-generated';
 
 export const mutation: Resolvers<AppContext>['Mutation'] = {
   createTargetEvidence: (_, input, ctx) => {
@@ -23,5 +23,29 @@ export const query: Resolvers<AppContext>['Query'] = {
   },
   getTargetEvidenceByTargetId: (_, input, ctx) => {
     return ctx.targetEvidenceService.findManyByTargetId(input) as never;
+  },
+};
+
+export const field: Resolvers<AppContext> = {
+  TargetEvidence: {
+    evidence: async (parent, _, ctx) => {
+      if (!parent.evidence) return;
+      const photos: EvidencePhoto[] = [];
+
+      for (const photo of parent.evidence.photos ?? []) {
+        const url = photo.url.includes(process.env.S3_ENDPOINT as string)
+          ? (await ctx.fileservice.getSignedUrl(photo.url)).signedUrl
+          : photo.url;
+
+        photos.push({
+          url,
+          caption: photo.caption,
+        });
+      }
+
+      return {
+        photos: photos,
+      };
+    },
   },
 };
