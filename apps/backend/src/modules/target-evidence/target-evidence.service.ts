@@ -7,9 +7,11 @@ import {
 import { v4 } from 'uuid';
 
 import {
+  Evidence,
   MutationCreateTargetEvidenceArgs,
   MutationUpdateTargetEvidenceArgs,
   QueryGetTargetEvidenceByTargetIdArgs,
+  TargetEvidence,
 } from '../../codegen-generated';
 
 export class TargetEvidenceService extends PrimaryRepository<
@@ -55,7 +57,14 @@ export class TargetEvidenceService extends PrimaryRepository<
         note: input.note,
         investigatedDate: input.investigatedDate,
         createdBy: this.context.accountId,
-        evidence: input.evidence,
+        evidence: {
+          ...input,
+          photos:
+            input.evidence?.photos?.map((photo) => ({
+              url: photo.key,
+              caption: photo.caption,
+            })) ?? [],
+        },
       })
       .returning(this.tableColumns)
       .executeTakeFirst();
@@ -71,7 +80,14 @@ export class TargetEvidenceService extends PrimaryRepository<
         note: input.note,
         investigatedDate: input.investigatedDate,
         updatedBy: this.context.accountId,
-        evidence: input.evidence,
+        evidence: {
+          ...input,
+          photos:
+            input.evidence?.photos?.map((photo) => ({
+              url: photo.key,
+              caption: photo.caption,
+            })) ?? [],
+        },
       })
       .where('id', '=', input.id)
       .returning(this.tableColumns)
@@ -125,12 +141,12 @@ export class TargetEvidenceService extends PrimaryRepository<
   async findManyByTargetId(
     filter: QueryGetTargetEvidenceByTargetIdArgs,
     verifyTargetId = true,
-  ) {
+  ): Promise<TargetEvidence[]> {
     if (verifyTargetId) {
       await this.verifyTargetIdInWorkspace(filter.targetId);
     }
 
-    return this.db
+    const evidences = await this.db
       .selectFrom('target_evidence')
       .select(this.tableColumns)
       .where('targetId', '=', filter.targetId)
@@ -140,5 +156,13 @@ export class TargetEvidenceService extends PrimaryRepository<
       .limit(filter.pagination?.limit ?? this.defaultLimit)
       .offset(filter.pagination?.offset ?? this.defaultOffset)
       .execute();
+
+    return evidences.map((evidence) => ({
+      id: evidence.id,
+      targetId: evidence.targetId,
+      investigatedDate: evidence.investigatedDate,
+      note: evidence.note,
+      evidence: evidence.evidence as Evidence,
+    }));
   }
 }

@@ -14,7 +14,7 @@ describe('Target evidence', () => {
     const target = await testCreateTarget();
     const photos = [
       {
-        url: nanoid(),
+        key: nanoid(),
         caption: nanoid(),
       },
     ];
@@ -47,13 +47,15 @@ describe('Target evidence', () => {
     expect(targetEvidence.targetId).toEqual(target.id);
     expect(targetEvidence.note).toEqual(note);
     expect(targetEvidence.investigatedDate).toBeDefined();
-    expect(targetEvidence.evidence.photos).toEqual(photos);
+    expect(targetEvidence.evidence.photos).toEqual(
+      photos.map((p) => ({ url: p.key, caption: p.caption })),
+    );
   });
 
   it('throws not found when create with wrong target id', () => {
     const photos = [
       {
-        url: nanoid(),
+        key: nanoid(),
         caption: nanoid(),
       },
     ];
@@ -90,7 +92,7 @@ describe('Target evidence', () => {
     const target = await testCreateTarget();
     const photos = [
       {
-        url: nanoid(),
+        key: nanoid(),
         caption: nanoid(),
       },
     ];
@@ -124,7 +126,7 @@ describe('Target evidence', () => {
     const newNote = nanoid();
     const newEvidence = [
       {
-        url: nanoid(),
+        key: nanoid(),
         caption: nanoid(),
       },
     ];
@@ -155,14 +157,16 @@ describe('Target evidence', () => {
     expect(updated.targetId).toEqual(target.id);
     expect(updated.note).toEqual(newNote);
     expect(updated.investigatedDate).toBeDefined();
-    expect(updated.evidence.photos).toEqual(newEvidence);
+    expect(updated.evidence.photos).toEqual(
+      newEvidence.map((p) => ({ url: p.key, caption: p.caption })),
+    );
   });
 
   it('throws not found when update wrong id', async () => {
     const newNote = nanoid();
     const newEvidence = [
       {
-        url: nanoid(),
+        key: nanoid(),
         caption: nanoid(),
       },
     ];
@@ -195,7 +199,7 @@ describe('Target evidence', () => {
     const target = await testCreateTarget();
     const photos = [
       {
-        url: nanoid(),
+        key: nanoid(),
         caption: nanoid(),
       },
     ];
@@ -255,7 +259,7 @@ describe('Target evidence', () => {
     const target = await testCreateTarget();
     const photos = [
       {
-        url: nanoid(),
+        key: nanoid(),
         caption: nanoid(),
       },
     ];
@@ -336,7 +340,7 @@ describe('Target evidence', () => {
     const target = await testCreateTarget();
     const photos = [
       {
-        url: nanoid(),
+        key: nanoid(),
         caption: nanoid(),
       },
     ];

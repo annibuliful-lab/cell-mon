@@ -28,6 +28,13 @@ export const query: Resolvers<AppContext>['Query'] = {
 
 export const field: Resolvers<AppContext> = {
   Target: {
+    photoUrl: async (parent, _, ctx) => {
+      if (!parent.photoUrl) return;
+      if (!parent.photoUrl.includes(process.env.S3_ENDPOINT as string))
+        return parent.photoUrl;
+
+      return (await ctx.fileservice.getSignedUrl(parent.photoUrl)).signedUrl;
+    },
     evidences: (parent, filter, ctx) => {
       return ctx.targetEvidenceService.findManyByTargetId(
         {
@@ -35,7 +42,7 @@ export const field: Resolvers<AppContext> = {
           pagination: filter.pagination,
         },
         false,
-      ) as never;
+      );
     },
   },
 };

@@ -420,7 +420,7 @@ describe('Target', () => {
     const target = await testCreateTarget();
     const photos = [
       {
-        url: nanoid(),
+        key: nanoid(),
         caption: nanoid(),
       },
     ];

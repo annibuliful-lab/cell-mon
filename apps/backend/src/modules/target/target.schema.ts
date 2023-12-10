@@ -18,7 +18,7 @@ export const targetTypeDef = gql`
       title: String!
       description: String
       address: String
-      photoUrl: String
+      photoKey: String
       priority: PRIORITY
       tags: [String!]
     ): Target! @access(subject: "TARGET", action: CREATE)
@@ -27,7 +27,7 @@ export const targetTypeDef = gql`
       id: UUID!
       title: String!
       description: String
-      photoUrl: String
+      photoKey: String
       address: String
       priority: PRIORITY
       tags: [String!]

@@ -22,7 +22,7 @@ export async function testCreateTarget(option?: Option) {
           title,
           tags,
           description,
-          photoUrl,
+          photoKey: photoUrl,
           priority: option?.priority,
         },
       },
