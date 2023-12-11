@@ -6,7 +6,11 @@ config();
 
 const runningServerService = async () => {
   await primaryBackend();
-  await coreBackend();
+
+  if (process.env.NODE_ENV !== 'ci') {
+    await coreBackend();
+  }
+
   await jobWorker();
   // const used = process.memoryUsage();
   // for (const key in used) {
