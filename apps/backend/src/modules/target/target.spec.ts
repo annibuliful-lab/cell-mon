@@ -19,7 +19,7 @@ describe('Target', () => {
     const title = nanoid();
     const description = nanoid();
     const tags = [nanoid(), nanoid()];
-    const photoUrl = nanoid();
+    const photoKey = nanoid();
 
     const target = (
       await client.mutation({
@@ -30,14 +30,14 @@ describe('Target', () => {
             title,
             tags,
             description,
-            photoUrl,
+            photoKey,
           },
         },
       })
     ).createTarget;
     expect(target.id).toBeDefined();
     expect(target.description).toEqual(description);
-    expect(target.photoUrl).toEqual(photoUrl);
+    expect(target.photoUrl).toEqual(photoKey);
     expect(target.priority).toBe(Priority.Medium);
     expect(target.tags).toEqual(tags);
   });
@@ -46,7 +46,7 @@ describe('Target', () => {
     const title = nanoid();
     const description = nanoid();
     const tags = [nanoid(), nanoid()];
-    const photoUrl = nanoid();
+    const photoKey = nanoid();
 
     await client.mutation({
       createTarget: {
@@ -56,7 +56,7 @@ describe('Target', () => {
           title,
           tags,
           description,
-          photoUrl,
+          photoKey,
         },
       },
     });
@@ -70,7 +70,7 @@ describe('Target', () => {
             title,
             tags,
             description,
-            photoUrl,
+            photoKey,
           },
         },
       }),
@@ -81,7 +81,7 @@ describe('Target', () => {
     const title = nanoid();
     const description = nanoid();
     const tags = [nanoid(), nanoid()];
-    const photoUrl = nanoid();
+    const photoKey = nanoid();
 
     const target = (
       await client.mutation({
@@ -92,7 +92,7 @@ describe('Target', () => {
             title,
             tags,
             description,
-            photoUrl,
+            photoKey,
           },
         },
       })
@@ -110,7 +110,7 @@ describe('Target', () => {
             title: newTitle,
             tags: newTags,
             description,
-            photoUrl,
+            photoKey,
           },
         },
       })
@@ -125,7 +125,7 @@ describe('Target', () => {
     const title = nanoid();
     const description = nanoid();
     const tags = [nanoid(), nanoid()];
-    const photoUrl = nanoid();
+    const photoKey = nanoid();
 
     await client.mutation({
       createTarget: {
@@ -135,7 +135,7 @@ describe('Target', () => {
           title,
           tags,
           description,
-          photoUrl,
+          photoKey,
         },
       },
     });
@@ -149,7 +149,7 @@ describe('Target', () => {
             title: nanoid(),
             tags,
             description,
-            photoUrl,
+            photoKey,
           },
         },
       })
@@ -165,7 +165,7 @@ describe('Target', () => {
             title,
             tags,
             description,
-            photoUrl,
+            photoKey,
           },
         },
       }),
@@ -176,7 +176,7 @@ describe('Target', () => {
     const title = nanoid();
     const description = nanoid();
     const tags = [nanoid(), nanoid()];
-    const photoUrl = nanoid();
+    const photoKey = nanoid();
 
     const createdTarget = (
       await client.mutation({
@@ -187,7 +187,7 @@ describe('Target', () => {
             title,
             tags,
             description,
-            photoUrl,
+            photoKey,
           },
         },
       })
@@ -222,7 +222,7 @@ describe('Target', () => {
     const title = nanoid();
     const description = nanoid();
     const tags = [nanoid(), nanoid()];
-    const photoUrl = nanoid();
+    const photoKey = nanoid();
 
     const createdTarget = (
       await client.mutation({
@@ -233,7 +233,7 @@ describe('Target', () => {
             title,
             tags,
             description,
-            photoUrl,
+            photoKey,
           },
         },
       })
@@ -264,7 +264,7 @@ describe('Target', () => {
     const title = nanoid();
     const description = nanoid();
     const tags = [nanoid(), nanoid()];
-    const photoUrl = nanoid();
+    const photoKey = nanoid();
 
     const createdTarget = (
       await client.mutation({
@@ -275,7 +275,7 @@ describe('Target', () => {
             title,
             tags,
             description,
-            photoUrl,
+            photoKey,
           },
         },
       })
@@ -320,7 +320,7 @@ describe('Target', () => {
     const title = nanoid();
     const description = nanoid();
     const tags = [nanoid(), nanoid()];
-    const photoUrl = nanoid();
+    const photoKey = nanoid();
 
     const createdTarget = (
       await client.mutation({
@@ -331,7 +331,7 @@ describe('Target', () => {
             title,
             tags,
             description,
-            photoUrl,
+            photoKey,
           },
         },
       })
@@ -353,7 +353,7 @@ describe('Target', () => {
     const title = nanoid();
     const description = nanoid();
     const tags = [nanoid(), nanoid(), nanoid(), nanoid()];
-    const photoUrl = nanoid();
+    const photoKey = nanoid();
 
     await client.mutation({
       createTarget: {
@@ -363,7 +363,7 @@ describe('Target', () => {
           title,
           tags,
           description,
-          photoUrl,
+          photoKey,
           priority: 'LOW',
         },
       },
@@ -387,7 +387,7 @@ describe('Target', () => {
     const title = nanoid();
     const description = nanoid();
     const tags = [nanoid(), nanoid(), nanoid(), nanoid()];
-    const photoUrl = nanoid();
+    const photoKey = nanoid();
 
     const createdTarget = (
       await client.mutation({
@@ -398,7 +398,7 @@ describe('Target', () => {
             title,
             tags,
             description,
-            photoUrl,
+            photoKey,
           },
         },
       })
