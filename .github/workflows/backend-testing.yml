@@ -113,7 +113,7 @@ jobs:
         run: pnpm run codegen:backend
 
       - name: run backend
-        run: pnpm run dev-server:start
+        run: nohup pnpm run dev-server:start &
 
       - name: waiting for graphql
         run: wait-on -d 5000 -t 30000 -i 200 -v http://localhost:3030/health
