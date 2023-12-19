@@ -338,8 +338,8 @@ devDependencies:
     specifier: 4.0.1
     version: 4.0.1(graphql@16.8.1)
   '@graphql-codegen/typescript-graphql-request':
-    specifier: 6.0.1
-    version: 6.0.1(graphql-request@6.1.0)(graphql-tag@2.12.6)(graphql@16.8.1)
+    specifier: 6.1.0
+    version: 6.1.0(graphql-request@6.1.0)(graphql-tag@2.12.6)(graphql@16.8.1)
   '@graphql-codegen/typescript-react-apollo':
     specifier: 4.1.0
     version: 4.1.0(graphql-tag@2.12.6)(graphql@16.8.1)
@@ -2097,15 +2097,6 @@ packages:
       '@babel/core': 7.23.0
       '@babel/helper-plugin-utils': 7.22.5
 
-  /@babel/plugin-transform-react-display-name@7.22.5(@babel/core@7.23.0):
-    resolution: {integrity: sha512-PVk3WPYudRF5z4GKMEYUrLjPl38fJSKNaEOkFuoprioowGuWN6w2RKznuFNSlJx7pzzXXStPUnNSOEO0jL5EVw==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.23.0
-      '@babel/helper-plugin-utils': 7.22.5
-
   /@babel/plugin-transform-react-display-name@7.23.3(@babel/core@7.23.0):
     resolution: {integrity: sha512-GnvhtVfA2OAtzdX58FJxU19rhoGeQzyVndw3GgtdECQvQFXPEZIOVULHVZGAYmOgmqjXpVpfocAbSjh99V/Fqw==}
     engines: {node: '>=6.9.0'}
@@ -3475,8 +3466,8 @@ packages:
       - supports-color
     dev: true
 
-  /@graphql-codegen/typescript-graphql-request@6.0.1(graphql-request@6.1.0)(graphql-tag@2.12.6)(graphql@16.8.1):
-    resolution: {integrity: sha512-aScw7ICyscW7bYLh2HyjQU3geCAjvFy6sRIlzgdkeFvcKBdjCil69upkyZAyntnSno2C4ZoUv7sHOpyQ9hQmFQ==}
+  /@graphql-codegen/typescript-graphql-request@6.1.0(graphql-request@6.1.0)(graphql-tag@2.12.6)(graphql@16.8.1):
+    resolution: {integrity: sha512-hMhBazvdSQWuOrH6GnYew8zb9wDq9le0o3tPu07if/v97LVVKsVfPNcMG/cTLYZufaog9o2jScLbyo17HEqicg==}
     engines: {node: '>= 16.0.0'}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -9414,7 +9405,7 @@ packages:
       '@babel/plugin-transform-object-super': 7.22.5(@babel/core@7.23.0)
       '@babel/plugin-transform-parameters': 7.22.15(@babel/core@7.23.0)
       '@babel/plugin-transform-property-literals': 7.22.5(@babel/core@7.23.0)
-      '@babel/plugin-transform-react-display-name': 7.22.5(@babel/core@7.23.0)
+      '@babel/plugin-transform-react-display-name': 7.23.3(@babel/core@7.23.0)
       '@babel/plugin-transform-react-jsx': 7.22.15(@babel/core@7.23.0)
       '@babel/plugin-transform-shorthand-properties': 7.22.5(@babel/core@7.23.0)
       '@babel/plugin-transform-spread': 7.22.5(@babel/core@7.23.0)
