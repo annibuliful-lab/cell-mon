@@ -54,7 +54,7 @@
     "@graphql-codegen/typescript-operations": "4.0.1",
     "@graphql-tools/merge": "9.0.1",
     "@graphql-tools/schema": "10.0.2",
-    "@graphql-tools/utils": "10.0.11",
+    "@graphql-tools/utils": "10.0.12",
     "@jest/globals": "29.7.0",
     "@mantine/core": "7.3.2",
     "@mantine/dates": "7.3.2",
