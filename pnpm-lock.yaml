@@ -168,8 +168,8 @@ dependencies:
     specifier: 1.6.3
     version: 1.6.3
   bullmq:
-    specifier: 5.0.0
-    version: 5.0.0
+    specifier: 5.1.0
+    version: 5.1.0
   cookie:
     specifier: 0.6.0
     version: 0.6.0
@@ -9568,8 +9568,8 @@ packages:
     dependencies:
       semver: 7.5.4
 
-  /bullmq@5.0.0:
-    resolution: {integrity: sha512-/GhvAB/nUKJMy2NzPCBKvq6yic6wlgaWW1gRCcFpjxP2LWB5TiCOSpsAx2i/9fUuMMa53/ZIKNK+vLO2DT+ZVQ==}
+  /bullmq@5.1.0:
+    resolution: {integrity: sha512-08rTUvXlAFIhKNIHVRL6KTc0xJf2pxVxnMH0Bvlq6WfKgW3uTWmTjw+oj1NDYCK5BTr3F8ih7dV2exoM8prA2w==}
     dependencies:
       cron-parser: 4.9.0
       glob: 8.1.0
