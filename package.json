@@ -123,7 +123,7 @@
     "next": "14.0.4",
     "pg": "8.11.3",
     "pino": "8.17.2",
-    "pino-pretty": "10.3.0",
+    "pino-pretty": "10.3.1",
     "prisma": "5.7.1",
     "prisma-erd-generator": "1.11.2",
     "prisma-kysely": "1.7.1",
