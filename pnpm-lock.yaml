@@ -306,8 +306,8 @@ dependencies:
     specifier: 9.0.1
     version: 9.0.1
   valibot:
-    specifier: 0.24.1
-    version: 0.24.1
+    specifier: 0.25.0
+    version: 0.25.0
   ws:
     specifier: 8.16.0
     version: 8.16.0
@@ -17441,8 +17441,8 @@ packages:
       convert-source-map: 2.0.0
     dev: true
 
-  /valibot@0.24.1:
-    resolution: {integrity: sha512-Toclbuy20XsECZiueh2dkQ63he2AGaBIj/FJRDAFti2kueFldm9bjJzSYvPaL5CE1HXDMRhq7olak8at7xCz5A==}
+  /valibot@0.25.0:
+    resolution: {integrity: sha512-cmD0ca15oyAbT75iYLNW6uU6doAeIwYfOshpXka/E1Bx4frzbkrgb7gvkI7K0YK/DVOksei4FfxWfRoBP3NFTg==}
     dev: false
 
   /validate-npm-package-license@3.0.4:
