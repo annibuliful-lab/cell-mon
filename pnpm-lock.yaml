@@ -141,8 +141,8 @@ dependencies:
     specifier: 2.19.2
     version: 2.19.2(react-dom@18.2.0)(react@18.2.0)
   '@types/apollo-upload-client':
-    specifier: ^17.0.4
-    version: 17.0.4(graphql-ws@5.14.3)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^18.0.0
+    version: 18.0.0(graphql-ws@5.14.3)(react-dom@18.2.0)(react@18.2.0)
   '@types/graphql-upload':
     specifier: 16.0.5
     version: 16.0.5
@@ -7879,8 +7879,8 @@ packages:
       '@types/node': 20.10.5
     dev: false
 
-  /@types/apollo-upload-client@17.0.4(graphql-ws@5.14.3)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-lUoGuvesg4W4mgEk8SRiuh0tDC4mXv92Jj2ogaMEjTR2Wt6eBYCUoy1pDXVapqXv4uZGh+oKlqrtadXySKO+jQ==}
+  /@types/apollo-upload-client@18.0.0(graphql-ws@5.14.3)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-cMgITNemktxasqvp6jiPj15dv84n3FTMvMoYBP1+xonDS+0l6JygIJrj2LJh85rShRzTOOkrElrAsCXXARa3KA==}
     dependencies:
       '@apollo/client': 3.8.8(graphql-ws@5.14.3)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
       '@types/extract-files': 8.1.2
