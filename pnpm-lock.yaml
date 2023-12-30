@@ -246,8 +246,8 @@ dependencies:
     specifier: 9.0.2
     version: 9.0.2
   kysely:
-    specifier: 0.26.3
-    version: 0.26.3
+    specifier: 0.27.0
+    version: 0.27.0
   lodash:
     specifier: 4.17.21
     version: 4.17.21
@@ -462,7 +462,7 @@ devDependencies:
     version: 29.7.0
   kysely-codegen:
     specifier: 0.11.0
-    version: 0.11.0(kysely@0.26.3)(pg@8.11.3)
+    version: 0.11.0(kysely@0.27.0)(pg@8.11.3)
   nx:
     specifier: 17.2.8
     version: 17.2.8(@swc-node/register@1.6.8)(@swc/core@1.3.101)
@@ -13681,7 +13681,7 @@ packages:
     engines: {node: '>= 8'}
     dev: false
 
-  /kysely-codegen@0.11.0(kysely@0.26.3)(pg@8.11.3):
+  /kysely-codegen@0.11.0(kysely@0.27.0)(pg@8.11.3):
     resolution: {integrity: sha512-8aklzXygjANshk5BoGSQ0BWukKIoPL4/k1iFWyteGUQ/VtB1GlyrELBZv1GglydjLGECSSVDpsOgEXyWQmuksg==}
     hasBin: true
     peerDependencies:
@@ -13703,14 +13703,14 @@ packages:
       chalk: 4.1.2
       dotenv: 16.3.1
       git-diff: 2.0.6
-      kysely: 0.26.3
+      kysely: 0.27.0
       micromatch: 4.0.5
       minimist: 1.2.8
       pg: 8.11.3
     dev: true
 
-  /kysely@0.26.3:
-    resolution: {integrity: sha512-yWSgGi9bY13b/W06DD2OCDDHQmq1kwTGYlQ4wpZkMOJqMGCstVCFIvxCCVG4KfY1/3G0MhDAcZsip/Lw8/vJWw==}
+  /kysely@0.27.0:
+    resolution: {integrity: sha512-wxOVru+SYTzofm59GlN0Tyo0v23qfX9pyU0n6Fc0GZZ5YldcyswenWsCoETqiJdtx7ThnxZpicqA2aqPMZV7DQ==}
     engines: {node: '>=14.0.0'}
 
   /language-subtag-registry@0.3.22:
