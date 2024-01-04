@@ -237,8 +237,8 @@ dependencies:
     specifier: 0.2.1
     version: 0.2.1(@apollo/client@3.8.8)(graphql@16.8.1)(jotai@2.6.1)
   jotai-immer:
-    specifier: 0.2.0
-    version: 0.2.0(immer@10.0.3)(jotai@2.6.1)(react@18.2.0)
+    specifier: 0.3.0
+    version: 0.3.0(immer@10.0.3)(jotai@2.6.1)(react@18.2.0)
   jsdom:
     specifier: 23.0.1
     version: 23.0.1
@@ -13519,11 +13519,11 @@ packages:
       jotai: 2.6.1(@types/react@18.2.46)(react@18.2.0)
     dev: false
 
-  /jotai-immer@0.2.0(immer@10.0.3)(jotai@2.6.1)(react@18.2.0):
-    resolution: {integrity: sha512-hahK8EPiROS9RoNWmX/Z8rY9WkAijspX4BZ1O7umpcwI4kPNkbcCpu/PhiQ8FMcpEcF6KmbpbMpSSj/GFmo8NA==}
+  /jotai-immer@0.3.0(immer@10.0.3)(jotai@2.6.1)(react@18.2.0):
+    resolution: {integrity: sha512-k+o4rWfWWLyHfucHAdoiN+l8flxMrKC/bEFvJA98znj+kbPW5R90EPa1u8mhWLJTABW3xjAp7Z3kyD3FVi0Hgw==}
     peerDependencies:
       immer: '*'
-      jotai: '>=1.11.0'
+      jotai: '>=2.0.0'
       react: '>=17.0.0'
     dependencies:
       immer: 10.0.3
