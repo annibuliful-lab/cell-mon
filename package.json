@@ -111,7 +111,7 @@
     "jotai": "2.6.1",
     "jotai-apollo": "0.2.1",
     "jotai-immer": "0.3.0",
-    "jsdom": "23.0.1",
+    "jsdom": "23.1.0",
     "jsonwebtoken": "9.0.2",
     "kysely": "0.27.1",
     "lodash": "4.17.21",
