@@ -186,8 +186,8 @@ dependencies:
     specifier: 1.11.10
     version: 1.11.10
   dotenv:
-    specifier: 16.3.1
-    version: 16.3.1
+    specifier: 16.3.2
+    version: 16.3.2
   eslint-plugin-simple-import-sort:
     specifier: 10.0.0
     version: 10.0.0(eslint@8.56.0)
@@ -3920,7 +3920,7 @@ packages:
       '@whatwg-node/fetch': 0.9.13
       chalk: 4.1.2
       debug: 4.3.4(supports-color@8.1.1)
-      dotenv: 16.3.1
+      dotenv: 16.3.2
       graphql: 16.8.1
       graphql-request: 6.1.0(graphql@16.8.1)
       http-proxy-agent: 7.0.0
@@ -10669,8 +10669,8 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /dotenv@16.3.1:
-    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+  /dotenv@16.3.2:
+    resolution: {integrity: sha512-HTlk5nmhkm8F6JcdXvHIzaorzCoziNQT9mGxLPVXW8wJF1TiGSL60ZGB4gHWabHOaMmWmhvk2/lPHfnBiT78AQ==}
     engines: {node: '>=12'}
 
   /dset@3.1.2:
@@ -13809,7 +13809,7 @@ packages:
         optional: true
     dependencies:
       chalk: 4.1.2
-      dotenv: 16.3.1
+      dotenv: 16.3.2
       git-diff: 2.0.6
       kysely: 0.27.2
       kysely-bun-worker: 0.5.4(kysely@0.27.2)
@@ -14723,7 +14723,7 @@ packages:
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
       cliui: 8.0.1
-      dotenv: 16.3.1
+      dotenv: 16.3.2
       dotenv-expand: 10.0.0
       enquirer: 2.3.6
       figures: 3.2.0
@@ -15360,7 +15360,7 @@ packages:
       '@mermaid-js/mermaid-cli': 10.6.1(typescript@5.3.3)
       '@prisma/client': 5.8.1(prisma@5.8.1)
       '@prisma/generator-helper': 5.4.1
-      dotenv: 16.3.1
+      dotenv: 16.3.2
     transitivePeerDependencies:
       - bufferutil
       - encoding
