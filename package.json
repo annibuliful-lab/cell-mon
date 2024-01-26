@@ -89,7 +89,7 @@
     "axios": "1.6.7",
     "bullmq": "5.1.5",
     "cookie": "0.6.0",
-    "cookies-next": "4.1.0",
+    "cookies-next": "4.1.1",
     "cross-undici-fetch": "0.4.14",
     "dataloader": "2.2.2",
     "dayjs": "1.11.10",
