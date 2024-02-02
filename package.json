@@ -80,7 +80,7 @@
     "@react-google-maps/api": "2.19.2",
     "@types/apollo-upload-client": "^18.0.0",
     "@types/graphql-upload": "16.0.7",
-    "@types/jest": "29.5.11",
+    "@types/jest": "29.5.12",
     "@types/jsonwebtoken": "9.0.5",
     "@types/pg": "8.11.0",
     "@types/uuid": "9.0.8",
