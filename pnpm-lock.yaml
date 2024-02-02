@@ -51,8 +51,8 @@ dependencies:
     specifier: ~5.5.0
     version: 5.5.0
   '@genql/cli':
-    specifier: 6.3.1
-    version: 6.3.1
+    specifier: 6.3.2
+    version: 6.3.2
   '@graphql-codegen/add':
     specifier: 5.0.0
     version: 5.0.0(graphql@16.8.1)
@@ -4384,8 +4384,8 @@ packages:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
     dev: false
 
-  /@genql/cli@6.3.1:
-    resolution: {integrity: sha512-J7Obx+flmsVaZw7E5/f/qx27hrAkQLjFILfImbEAJiI5QJJ2TIBs2/lKUyuBR2amI+AZsauuJX+a/YWd4kZ6nw==}
+  /@genql/cli@6.3.2:
+    resolution: {integrity: sha512-ZvsrKVwxg3Cfmvf4eLcrz431yLCx1f2eB+/f3i860en0z0hWeiBoChcsEjm74j0q+j/ctBpXf1QP2fsGAHgj6w==}
     hasBin: true
     dependencies:
       '@graphql-tools/graphql-file-loader': 7.5.17(graphql@16.8.1)
