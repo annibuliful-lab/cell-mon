@@ -188,7 +188,7 @@
     "jest-environment-node": "29.7.0",
     "kysely-codegen": "0.12.0",
     "nx": "18.0.0",
-    "prettier": "3.2.4",
+    "prettier": "3.2.5",
     "react-test-renderer": "18.2.0",
     "ts-jest": "29.1.2",
     "ts-node": "10.9.2",
