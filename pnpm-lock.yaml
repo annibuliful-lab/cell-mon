@@ -300,8 +300,8 @@ dependencies:
     specifier: 2.6.2
     version: 2.6.2
   undici:
-    specifier: 6.6.0
-    version: 6.6.0
+    specifier: 6.6.1
+    version: 6.6.1
   uuid:
     specifier: 9.0.1
     version: 9.0.1
@@ -16916,8 +16916,8 @@ packages:
     engines: {node: '>=12.18'}
     dev: false
 
-  /undici@6.6.0:
-    resolution: {integrity: sha512-p8VvLAgnx6g9pydV0GG/kciSx3ZCq5PLeEU4yefjoZCc1HSeiMxbrFzYIZlgSMrX3l0CoTJ37C6edu13acE40A==}
+  /undici@6.6.1:
+    resolution: {integrity: sha512-J0GaEp0ztu/grIE2Uq57AbK6TRb+bWbOlxu0POCzhFKA6LKbwSAev+hDQaQcgUUA9CPs8Ky+cauzTHnQrtAQEA==}
     engines: {node: '>=18.0'}
     dependencies:
       '@fastify/busboy': 2.0.0
