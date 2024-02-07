@@ -63,7 +63,7 @@
     "@mantine/hooks": "7.5.1",
     "@mantine/modals": "7.5.1",
     "@mantine/notifications": "7.5.1",
-    "@mermaid-js/mermaid-cli": "10.7.0",
+    "@mermaid-js/mermaid-cli": "10.8.0",
     "@nrwl/next": "18.0.2",
     "@opentelemetry/api": "1.7.0",
     "@opentelemetry/auto-instrumentations-node": "0.41.1",
