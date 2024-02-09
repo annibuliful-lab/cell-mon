@@ -285,8 +285,8 @@ dependencies:
     specifier: 1.11.2
     version: 1.11.2(@prisma/client@5.9.1)(typescript@5.3.3)
   prisma-kysely:
-    specifier: 1.7.1
-    version: 1.7.1
+    specifier: 1.8.0
+    version: 1.8.0
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -16331,8 +16331,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /prisma-kysely@1.7.1:
-    resolution: {integrity: sha512-fGMqC1SBEujdmbFOntNXjpNjVMUg0w1kXM48y9IbKsCeQDV+KLJWvCG034S/w2e8j7Wx8ciapJQwQ2MR//bIxQ==}
+  /prisma-kysely@1.8.0:
+    resolution: {integrity: sha512-VpNpolZ8RXRgfU+j4R+fPZmX8EE95w3vJ2tt7+FwuiQc0leNTfLK5QLf3KbbPDes2rfjh3g20AjDxefQIo5GIA==}
     hasBin: true
     dependencies:
       '@mrleebo/prisma-ast': 0.7.0
