@@ -186,8 +186,8 @@ dependencies:
     specifier: 1.11.10
     version: 1.11.10
   dotenv:
-    specifier: 16.4.2
-    version: 16.4.2
+    specifier: 16.4.3
+    version: 16.4.3
   eslint-plugin-simple-import-sort:
     specifier: 12.0.0
     version: 12.0.0(eslint@8.56.0)
@@ -3980,7 +3980,7 @@ packages:
       '@whatwg-node/fetch': 0.9.13
       chalk: 4.1.2
       debug: 4.3.4(supports-color@8.1.1)
-      dotenv: 16.4.2
+      dotenv: 16.4.3
       graphql: 16.8.1
       graphql-request: 6.1.0(graphql@16.8.1)
       http-proxy-agent: 7.0.0
@@ -10846,8 +10846,8 @@ packages:
     resolution: {integrity: sha512-HTlk5nmhkm8F6JcdXvHIzaorzCoziNQT9mGxLPVXW8wJF1TiGSL60ZGB4gHWabHOaMmWmhvk2/lPHfnBiT78AQ==}
     engines: {node: '>=12'}
 
-  /dotenv@16.4.2:
-    resolution: {integrity: sha512-rZSSFxke7d9nYQ5NeMIwp5PP+f8wXgKNljpOb7KtH6SKW1cEqcXAz9VSJYVLKe7Jhup/gUYOkaeSVyK8GJ+nBg==}
+  /dotenv@16.4.3:
+    resolution: {integrity: sha512-II98GFrje5psQTSve0E7bnwMFybNLqT8Vu8JIFWRjsE3khyNUm/loZupuy5DVzG2IXf/ysxvrixYOQnM6mjD3A==}
     engines: {node: '>=12'}
 
   /dset@3.1.2:
@@ -14209,7 +14209,7 @@ packages:
         optional: true
     dependencies:
       chalk: 4.1.2
-      dotenv: 16.4.2
+      dotenv: 16.4.3
       git-diff: 2.0.6
       kysely: 0.27.2
       kysely-bun-worker: 0.5.4(kysely@0.27.2)
@@ -16329,7 +16329,7 @@ packages:
       '@mermaid-js/mermaid-cli': 10.8.0(typescript@5.3.3)
       '@prisma/client': 5.9.1(prisma@5.9.1)
       '@prisma/generator-helper': 5.4.1
-      dotenv: 16.4.2
+      dotenv: 16.4.3
     transitivePeerDependencies:
       - bufferutil
       - encoding
