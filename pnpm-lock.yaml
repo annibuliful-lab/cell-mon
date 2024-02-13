@@ -168,8 +168,8 @@ dependencies:
     specifier: 1.6.7
     version: 1.6.7
   bullmq:
-    specifier: 5.1.10
-    version: 5.1.10
+    specifier: 5.1.11
+    version: 5.1.11
   cookie:
     specifier: 0.6.0
     version: 0.6.0
@@ -9601,8 +9601,8 @@ packages:
     dependencies:
       semver: 7.5.4
 
-  /bullmq@5.1.10:
-    resolution: {integrity: sha512-53CpB/ALaFYTJof7lqRNvKlJyYejMCOo6Jv1IbQxustKqZGRKqbaD2o8FSfaSWsJtGTN7bHjVbvxVD0g8EUtgQ==}
+  /bullmq@5.1.11:
+    resolution: {integrity: sha512-+IOAOi9X2ne691UcHEKL6mVq8ee6VNwAx0eAEEtxcjJM0EKYEsCGbBmLwsSHGh9NvCtmTdPZn7yHQS1GrbzF1A==}
     dependencies:
       cron-parser: 4.9.0
       glob: 8.1.0
@@ -14467,8 +14467,6 @@ packages:
       webpack: '*'
     peerDependenciesMeta:
       webpack:
-        optional: true
-      webpack-sources:
         optional: true
     dependencies:
       webpack: 5.88.2(@swc/core@1.4.0)(esbuild@0.20.0)
