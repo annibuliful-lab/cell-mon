@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@apollo/client':
-    specifier: 3.9.4
-    version: 3.9.4(@types/react@18.2.55)(graphql-ws@5.15.0)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 3.9.5
+    version: 3.9.5(@types/react@18.2.55)(graphql-ws@5.15.0)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
   '@aws-sdk/client-s3':
     specifier: 3.514.0
     version: 3.514.0
@@ -160,7 +160,7 @@ dependencies:
     version: 9.0.8
   apollo-upload-client:
     specifier: 18.0.1
-    version: 18.0.1(@apollo/client@3.9.4)(graphql@16.8.1)
+    version: 18.0.1(@apollo/client@3.9.5)(graphql@16.8.1)
   argon2:
     specifier: 0.31.2
     version: 0.31.2
@@ -235,7 +235,7 @@ dependencies:
     version: 2.6.4(@types/react@18.2.55)(react@18.2.0)
   jotai-apollo:
     specifier: 0.2.1
-    version: 0.2.1(@apollo/client@3.9.4)(graphql@16.8.1)(jotai@2.6.4)
+    version: 0.2.1(@apollo/client@3.9.5)(graphql@16.8.1)(jotai@2.6.4)
   jotai-immer:
     specifier: 0.3.0
     version: 0.3.0(immer@10.0.3)(jotai@2.6.4)(react@18.2.0)
@@ -504,8 +504,8 @@ packages:
     hasBin: true
     dev: false
 
-  /@apollo/client@3.9.4(@types/react@18.2.55)(graphql-ws@5.15.0)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Ip6dxjshDT2Dp6foLASTnKBW45Fytew/5JZutZwgc78hVrrGpO9UtZA9xteHXYdap0wIgCxCfeIQwbSu1ZdQpw==}
+  /@apollo/client@3.9.5(@types/react@18.2.55)(graphql-ws@5.15.0)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-7y+c8MTPU+hhTwvcGVtMMGIgWduzrvG1mz5yJMRyqYbheBkkky3Lki6ADWVSBXG1lZoOtPYvB2zDgVfKb2HSsw==}
     peerDependencies:
       graphql: ^15.0.0 || ^16.0.0
       graphql-ws: ^5.5.5
@@ -534,7 +534,7 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      rehackt: 0.0.4(@types/react@18.2.55)(react@18.2.0)
+      rehackt: 0.0.5(@types/react@18.2.55)(react@18.2.0)
       response-iterator: 0.2.6
       symbol-observable: 4.0.0
       ts-invariant: 0.10.3
@@ -7745,7 +7745,7 @@ packages:
   /@types/apollo-upload-client@18.0.0(@types/react@18.2.55)(graphql-ws@5.15.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-cMgITNemktxasqvp6jiPj15dv84n3FTMvMoYBP1+xonDS+0l6JygIJrj2LJh85rShRzTOOkrElrAsCXXARa3KA==}
     dependencies:
-      '@apollo/client': 3.9.4(@types/react@18.2.55)(graphql-ws@5.15.0)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+      '@apollo/client': 3.9.5(@types/react@18.2.55)(graphql-ws@5.15.0)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
       '@types/extract-files': 8.1.2
       graphql: 16.8.1
     transitivePeerDependencies:
@@ -8905,14 +8905,14 @@ packages:
       normalize-path: 3.0.0
       picomatch: 2.3.1
 
-  /apollo-upload-client@18.0.1(@apollo/client@3.9.4)(graphql@16.8.1):
+  /apollo-upload-client@18.0.1(@apollo/client@3.9.5)(graphql@16.8.1):
     resolution: {integrity: sha512-OQvZg1rK05VNI79D658FUmMdoI2oB/KJKb6QGMa2Si25QXOaAvLMBFUEwJct7wf+19U8vk9ILhidBOU1ZWv6QA==}
     engines: {node: ^18.15.0 || >=20.4.0}
     peerDependencies:
       '@apollo/client': ^3.8.0
       graphql: 14 - 16
     dependencies:
-      '@apollo/client': 3.9.4(@types/react@18.2.55)(graphql-ws@5.15.0)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+      '@apollo/client': 3.9.5(@types/react@18.2.55)(graphql-ws@5.15.0)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
       extract-files: 13.0.0
       graphql: 16.8.1
     dev: false
@@ -14035,14 +14035,14 @@ packages:
     resolution: {integrity: sha512-IY73F228OXRl9ar3jJagh7Vnuhj/GzBunPiZP13K0lOl7Am9SoWW3kEzq3MCllJMTtZqHTiDXQvoRd4U95aU6A==}
     dev: true
 
-  /jotai-apollo@0.2.1(@apollo/client@3.9.4)(graphql@16.8.1)(jotai@2.6.4):
+  /jotai-apollo@0.2.1(@apollo/client@3.9.5)(graphql@16.8.1)(jotai@2.6.4):
     resolution: {integrity: sha512-iUYmMCG1ootEZ21UD41kMQ2emI4FzJ3MQQN6cYHySIc4aDbTnUPIpsEu4svjdmKGmg0rybZuwc9oGGm5zW0Dhg==}
     peerDependencies:
       '@apollo/client': '*'
       graphql: '*'
       jotai: '>=1.11.0'
     dependencies:
-      '@apollo/client': 3.9.4(@types/react@18.2.55)(graphql-ws@5.15.0)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+      '@apollo/client': 3.9.5(@types/react@18.2.55)(graphql-ws@5.15.0)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
       graphql: 16.8.1
       jotai: 2.6.4(@types/react@18.2.55)(react@18.2.0)
     dev: false
@@ -17083,8 +17083,8 @@ packages:
     dependencies:
       jsesc: 0.5.0
 
-  /rehackt@0.0.4(@types/react@18.2.55)(react@18.2.0):
-    resolution: {integrity: sha512-xFroSGCbMEK/cTJVhq+c8l/AzIeMeojVyLqtZmr2jmIAFvePjapkCSGg9MnrcNk68HPaMxGf+Ndqozotu78ITw==}
+  /rehackt@0.0.5(@types/react@18.2.55)(react@18.2.0):
+    resolution: {integrity: sha512-BI1rV+miEkaHj8zd2n+gaMgzu/fKz7BGlb4zZ6HAiY9adDmJMkaDcmuXlJFv0eyKUob+oszs3/2gdnXUrzx2Tg==}
     peerDependencies:
       '@types/react': '*'
       react: '*'
