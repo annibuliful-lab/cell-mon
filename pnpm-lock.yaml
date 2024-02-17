@@ -168,8 +168,8 @@ dependencies:
     specifier: 1.6.7
     version: 1.6.7
   bullmq:
-    specifier: 5.1.12
-    version: 5.1.12
+    specifier: 5.2.0
+    version: 5.2.0
   cookie:
     specifier: 0.6.0
     version: 0.6.0
@@ -4646,7 +4646,7 @@ packages:
       nopt: 5.0.0
       npmlog: 5.0.1
       rimraf: 3.0.2
-      semver: 7.5.4
+      semver: 7.6.0
       tar: 6.2.0
     transitivePeerDependencies:
       - encoding
@@ -5350,7 +5350,7 @@ packages:
       fs-extra: 11.1.1
       ignore: 5.2.4
       next: 14.1.0(@babel/core@7.23.9)(@opentelemetry/api@1.7.0)(react-dom@18.2.0)(react@18.2.0)
-      semver: 7.5.4
+      semver: 7.6.0
       tslib: 2.6.2
       url-loader: 4.1.1(webpack@5.88.2)
       webpack-merge: 5.9.0
@@ -8415,7 +8415,7 @@ packages:
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.3
-      semver: 7.5.4
+      semver: 7.6.0
       ts-api-utils: 1.0.3(typescript@5.3.3)
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -8456,7 +8456,7 @@ packages:
       '@typescript-eslint/types': 6.21.0
       '@typescript-eslint/typescript-estree': 6.21.0(typescript@5.3.3)
       eslint: 8.56.0
-      semver: 7.5.4
+      semver: 7.6.0
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -9603,8 +9603,8 @@ packages:
     dependencies:
       semver: 7.6.0
 
-  /bullmq@5.1.12:
-    resolution: {integrity: sha512-AG8UV0FdlyJSMrypjQMJUjhD4CgCSTmfXnPDPIV5Ceu2Ai2z1yckGGu2mR1C6X5iSEuzU5LP2v0Dtj/LZyJLJg==}
+  /bullmq@5.2.0:
+    resolution: {integrity: sha512-h0lkO9dNBLuFRdjPZXyb9sq0gyaaLir5tY9+uE7qjZaMtDXKUOhZlI7KgVWFT9smotsKG204Mwa7Y7jHxPCctQ==}
     dependencies:
       cron-parser: 4.9.0
       glob: 8.1.0
@@ -14248,7 +14248,7 @@ packages:
       acorn: 8.10.0
       eslint-visitor-keys: 3.4.3
       espree: 9.6.1
-      semver: 7.5.4
+      semver: 7.6.0
     dev: true
 
   /jsonc-parser@3.2.0:
