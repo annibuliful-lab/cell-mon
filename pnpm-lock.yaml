@@ -231,14 +231,14 @@ dependencies:
     specifier: 5.3.2
     version: 5.3.2
   jotai:
-    specifier: 2.6.4
-    version: 2.6.4(@types/react@18.2.57)(react@18.2.0)
+    specifier: 2.6.5
+    version: 2.6.5(@types/react@18.2.57)(react@18.2.0)
   jotai-apollo:
     specifier: 0.2.1
-    version: 0.2.1(@apollo/client@3.9.5)(graphql@16.8.1)(jotai@2.6.4)
+    version: 0.2.1(@apollo/client@3.9.5)(graphql@16.8.1)(jotai@2.6.5)
   jotai-immer:
     specifier: 0.3.0
-    version: 0.3.0(immer@10.0.3)(jotai@2.6.4)(react@18.2.0)
+    version: 0.3.0(immer@10.0.3)(jotai@2.6.5)(react@18.2.0)
   jsdom:
     specifier: 24.0.0
     version: 24.0.0
@@ -14035,7 +14035,7 @@ packages:
     resolution: {integrity: sha512-IY73F228OXRl9ar3jJagh7Vnuhj/GzBunPiZP13K0lOl7Am9SoWW3kEzq3MCllJMTtZqHTiDXQvoRd4U95aU6A==}
     dev: true
 
-  /jotai-apollo@0.2.1(@apollo/client@3.9.5)(graphql@16.8.1)(jotai@2.6.4):
+  /jotai-apollo@0.2.1(@apollo/client@3.9.5)(graphql@16.8.1)(jotai@2.6.5):
     resolution: {integrity: sha512-iUYmMCG1ootEZ21UD41kMQ2emI4FzJ3MQQN6cYHySIc4aDbTnUPIpsEu4svjdmKGmg0rybZuwc9oGGm5zW0Dhg==}
     peerDependencies:
       '@apollo/client': '*'
@@ -14044,10 +14044,10 @@ packages:
     dependencies:
       '@apollo/client': 3.9.5(@types/react@18.2.57)(graphql-ws@5.15.0)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
       graphql: 16.8.1
-      jotai: 2.6.4(@types/react@18.2.57)(react@18.2.0)
+      jotai: 2.6.5(@types/react@18.2.57)(react@18.2.0)
     dev: false
 
-  /jotai-immer@0.3.0(immer@10.0.3)(jotai@2.6.4)(react@18.2.0):
+  /jotai-immer@0.3.0(immer@10.0.3)(jotai@2.6.5)(react@18.2.0):
     resolution: {integrity: sha512-k+o4rWfWWLyHfucHAdoiN+l8flxMrKC/bEFvJA98znj+kbPW5R90EPa1u8mhWLJTABW3xjAp7Z3kyD3FVi0Hgw==}
     peerDependencies:
       immer: '*'
@@ -14055,12 +14055,12 @@ packages:
       react: '>=17.0.0'
     dependencies:
       immer: 10.0.3
-      jotai: 2.6.4(@types/react@18.2.57)(react@18.2.0)
+      jotai: 2.6.5(@types/react@18.2.57)(react@18.2.0)
       react: 18.2.0
     dev: false
 
-  /jotai@2.6.4(@types/react@18.2.57)(react@18.2.0):
-    resolution: {integrity: sha512-RniwQPX4893YlNR1muOtyUGHYaTD1fhEN4qnOuZJSrDHj6xdEMrqlRSN/hCm2fshwk78ruecB/P2l+NCVWe6TQ==}
+  /jotai@2.6.5(@types/react@18.2.57)(react@18.2.0):
+    resolution: {integrity: sha512-T+yvY42GXKomvJYqs+NeTH0da9Z1tQ3Qk3zppPHIWnvmOBKpN6Qd4j8h/oo9dwxs3w/Z5r6Kk0I8h6z5orQ/HQ==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
