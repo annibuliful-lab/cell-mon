@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@ediri/vultr':
     specifier: ^2.17.0
-    version: 2.17.0
+    version: 2.19.0
   '@pulumi/pulumi':
     specifier: ^3.0.0
     version: 3.93.0
@@ -19,8 +19,8 @@ devDependencies:
 
 packages:
 
-  /@ediri/vultr@2.17.0:
-    resolution: {integrity: sha512-XyYYkc1pES2AvmEVoqC9zRGrZ9B6SGSHUuC3gi8nYnAWOE4JtbFDolrLn/YuZAJJAi3eXtUx8w2F1MoTGRTBew==}
+  /@ediri/vultr@2.19.0:
+    resolution: {integrity: sha512-iY6j9BxVwmpCbTXMTnYMh8sKiJVgv1o7TFi93XzqQz0+zS3jO/eBeFy0drIv5Aw/KunhnDSZatLbOEKFjX0ezA==}
     dependencies:
       '@pulumi/pulumi': 3.93.0
     transitivePeerDependencies:
