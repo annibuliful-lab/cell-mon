@@ -81,7 +81,7 @@
     "@types/apollo-upload-client": "^18.0.0",
     "@types/graphql-upload": "16.0.7",
     "@types/jest": "29.5.12",
-    "@types/jsonwebtoken": "9.0.5",
+    "@types/jsonwebtoken": "9.0.6",
     "@types/pg": "8.11.2",
     "@types/uuid": "9.0.8",
     "apollo-upload-client": "18.0.1",
