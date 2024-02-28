@@ -168,8 +168,8 @@ dependencies:
     specifier: 1.6.7
     version: 1.6.7
   bullmq:
-    specifier: 5.3.3
-    version: 5.3.3
+    specifier: 5.4.0
+    version: 5.4.0
   cookie:
     specifier: 0.6.0
     version: 0.6.0
@@ -9619,8 +9619,8 @@ packages:
     dependencies:
       semver: 7.6.0
 
-  /bullmq@5.3.3:
-    resolution: {integrity: sha512-Gc/68HxiCHLMPBiGIqtINxcf8HER/5wvBYMY/6x3tFejlvldUBFaAErMTLDv4TnPsTyzNPrfBKmFCEM58uVnJg==}
+  /bullmq@5.4.0:
+    resolution: {integrity: sha512-QNOT+Vp/OFctwKa1/LYvrfIMXqb6Hu8a1VwXxQpa/JXoFAQ9E4ZcqW4fyEjx9iYrXakpV6cAGPbmdgWaKTGXOQ==}
     dependencies:
       cron-parser: 4.9.0
       fast-glob: 3.3.2
@@ -10181,7 +10181,7 @@ packages:
     peerDependencies:
       webpack: ^5.1.0
     dependencies:
-      fast-glob: 3.3.1
+      fast-glob: 3.3.2
       glob-parent: 6.0.2
       globby: 12.2.0
       normalize-path: 3.0.0
@@ -10196,7 +10196,7 @@ packages:
     peerDependencies:
       webpack: ^5.1.0
     dependencies:
-      fast-glob: 3.3.1
+      fast-glob: 3.3.2
       glob-parent: 6.0.2
       globby: 12.2.0
       normalize-path: 3.0.0
@@ -12501,7 +12501,7 @@ packages:
     dependencies:
       array-union: 3.0.1
       dir-glob: 3.0.1
-      fast-glob: 3.3.1
+      fast-glob: 3.3.2
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 4.0.0
@@ -17976,7 +17976,7 @@ packages:
       stylus: '>=0.52.4'
       webpack: ^5.0.0
     dependencies:
-      fast-glob: 3.3.1
+      fast-glob: 3.3.2
       normalize-path: 3.0.0
       stylus: 0.59.0
       webpack: 5.88.2(@swc/core@1.4.2)(esbuild@0.20.1)
