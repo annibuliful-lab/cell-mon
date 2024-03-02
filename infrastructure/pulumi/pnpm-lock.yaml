@@ -10,7 +10,7 @@ dependencies:
     version: 2.19.0
   '@pulumi/pulumi':
     specifier: ^3.0.0
-    version: 3.108.0
+    version: 3.108.1
 
 devDependencies:
   '@types/node':
@@ -22,7 +22,7 @@ packages:
   /@ediri/vultr@2.19.0:
     resolution: {integrity: sha512-iY6j9BxVwmpCbTXMTnYMh8sKiJVgv1o7TFi93XzqQz0+zS3jO/eBeFy0drIv5Aw/KunhnDSZatLbOEKFjX0ezA==}
     dependencies:
-      '@pulumi/pulumi': 3.108.0
+      '@pulumi/pulumi': 3.108.1
     transitivePeerDependencies:
       - bluebird
       - supports-color
@@ -424,8 +424,8 @@ packages:
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
     dev: false
 
-  /@pulumi/pulumi@3.108.0:
-    resolution: {integrity: sha512-NkGvmUE/mVNPIRkwNbKvDf8HH5fnNSnMt+c9iTsnLGLzpsIE5N9iYl7arnRLQdDGvraboUF+7aO/dSRnnCEI7w==}
+  /@pulumi/pulumi@3.108.1:
+    resolution: {integrity: sha512-CJeYoleoRZ+uDN38xJ9GaRSzU3BIpgJrRdBRBXUEjKF3OYJedfFEp8PvmPvbFc7/IYo91Gc2P5wcDWRvRSdZJw==}
     engines: {node: '>=8.13.0 || >=10.10.0'}
     dependencies:
       '@grpc/grpc-js': 1.10.1
@@ -440,7 +440,6 @@ packages:
       '@opentelemetry/sdk-trace-node': 1.22.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/semantic-conventions': 1.22.0
       '@pulumi/query': 0.3.0
-      '@types/glob': 8.1.0
       '@types/google-protobuf': 3.15.12
       '@types/semver': 7.5.8
       '@types/tmp': 0.2.6
@@ -551,13 +550,6 @@ packages:
       '@types/responselike': 1.0.3
     dev: false
 
-  /@types/glob@8.1.0:
-    resolution: {integrity: sha512-IO+MJPVhoqz+28h1qLAcBEH2+xHMK6MTyHJc7MTnnYb6wsoLR29POVGJ7LycmVXIqyy/4/2ShP5sUwTXuOwb/w==}
-    dependencies:
-      '@types/minimatch': 5.1.2
-      '@types/node': 20.11.24
-    dev: false
-
   /@types/google-protobuf@3.15.12:
     resolution: {integrity: sha512-40um9QqwHjRS92qnOaDpL7RmDK15NuZYo9HihiJRbYkMQZlWnuH8AdvbMy8/o6lgLmKbDUKa+OALCltHdbOTpQ==}
     dev: false
@@ -570,10 +562,6 @@ packages:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
       '@types/node': 20.11.24
-    dev: false
-
-  /@types/minimatch@5.1.2:
-    resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
     dev: false
 
   /@types/node@20.11.24:
