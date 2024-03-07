@@ -461,8 +461,8 @@ devDependencies:
     specifier: 29.7.0
     version: 29.7.0
   kysely-codegen:
-    specifier: 0.12.0
-    version: 0.12.0(kysely-bun-worker@0.5.7)(kysely@0.27.2)(pg@8.11.3)
+    specifier: 0.13.0
+    version: 0.13.0(kysely-bun-worker@0.5.7)(kysely@0.27.2)(pg@8.11.3)
   nx:
     specifier: 18.0.7
     version: 18.0.7(@swc-node/register@1.9.0)(@swc/core@1.4.5)
@@ -11245,6 +11245,13 @@ packages:
     resolution: {integrity: sha512-GopVGCpVS1UKH75VKHGuQFqS1Gusej0z4FyQkPdwjil2gNIv+LNsqBlboOzpJFZKVT95GkCyWJbBSdFEFUWI2A==}
     engines: {node: '>=12'}
 
+  /dotenv-expand@11.0.6:
+    resolution: {integrity: sha512-8NHi73otpWsZGBSZwwknTXS5pqMOrk9+Ssrna8xCaxkzEpU9OTf9R5ArQGVw03//Zmk9MOwLPng9WwndvpAJ5g==}
+    engines: {node: '>=12'}
+    dependencies:
+      dotenv: 16.4.5
+    dev: true
+
   /dotenv@16.0.3:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
@@ -14812,18 +14819,23 @@ packages:
       kysely: 0.27.2
     dev: true
 
-  /kysely-codegen@0.12.0(kysely-bun-worker@0.5.7)(kysely@0.27.2)(pg@8.11.3):
-    resolution: {integrity: sha512-jTlN99kIp+igPZOck1P+WB0ATjO9ET0cymou0pBE0kpQfwhYsUj8YeCWCa5OfDna2VlMMfVolDYbzQhqBk5tiA==}
+  /kysely-codegen@0.13.0(kysely-bun-worker@0.5.7)(kysely@0.27.2)(pg@8.11.3):
+    resolution: {integrity: sha512-6FMoinVJNrkY5KuVfnvYNQaxXN1LSLNSEHlrIQzGRsSl/c1zdmSOeQIo+8dGOTc8YItVhwb4AN4JaCvyFLGpEA==}
     hasBin: true
     peerDependencies:
       '@libsql/kysely-libsql': ^0.3.0
+      '@tediousjs/connection-string': ^0.5.0
       better-sqlite3: '>=7.6.2'
-      kysely: '>=0.19.12'
+      kysely: ^0.27.0
       kysely-bun-worker: ^0.5.3
       mysql2: ^2.3.3 || ^3.0.0
       pg: ^8.8.0
+      tarn: ^3.0.0
+      tedious: ^16.6.0
     peerDependenciesMeta:
       '@libsql/kysely-libsql':
+        optional: true
+      '@tediousjs/connection-string':
         optional: true
       better-sqlite3:
         optional: true
@@ -14831,9 +14843,14 @@ packages:
         optional: true
       pg:
         optional: true
+      tarn:
+        optional: true
+      tedious:
+        optional: true
     dependencies:
       chalk: 4.1.2
       dotenv: 16.4.5
+      dotenv-expand: 11.0.6
       git-diff: 2.0.6
       kysely: 0.27.2
       kysely-bun-worker: 0.5.7(kysely@0.27.2)
