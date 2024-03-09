@@ -246,8 +246,8 @@ dependencies:
     specifier: 9.0.2
     version: 9.0.2
   kysely:
-    specifier: 0.27.2
-    version: 0.27.2
+    specifier: 0.27.3
+    version: 0.27.3
   lodash:
     specifier: 4.17.21
     version: 4.17.21
@@ -462,7 +462,7 @@ devDependencies:
     version: 29.7.0
   kysely-codegen:
     specifier: 0.13.1
-    version: 0.13.1(kysely-bun-worker@0.5.7)(kysely@0.27.2)(pg@8.11.3)
+    version: 0.13.1(kysely-bun-worker@0.5.7)(kysely@0.27.3)(pg@8.11.3)
   nx:
     specifier: 18.0.8
     version: 18.0.8(@swc-node/register@1.9.0)(@swc/core@1.4.6)
@@ -14549,15 +14549,15 @@ packages:
     engines: {node: '>= 8'}
     dev: false
 
-  /kysely-bun-worker@0.5.7(kysely@0.27.2):
+  /kysely-bun-worker@0.5.7(kysely@0.27.3):
     resolution: {integrity: sha512-P4W5moWU6A1xJ2GvGbdrPDiasSKTjuBfItU1vj+wZlA+A6AXv8Nxk0nScuBu8F12UnalrIDDu+oLCF5wC3Z4EA==}
     peerDependencies:
       kysely: '>=0.26'
     dependencies:
-      kysely: 0.27.2
+      kysely: 0.27.3
     dev: true
 
-  /kysely-codegen@0.13.1(kysely-bun-worker@0.5.7)(kysely@0.27.2)(pg@8.11.3):
+  /kysely-codegen@0.13.1(kysely-bun-worker@0.5.7)(kysely@0.27.3)(pg@8.11.3):
     resolution: {integrity: sha512-xgwITXKq+czukmFSbeQFQ3UIWLsNfqHvx7VAYkoiOh/y8tDRqsVwugTZSRL4qNBLj5AlT8iyuRPHcAkPVp9VIA==}
     hasBin: true
     peerDependencies:
@@ -14590,15 +14590,15 @@ packages:
       dotenv: 16.4.5
       dotenv-expand: 11.0.6
       git-diff: 2.0.6
-      kysely: 0.27.2
-      kysely-bun-worker: 0.5.7(kysely@0.27.2)
+      kysely: 0.27.3
+      kysely-bun-worker: 0.5.7(kysely@0.27.3)
       micromatch: 4.0.5
       minimist: 1.2.8
       pg: 8.11.3
     dev: true
 
-  /kysely@0.27.2:
-    resolution: {integrity: sha512-DmRvEfiR/NLpgsTbSxma2ldekhsdcd65+MNiKXyd/qj7w7X5e3cLkXxcj+MypsRDjPhHQ/CD5u3Eq1sBYzX0bw==}
+  /kysely@0.27.3:
+    resolution: {integrity: sha512-lG03Ru+XyOJFsjH3OMY6R/9U38IjDPfnOfDgO3ynhbDr+Dz8fak+X6L62vqu3iybQnj+lG84OttBuU9KY3L9kA==}
     engines: {node: '>=14.0.0'}
 
   /language-subtag-registry@0.3.22:

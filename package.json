@@ -113,7 +113,7 @@
     "jotai-immer": "0.3.0",
     "jsdom": "24.0.0",
     "jsonwebtoken": "9.0.2",
-    "kysely": "0.27.2",
+    "kysely": "0.27.3",
     "lodash": "4.17.21",
     "mcc-mnc-list": "1.1.11",
     "mercurius": "13.4.0",
