@@ -461,8 +461,8 @@ devDependencies:
     specifier: 29.7.0
     version: 29.7.0
   kysely-codegen:
-    specifier: 0.13.1
-    version: 0.13.1(kysely-bun-worker@0.5.7)(kysely@0.27.3)(pg@8.11.3)
+    specifier: 0.14.0
+    version: 0.14.0(kysely@0.27.3)(pg@8.11.3)
   nx:
     specifier: 18.1.1
     version: 18.1.1(@swc-node/register@1.9.0)(@swc/core@1.4.8)
@@ -14553,16 +14553,8 @@ packages:
     engines: {node: '>= 8'}
     dev: false
 
-  /kysely-bun-worker@0.5.7(kysely@0.27.3):
-    resolution: {integrity: sha512-P4W5moWU6A1xJ2GvGbdrPDiasSKTjuBfItU1vj+wZlA+A6AXv8Nxk0nScuBu8F12UnalrIDDu+oLCF5wC3Z4EA==}
-    peerDependencies:
-      kysely: '>=0.26'
-    dependencies:
-      kysely: 0.27.3
-    dev: true
-
-  /kysely-codegen@0.13.1(kysely-bun-worker@0.5.7)(kysely@0.27.3)(pg@8.11.3):
-    resolution: {integrity: sha512-xgwITXKq+czukmFSbeQFQ3UIWLsNfqHvx7VAYkoiOh/y8tDRqsVwugTZSRL4qNBLj5AlT8iyuRPHcAkPVp9VIA==}
+  /kysely-codegen@0.14.0(kysely@0.27.3)(pg@8.11.3):
+    resolution: {integrity: sha512-ZM4wLv+iRPNROKc+84e9wnvGI52ogwzl8+WmKhI6yX9sTQ7gmN5k7moN+xiTrWRnjCF2+UCLMeyB7gRNlEA0qg==}
     hasBin: true
     peerDependencies:
       '@libsql/kysely-libsql': ^0.3.0
@@ -14573,13 +14565,15 @@ packages:
       mysql2: ^2.3.3 || ^3.0.0
       pg: ^8.8.0
       tarn: ^3.0.0
-      tedious: ^16.6.0
+      tedious: ^16.6.0 || ^17.0.0
     peerDependenciesMeta:
       '@libsql/kysely-libsql':
         optional: true
       '@tediousjs/connection-string':
         optional: true
       better-sqlite3:
+        optional: true
+      kysely-bun-worker:
         optional: true
       mysql2:
         optional: true
@@ -14595,7 +14589,6 @@ packages:
       dotenv-expand: 11.0.6
       git-diff: 2.0.6
       kysely: 0.27.3
-      kysely-bun-worker: 0.5.7(kysely@0.27.3)
       micromatch: 4.0.5
       minimist: 1.2.8
       pg: 8.11.3
