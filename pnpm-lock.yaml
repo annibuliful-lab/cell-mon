@@ -461,8 +461,8 @@ devDependencies:
     specifier: 29.7.0
     version: 29.7.0
   kysely-codegen:
-    specifier: 0.14.0
-    version: 0.14.0(kysely@0.27.3)(pg@8.11.3)
+    specifier: 0.14.1
+    version: 0.14.1(kysely@0.27.3)(pg@8.11.3)
   nx:
     specifier: 18.1.2
     version: 18.1.2(@swc-node/register@1.9.0)(@swc/core@1.4.8)
@@ -14553,8 +14553,8 @@ packages:
     engines: {node: '>= 8'}
     dev: false
 
-  /kysely-codegen@0.14.0(kysely@0.27.3)(pg@8.11.3):
-    resolution: {integrity: sha512-ZM4wLv+iRPNROKc+84e9wnvGI52ogwzl8+WmKhI6yX9sTQ7gmN5k7moN+xiTrWRnjCF2+UCLMeyB7gRNlEA0qg==}
+  /kysely-codegen@0.14.1(kysely@0.27.3)(pg@8.11.3):
+    resolution: {integrity: sha512-W6ULVWYnlBcGalHlKqw3ls0QjPl6n6z1xJ9ixPCh1lxDSbe98s4gjEbKC3hh8ZTCUTZSLSasi+QCii4AL/j7pw==}
     hasBin: true
     peerDependencies:
       '@libsql/kysely-libsql': ^0.3.0
