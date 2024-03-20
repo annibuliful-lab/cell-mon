@@ -164,7 +164,7 @@
     "@nx/node": "18.1.2",
     "@swc-node/register": "1.9.0",
     "@swc/core": "1.4.8",
-    "@testing-library/react": "14.2.1",
+    "@testing-library/react": "14.2.2",
     "@types/lodash": "^4.14.202",
     "@types/node": "20.11.30",
     "@types/react": "18.2.67",
